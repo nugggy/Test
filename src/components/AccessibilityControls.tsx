@@ -98,14 +98,14 @@ export default function AccessibilityControls() {
         <span aria-hidden="true" className="text-xl">
           ⚙
         </span>
-        <span className="hidden sm:inline">Display settings</span>
+        <span className="hidden sm:inline">Accessibility settings</span>
       </button>
 
       {open && (
         <div
           id="accessibility-panel"
           role="dialog"
-          aria-label="Display and accessibility settings"
+          aria-label="Accessibility settings"
           className="absolute right-0 z-40 mt-2 max-h-[80vh] w-80 max-w-[90vw] overflow-y-auto rounded-2xl border-2 border-border bg-surface p-4 shadow-xl"
         >
           <fieldset className="mb-4">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AccessibilityControls from "@/components/AccessibilityControls";
+import ReadPageAloudButton from "@/components/ReadPageAloudButton";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function SiteHeader() {
@@ -30,6 +31,7 @@ export default async function SiteHeader() {
           >
             {user ? "My account" : "Sign in"}
           </Link>
+          <ReadPageAloudButton />
           <AccessibilityControls />
         </div>
       </div>

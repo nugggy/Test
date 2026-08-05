@@ -93,4 +93,13 @@ export const tools: ToolEntry[] = [
     status: "live",
     category: "Independent living",
   },
+  {
+    slug: "support-plan",
+    name: "Support Plan",
+    description: "A one-page, person-centred plan: goals, supports, health & safety info, communication tips and emergency contacts.",
+    icon: "📋",
+    status: "live",
+    category: "Preparation",
+    requiresAccount: true,
+  },
 ];

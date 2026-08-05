@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 export function useSpeech() {
   const [supported, setSupported] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
 
   useEffect(() => {
     // Feature detection must happen client-side; window/speechSynthesis
@@ -19,6 +20,9 @@ export function useSpeech() {
         window.speechSynthesis.cancel(); // don't queue/overlap taps
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.rate = 0.95;
+        utterance.onstart = () => setSpeaking(true);
+        utterance.onend = () => setSpeaking(false);
+        utterance.onerror = () => setSpeaking(false);
         window.speechSynthesis.speak(utterance);
       } catch {
         // Speech synthesis can fail silently on some browsers/devices —
@@ -28,7 +32,13 @@ export function useSpeech() {
     [supported]
   );
 
-  return { speak, supported };
+  const stop = useCallback(() => {
+    if (!supported) return;
+    window.speechSynthesis.cancel();
+    setSpeaking(false);
+  }, [supported]);
+
+  return { speak, stop, speaking, supported };
 }
 
 function getSpeechRecognitionConstructor() {

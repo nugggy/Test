@@ -3,6 +3,14 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.8.0] - 2026-08-05
+### Added
+- **Tool 11 — Support Plan** (`src/app/tools/support-plan/`): a one-page, person-centred plan — About me (free text), My goals, My supports, Health & safety info, How to communicate with me, and Emergency contacts. All list sections reuse the shared `EditableListSection` (dictation, suggestion chips). Printable. Same account-free **preview mode** treatment as the other participant-linked tools.
+- **Read this page aloud** (`ReadPageAloudButton.tsx`): a header button, next to Accessibility settings, that reads the current page's main content out loud via the Web Speech API, with a Stop toggle. `useSpeech()` now exposes `speaking` state and a `stop()` function (previously speak-only, fire-and-forget).
+
+### Changed
+- "Display settings" header button renamed to "Accessibility settings" — clearer about what it actually controls, especially now that it holds seven different accessibility toggles plus the timezone picker.
+
 ## [0.7.0] - 2026-08-05
 ### Added
 - **Tool 10 — Meal Planner & Shopping List** (`src/app/tools/meal-planner/`): three tabs.
