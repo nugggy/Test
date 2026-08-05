@@ -36,6 +36,26 @@
   --cat-custom: #6b7280;
   --cat-custom-ink: #ffffff;
 
+  /* Emotion Tracker colours — same one-hue-per-item convention as the
+     category colours above, so emotions stay visually distinguishable
+     before a user can read the label. */
+  --emo-happy: #4caf6d;
+  --emo-happy-ink: #ffffff;
+  --emo-sad: #4c8df2;
+  --emo-sad-ink: #ffffff;
+  --emo-angry: #e0524a;
+  --emo-angry-ink: #ffffff;
+  --emo-scared: #9b6fe8;
+  --emo-scared-ink: #ffffff;
+  --emo-tired: #6b7280;
+  --emo-tired-ink: #ffffff;
+  --emo-excited: #f2c230;
+  --emo-excited-ink: #3a2c00;
+  --emo-calm: #2fb6c4;
+  --emo-calm-ink: #00302f;
+  --emo-confused: #f28c4c;
+  --emo-confused-ink: #3a1c00;
+
   --radius-tile: 1.1rem;
 
   --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
@@ -90,6 +110,14 @@ html[data-font="dyslexia"] {
   --color-cat-requests: var(--cat-requests);
   --color-cat-favourites: var(--cat-favourites);
   --color-cat-custom: var(--cat-custom);
+  --color-emo-happy: var(--emo-happy);
+  --color-emo-sad: var(--emo-sad);
+  --color-emo-angry: var(--emo-angry);
+  --color-emo-scared: var(--emo-scared);
+  --color-emo-tired: var(--emo-tired);
+  --color-emo-excited: var(--emo-excited);
+  --color-emo-calm: var(--emo-calm);
+  --color-emo-confused: var(--emo-confused);
   --font-body: var(--font-body);
   --font-display: var(--font-display);
 }

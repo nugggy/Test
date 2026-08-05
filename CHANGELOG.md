@@ -3,6 +3,17 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.4.0] - 2026-08-05
+### Added
+- **Tool 2 — Visual Schedule Builder** (`src/app/tools/visual-schedule/`): tap-to-add activities from a 26-item icon library or add your own, reorder with up/down controls, tick off as done, reset ticks or clear the day, print-friendly. Account-free, `localStorage` only.
+- **Tool 3 — Emotion Tracker** (`src/app/tools/emotion-tracker/`): tap an emotion (8 colour-coded options, new `--emo-*` tokens in `globals.css`), optional intensity and note, logs to a reverse-chronological history with delete/clear. Account-free, `localStorage` only.
+- Speech-to-text dictation for custom picture/activity labels: a mic button (Web Speech API `SpeechRecognition`) now sits next to the label field in both the Communication Board's "Add your own picture" dialog and the new Visual Schedule's "Add your own activity" dialog. Feature-detected — hidden on browsers without support (currently Firefox), typing still works everywhere. New `useSpeechToText` hook in `src/lib/use-speech.ts`, ambient types in `src/lib/speech-recognition.d.ts`.
+- Shared `src/lib/emoji-choices.ts` — the picture palette used by both custom-item dialogs, extracted so the two tools can't silently drift apart.
+
+### Fixed
+- The dev server 404'd on every route, including localhost — `proxy.ts` runs on nearly all paths and crashed when Supabase env vars weren't set. `src/lib/supabase/middleware.ts` and `src/lib/supabase/server.ts` now treat missing config as "signed out" instead of throwing, so account-free tools work with zero Supabase setup.
+- `next.config.ts`: added `allowedDevOrigins` so LAN devices can load HMR/dev assets in development.
+
 ## [0.3.0] - 2026-08-05
 ### Added
 - `/disclaimer` — clear "not medical advice" disclaimer: what the tools are/aren't for, who to seek professional advice from, and emergency/crisis contacts (000, Lifeline 13 11 14, Kids Helpline 1800 55 1800, 13YARN 13 92 76).

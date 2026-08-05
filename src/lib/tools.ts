@@ -23,7 +23,7 @@ export const tools: ToolEntry[] = [
     name: "Visual Schedule Builder",
     description: "Build a picture timeline of the day so routines feel predictable.",
     icon: "🗓️",
-    status: "soon",
+    status: "live",
     category: "Routines",
   },
   {
@@ -49,7 +49,7 @@ export const tools: ToolEntry[] = [
     name: "Emotion Tracker",
     description: "Daily emotion check-ins to build self-awareness and spot patterns over time.",
     icon: "🙂",
-    status: "soon",
+    status: "live",
     category: "Wellbeing",
   },
 ];

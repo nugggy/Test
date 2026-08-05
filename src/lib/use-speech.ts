@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export function useSpeech() {
   const [supported, setSupported] = useState(false);
@@ -29,4 +29,60 @@ export function useSpeech() {
   );
 
   return { speak, supported };
+}
+
+function getSpeechRecognitionConstructor() {
+  if (typeof window === "undefined") return undefined;
+  return window.SpeechRecognition ?? window.webkitSpeechRecognition;
+}
+
+/**
+ * Dictate short text (e.g. a custom board label) via the Web Speech API's
+ * SpeechRecognition. Only Chrome/Edge/Safari support this today, so callers
+ * must check `supported` and fall back to typing.
+ */
+export function useSpeechToText() {
+  const [supported, setSupported] = useState(false);
+  const [listening, setListening] = useState(false);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSupported(Boolean(getSpeechRecognitionConstructor()));
+    return () => {
+      recognitionRef.current?.abort();
+    };
+  }, []);
+
+  const start = useCallback((onResult: (text: string) => void) => {
+    const SpeechRecognitionCtor = getSpeechRecognitionConstructor();
+    if (!SpeechRecognitionCtor) return;
+
+    const recognition = new SpeechRecognitionCtor();
+    recognition.lang = "en-AU";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.onresult = (event) => {
+      const transcript = event.results[event.results.length - 1]?.[0]?.transcript;
+      if (transcript) onResult(transcript.trim());
+    };
+    recognition.onerror = () => setListening(false);
+    recognition.onend = () => setListening(false);
+
+    recognitionRef.current = recognition;
+    try {
+      recognition.start();
+      setListening(true);
+    } catch {
+      // start() throws if a recognition session is already active — safe
+      // to ignore, the existing session keeps running.
+    }
+  }, []);
+
+  const stop = useCallback(() => {
+    recognitionRef.current?.stop();
+    setListening(false);
+  }, []);
+
+  return { supported, listening, start, stop };
 }
