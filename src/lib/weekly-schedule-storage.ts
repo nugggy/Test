@@ -67,18 +67,15 @@ export function useWeeklySchedule() {
 
   const addItem = useCallback(
     (day: DayKey, activity: { label: string; icon: string }) => {
+      const id = `wk-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
       setWeek((prev) => ({
         ...prev,
         [day]: [
           ...prev[day],
-          {
-            id: `wk-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-            label: activity.label,
-            icon: activity.icon,
-            done: false,
-          },
+          { id, label: activity.label, icon: activity.icon, done: false },
         ],
       }));
+      return id;
     },
     []
   );

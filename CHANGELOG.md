@@ -3,6 +3,15 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.7.0] - 2026-08-05
+### Added
+- **Tool 10 — Meal Planner & Shopping List** (`src/app/tools/meal-planner/`): three tabs.
+  - **Recipes**: build recipes with a name, picture, freeform ingredient list (dictation supported, reuses `EditableListSection`), and optional instructions.
+  - **This week**: assign one recipe per day to a 7-day grid. Selecting a meal writes a matching entry into the existing Weekly Schedule tool's storage (`useWeeklySchedule`) so it shows up there too, and removes/replaces that entry if the meal changes — `addItem` in `weekly-schedule-storage.ts` now returns the new item's id so it can be tracked for later removal.
+  - **Shopping list**: auto-derived from the week's planned recipes' ingredients. Exact-match lines (e.g. the same recipe planned twice) are shown once with a `× 2` count rather than duplicated; non-matching lines are listed as-is (no risky quantity/unit merging across different recipes). Checkboxes persist independently of the derived list (keyed by ingredient text) so ticking survives regenerating the list; supports adding extra non-recipe items; printable.
+  - Account-free, `localStorage` only.
+- Dundaloo hero illustration on the homepage (`public/dundaloo-hero.jpg`), below the intro text.
+
 ## [0.6.0] - 2026-08-05
 ### Added
 - **Dundaloo branding**: real logo (`public/dundaloo-logo.svg`) in the header, replacing the generic icon+"Toolkit" mark. Site-wide colour tokens (`--background`, `--brand`, `--accent`, plus `manifest.json`/`layout.tsx` theme colours) now use Dundaloo's actual brand palette (purple/pink/navy, extracted from the logo) instead of the placeholder teal/amber — a coloured lavender-tinted background instead of plain white/grey. Category (`--cat-*`), emotion (`--emo-*`) and severity (`--sev-*`) tokens are untouched — those encode function (AAC colour-coding, status), not brand identity.

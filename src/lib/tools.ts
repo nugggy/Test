@@ -85,4 +85,12 @@ export const tools: ToolEntry[] = [
     status: "live",
     category: "Emotional regulation",
   },
+  {
+    slug: "meal-planner",
+    name: "Meal Planner & Shopping List",
+    description: "Build recipes, plan meals for the week, and get an automatic shopping list.",
+    icon: "🍲",
+    status: "live",
+    category: "Independent living",
+  },
 ];

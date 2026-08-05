@@ -28,6 +28,15 @@ export default function HomePage() {
         </p>
       </section>
 
+      <section className="mb-12 sm:mb-16">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/dundaloo-hero.jpg"
+          alt="A diverse group of people smiling together, including wheelchair users, a person using a guide cane, a person using a walking frame, and a support dog, under the Dundaloo Support Services banner: We Listen, We Support, We Empower, We Include, We Belong."
+          className="w-full rounded-2xl border-2 border-border"
+        />
+      </section>
+
       <ToolDirectory tools={tools} />
     </div>
   );
