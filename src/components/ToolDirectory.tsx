@@ -1,0 +1,214 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import type { ToolEntry } from "@/lib/tools";
+
+interface ToolDirectoryProps {
+  tools: ToolEntry[];
+}
+
+type ViewMode = "grid" | "list";
+
+export default function ToolDirectory({ tools }: ToolDirectoryProps) {
+  const [query, setQuery] = useState("");
+  const [view, setView] = useState<ViewMode>("grid");
+
+  const trimmedQuery = query.trim().toLowerCase();
+  const filtered = trimmedQuery
+    ? tools.filter((tool) =>
+        `${tool.name} ${tool.description} ${tool.category}`
+          .toLowerCase()
+          .includes(trimmedQuery)
+      )
+    : tools;
+
+  return (
+    <section aria-labelledby="tools-heading">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <h2 id="tools-heading" className="font-display text-2xl font-bold">
+          Tools
+        </h2>
+        <div
+          role="group"
+          aria-label="Layout"
+          className="flex gap-1 rounded-xl border-2 border-border bg-surface p-1"
+        >
+          <button
+            type="button"
+            onClick={() => setView("grid")}
+            aria-pressed={view === "grid"}
+            aria-label="Grid view"
+            className={`grid h-11 w-11 place-items-center rounded-lg text-lg ${
+              view === "grid" ? "bg-brand text-brand-ink" : "text-muted"
+            }`}
+          >
+            <span aria-hidden="true">▦</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setView("list")}
+            aria-pressed={view === "list"}
+            aria-label="List view"
+            className={`grid h-11 w-11 place-items-center rounded-lg text-lg ${
+              view === "list" ? "bg-brand text-brand-ink" : "text-muted"
+            }`}
+          >
+            <span aria-hidden="true">☰</span>
+          </button>
+        </div>
+      </div>
+
+      <div className="mb-5">
+        <label htmlFor="tool-search" className="sr-only">
+          Search tools
+        </label>
+        <div className="relative">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted"
+          >
+            🔍
+          </span>
+          <input
+            id="tool-search"
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search tools by name or category…"
+            className="w-full rounded-xl border-2 border-border bg-surface py-3 pl-11 pr-4 text-base touch-target"
+          />
+        </div>
+      </div>
+
+      <p aria-live="polite" className="sr-only">
+        {trimmedQuery
+          ? `${filtered.length} ${filtered.length === 1 ? "tool" : "tools"} found`
+          : ""}
+      </p>
+
+      {filtered.length === 0 ? (
+        <p className="rounded-xl border-2 border-dashed border-border p-8 text-center text-muted">
+          No tools match &quot;{query}&quot;.
+        </p>
+      ) : view === "grid" ? (
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((tool) => (
+            <li key={tool.slug}>
+              {tool.status === "live" ? (
+                <Link
+                  href={`/tools/${tool.slug}`}
+                  className="group flex h-full flex-col rounded-2xl border-2 border-border bg-surface p-5 hover:border-brand hover:shadow-md transition-colors"
+                >
+                  <ToolCardContent tool={tool} />
+                </Link>
+              ) : (
+                <div className="flex h-full flex-col rounded-2xl border-2 border-dashed border-border bg-surface/60 p-5 opacity-80">
+                  <ToolCardContent tool={tool} />
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul className="flex flex-col gap-2">
+          {filtered.map((tool) => (
+            <li key={tool.slug}>
+              {tool.status === "live" ? (
+                <Link
+                  href={`/tools/${tool.slug}`}
+                  className="group flex items-center gap-4 rounded-2xl border-2 border-border bg-surface p-4 hover:border-brand hover:shadow-md transition-colors"
+                >
+                  <ToolListRowContent tool={tool} />
+                </Link>
+              ) : (
+                <div className="flex items-center gap-4 rounded-2xl border-2 border-dashed border-border bg-surface/60 p-4 opacity-80">
+                  <ToolListRowContent tool={tool} />
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+function ToolCardContent({ tool }: { tool: ToolEntry }) {
+  return (
+    <>
+      <div className="flex items-start justify-between gap-2">
+        <span
+          aria-hidden="true"
+          className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-background text-3xl"
+        >
+          {tool.icon}
+        </span>
+        {tool.status === "soon" && (
+          <span className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-ink">
+            Coming soon
+          </span>
+        )}
+      </div>
+      <h3 className="font-display mt-3 text-lg font-bold">{tool.name}</h3>
+      <p className="mt-1 text-sm text-muted flex-1">{tool.description}</p>
+      {tool.requiresAccount && tool.status === "soon" && (
+        <p className="mt-2 text-xs font-semibold text-muted">
+          Will need a free account (saves data over time)
+        </p>
+      )}
+      {tool.requiresAccount && tool.status === "live" && (
+        <p className="mt-2 text-xs font-semibold text-muted">
+          Preview: saved on this device only for now
+        </p>
+      )}
+      {tool.status === "live" && (
+        <span className="mt-3 font-semibold text-brand group-hover:underline">
+          Open tool →
+        </span>
+      )}
+    </>
+  );
+}
+
+function ToolListRowContent({ tool }: { tool: ToolEntry }) {
+  return (
+    <>
+      <span
+        aria-hidden="true"
+        className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-background text-2xl"
+      >
+        {tool.icon}
+      </span>
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-2">
+          <h3 className="font-display font-bold">{tool.name}</h3>
+          {tool.status === "soon" && (
+            <span className="rounded-full bg-accent px-2.5 py-0.5 text-xs font-bold text-accent-ink">
+              Coming soon
+            </span>
+          )}
+        </div>
+        <p className="text-sm text-muted">{tool.description}</p>
+        {tool.requiresAccount && tool.status === "soon" && (
+          <p className="mt-1 text-xs font-semibold text-muted">
+            Will need a free account
+          </p>
+        )}
+        {tool.requiresAccount && tool.status === "live" && (
+          <p className="mt-1 text-xs font-semibold text-muted">
+            Preview: saved on this device only
+          </p>
+        )}
+      </div>
+      {tool.status === "live" && (
+        <span
+          aria-hidden="true"
+          className="shrink-0 font-semibold text-brand group-hover:underline"
+        >
+          →
+        </span>
+      )}
+    </>
+  );
+}
