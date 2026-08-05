@@ -10,6 +10,7 @@ import "@fontsource/lexend/500.css";
 import "@fontsource/lexend/600.css";
 import "@fontsource/lexend/700.css";
 import { AccessibilityProvider } from "@/lib/accessibility-context";
+import { TimezoneProvider } from "@/lib/timezone-context";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
@@ -33,18 +34,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <AccessibilityProvider>
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-brand focus:text-brand-ink focus:px-4 focus:py-2 focus:rounded-lg"
-          >
-            Skip to main content
-          </a>
-          <SiteHeader />
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
-          <SiteFooter />
-          <ServiceWorkerRegister />
+          <TimezoneProvider>
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-brand focus:text-brand-ink focus:px-4 focus:py-2 focus:rounded-lg"
+            >
+              Skip to main content
+            </a>
+            <SiteHeader />
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+            <SiteFooter />
+            <ServiceWorkerRegister />
+          </TimezoneProvider>
         </AccessibilityProvider>
       </body>
     </html>

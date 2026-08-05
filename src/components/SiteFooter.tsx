@@ -6,6 +6,9 @@ export default function SiteFooter() {
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 text-sm text-muted">
         <p>Free, forever. No ads, no data sold.</p>
         <nav className="flex gap-4">
+          <Link href="/support" className="font-semibold text-brand hover:underline">
+            Support us
+          </Link>
           <Link href="/disclaimer" className="font-semibold text-brand hover:underline">
             Disclaimer
           </Link>

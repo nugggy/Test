@@ -72,9 +72,14 @@ function ToolCard({ tool }: { tool: (typeof tools)[number] }) {
       </div>
       <h3 className="font-display mt-3 text-lg font-bold">{tool.name}</h3>
       <p className="mt-1 text-sm text-muted flex-1">{tool.description}</p>
-      {tool.requiresAccount && (
+      {tool.requiresAccount && tool.status === "soon" && (
         <p className="mt-2 text-xs font-semibold text-muted">
           Will need a free account (saves data over time)
+        </p>
+      )}
+      {tool.requiresAccount && tool.status === "live" && (
+        <p className="mt-2 text-xs font-semibold text-muted">
+          Preview: saved on this device only for now
         </p>
       )}
       {tool.status === "live" && (

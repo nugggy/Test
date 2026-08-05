@@ -11,17 +11,29 @@ import {
 export type TextSize = "default" | "large" | "xl";
 export type Contrast = "default" | "high";
 export type FontChoice = "default" | "dyslexia";
+export type Motion = "default" | "reduced";
+export type LinkStyle = "default" | "underline";
+export type Spacing = "default" | "relaxed";
+export type TouchSize = "default" | "large";
 
 interface AccessibilitySettings {
   textSize: TextSize;
   contrast: Contrast;
   font: FontChoice;
+  motion: Motion;
+  linkStyle: LinkStyle;
+  spacing: Spacing;
+  touchSize: TouchSize;
 }
 
 interface AccessibilityContextValue extends AccessibilitySettings {
   setTextSize: (v: TextSize) => void;
   setContrast: (v: Contrast) => void;
   setFont: (v: FontChoice) => void;
+  setMotion: (v: Motion) => void;
+  setLinkStyle: (v: LinkStyle) => void;
+  setSpacing: (v: Spacing) => void;
+  setTouchSize: (v: TouchSize) => void;
   reset: () => void;
 }
 
@@ -31,6 +43,10 @@ const DEFAULTS: AccessibilitySettings = {
   textSize: "default",
   contrast: "default",
   font: "default",
+  motion: "default",
+  linkStyle: "default",
+  spacing: "default",
+  touchSize: "default",
 };
 
 const AccessibilityContext = createContext<AccessibilityContextValue | null>(
@@ -68,6 +84,10 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
     root.setAttribute("data-text-size", settings.textSize);
     root.setAttribute("data-contrast", settings.contrast);
     root.setAttribute("data-font", settings.font);
+    root.setAttribute("data-motion", settings.motion);
+    root.setAttribute("data-links", settings.linkStyle);
+    root.setAttribute("data-spacing", settings.spacing);
+    root.setAttribute("data-touch-size", settings.touchSize);
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
     } catch {
@@ -81,6 +101,10 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
     setTextSize: (textSize) => setSettings((s) => ({ ...s, textSize })),
     setContrast: (contrast) => setSettings((s) => ({ ...s, contrast })),
     setFont: (font) => setSettings((s) => ({ ...s, font })),
+    setMotion: (motion) => setSettings((s) => ({ ...s, motion })),
+    setLinkStyle: (linkStyle) => setSettings((s) => ({ ...s, linkStyle })),
+    setSpacing: (spacing) => setSettings((s) => ({ ...s, spacing })),
+    setTouchSize: (touchSize) => setSettings((s) => ({ ...s, touchSize })),
     reset: () => setSettings(DEFAULTS),
   };
 

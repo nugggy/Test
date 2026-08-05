@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 import { useAccessibility, type TextSize } from "@/lib/accessibility-context";
+import { useTimezone, COMMON_TIMEZONES } from "@/lib/timezone-context";
 
 const TEXT_SIZE_LABELS: Record<TextSize, string> = {
   default: "Standard",
@@ -9,9 +10,61 @@ const TEXT_SIZE_LABELS: Record<TextSize, string> = {
   xl: "Extra large",
 };
 
+interface ToggleRowProps {
+  label: string;
+  description?: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+}
+
+function ToggleRow({ label, description, checked, onChange }: ToggleRowProps) {
+  const id = useId();
+  return (
+    <div className="mb-3 flex items-center justify-between gap-3">
+      <div>
+        <label htmlFor={id} className="font-semibold">
+          {label}
+        </label>
+        {description && <p className="text-sm text-muted">{description}</p>}
+      </div>
+      <button
+        id={id}
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        onClick={() => onChange(!checked)}
+        className={`relative h-8 w-14 shrink-0 rounded-full border-2 transition-colors ${
+          checked ? "border-brand bg-brand" : "border-border bg-background"
+        }`}
+      >
+        <span
+          className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform ${
+            checked ? "translate-x-6" : "translate-x-0.5"
+          }`}
+        />
+      </button>
+    </div>
+  );
+}
+
 export default function AccessibilityControls() {
-  const { textSize, setTextSize, contrast, setContrast, font, setFont } =
-    useAccessibility();
+  const {
+    textSize,
+    setTextSize,
+    contrast,
+    setContrast,
+    font,
+    setFont,
+    motion,
+    setMotion,
+    linkStyle,
+    setLinkStyle,
+    spacing,
+    setSpacing,
+    touchSize,
+    setTouchSize,
+  } = useAccessibility();
+  const { timezone, setTimezone } = useTimezone();
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -53,7 +106,7 @@ export default function AccessibilityControls() {
           id="accessibility-panel"
           role="dialog"
           aria-label="Display and accessibility settings"
-          className="absolute right-0 z-40 mt-2 w-80 max-w-[90vw] rounded-2xl border-2 border-border bg-surface p-4 shadow-xl"
+          className="absolute right-0 z-40 mt-2 max-h-[80vh] w-80 max-w-[90vw] overflow-y-auto rounded-2xl border-2 border-border bg-surface p-4 shadow-xl"
         >
           <fieldset className="mb-4">
             <legend className="font-display font-bold mb-2">Text size</legend>
@@ -76,54 +129,61 @@ export default function AccessibilityControls() {
             </div>
           </fieldset>
 
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <label htmlFor="contrast-toggle" className="font-semibold">
-              High contrast
-            </label>
-            <button
-              id="contrast-toggle"
-              type="button"
-              role="switch"
-              aria-checked={contrast === "high"}
-              onClick={() =>
-                setContrast(contrast === "high" ? "default" : "high")
-              }
-              className={`relative h-8 w-14 shrink-0 rounded-full border-2 transition-colors ${
-                contrast === "high"
-                  ? "border-brand bg-brand"
-                  : "border-border bg-background"
-              }`}
-            >
-              <span
-                className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform ${
-                  contrast === "high" ? "translate-x-6" : "translate-x-0.5"
-                }`}
-              />
-            </button>
-          </div>
+          <ToggleRow
+            label="High contrast"
+            checked={contrast === "high"}
+            onChange={(v) => setContrast(v ? "high" : "default")}
+          />
+          <ToggleRow
+            label="Easy-read font"
+            checked={font === "dyslexia"}
+            onChange={(v) => setFont(v ? "dyslexia" : "default")}
+          />
+          <ToggleRow
+            label="Reduce motion"
+            description="Turns off animations and transitions."
+            checked={motion === "reduced"}
+            onChange={(v) => setMotion(v ? "reduced" : "default")}
+          />
+          <ToggleRow
+            label="Underline links"
+            description="Makes links easier to spot without relying on colour."
+            checked={linkStyle === "underline"}
+            onChange={(v) => setLinkStyle(v ? "underline" : "default")}
+          />
+          <ToggleRow
+            label="Easy-read spacing"
+            description="Adds extra space between lines, letters and words."
+            checked={spacing === "relaxed"}
+            onChange={(v) => setSpacing(v ? "relaxed" : "default")}
+          />
+          <ToggleRow
+            label="Larger touch targets"
+            description="Makes buttons and pictures bigger and easier to tap."
+            checked={touchSize === "large"}
+            onChange={(v) => setTouchSize(v ? "large" : "default")}
+          />
 
-          <div className="flex items-center justify-between gap-3">
-            <label htmlFor="font-toggle" className="font-semibold">
-              Easy-read font
+          <div className="mt-1 border-t-2 border-border pt-4">
+            <label htmlFor="timezone-select" className="block font-semibold mb-1">
+              Timezone
             </label>
-            <button
-              id="font-toggle"
-              type="button"
-              role="switch"
-              aria-checked={font === "dyslexia"}
-              onClick={() => setFont(font === "dyslexia" ? "default" : "dyslexia")}
-              className={`relative h-8 w-14 shrink-0 rounded-full border-2 transition-colors ${
-                font === "dyslexia"
-                  ? "border-brand bg-brand"
-                  : "border-border bg-background"
-              }`}
+            <p className="mb-2 text-sm text-muted">
+              Used for dates and times in tools like the schedule and
+              behaviour tracker.
+            </p>
+            <select
+              id="timezone-select"
+              value={timezone}
+              onChange={(e) => setTimezone(e.target.value)}
+              className="w-full rounded-xl border-2 border-border bg-background px-3 py-2.5 text-sm touch-target"
             >
-              <span
-                className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform ${
-                  font === "dyslexia" ? "translate-x-6" : "translate-x-0.5"
-                }`}
-              />
-            </button>
+              {COMMON_TIMEZONES.map((tz) => (
+                <option key={tz.value} value={tz.value}>
+                  {tz.label}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       )}

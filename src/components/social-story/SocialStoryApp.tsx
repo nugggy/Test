@@ -1,0 +1,52 @@
+"use client";
+
+import { useState } from "react";
+import { useSocialStories } from "@/lib/social-story-storage";
+import StoryList from "@/components/social-story/StoryList";
+import StoryEditor from "@/components/social-story/StoryEditor";
+import StoryPresenter from "@/components/social-story/StoryPresenter";
+
+type View =
+  | { mode: "list" }
+  | { mode: "edit"; storyId: string }
+  | { mode: "present"; storyId: string };
+
+export default function SocialStoryApp() {
+  const { stories, createStory, updateStory, deleteStory } = useSocialStories();
+  const [view, setView] = useState<View>({ mode: "list" });
+
+  const activeStory =
+    view.mode !== "list" ? stories.find((s) => s.id === view.storyId) : undefined;
+
+  function handleNewStory() {
+    const id = createStory("New story");
+    setView({ mode: "edit", storyId: id });
+  }
+
+  if (view.mode === "edit" && activeStory) {
+    return (
+      <StoryEditor
+        story={activeStory}
+        onSave={(updates) => updateStory(activeStory.id, updates)}
+        onDone={() => setView({ mode: "list" })}
+        onPresent={() => setView({ mode: "present", storyId: activeStory.id })}
+      />
+    );
+  }
+
+  if (view.mode === "present" && activeStory) {
+    return (
+      <StoryPresenter story={activeStory} onExit={() => setView({ mode: "list" })} />
+    );
+  }
+
+  return (
+    <StoryList
+      stories={stories}
+      onNew={handleNewStory}
+      onEdit={(id) => setView({ mode: "edit", storyId: id })}
+      onPresent={(id) => setView({ mode: "present", storyId: id })}
+      onDelete={deleteStory}
+    />
+  );
+}

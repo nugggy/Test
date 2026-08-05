@@ -2,6 +2,8 @@
 
 import { EMOTIONS } from "@/lib/emotion-tracker-data";
 import type { EmotionLogEntry } from "@/lib/emotion-tracker-storage";
+import { formatDateTime } from "@/lib/datetime";
+import { useTimezone } from "@/lib/timezone-context";
 
 interface EmotionHistoryProps {
   entries: EmotionLogEntry[];
@@ -10,21 +12,12 @@ interface EmotionHistoryProps {
 
 const INTENSITY_LABELS = ["", "A little", "Medium", "A lot"];
 
-function formatTimestamp(iso: string) {
-  const date = new Date(iso);
-  return date.toLocaleString(undefined, {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    hour: "numeric",
-    minute: "2-digit",
-  });
-}
-
 export default function EmotionHistory({
   entries,
   onRemove,
 }: EmotionHistoryProps) {
+  const { timezone } = useTimezone();
+
   if (entries.length === 0) {
     return (
       <p className="rounded-xl border-2 border-dashed border-border p-6 text-center text-muted">
@@ -56,7 +49,7 @@ export default function EmotionHistory({
                 <p className="mt-0.5 text-sm text-muted">{entry.note}</p>
               )}
               <p className="mt-0.5 text-xs text-muted">
-                {formatTimestamp(entry.timestamp)}
+                {formatDateTime(entry.timestamp, timezone)}
               </p>
             </div>
             <button

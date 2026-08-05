@@ -3,6 +3,19 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.5.0] - 2026-08-05
+### Added
+- **Tool 4 — Social Story Creator** (`src/app/tools/social-story/`): build multi-page illustrated stories (picture + text per page, dictation supported), reorder pages, then present them full-screen page-by-page with read-aloud and print. Multiple stories, list/edit/present views. **Preview mode**: normally an account-gated tool (persists per participant), running here on `localStorage` only with an in-page banner explaining that — not yet wired to the accounts system.
+- **Tool 5 — Behaviour Tracking Tool** (`src/app/tools/behaviour-tracking/`): quick ABC (antecedent-behaviour-consequence) logging with suggestion chips and dictation, a severity scale (1-5, new `--sev-*` status colours in `globals.css`), a timezone-aware "when did this happen" field, and two hand-rolled responsive charts — a severity-over-time bar chart (SVG) and a most-common-behaviours frequency chart (flexbox bars, no chart library added). Same **preview mode** treatment as Social Story Creator.
+- **Tool 6 — Weekly Schedule** (`src/app/tools/weekly-schedule/`): a 7-day version of the Visual Schedule Builder — pictures per day via a shared `ActivityPickerDialog`, tick off, print, reset/clear. Account-free.
+- **Tool 7 — Budget Tracker** (`src/app/tools/budget-tracker/`): log income/expense transactions with category and date, income/expenses/balance stat tiles, a spending-by-category chart, and a transaction list. Amounts formatted as AUD. Account-free.
+- **Project-wide timezone setting**, defaulting to `Australia/Sydney`: new `TimezoneProvider`/`useTimezone` (`src/lib/timezone-context.tsx`) alongside the existing accessibility settings, with a picker for other AU/NZ/UTC zones added to the header's "Display settings" panel. New `src/lib/datetime.ts` formats stored UTC-ISO timestamps for display in the selected zone (storage itself stays UTC — only display changes). Emotion Tracker's history and the new Behaviour Tracking Tool use it for display; the Budget Tracker uses it to default the date field to "today" in the selected zone.
+- **Four new accessibility options**, since this whole project is a disability-support tool: reduce motion (explicit override beyond the OS-level `prefers-reduced-motion`), underline links, easy-read spacing (line/letter/word spacing), and larger touch targets (bumps the `--touch-target-min` CSS var site-wide from one place). Added to `accessibility-context.tsx` + `globals.css` + the "Display settings" panel, which now uses a shared `ToggleRow` component instead of six copies of the same switch markup.
+- `/support` page + a footer link: explains why donations matter. Ships with a clearly-marked **placeholder** donate button (`DONATION_URL = null` + a `TODO(payment-setup)` comment) — no real payment destination has been set up yet.
+
+### Changed
+- Homepage tool cards: the "Will need a free account" note now only shows for `status: "soon"` tools; the four account-gated-but-currently-live tools instead show "Preview: saved on this device only for now", matching their in-page banners.
+
 ## [0.4.0] - 2026-08-05
 ### Added
 - **Tool 2 — Visual Schedule Builder** (`src/app/tools/visual-schedule/`): tap-to-add activities from a 26-item icon library or add your own, reorder with up/down controls, tick off as done, reset ticks or clear the day, print-friendly. Account-free, `localStorage` only.
