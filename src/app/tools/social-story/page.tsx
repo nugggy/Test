@@ -3,6 +3,7 @@ import Link from "next/link";
 import SocialStoryApp from "@/components/social-story/SocialStoryApp";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
   title: "Social Story Creator — Toolkit",
@@ -31,6 +32,15 @@ export default function SocialStoryPage() {
         — no account needed yet. A future version will let you save stories
         against a participant&apos;s profile.
       </p>
+      <HowToUse
+        steps={[
+          "Tap 'New story' and give it a title.",
+          "Tap 'Add page' — choose a picture and write (or say, using the microphone) what happens on that page.",
+          "Add as many pages as you need, and use the arrows to reorder them.",
+          "Tap 'Read story' to go through it page by page, with read-aloud.",
+          "Print the story to use offline, or share it with someone.",
+        ]}
+      />
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
       <SocialStoryApp />

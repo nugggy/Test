@@ -3,6 +3,7 @@ import Link from "next/link";
 import TrafficLightCheckin from "@/components/traffic-light/TrafficLightCheckin";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
   title: "Traffic Light Check-In — Toolkit",
@@ -25,6 +26,15 @@ export default function TrafficLightCheckinPage() {
         A quick, visual way to check in on how you&apos;re feeling — tap a
         colour, get a suggestion, and see the pattern over time.
       </p>
+      <HowToUse
+        steps={[
+          "Tap green, amber or red for how you're doing right now.",
+          "Read the suggested strategy, and anything you've written for what that colour looks like for you.",
+          "Add a note if you want to, then tap 'Save check-in'.",
+          "Fill in 'What each zone looks like for you' further down, so it's ready next time.",
+          "Scroll down to History to see your past check-ins.",
+        ]}
+      />
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
       <TrafficLightCheckin />

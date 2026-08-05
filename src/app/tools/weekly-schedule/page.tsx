@@ -3,6 +3,7 @@ import Link from "next/link";
 import WeeklySchedule from "@/components/weekly-schedule/WeeklySchedule";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
   title: "Weekly Schedule — Toolkit",
@@ -25,6 +26,14 @@ export default function WeeklySchedulePage() {
         Plan the whole week at a glance. Add pictures to each day, tick them
         off as they&apos;re done, or print the week out.
       </p>
+      <HowToUse
+        steps={[
+          "Tap the ➕ on any day to add an activity.",
+          "Choose a picture from the library, or add your own.",
+          "Tap an activity to tick it off once it's done.",
+          "Print the week, or use 'Reset all ticks' / 'Clear week' to start again.",
+        ]}
+      />
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
       <WeeklySchedule />

@@ -3,6 +3,10 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.8.1] - 2026-08-05
+### Added
+- **"How to use this tool"** instructions on every tool page: a collapsible, numbered step-by-step block (new `HowToUse.tsx`, defaults open), tailored to each tool's actual workflow. Placed right after the intro text, before the disclaimer/Allied Health banners.
+
 ## [0.8.0] - 2026-08-05
 ### Added
 - **Tool 11 — Support Plan** (`src/app/tools/support-plan/`): a one-page, person-centred plan — About me (free text), My goals, My supports, Health & safety info, How to communicate with me, and Emergency contacts. All list sections reuse the shared `EditableListSection` (dictation, suggestion chips). Printable. Same account-free **preview mode** treatment as the other participant-linked tools.

@@ -3,6 +3,7 @@ import Link from "next/link";
 import EmotionTracker from "@/components/emotion-tracker/EmotionTracker";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
   title: "Emotion Tracker — Toolkit",
@@ -25,6 +26,14 @@ export default function EmotionTrackerPage() {
         Check in with how you&apos;re feeling. Logging emotions regularly can
         help build self-awareness and spot patterns over time.
       </p>
+      <HowToUse
+        steps={[
+          "Tap the emotion that matches how you're feeling right now.",
+          "Choose how strongly you feel it, and add a note if you want to.",
+          "Tap 'Save check-in' to log it.",
+          "Scroll down to History to see how you've been feeling over time.",
+        ]}
+      />
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
       <EmotionTracker />

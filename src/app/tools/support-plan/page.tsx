@@ -3,6 +3,7 @@ import Link from "next/link";
 import SupportPlan from "@/components/support-plan/SupportPlan";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
   title: "Support Plan — Toolkit",
@@ -32,6 +33,14 @@ export default function SupportPlanPage() {
         — no account needed yet. A future version will let you save it
         against a participant&apos;s profile.
       </p>
+      <HowToUse
+        steps={[
+          "Start with 'About me' — a few sentences about who you are.",
+          "Work through the other sections — tap a suggestion chip, or type/say your own using the microphone.",
+          "Everything saves automatically as you go.",
+          "Print it to share with a new support worker, service or school.",
+        ]}
+      />
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
       <SupportPlan />

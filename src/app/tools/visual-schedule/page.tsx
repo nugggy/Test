@@ -3,6 +3,7 @@ import Link from "next/link";
 import VisualSchedule from "@/components/visual-schedule/VisualSchedule";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
   title: "Visual Schedule Builder — Toolkit",
@@ -26,6 +27,15 @@ export default function VisualSchedulePage() {
         activity as it&apos;s done, reorder with the arrows, or print it out
         to use offline.
       </p>
+      <HowToUse
+        steps={[
+          "Tap a picture in the activity list to add it to today's schedule.",
+          "Can't find what you need? Tap 'Add your own' to create it, and say or type the name.",
+          "Tap an activity in your schedule to tick it off once it's done.",
+          "Use the arrows to reorder activities.",
+          "Print today's schedule, or use 'Reset ticks' / 'Clear all' to start fresh.",
+        ]}
+      />
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
       <VisualSchedule />

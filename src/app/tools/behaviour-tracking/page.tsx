@@ -3,6 +3,7 @@ import Link from "next/link";
 import BehaviourTracking from "@/components/behaviour-tracking/BehaviourTracking";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
   title: "Behaviour Tracking Tool — Toolkit",
@@ -30,6 +31,15 @@ export default function BehaviourTrackingPage() {
         — no account needed yet. A future version will let you track data
         against a participant&apos;s profile.
       </p>
+      <HowToUse
+        steps={[
+          "Fill in what happened before, the behaviour itself, and what happened after — tap a suggestion chip or type/say your own.",
+          "Choose a severity from 1 (very mild) to 5 (very severe).",
+          "Check the date and time, then tap 'Save entry'.",
+          "Look at the Severity over time and Most common behaviours charts to spot patterns.",
+          "Scroll down to the Log to review or delete past entries.",
+        ]}
+      />
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
       <BehaviourTracking />

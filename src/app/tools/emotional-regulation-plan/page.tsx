@@ -3,6 +3,7 @@ import Link from "next/link";
 import RegulationPlan from "@/components/regulation-plan/RegulationPlan";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
   title: "Emotional Regulation Plan — Toolkit",
@@ -31,6 +32,14 @@ export default function EmotionalRegulationPlanPage() {
         — no account needed yet. A future version will let you save it
         against a participant&apos;s profile.
       </p>
+      <HowToUse
+        steps={[
+          "Work through each section — tap a suggestion chip, or type/say your own using the microphone.",
+          "Add your warning signs, what helps you calm down, what makes it worse, and people you can go to.",
+          "Everything saves automatically as you go — there's no need to press save.",
+          "Print your plan to keep a copy or share it with support people.",
+        ]}
+      />
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
       <RegulationPlan />
