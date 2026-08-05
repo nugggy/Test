@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import WeeklySchedule from "@/components/weekly-schedule/WeeklySchedule";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
+import AlliedHealthCallout from "@/components/AlliedHealthCallout";
 
 export const metadata: Metadata = {
   title: "Weekly Schedule — Toolkit",
   description:
-    "Plan the whole week at a glance with picture activities for each day. Free, no sign-up, printable.",
+    "Plan the whole week at a glance with picture activities for each day. Free and printable.",
 };
 
 export default function WeeklySchedulePage() {
@@ -25,6 +26,7 @@ export default function WeeklySchedulePage() {
         off as they&apos;re done, or print the week out.
       </p>
       <MedicalDisclaimerBanner />
+      <AlliedHealthCallout />
       <WeeklySchedule />
     </div>
   );

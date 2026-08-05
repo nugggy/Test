@@ -19,14 +19,14 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Toolkit — Free disability support tools",
   description:
-    "A free, no-signup collection of practical tools for people with disability, families, support workers, educators, therapists and NDIS providers.",
+    "A free collection of practical tools for people with disability, families, support workers, educators, therapists and NDIS providers.",
   manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0f6e67",
+  themeColor: "#594295",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

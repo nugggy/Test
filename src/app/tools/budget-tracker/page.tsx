@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BudgetTracker from "@/components/budget/BudgetTracker";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
+import AlliedHealthCallout from "@/components/AlliedHealthCallout";
 
 export const metadata: Metadata = {
   title: "Budget Tracker — Toolkit",
@@ -25,6 +26,7 @@ export default function BudgetTrackerPage() {
         category.
       </p>
       <MedicalDisclaimerBanner />
+      <AlliedHealthCallout />
       <BudgetTracker />
     </div>
   );

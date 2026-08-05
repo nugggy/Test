@@ -1,6 +1,6 @@
 // Minimal offline app-shell cache.
 // Bump CACHE_NAME whenever cached routes/assets need to be invalidated.
-const CACHE_NAME = "toolkit-shell-v2";
+const CACHE_NAME = "toolkit-shell-v3";
 const SHELL_URLS = [
   "/",
   "/tools/communication-board",
@@ -8,6 +8,7 @@ const SHELL_URLS = [
   "/privacy",
   "/manifest.json",
   "/icon.svg",
+  "/dundaloo-logo.svg",
 ];
 
 self.addEventListener("install", (event) => {

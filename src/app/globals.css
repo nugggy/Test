@@ -1,18 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  /* Core palette — calm, low-glare surface with a deep teal ink,
-     inspired by AAC board conventions rather than generic SaaS defaults. */
-  --background: #f4f7f5;
+  /* Core palette — matches the Dundaloo brand (see public/dundaloo-logo.svg):
+     purple/navy primary, warm pink accent, on a soft lavender-tinted
+     surface rather than a plain white/grey page background. */
+  --background: #f6f2fb;
   --surface: #ffffff;
-  --foreground: #16302b;
-  --muted: #4b6660;
-  --border: #d9e3df;
+  --foreground: #241a38;
+  --muted: #685c7c;
+  --border: #e2d9f0;
 
-  --brand: #0f6e67;      /* primary teal — calm, trustworthy */
+  --brand: #594295;      /* Dundaloo purple */
   --brand-ink: #ffffff;
-  --accent: #e8a33d;     /* warm amber — used sparingly for highlights/CTAs */
-  --accent-ink: #2b1c00;
+  --accent: #db469a;     /* Dundaloo pink — used sparingly for highlights/CTAs */
+  --accent-ink: #2b0f22;
 
   /* Category colours, one consistent hue per category — the same
      fast-visual-recognition convention real AAC/PODD boards use so a

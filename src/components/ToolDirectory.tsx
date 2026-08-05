@@ -13,15 +13,20 @@ type ViewMode = "grid" | "list";
 export default function ToolDirectory({ tools }: ToolDirectoryProps) {
   const [query, setQuery] = useState("");
   const [view, setView] = useState<ViewMode>("grid");
+  const [category, setCategory] = useState<string | null>(null);
+
+  const categories = Array.from(new Set(tools.map((t) => t.category))).sort();
 
   const trimmedQuery = query.trim().toLowerCase();
-  const filtered = trimmedQuery
-    ? tools.filter((tool) =>
-        `${tool.name} ${tool.description} ${tool.category}`
+  const filtered = tools.filter((tool) => {
+    const matchesQuery = trimmedQuery
+      ? `${tool.name} ${tool.description} ${tool.category}`
           .toLowerCase()
           .includes(trimmedQuery)
-      )
-    : tools;
+      : true;
+    const matchesCategory = category ? tool.category === category : true;
+    return matchesQuery && matchesCategory;
+  });
 
   return (
     <section aria-labelledby="tools-heading">
@@ -81,15 +86,50 @@ export default function ToolDirectory({ tools }: ToolDirectoryProps) {
         </div>
       </div>
 
+      <div
+        role="group"
+        aria-label="Filter by category"
+        className="mb-5 flex flex-wrap gap-2"
+      >
+        <button
+          type="button"
+          onClick={() => setCategory(null)}
+          aria-pressed={category === null}
+          className={`touch-target rounded-full border-2 px-4 text-sm font-semibold ${
+            category === null
+              ? "border-brand bg-brand text-brand-ink"
+              : "border-border bg-surface text-muted"
+          }`}
+        >
+          All
+        </button>
+        {categories.map((c) => (
+          <button
+            key={c}
+            type="button"
+            onClick={() => setCategory(category === c ? null : c)}
+            aria-pressed={category === c}
+            className={`touch-target rounded-full border-2 px-4 text-sm font-semibold ${
+              category === c
+                ? "border-brand bg-brand text-brand-ink"
+                : "border-border bg-surface text-muted"
+            }`}
+          >
+            {c}
+          </button>
+        ))}
+      </div>
+
       <p aria-live="polite" className="sr-only">
-        {trimmedQuery
+        {trimmedQuery || category
           ? `${filtered.length} ${filtered.length === 1 ? "tool" : "tools"} found`
           : ""}
       </p>
 
       {filtered.length === 0 ? (
         <p className="rounded-xl border-2 border-dashed border-border p-8 text-center text-muted">
-          No tools match &quot;{query}&quot;.
+          No tools match{query ? ` "${query}"` : ""}
+          {category ? ` in ${category}` : ""}.
         </p>
       ) : view === "grid" ? (
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -151,6 +191,9 @@ function ToolCardContent({ tool }: { tool: ToolEntry }) {
         )}
       </div>
       <h3 className="font-display mt-3 text-lg font-bold">{tool.name}</h3>
+      <span className="mt-1 inline-block w-fit rounded-full bg-background px-2.5 py-0.5 text-xs font-semibold text-muted">
+        {tool.category}
+      </span>
       <p className="mt-1 text-sm text-muted flex-1">{tool.description}</p>
       {tool.requiresAccount && tool.status === "soon" && (
         <p className="mt-2 text-xs font-semibold text-muted">
@@ -183,6 +226,9 @@ function ToolListRowContent({ tool }: { tool: ToolEntry }) {
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="font-display font-bold">{tool.name}</h3>
+          <span className="rounded-full bg-background px-2.5 py-0.5 text-xs font-semibold text-muted">
+            {tool.category}
+          </span>
           {tool.status === "soon" && (
             <span className="rounded-full bg-accent px-2.5 py-0.5 text-xs font-bold text-accent-ink">
               Coming soon

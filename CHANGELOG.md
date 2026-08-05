@@ -3,6 +3,19 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.6.0] - 2026-08-05
+### Added
+- **Dundaloo branding**: real logo (`public/dundaloo-logo.svg`) in the header, replacing the generic icon+"Toolkit" mark. Site-wide colour tokens (`--background`, `--brand`, `--accent`, plus `manifest.json`/`layout.tsx` theme colours) now use Dundaloo's actual brand palette (purple/pink/navy, extracted from the logo) instead of the placeholder teal/amber — a coloured lavender-tinted background instead of plain white/grey. Category (`--cat-*`), emotion (`--emo-*`) and severity (`--sev-*`) tokens are untouched — those encode function (AAC colour-coding, status), not brand identity.
+- **Allied Health callout** (`AlliedHealthCallout.tsx`) on every tool page: mentions Dundaloo's Occupational Therapy, Speech Pathology and Psychology/Counselling services, linking to dundaloo.org.au.
+- **Tool 8 — Emotional Regulation Plan** (`src/app/tools/emotional-regulation-plan/`): a personal plan — warning signs, what helps, what makes it worse, support people, and an urgent-help section with crisis contacts. Same account-free **preview mode** treatment as Social Story/Behaviour Tracking. Built on a new reusable `EditableListSection` component (moved to `src/components/` since Traffic Light Check-In uses it too).
+- **Tool 9 — Traffic Light Check-In** (`src/app/tools/traffic-light-checkin/`): tap green/amber/red, get a suggested strategy, optionally log a note — plus an editable "what each zone looks like for you" guide (personal behavioural indicators per colour, shown inline when that colour is selected during a check-in). Account-free, reuses the severity status ramp (`--sev-1/3/5`) for colours.
+- **Weekly spending plan** in the Budget Tracker: set how much money you have to spend each week, plan items against it with a running "planned vs remaining" total, separate from the actual income/expense log.
+- **Homepage tool directory**: grid/list view toggle, a search box (name/description/category), and category filter chips — extracted into a new client component (`ToolDirectory.tsx`) so the hero stays server-rendered. Each tool card/row now shows a category badge.
+
+### Changed
+- Homepage headline: "Practical tools for disability support, built to actually get used." → "Everyday tools that help you live more independently, your way." — more personal, independence-focused.
+- Removed "no sign-up" language site-wide (hero tagline, meta descriptions, README, manifest) — some tools will require an account in production, so the blanket claim no longer holds. The per-tool "no account needed" copy stays, since those specific claims remain accurate.
+
 ## [0.5.0] - 2026-08-05
 ### Added
 - **Tool 4 — Social Story Creator** (`src/app/tools/social-story/`): build multi-page illustrated stories (picture + text per page, dictation supported), reorder pages, then present them full-screen page-by-page with read-aloud and print. Multiple stories, list/edit/present views. **Preview mode**: normally an account-gated tool (persists per participant), running here on `localStorage` only with an in-page banner explaining that — not yet wired to the accounts system.

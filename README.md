@@ -1,6 +1,6 @@
 # Toolkit — free disability support tools
 
-Free, no-signup tools for people with disability, families, support workers,
+Free tools for people with disability, families, support workers,
 educators, therapists and NDIS providers. Accounts are only required for
 tools that store sensitive or longitudinal data on someone's behalf
 (behaviour tracking, social stories); everything else works entirely on your

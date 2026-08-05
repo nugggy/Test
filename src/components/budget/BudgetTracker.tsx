@@ -3,6 +3,7 @@
 import { useBudgetTransactions } from "@/lib/budget-storage";
 import BudgetForm from "@/components/budget/BudgetForm";
 import BudgetSummary from "@/components/budget/BudgetSummary";
+import WeeklyBudgetPlan from "@/components/budget/WeeklyBudgetPlan";
 import BudgetCategoryChart from "@/components/budget/BudgetCategoryChart";
 import BudgetTransactionList from "@/components/budget/BudgetTransactionList";
 
@@ -13,6 +14,7 @@ export default function BudgetTracker() {
   return (
     <div className="flex flex-col gap-6">
       <BudgetSummary transactions={transactions} />
+      <WeeklyBudgetPlan />
       <BudgetForm onSave={addTransaction} />
 
       <div className="rounded-2xl border-2 border-border bg-surface p-4">

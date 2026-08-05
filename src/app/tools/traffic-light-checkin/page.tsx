@@ -1,34 +1,33 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import VisualSchedule from "@/components/visual-schedule/VisualSchedule";
+import TrafficLightCheckin from "@/components/traffic-light/TrafficLightCheckin";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
 
 export const metadata: Metadata = {
-  title: "Visual Schedule Builder — Toolkit",
+  title: "Traffic Light Check-In — Toolkit",
   description:
-    "Build a picture timeline of the day so routines feel predictable. Free and printable.",
+    "A quick tap-in: green, amber or red, with a suggested strategy for each.",
 };
 
-export default function VisualSchedulePage() {
+export default function TrafficLightCheckinPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
+    <div className="mx-auto max-w-3xl px-4 py-6 sm:py-8">
       <nav className="no-print mb-4 text-sm">
         <Link href="/" className="font-semibold text-brand hover:underline">
           ← All tools
         </Link>
       </nav>
       <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Visual Schedule Builder
+        Traffic Light Check-In
       </h1>
       <p className="no-print mb-6 max-w-2xl text-muted">
-        Tap pictures to build today&apos;s schedule in order. Tick off each
-        activity as it&apos;s done, reorder with the arrows, or print it out
-        to use offline.
+        A quick, visual way to check in on how you&apos;re feeling — tap a
+        colour, get a suggestion, and see the pattern over time.
       </p>
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
-      <VisualSchedule />
+      <TrafficLightCheckin />
     </div>
   );
 }

@@ -13,15 +13,15 @@ export default async function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link
           href="/"
-          className="font-display text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2"
+          className="font-display text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2.5"
         >
-          <span
-            aria-hidden="true"
-            className="grid h-10 w-10 place-items-center rounded-xl bg-brand text-brand-ink text-xl"
-          >
-            ✦
-          </span>
-          Toolkit
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/dundaloo-logo.svg"
+            alt="Dundaloo"
+            className="h-8 w-auto sm:h-9"
+          />
+          <span className="border-l-2 border-border pl-2.5">Toolkit</span>
         </Link>
         <div className="flex items-center gap-2">
           <Link

@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import EmotionTracker from "@/components/emotion-tracker/EmotionTracker";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
+import AlliedHealthCallout from "@/components/AlliedHealthCallout";
 
 export const metadata: Metadata = {
   title: "Emotion Tracker — Toolkit",
   description:
-    "Daily emotion check-ins to build self-awareness and spot patterns over time. Free, no sign-up.",
+    "Daily emotion check-ins to build self-awareness and spot patterns over time.",
 };
 
 export default function EmotionTrackerPage() {
@@ -25,6 +26,7 @@ export default function EmotionTrackerPage() {
         help build self-awareness and spot patterns over time.
       </p>
       <MedicalDisclaimerBanner />
+      <AlliedHealthCallout />
       <EmotionTracker />
     </div>
   );

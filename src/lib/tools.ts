@@ -68,4 +68,21 @@ export const tools: ToolEntry[] = [
     status: "live",
     category: "Independent living",
   },
+  {
+    slug: "emotional-regulation-plan",
+    name: "Emotional Regulation Plan",
+    description: "Build a personal plan: warning signs, calming strategies, people to go to, and when to get urgent help.",
+    icon: "🧭",
+    status: "live",
+    category: "Emotional regulation",
+    requiresAccount: true,
+  },
+  {
+    slug: "traffic-light-checkin",
+    name: "Traffic Light Check-In",
+    description: "A quick tap-in: green, amber or red, with a suggested strategy for each.",
+    icon: "🚦",
+    status: "live",
+    category: "Emotional regulation",
+  },
 ];

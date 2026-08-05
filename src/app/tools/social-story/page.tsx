@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SocialStoryApp from "@/components/social-story/SocialStoryApp";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
+import AlliedHealthCallout from "@/components/AlliedHealthCallout";
 
 export const metadata: Metadata = {
   title: "Social Story Creator — Toolkit",
@@ -31,6 +32,7 @@ export default function SocialStoryPage() {
         against a participant&apos;s profile.
       </p>
       <MedicalDisclaimerBanner />
+      <AlliedHealthCallout />
       <SocialStoryApp />
     </div>
   );

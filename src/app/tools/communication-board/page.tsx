@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CommunicationBoard from "@/components/communication-board/CommunicationBoard";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
+import AlliedHealthCallout from "@/components/AlliedHealthCallout";
 
 export const metadata: Metadata = {
   title: "Visual Communication Board — Toolkit",
   description:
-    "Tap pictures to speak wants, needs and feelings out loud. Free, no sign-up, works offline.",
+    "Tap pictures to speak wants, needs and feelings out loud. Free and works offline.",
 };
 
 export default function CommunicationBoardPage() {
@@ -25,6 +26,7 @@ export default function CommunicationBoardPage() {
         tapping a few pictures in a row, then press Speak.
       </p>
       <MedicalDisclaimerBanner />
+      <AlliedHealthCallout />
       <CommunicationBoard />
     </div>
   );
