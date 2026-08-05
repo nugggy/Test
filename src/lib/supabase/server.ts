@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 /**
  * Supabase client for use on the server (Server Components, Server Actions,
@@ -8,6 +9,19 @@ import { createServerClient } from "@supabase/ssr";
  */
 export async function createClient() {
   const cookieStore = await cookies();
+
+  if (
+    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  ) {
+    return {
+      auth: {
+        async getUser() {
+          return { data: { user: null }, error: null };
+        },
+      },
+    } as unknown as SupabaseClient;
+  }
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
