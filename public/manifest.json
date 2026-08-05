@@ -1,0 +1,17 @@
+{
+  "name": "Toolkit — Free disability support tools",
+  "short_name": "Toolkit",
+  "description": "Free, no-signup tools for people with disability, families, support workers, educators and NDIS providers.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f7f5",
+  "theme_color": "#0f6e67",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+:root {
+  /* Core palette — calm, low-glare surface with a deep teal ink,
+     inspired by AAC board conventions rather than generic SaaS defaults. */
+  --background: #f4f7f5;
+  --surface: #ffffff;
+  --foreground: #16302b;
+  --muted: #4b6660;
+  --border: #d9e3df;
+
+  --brand: #0f6e67;      /* primary teal — calm, trustworthy */
+  --brand-ink: #ffffff;
+  --accent: #e8a33d;     /* warm amber — used sparingly for highlights/CTAs */
+  --accent-ink: #2b1c00;
+
+  /* Category colours, one consistent hue per category — the same
+     fast-visual-recognition convention real AAC/PODD boards use so a
+     user can find "Food" or "Pain" by colour before they can read. */
+  --cat-food: #f28c4c;
+  --cat-food-ink: #3a1c00;
+  --cat-drinks: #4c8df2;
+  --cat-drinks-ink: #ffffff;
+  --cat-emotions: #9b6fe8;
+  --cat-emotions-ink: #ffffff;
+  --cat-pain: #e0524a;
+  --cat-pain-ink: #ffffff;
+  --cat-toileting: #2fb6c4;
+  --cat-toileting-ink: #00302f;
+  --cat-activities: #4caf6d;
+  --cat-activities-ink: #ffffff;
+  --cat-requests: #f2c230;
+  --cat-requests-ink: #3a2c00;
+  --cat-favourites: #e86fa0;
+  --cat-favourites-ink: #ffffff;
+  --cat-custom: #6b7280;
+  --cat-custom-ink: #ffffff;
+
+  --radius-tile: 1.1rem;
+
+  --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
+  --font-display: "Baloo 2", var(--font-body);
+
+  --text-scale: 1;
+}
+
+/* ---- Accessibility mode: large text ---- */
+html[data-text-size="large"] {
+  --text-scale: 1.2;
+}
+html[data-text-size="xl"] {
+  --text-scale: 1.45;
+}
+
+/* ---- Accessibility mode: high contrast ---- */
+html[data-contrast="high"] {
+  --background: #000000;
+  --surface: #0a0a0a;
+  --foreground: #ffffff;
+  --muted: #f2f2f2;
+  --border: #ffffff;
+  --brand: #ffe066;
+  --brand-ink: #000000;
+  --accent: #ffe066;
+  --accent-ink: #000000;
+}
+
+/* ---- Accessibility mode: dyslexia-friendly font ---- */
+html[data-font="dyslexia"] {
+  --font-body: "Lexend", system-ui, sans-serif;
+  --font-display: "Lexend", system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-cat-food: var(--cat-food);
+  --color-cat-drinks: var(--cat-drinks);
+  --color-cat-emotions: var(--cat-emotions);
+  --color-cat-pain: var(--cat-pain);
+  --color-cat-toileting: var(--cat-toileting);
+  --color-cat-activities: var(--cat-activities);
+  --color-cat-requests: var(--cat-requests);
+  --color-cat-favourites: var(--cat-favourites);
+  --color-cat-custom: var(--cat-custom);
+  --font-body: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+html {
+  font-size: calc(16px * var(--text-scale));
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+/* Always-visible, high-contrast focus ring for keyboard users */
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+html[data-contrast="high"] :focus-visible {
+  outline: 3px solid #ffe066;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Large, thumb/finger-friendly touch target baseline */
+.touch-target {
+  min-height: 88px;
+  min-width: 88px;
+}
+
+@media print {
+  header, footer, .no-print {
+    display: none !important;
+  }
+}
