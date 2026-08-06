@@ -264,43 +264,13 @@ export const tools: ToolEntry[] = [
     worksOffline: true,
   },
   {
-    slug: "find-support-coordinator",
-    name: "Find a Support Coordinator Near Me",
+    slug: "find-a-provider",
+    name: "Find a Provider",
     description:
-      "Search for NDIS Support Coordinators by state and service area, or list your own service.",
+      "Search for a Support Coordinator, Plan Manager, Support Provider, or Allied Health Specialist by state and service area, or list your own service.",
     icon: "🔎",
     status: "live",
     category: "Preparation",
-    worksOffline: false,
-  },
-  {
-    slug: "find-plan-manager",
-    name: "Find a Plan Manager Near Me",
-    description:
-      "Search for NDIS Plan Managers by state and service area, or list your own service.",
-    icon: "🔎",
-    status: "live",
-    category: "Preparation",
-    worksOffline: false,
-  },
-  {
-    slug: "find-support-provider",
-    name: "Find a Support Provider Near Me",
-    description:
-      "Search for NDIS support providers by state and service area, or list your own service.",
-    icon: "🔎",
-    status: "live",
-    category: "Preparation",
-    worksOffline: false,
-  },
-  {
-    slug: "find-allied-health",
-    name: "Find an Allied Health Specialist Near Me",
-    description:
-      "Search for allied health specialists by state, service area and specialty, or list your own practice.",
-    icon: "🔎",
-    status: "live",
-    category: "Allied health",
     worksOffline: false,
   },
   {

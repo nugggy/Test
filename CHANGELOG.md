@@ -3,6 +3,10 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.27.0] - 2026-08-07
+### Changed
+- **Merged the 4 "find a provider" tools into one**: `/tools/find-a-provider` now has a category switcher (Support Coordinator / Plan Manager / Support Provider / Allied Health) instead of 4 separate pages/homepage entries. The old URLs (`/tools/find-support-coordinator` etc.) redirect to the merged tool with the right category preselected via `?category=`, so old links/bookmarks still work. No backend changes needed - the search/submit actions were already category-parameterised.
+
 ## [0.26.0] - 2026-08-07
 ### Added
 - **NDIS Compliance & Provider Obligations** (`/tools/ndis-compliance`) - a plain-language guide to what registered NDIS providers are required to do: the NDIS Code of Conduct, service agreements, cancellations/pricing, worker screening checks, incident management and reportable incidents, regulated restrictive practices, and complaints handling. Includes a self-check checklist, a "questions for my provider" list, a private notes list, and clear steps (with the NDIS Commission's 1800 035 544) for raising a concern. Complements the existing Know Your Rights tool - that one covers the participant's own rights, this one covers what the provider is obligated to do.
