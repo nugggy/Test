@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { FEELING_TAGS, SERVICES } from "@/lib/who-can-help-data";
 import PrintButton from "@/components/PrintButton";
+import { useScrollIntoViewOnce } from "@/lib/use-scroll-into-view-once";
 
 export default function WhoCanHelpMe() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const resultsRef = useScrollIntoViewOnce<HTMLDivElement>(activeTag !== null);
 
   const filtered = activeTag
     ? SERVICES.filter((s) => s.tags.includes(activeTag))
@@ -58,7 +60,7 @@ export default function WhoCanHelpMe() {
         {filtered.length} services shown
       </p>
 
-      <div className="flex flex-col gap-3">
+      <div ref={resultsRef} className="flex flex-col gap-3 scroll-mt-20">
         {filtered.map((service) => (
           <div
             key={service.id}

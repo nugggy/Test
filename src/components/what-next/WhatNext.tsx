@@ -7,10 +7,12 @@ import { useCustomStrategies } from "@/lib/what-next-storage";
 import { downloadCsv } from "@/lib/csv-export";
 import EditableListSection from "@/components/EditableListSection";
 import PrintButton from "@/components/PrintButton";
+import { useScrollIntoViewOnce } from "@/lib/use-scroll-into-view-once";
 
 export default function WhatNext() {
   const [selectedMoodId, setSelectedMoodId] = useState<string | null>(null);
   const { custom, updateMoodStrategies } = useCustomStrategies();
+  const resultsRef = useScrollIntoViewOnce<HTMLDivElement>(selectedMoodId !== null);
 
   const selectedMood = EMOTIONS.find((e) => e.id === selectedMoodId);
   const hasAnyCustomStrategies = Object.values(custom).some((list) => list.length > 0);
@@ -75,7 +77,7 @@ export default function WhatNext() {
       </div>
 
       {selectedMood && (
-        <>
+        <div ref={resultsRef} className="flex flex-col gap-4 scroll-mt-20">
           <div className="rounded-2xl border-2 border-border bg-surface p-4">
             <h2 className="font-display text-lg font-bold">
               Things that can help when you&apos;re feeling {selectedMood.label.toLowerCase()}
@@ -99,7 +101,7 @@ export default function WhatNext() {
             items={custom[selectedMood.id] ?? []}
             onChange={(items) => updateMoodStrategies(selectedMood.id, items)}
           />
-        </>
+        </div>
       )}
     </div>
   );

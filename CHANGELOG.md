@@ -3,6 +3,11 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.23.0] - 2026-08-07
+### Added
+- New `useScrollIntoViewOnce` hook (`src/lib/use-scroll-into-view-once.ts`): the first time a selection reveals a results section further down the page, that section smoothly scrolls into view instead of relying on the person to notice and scroll manually. Only fires once per visit so it doesn't fight someone already looking at the results, and respects `prefers-reduced-motion`.
+- Applied to **Who Can Help Me?** (tapping a feeling tag scrolls to the filtered results) and **What Next?** (picking a mood scrolls to the coping strategies).
+
 ## [0.22.0] - 2026-08-07
 ### Added
 - **Site-wide navigation**: the header is now sticky (`position: sticky`) so the way back to the homepage is always reachable without scrolling back to the top of a long tool page. The "← All tools" link on all 38 tool pages is now a larger, bordered touch-target button instead of small underlined text.
