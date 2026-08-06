@@ -144,7 +144,7 @@ export default function GlucoseEntryForm({ onSave }: GlucoseEntryFormProps) {
 
       <div>
         <label className="block font-semibold mb-1" htmlFor={notesId}>
-          Notes — how are you feeling, food, activity, anything unusual
+          Notes - how are you feeling, food, activity, anything unusual
         </label>
         <textarea
           id={notesId}

@@ -1,4 +1,4 @@
-// A small, hand-picked dictionary for the rule-based Easy Read Converter —
+// A small, hand-picked dictionary for the rule-based Easy Read Converter -
 // deliberately not exhaustive. True plain-English rewriting needs
 // understanding, not word substitution; this catches common jargon, and the
 // "Ask an AI" panel exists precisely because this dictionary can't.

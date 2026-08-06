@@ -40,7 +40,7 @@ export default function WeekTab() {
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-muted">
-        Choose one meal per day — it&apos;ll also show up in your{" "}
+        Choose one meal per day - it&apos;ll also show up in your{" "}
         <Link
           href="/tools/weekly-schedule"
           className="font-semibold text-brand hover:underline"

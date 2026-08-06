@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "Visual Communication Board — Toolkit",
+  title: "Visual Communication Board - Toolkit",
   description:
     "Tap pictures to speak wants, needs and feelings out loud. Free and works offline.",
 };
@@ -39,7 +39,7 @@ export default function CommunicationBoardPage() {
           "Tap more pictures to build up a longer message.",
           "Press Speak to hear your whole message read aloud, or Clear to start again.",
           "Tap the star on a picture to save it to Favourites.",
-          "Tap 'Add picture' to create your own — choose a word, a picture, and a category.",
+          "Tap 'Add picture' to create your own - choose a word, a picture, and a category.",
         ]}
       />
       <MedicalDisclaimerBanner />

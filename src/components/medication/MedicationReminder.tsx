@@ -42,7 +42,7 @@ export default function MedicationReminder() {
   return (
     <div className="flex flex-col gap-4">
       <div className="no-print rounded-xl border-2 border-border bg-surface px-4 py-3 text-sm text-muted">
-        This is a checklist and tracker, not a guaranteed alarm — it can only
+        This is a checklist and tracker, not a guaranteed alarm - it can only
         remind you while this page is open. For time-critical medication,
         also set a reminder in your phone&apos;s own alarm or reminder app.
       </div>
@@ -67,7 +67,7 @@ export default function MedicationReminder() {
                     className="h-6 w-6 shrink-0 accent-brand"
                   />
                   <span className={`flex-1 text-sm ${taken ? "text-muted line-through" : ""}`}>
-                    <strong>{time}</strong> — {med.name}
+                    <strong>{time}</strong> - {med.name}
                     {med.dose ? ` (${med.dose})` : ""}
                   </span>
                 </label>

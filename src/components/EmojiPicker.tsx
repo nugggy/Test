@@ -11,7 +11,7 @@ interface EmojiPickerProps {
 
 /**
  * A big curated emoji grid, plus a plain text input so someone can type or
- * paste literally any emoji from their own device's keyboard — the curated
+ * paste literally any emoji from their own device's keyboard - the curated
  * grid alone will never cover everyone's needs, but every phone/tablet/
  * computer already has a full emoji keyboard built in.
  */

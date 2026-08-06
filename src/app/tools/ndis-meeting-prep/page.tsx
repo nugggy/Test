@@ -9,7 +9,7 @@ import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 
 export const metadata: Metadata = {
-  title: "NDIS Meeting Preparation — Toolkit",
+  title: "NDIS Meeting Preparation - Toolkit",
   description:
     "Get ready for an NDIS planning or review meeting: meeting and plan details, documents to bring, what's working, what isn't, changes since your last plan, how your disability affects daily life, support needs, future goals, and questions for your planner.",
 };
@@ -31,7 +31,7 @@ export default function NdisMeetingPrepPage() {
       </h1>
       <FavouriteToggleButton slug="ndis-meeting-prep" />
       <p className="no-print mb-6 max-w-2xl text-muted">
-        Get ready for a planning or plan review meeting — meeting and plan
+        Get ready for a planning or plan review meeting - meeting and plan
         details, documents to bring, what&apos;s working, what isn&apos;t,
         changes since your last plan, how your disability affects daily
         life, support needs, future goals, and questions for your planner,
@@ -39,9 +39,9 @@ export default function NdisMeetingPrepPage() {
       </p>
       <HowToUse
         steps={[
-          "Add the meeting details — date, type, format, who's coming, and your current plan dates.",
+          "Add the meeting details - date, type, format, who's coming, and your current plan dates.",
           "Tick off the documents you need to bring.",
-          "Work through each section — tap a suggestion chip, or type/say your own.",
+          "Work through each section - tap a suggestion chip, or type/say your own.",
           "Everything saves automatically as you go.",
           "Print it to take to your meeting, or share it with your support coordinator beforehand.",
         ]}

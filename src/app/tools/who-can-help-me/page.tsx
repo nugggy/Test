@@ -8,9 +8,9 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "Who Can Help Me? — Toolkit",
+  title: "Who Can Help Me? - Toolkit",
   description:
-    "Find the right support service for how you're feeling right now — crisis lines, mental health support, family violence support, and NDIS complaints and advocacy.",
+    "Find the right support service for how you're feeling right now - crisis lines, mental health support, family violence support, and NDIS complaints and advocacy.",
 };
 
 export default function WhoCanHelpMePage() {
@@ -29,7 +29,7 @@ export default function WhoCanHelpMePage() {
       </h1>
       <FavouriteToggleButton slug="who-can-help-me" />
       <p className="no-print mb-6 max-w-2xl text-muted">
-        A directory of Australian support services — crisis lines, mental
+        A directory of Australian support services - crisis lines, mental
         health support, family violence support, disability abuse and
         neglect reporting, and NDIS complaints and advocacy. Tap how
         you&apos;re feeling to narrow the list.
@@ -39,7 +39,7 @@ export default function WhoCanHelpMePage() {
           "If you or someone else is in immediate danger, call 000 now.",
           "Otherwise, tap the option that best describes how you're feeling, or supporting someone else.",
           "Tap a phone number to call it straight away.",
-          "There's no wrong door — if you're not sure who to call, Lifeline (13 11 14) can point you in the right direction.",
+          "There's no wrong door - if you're not sure who to call, Lifeline (13 11 14) can point you in the right direction.",
         ]}
       />
       <MedicalDisclaimerBanner />

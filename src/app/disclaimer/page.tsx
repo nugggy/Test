@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Disclaimer — Toolkit",
+  title: "Disclaimer - Toolkit",
 };
 
 export default function DisclaimerPage() {
@@ -22,9 +22,9 @@ export default function DisclaimerPage() {
             any person or condition.
           </p>
           <p>
-            No tool on this site — including the Communication Board,
+            No tool on this site - including the Communication Board,
             Behaviour Tracking Tool, Social Story Creator, Emotion Tracker,
-            or any other current or future tool — is a substitute for
+            or any other current or future tool - is a substitute for
             assessment, advice or care from a qualified, registered
             professional who knows the person involved.
           </p>
@@ -48,7 +48,7 @@ export default function DisclaimerPage() {
           <p>
             Information logged in tools like the Behaviour Tracking Tool can
             be a useful thing to bring to a conversation with one of these
-            professionals — it isn&apos;t a replacement for that
+            professionals - it isn&apos;t a replacement for that
             conversation.
           </p>
         </section>
@@ -63,9 +63,9 @@ export default function DisclaimerPage() {
           </p>
           <p>For urgent mental health support:</p>
           <ul className="list-disc pl-6 space-y-1">
-            <li>Lifeline — 13 11 14 (24/7)</li>
-            <li>Kids Helpline (ages 5–25) — 1800 55 1800 (24/7)</li>
-            <li>13YARN, for Aboriginal and Torres Strait Islander peoples — 13 92 76 (24/7)</li>
+            <li>Lifeline - 13 11 14 (24/7)</li>
+            <li>Kids Helpline (ages 5–25) - 1800 55 1800 (24/7)</li>
+            <li>13YARN, for Aboriginal and Torres Strait Islander peoples - 13 92 76 (24/7)</li>
           </ul>
         </section>
 

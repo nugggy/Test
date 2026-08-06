@@ -4,7 +4,7 @@ interface PrintHeaderProps {
 
 /**
  * A letterhead block that only appears when a tool page is printed / saved
- * as a PDF — invisible on screen, so it doesn't duplicate the on-screen
+ * as a PDF - invisible on screen, so it doesn't duplicate the on-screen
  * <h1>. Give every printable tool page a consistent, professional-looking
  * header instead of the raw print-out of app chrome.
  */

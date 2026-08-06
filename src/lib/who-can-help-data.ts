@@ -24,7 +24,7 @@ export interface Service {
   hours: string;
   description: string;
   tags: string[];
-  /** True for entries without a confirmed direct phone/URL — shown with a
+  /** True for entries without a confirmed direct phone/URL - shown with a
    * note to verify locally rather than a number, so nothing unverified is
    * presented as if it were as solid as the crisis lines above it. */
   needsVerification?: boolean;
@@ -53,7 +53,7 @@ export const SERVICES: Service[] = [
     phone: "13 11 26",
     hours: "24/7",
     description:
-      "For poisoning or suspected poisoning — including medication taken by mistake, too much medication, or swallowing something harmful.",
+      "For poisoning or suspected poisoning - including medication taken by mistake, too much medication, or swallowing something harmful.",
     tags: ["crisis", "medical"],
   },
   {
@@ -156,7 +156,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: "disability-advocacy",
-    name: "Disability Gateway — Advocacy Finder",
+    name: "Disability Gateway - Advocacy Finder",
     phone: "1800 643 787",
     hours: "Mon–Fri, 8am–8pm",
     description:

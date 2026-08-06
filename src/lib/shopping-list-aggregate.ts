@@ -1,5 +1,5 @@
 // Combines matching ingredient lines from multiple recipes into single
-// shopping-list entries with summed quantities — e.g. three meals that
+// shopping-list entries with summed quantities - e.g. three meals that
 // each call for "500g beef mince" become one line reading "1.5kg beef
 // mince" instead of three separate "500g beef mince" lines.
 //
@@ -53,7 +53,7 @@ const UNIT_ALIASES: Record<string, UnitInfo> = {
   cups: { canonical: "cup", toBase: 250, dimension: "volume" },
 };
 
-// Countable "each"-style units — these don't convert to one another, but
+// Countable "each"-style units - these don't convert to one another, but
 // matching units of the same item still sum (e.g. "2 cloves garlic" + "1
 // clove garlic" -> "3 cloves garlic").
 const COUNT_UNITS = new Set([
@@ -75,7 +75,7 @@ interface ParsedIngredient {
   /** The descriptive part after the quantity/unit, singularised, used as
    * the grouping key (e.g. "beef mince", "onion", "garlic"). */
   singularName: string;
-  /** Same, but not forced singular — used to rebuild a natural-sounding
+  /** Same, but not forced singular - used to rebuild a natural-sounding
    * line when the combined quantity doesn't need pluralising. */
   name: string;
 }
@@ -169,7 +169,7 @@ function parseIngredientLine(raw: string): ParsedIngredient | null {
  * Formats a combined weight/volume total for display. Weight (and any
  * volume total that involved a metric ml/L measurement somewhere) uses
  * metric auto-scaling (g <-> kg, ml <-> L). A volume total built purely
- * from spoon/cup measures stays in that unit — converting "3 cups flour"
+ * from spoon/cup measures stays in that unit - converting "3 cups flour"
  * down to "750ml flour" is technically correct but not how anyone shops.
  */
 function formatWeightOrVolume(
@@ -212,7 +212,7 @@ export function aggregateIngredients(ingredientLines: string[]): ShoppingLine[] 
     name: string;
     totalBase: number;
     /** Non-metric unit (cup/tsp/tbsp) to fall back to for display, unless
-     * a metric unit (g/kg/ml/L) ever contributes — see formatWeightOrVolume. */
+     * a metric unit (g/kg/ml/L) ever contributes - see formatWeightOrVolume. */
     fallbackUnit: string | null;
     sawMetric: boolean;
   }

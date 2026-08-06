@@ -17,7 +17,7 @@ export default function ProviderDirectoryPage({ categoryInfo }: ProviderDirector
       <p className="no-print rounded-xl border-2 border-border bg-surface px-4 py-3 text-sm text-muted">
         Listings are submitted directly by providers and are not verified,
         vetted or endorsed by this Toolkit. Always confirm registration,
-        qualifications and NDIS registration status yourself — for example
+        qualifications and NDIS registration status yourself - for example
         via the{" "}
         <a
           href="https://www.ndiscommission.gov.au"

@@ -9,9 +9,9 @@ import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 
 export const metadata: Metadata = {
-  title: "Easy Read Converter — Toolkit",
+  title: "Easy Read Converter - Toolkit",
   description:
-    "Paste in text and get a simplified, Easy Read version — short sentences, plain words, and a picture for key ideas. Works fully offline.",
+    "Paste in text and get a simplified, Easy Read version - short sentences, plain words, and a picture for key ideas. Works fully offline.",
 };
 
 export default function EasyReadConverterPage() {
@@ -32,14 +32,14 @@ export default function EasyReadConverterPage() {
       <FavouriteToggleButton slug="easy-read-converter" />
       <p className="no-print mb-6 max-w-2xl text-muted">
         Paste in a letter, form or any other text, and get a simplified
-        version — short sentences, plain everyday words, and a picture next
+        version - short sentences, plain everyday words, and a picture next
         to key ideas. Runs entirely on your device.
       </p>
       <HowToUse
         steps={[
           "Paste or type the text you want simplified.",
           "Tap 'Convert to Easy Read'.",
-          "Read the short, simple version below — print it if you like.",
+          "Read the short, simple version below - print it if you like.",
           "For a more thorough rewrite, copy the ready-made AI prompt and paste it into Claude, ChatGPT or Copilot.",
         ]}
       />

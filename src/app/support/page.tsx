@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Support us — Toolkit",
+  title: "Support us - Toolkit",
   description: "Help keep these disability support tools free, ad-free, and available to everyone.",
 };
 
 // TODO(payment-setup): replace with a real donation destination once one
-// exists — e.g. a Stripe Payment Link, PayPal.me, GoFundMe or Ko-fi page —
+// exists - e.g. a Stripe Payment Link, PayPal.me, GoFundMe or Ko-fi page -
 // and swap the disabled placeholder button below for a real <a href> link.
 const DONATION_URL: string | null = null;
 
@@ -25,9 +25,9 @@ export default function SupportPage() {
           <h2>Why donations matter</h2>
           <p>
             NDIS providers, schools, families and support workers use these
-            tools every day at no cost. Keeping it that way — no
+            tools every day at no cost. Keeping it that way - no
             subscriptions, no paywalls, no accounts required unless a tool
-            genuinely needs one — relies on people who can afford to chip in
+            genuinely needs one - relies on people who can afford to chip in
             covering the cost for everyone else.
           </p>
         </section>
@@ -62,7 +62,7 @@ export default function SupportPage() {
               💛 Donate (coming soon)
             </button>
             <p className="mt-3 text-sm text-muted">
-              We haven&apos;t set up a donation link yet — check back soon.
+              We haven&apos;t set up a donation link yet - check back soon.
             </p>
           </>
         )}

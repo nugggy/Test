@@ -19,7 +19,7 @@ function isStandalone(): boolean {
 
 /**
  * A small "add to home screen" nudge shown on tool pages, so a tool opens
- * straight up like an app next time — without a store, an account, or
+ * straight up like an app next time - without a store, an account, or
  * anything to install beyond what the browser already offers.
  *
  * `beforeinstallprompt` (Chrome/Edge/Android) lets us trigger the real

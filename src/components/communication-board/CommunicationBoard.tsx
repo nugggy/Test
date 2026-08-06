@@ -67,7 +67,7 @@ export default function CommunicationBoard() {
       }
     } catch {
       // Full-screen isn't available on some browsers/devices (e.g. some
-      // iPad Safari contexts) — the tool still works at normal size.
+      // iPad Safari contexts) - the tool still works at normal size.
     }
   }
 
@@ -219,7 +219,7 @@ export default function CommunicationBoard() {
         {visibleItems.length === 0 ? (
           <p className="col-span-full py-10 text-center text-muted">
             {activeTab === "favourites"
-              ? "No favourites yet — tap the star on any picture to add it here."
+              ? "No favourites yet - tap the star on any picture to add it here."
               : "No pictures in this category yet."}
           </p>
         ) : (

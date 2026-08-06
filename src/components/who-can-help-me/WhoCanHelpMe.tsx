@@ -23,7 +23,7 @@ export default function WhoCanHelpMe() {
         <h2 className="font-display mb-3 text-lg font-bold">What&apos;s going on?</h2>
         <p className="mb-3 text-sm text-muted">
           Tap what best describes how you&apos;re feeling right now, to
-          narrow the list — or leave it on &quot;All&quot; to see everyone.
+          narrow the list - or leave it on &quot;All&quot; to see everyone.
         </p>
         <div role="group" aria-label="Filter by feeling" className="flex flex-wrap gap-2">
           <button

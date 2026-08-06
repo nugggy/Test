@@ -21,7 +21,7 @@ export default function NewParticipantPage() {
       <p className="text-muted mb-6">
         This creates a profile so you can use tools like behaviour tracking
         or social stories for them over time. They don&apos;t need their own
-        login — {orgId ? "your organisation" : "you"} will manage their
+        login - {orgId ? "your organisation" : "you"} will manage their
         information.
       </p>
 

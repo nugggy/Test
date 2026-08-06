@@ -1,7 +1,7 @@
 const STORAGE_KEY = "dt:device-id:v1";
 
 /**
- * A random id stored only in this browser's localStorage — not linked to
+ * A random id stored only in this browser's localStorage - not linked to
  * any account or personal information. Its only purpose is to stop a single
  * browser inflating a tool's public favourite count by favouriting it
  * repeatedly; see supabase/migrations/0003_tool_favourites.sql.

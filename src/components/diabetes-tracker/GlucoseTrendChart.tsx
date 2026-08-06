@@ -12,10 +12,10 @@ const LABEL_SPACE = 36;
 const BAR_WIDTH = 28;
 const BAR_GAP = 16;
 const MAX_ENTRIES = 14;
-const MAX_SCALE = 20; // mmol/L — generous headroom above the general high band
+const MAX_SCALE = 20; // mmol/L - generous headroom above the general high band
 
 function barColour(bgl: number) {
-  if (bgl < BGL_LOW_MMOL) return "var(--sev-5)"; // low — treat as urgent to notice
+  if (bgl < BGL_LOW_MMOL) return "var(--sev-5)"; // low - treat as urgent to notice
   if (bgl > BGL_HIGH_MMOL) return "var(--sev-4)"; // high
   return "var(--sev-1)"; // within the general reference band
 }
@@ -38,9 +38,9 @@ export default function GlucoseTrendChart({ entries }: GlucoseTrendChartProps) {
     <div>
       <p className="mb-2 text-xs text-muted">
         Colours are a general guide only ({"<"}{BGL_LOW_MMOL} mmol/L or {">"}{BGL_HIGH_MMOL} mmol/L
-        highlighted) — everyone&apos;s own target range is set by their diabetes care team.
+        highlighted) - everyone&apos;s own target range is set by their diabetes care team.
       </p>
-      {/* This chart is a visual summary — every entry is also listed in
+      {/* This chart is a visual summary - every entry is also listed in
           full, in text, in the Log below, which is the accessible source
           of truth for screen reader users. */}
       <div className="overflow-x-auto">

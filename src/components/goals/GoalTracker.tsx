@@ -68,7 +68,7 @@ export default function GoalTracker() {
 
       {goals.length === 0 ? (
         <p className="rounded-xl border-2 border-dashed border-border p-8 text-center text-muted">
-          No goals yet — add your first one above.
+          No goals yet - add your first one above.
         </p>
       ) : (
         <div className="flex flex-col gap-3">

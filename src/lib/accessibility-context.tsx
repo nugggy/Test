@@ -65,7 +65,7 @@ function readStoredSettings(): AccessibilitySettings {
     const parsed = JSON.parse(raw);
     return { ...DEFAULTS, ...parsed };
   } catch {
-    // Corrupt or inaccessible storage — fall back to defaults rather than throwing.
+    // Corrupt or inaccessible storage - fall back to defaults rather than throwing.
     return DEFAULTS;
   }
 }

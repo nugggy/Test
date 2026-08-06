@@ -23,7 +23,7 @@ export default function ProviderSubmissionForm({ categoryInfo }: ProviderSubmiss
   if (state.success) {
     return (
       <div role="status" className="rounded-2xl border-2 border-brand bg-brand/10 p-4">
-        <p className="font-semibold">Thanks — your listing has been submitted!</p>
+        <p className="font-semibold">Thanks - your listing has been submitted!</p>
         <p className="mt-1 text-sm text-muted">
           It will appear in search results once it&apos;s been reviewed and
           approved. This is done by hand, so it may take a little while.

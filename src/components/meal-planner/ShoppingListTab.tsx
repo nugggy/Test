@@ -71,7 +71,7 @@ export default function ShoppingListTab() {
 
       {!hasAnything ? (
         <p className="rounded-xl border-2 border-dashed border-border p-8 text-center text-muted">
-          No items yet — plan some meals for the week, or add your own item
+          No items yet - plan some meals for the week, or add your own item
           below.
         </p>
       ) : (

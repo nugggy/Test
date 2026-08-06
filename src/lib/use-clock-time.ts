@@ -29,7 +29,7 @@ function computeParts(timezone: string): ClockTimeParts {
   try {
     formatter = new Intl.DateTimeFormat("en-AU", { ...FORMAT_OPTIONS, timeZone: timezone });
   } catch {
-    // An invalid/unsupported timezone string — fall back to the browser's
+    // An invalid/unsupported timezone string - fall back to the browser's
     // own local time rather than crashing the clock.
     formatter = new Intl.DateTimeFormat("en-AU", FORMAT_OPTIONS);
   }
@@ -59,11 +59,11 @@ const NEUTRAL_PARTS: ClockTimeParts = {
 };
 
 /** Ticks once a second, returning the wall-clock time in the given IANA
- * timezone (not the browser's local time) as separate numeric parts —
+ * timezone (not the browser's local time) as separate numeric parts -
  * used for both the digital readout and the analog hand angles.
  *
  * Starts from a neutral, non-time-dependent value rather than "now" so the
- * server-rendered markup and the client's first paint always match — the
+ * server-rendered markup and the client's first paint always match - the
  * real time is only read once mounted on the client, like every other
  * localStorage-hydrated value in this app. */
 export function useClockTime(timezone: string): ClockTimeParts {

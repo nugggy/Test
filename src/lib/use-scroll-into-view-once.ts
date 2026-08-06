@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
  * Returns a ref to attach to a results section. The first time `trigger`
  * becomes true (e.g. someone makes their first selection in a tool where
  * tapping a choice reveals results further down the page), the element is
- * smoothly scrolled into view — so the result isn't missed just because it
+ * smoothly scrolled into view - so the result isn't missed just because it
  * rendered below the fold. Only fires once per mount: later changes to
  * `trigger` (picking a different option, deselecting and reselecting) don't
  * scroll again, so it doesn't fight someone who's already looking at the

@@ -3,6 +3,7 @@ import Link from "next/link";
 import ProviderDirectoryPage from "@/components/provider-directory/ProviderDirectoryPage";
 import { PROVIDER_CATEGORIES } from "@/lib/provider-directory-data";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
+import AlliedHealthCallout from "@/components/AlliedHealthCallout";
 import HowToUse from "@/components/HowToUse";
 import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
@@ -10,7 +11,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 const categoryInfo = PROVIDER_CATEGORIES["support-coordinator"];
 
 export const metadata: Metadata = {
-  title: `${categoryInfo.title} — Toolkit`,
+  title: `${categoryInfo.title} - Toolkit`,
   description: categoryInfo.description,
 };
 
@@ -32,10 +33,11 @@ export default function FindSupportCoordinatorPage() {
         steps={[
           "Search by state and suburb/region to see approved listings.",
           "Tap a phone number, email or website to get in touch directly.",
-          "Are you a Support Coordinator? Scroll down to list your own service — it'll appear here once reviewed.",
+          "Are you a Support Coordinator? Scroll down to list your own service - it'll appear here once reviewed.",
         ]}
       />
       <MedicalDisclaimerBanner />
+      <AlliedHealthCallout />
       <AddToHomeScreen />
       <ProviderDirectoryPage categoryInfo={categoryInfo} />
     </div>

@@ -8,9 +8,9 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "Weather — Toolkit",
+  title: "Weather - Toolkit",
   description:
-    "A simple, customisable weather display — search any location, see today's conditions and a short forecast, and customise the colours and text size.",
+    "A simple, customisable weather display - search any location, see today's conditions and a short forecast, and customise the colours and text size.",
 };
 
 export default function WeatherPage() {
@@ -27,7 +27,7 @@ export default function WeatherPage() {
       <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">Weather</h1>
       <FavouriteToggleButton slug="weather" />
       <p className="no-print mb-3 max-w-2xl text-muted">
-        A simple, easy-to-read weather display — search any suburb or town,
+        A simple, easy-to-read weather display - search any suburb or town,
         see today&apos;s conditions and a short forecast, and customise the
         colours and text size to suit you.
       </p>
@@ -41,7 +41,7 @@ export default function WeatherPage() {
         >
           Open-Meteo
         </a>{" "}
-        — a general forecast for everyday planning, not a substitute for
+        - a general forecast for everyday planning, not a substitute for
         official warnings. For severe weather warnings, check the{" "}
         <a
           href="http://www.bom.gov.au"

@@ -6,11 +6,11 @@ const STORAGE_KEY = "dt:seizure-log:entries:v1";
 
 export interface SeizureLogEntry {
   id: string;
-  occurredAt: string; // ISO — when the seizure started
+  occurredAt: string; // ISO - when the seizure started
   seizureType: string;
   durationSeconds: number;
   trigger: string;
-  /** Why the person logging thinks this was the trigger — only meaningful
+  /** Why the person logging thinks this was the trigger - only meaningful
    * when `trigger` is filled in. */
   triggerReason: string;
   whatHappened: string;
@@ -35,7 +35,7 @@ function writeJSON<T>(key: string, value: T) {
     window.localStorage.setItem(key, JSON.stringify(value));
   } catch {
     // If storage is full or unavailable, changes just won't persist across
-    // reloads — the tool still works for the current session.
+    // reloads - the tool still works for the current session.
   }
 }
 

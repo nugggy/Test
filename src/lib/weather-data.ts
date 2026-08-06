@@ -12,7 +12,7 @@ interface WeatherCodeInfo {
 }
 
 // World Meteorological Organization weather codes, as returned by the
-// Open-Meteo API (https://open-meteo.com/en/docs) — free, no API key
+// Open-Meteo API (https://open-meteo.com/en/docs) - free, no API key
 // required, and explicitly supports direct browser requests.
 const WEATHER_CODES: Record<number, WeatherCodeInfo> = {
   0: { label: "Clear sky", emoji: "☀️" },

@@ -38,7 +38,7 @@ export function formatTime(iso: string, timezone: string): string {
   }).format(new Date(iso));
 }
 
-/** Today's date (yyyy-mm-dd) as it currently is within `timezone` — used to default date inputs. */
+/** Today's date (yyyy-mm-dd) as it currently is within `timezone` - used to default date inputs. */
 export function getTodayDateString(timezone: string): string {
   const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone: timezone,

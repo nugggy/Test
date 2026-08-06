@@ -11,7 +11,7 @@ export default function FitnessLogList({ entries, onRemove }: FitnessLogListProp
   if (entries.length === 0) {
     return (
       <p className="rounded-xl border-2 border-dashed border-border p-6 text-center text-muted">
-        No sessions logged yet — use the form above to log the first one.
+        No sessions logged yet - use the form above to log the first one.
       </p>
     );
   }
@@ -28,7 +28,7 @@ export default function FitnessLogList({ entries, onRemove }: FitnessLogListProp
           <div>
             <span className="font-semibold">{entry.activity}</span>
             <span className="ml-2 text-sm text-muted">
-              {entry.durationMinutes} min — {entry.date}
+              {entry.durationMinutes} min - {entry.date}
             </span>
             {entry.notes && <p className="mt-1 text-sm">{entry.notes}</p>}
           </div>

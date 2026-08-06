@@ -22,6 +22,6 @@ export const INSULIN_TYPE_SUGGESTIONS = [
 
 // General reference bands only, used purely to colour the trend chart so
 // readings are easy to scan at a glance. Everyone's individual target range
-// is set by their own diabetes care team — see the disclaimer on this tool.
+// is set by their own diabetes care team - see the disclaimer on this tool.
 export const BGL_LOW_MMOL = 4;
 export const BGL_HIGH_MMOL = 8;

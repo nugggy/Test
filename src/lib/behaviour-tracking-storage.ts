@@ -10,7 +10,7 @@ export interface BehaviourLogEntry {
   behaviour: string;
   consequence: string;
   severity: number; // 1-5
-  occurredAt: string; // ISO — the moment the behaviour happened
+  occurredAt: string; // ISO - the moment the behaviour happened
 }
 
 function readJSON<T>(key: string, fallback: T): T {
@@ -29,7 +29,7 @@ function writeJSON<T>(key: string, value: T) {
     window.localStorage.setItem(key, JSON.stringify(value));
   } catch {
     // If storage is full or unavailable, changes just won't persist across
-    // reloads — the tool still works for the current session.
+    // reloads - the tool still works for the current session.
   }
 }
 

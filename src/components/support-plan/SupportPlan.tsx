@@ -25,9 +25,9 @@ const HEALTH_SUGGESTIONS = [
   "Allergic to...",
   "Takes S8 (controlled) medication...",
   "Takes medication at...",
-  "Epilepsy — call 000 if a seizure lasts over 5 minutes",
-  "Diabetic — needs regular meals",
-  "Trigger — avoid...",
+  "Epilepsy - call 000 if a seizure lasts over 5 minutes",
+  "Diabetic - needs regular meals",
+  "Trigger - avoid...",
 ];
 
 const COMMUNICATION_SUGGESTIONS = [
@@ -59,7 +59,7 @@ export default function SupportPlan() {
       </div>
 
       <EditableListSection
-        title="Alerts — read first"
+        title="Alerts - read first"
         description="Critical things a new support worker or service needs to know straight away: allergies, S8 (controlled) medications, seizure triggers, and anything else urgent."
         placeholder="e.g. Allergic to penicillin"
         items={plan.healthAndSafety}
@@ -96,7 +96,7 @@ export default function SupportPlan() {
       <EditableListSection
         title="My supports"
         description="Who supports me, and what they help with"
-        placeholder="e.g. Speech pathologist — Tuesdays, Dundaloo"
+        placeholder="e.g. Speech pathologist - Tuesdays, Dundaloo"
         items={plan.supports}
         suggestions={SUPPORT_SUGGESTIONS}
         onChange={(items) => updateField("supports", items)}
@@ -114,7 +114,7 @@ export default function SupportPlan() {
       <EditableListSection
         title="Emergency contacts"
         description="Who to call, and how to reach them"
-        placeholder="e.g. Mum — 0412 345 678"
+        placeholder="e.g. Mum - 0412 345 678"
         items={plan.emergencyContacts}
         onChange={(items) => updateField("emergencyContacts", items)}
       />

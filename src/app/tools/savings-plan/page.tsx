@@ -9,7 +9,7 @@ import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
 
 export const metadata: Metadata = {
-  title: "Savings Plan — Toolkit",
+  title: "Savings Plan - Toolkit",
   description:
     "Set one or more savings goals with a target amount, log every contribution, and watch a progress bar build up towards each goal.",
 };
@@ -31,7 +31,7 @@ export default function SavingsPlanPage() {
       </h1>
       <FavouriteToggleButton slug="savings-plan" />
       <p className="no-print mb-6 max-w-2xl text-muted">
-        Set a savings goal — a target amount, an optional date — then log
+        Set a savings goal - a target amount, an optional date - then log
         every bit you put aside and watch the progress bar build up.
       </p>
       <HowToUse
@@ -39,7 +39,7 @@ export default function SavingsPlanPage() {
           "Add a savings goal with a name and target amount.",
           "Every time you put money aside, log it as a contribution.",
           "Watch the progress bar fill up towards your target.",
-          "Add as many goals as you like — a holiday, equipment, an emergency fund.",
+          "Add as many goals as you like - a holiday, equipment, an emergency fund.",
           "Export a CSV or print your plan any time.",
         ]}
       />

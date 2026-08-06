@@ -27,7 +27,7 @@ export default function RecipeList({
 
       {recipes.length === 0 ? (
         <p className="rounded-xl border-2 border-dashed border-border p-8 text-center text-muted">
-          No recipes yet — add one to start planning meals for the week.
+          No recipes yet - add one to start planning meals for the week.
         </p>
       ) : (
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">

@@ -9,7 +9,7 @@ import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
 
 export const metadata: Metadata = {
-  title: "Holiday Planner — Toolkit",
+  title: "Holiday Planner - Toolkit",
   description:
     "Plan a trip step by step: destination and dates, accommodation and transport, a day-by-day itinerary, packing and documents checklists, budget, and emergency contacts.",
 };
@@ -41,7 +41,7 @@ export default function HolidayPlannerPage() {
           "Add accommodation, transport bookings, and a rough day-by-day plan.",
           "Tick off the packing and documents checklists as you go.",
           "Add a budget estimate and emergency contacts.",
-          "Print the whole plan to take with you — everything saves automatically as you go.",
+          "Print the whole plan to take with you - everything saves automatically as you go.",
         ]}
       />
       <MedicalDisclaimerBanner />

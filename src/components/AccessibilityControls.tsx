@@ -95,7 +95,7 @@ export default function AccessibilityControls() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls="accessibility-panel"
-        className="touch-target flex items-center gap-2 rounded-xl border-2 border-border bg-surface px-4 py-2 font-semibold hover:border-brand"
+        className="touch-target flex items-center gap-2 rounded-xl border-2 border-border bg-surface px-3 py-2 font-semibold hover:border-brand sm:px-4"
       >
         <span aria-hidden="true" className="text-xl">
           ⚙

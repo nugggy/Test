@@ -64,7 +64,7 @@ export interface ProviderSearchFilters {
 }
 
 /**
- * Only ever returns 'approved' listings — enforced by RLS regardless of
+ * Only ever returns 'approved' listings - enforced by RLS regardless of
  * what this function does, but filtered explicitly here too for clarity.
  * Returns an empty list (rather than throwing) if Supabase isn't
  * configured/reachable, so search pages can show "no results" instead of

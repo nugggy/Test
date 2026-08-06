@@ -77,7 +77,7 @@ export default function VisualLabelsMaker() {
         <div className="rounded-2xl border-2 border-border bg-surface p-4">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-display text-lg font-bold">
-              Your labels — cut out and stick up around the house
+              Your labels - cut out and stick up around the house
             </h2>
             <div className="no-print flex items-center gap-2">
               <PrintButton />

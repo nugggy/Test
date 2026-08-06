@@ -6,7 +6,7 @@ const STORAGE_KEY = "dt:sleep-tracker:entries:v1";
 
 export interface SleepEntry {
   id: string;
-  date: string; // yyyy-mm-dd — the night this entry is for
+  date: string; // yyyy-mm-dd - the night this entry is for
   bedTime: string; // HH:MM
   wakeTime: string; // HH:MM
   quality: number; // 1-5
@@ -29,7 +29,7 @@ function writeJSON<T>(key: string, value: T) {
     window.localStorage.setItem(key, JSON.stringify(value));
   } catch {
     // If storage is full or unavailable, changes just won't persist across
-    // reloads — the tool still works for the current session.
+    // reloads - the tool still works for the current session.
   }
 }
 

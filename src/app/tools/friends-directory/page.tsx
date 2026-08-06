@@ -9,7 +9,7 @@ import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 
 export const metadata: Metadata = {
-  title: "My Friends Directory — Toolkit",
+  title: "My Friends Directory - Toolkit",
   description:
     "Keep family, friends and community contacts in one place, with phone, email and notes for each. Printable.",
 };
@@ -31,7 +31,7 @@ export default function FriendsDirectoryPage() {
       </h1>
       <FavouriteToggleButton slug="friends-directory" />
       <p className="no-print mb-6 max-w-2xl text-muted">
-        Family, friends and community contacts in one place — so you always
+        Family, friends and community contacts in one place - so you always
         know how to reach the people who matter to you.
       </p>
       <HowToUse

@@ -6,9 +6,9 @@ import ChecklistSection from "@/components/ChecklistSection";
 import PrintButton from "@/components/PrintButton";
 
 const ACCOMMODATION_SUGGESTIONS = [
-  "Hotel booking — confirmation number...",
-  "Flight — booking reference...",
-  "Train/coach — booking reference...",
+  "Hotel booking - confirmation number...",
+  "Flight - booking reference...",
+  "Train/coach - booking reference...",
   "Airport transfer booked",
   "Accessible room/seating requested",
 ];
@@ -41,11 +41,11 @@ const DOCUMENTS_SUGGESTIONS = [
 ];
 
 const BUDGET_SUGGESTIONS = [
-  "Flights/travel — $",
-  "Accommodation — $",
-  "Food — $",
-  "Activities — $",
-  "Spending money — $",
+  "Flights/travel - $",
+  "Accommodation - $",
+  "Food - $",
+  "Activities - $",
+  "Spending money - $",
 ];
 
 export default function HolidayPlanner() {
@@ -103,14 +103,14 @@ export default function HolidayPlanner() {
         </div>
         <label className="mt-3 block text-sm">
           <span className="mb-1 block font-semibold text-muted">
-            Overview — what&apos;s this trip for, and anything a support person should know
+            Overview - what&apos;s this trip for, and anything a support person should know
           </span>
           <textarea
             value={plan.overview}
             onChange={(e) => updateField("overview", e.target.value)}
             rows={3}
             maxLength={1000}
-            placeholder="e.g. Family holiday. I get overwhelmed at airports — allow extra time and a quiet spot if possible."
+            placeholder="e.g. Family holiday. I get overwhelmed at airports - allow extra time and a quiet spot if possible."
             className="w-full rounded-xl border-2 border-border bg-background px-4 py-3 text-base"
           />
         </label>
@@ -119,7 +119,7 @@ export default function HolidayPlanner() {
       <EditableListSection
         title="Accommodation & transport"
         description="Bookings, confirmation numbers, and any access requirements"
-        placeholder="e.g. Hotel — confirmation ABC123"
+        placeholder="e.g. Hotel - confirmation ABC123"
         items={plan.accommodationAndTransport}
         suggestions={ACCOMMODATION_SUGGESTIONS}
         onChange={(items) => updateField("accommodationAndTransport", items)}
@@ -127,7 +127,7 @@ export default function HolidayPlanner() {
 
       <EditableListSection
         title="Itinerary"
-        description="A rough plan for each day — as much or as little detail as helps"
+        description="A rough plan for each day - as much or as little detail as helps"
         placeholder="e.g. Day 3: Beach in the morning, rest in the afternoon"
         items={plan.itinerary}
         suggestions={ITINERARY_SUGGESTIONS}
@@ -155,7 +155,7 @@ export default function HolidayPlanner() {
       <EditableListSection
         title="Budget"
         description="A rough estimate of costs, so there are no surprises"
-        placeholder="e.g. Flights — $450"
+        placeholder="e.g. Flights - $450"
         items={plan.budget}
         suggestions={BUDGET_SUGGESTIONS}
         onChange={(items) => updateField("budget", items)}
@@ -164,7 +164,7 @@ export default function HolidayPlanner() {
       <EditableListSection
         title="Emergency contacts"
         description="Who to call while away, and how to reach them"
-        placeholder="e.g. Mum — 0412 345 678"
+        placeholder="e.g. Mum - 0412 345 678"
         items={plan.emergencyContacts}
         onChange={(items) => updateField("emergencyContacts", items)}
       />

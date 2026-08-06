@@ -8,11 +8,15 @@ const STORAGE_KEY = "dt:active-support:v1";
 export interface ActiveSupportNotes {
   selfReflection: ChecklistItem[];
   ideasForThisPerson: string[];
+  /** What each of the five elements looks like for this specific person,
+   * keyed by element id (see ACTIVE_SUPPORT_ELEMENTS in active-support-data.ts). */
+  personalExamples: Record<string, string[]>;
 }
 
 const EMPTY: ActiveSupportNotes = {
   selfReflection: [],
   ideasForThisPerson: [],
+  personalExamples: {},
 };
 
 function readJSON<T>(key: string, fallback: T): T {
@@ -31,7 +35,7 @@ function writeJSON<T>(key: string, value: T) {
     window.localStorage.setItem(key, JSON.stringify(value));
   } catch {
     // If storage is full or unavailable, changes just won't persist across
-    // reloads — the tool still works for the current session.
+    // reloads - the tool still works for the current session.
   }
 }
 
@@ -56,5 +60,12 @@ export function useActiveSupportNotes() {
     []
   );
 
-  return { notes, updateField, hydrated };
+  const updatePersonalExamples = useCallback((elementId: string, items: string[]) => {
+    setNotes((prev) => ({
+      ...prev,
+      personalExamples: { ...prev.personalExamples, [elementId]: items },
+    }));
+  }, []);
+
+  return { notes, updateField, updatePersonalExamples, hydrated };
 }

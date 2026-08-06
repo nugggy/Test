@@ -9,7 +9,7 @@ import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 
 export const metadata: Metadata = {
-  title: "My Support Team Directory — Toolkit",
+  title: "My Support Team Directory - Toolkit",
   description:
     "Keep every support contact in one place: Plan Manager, Support Coordinator, therapists, medical specialists and emergency contacts. Printable.",
 };
@@ -31,8 +31,8 @@ export default function SupportTeamPage() {
       </h1>
       <FavouriteToggleButton slug="support-team" />
       <p className="no-print mb-6 max-w-2xl text-muted">
-        Every support contact in one place — Plan Manager, Support
-        Coordinator, therapists, medical specialists and emergency contacts —
+        Every support contact in one place - Plan Manager, Support
+        Coordinator, therapists, medical specialists and emergency contacts -
         so you&apos;re never searching for a number when you need it.
       </p>
       <HowToUse

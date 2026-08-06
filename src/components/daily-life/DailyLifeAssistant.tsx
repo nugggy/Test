@@ -34,7 +34,7 @@ export default function DailyLifeAssistant() {
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
         <h2 className="font-display mb-3 text-lg font-bold">Create a task</h2>
         <p className="mb-3 text-sm text-muted">
-          Any everyday task you want step-by-step instructions for — fully your own
+          Any everyday task you want step-by-step instructions for - fully your own
         </p>
         <form onSubmit={handleAdd} className="no-print flex gap-2">
           <label htmlFor="task-emoji" className="sr-only">
@@ -83,7 +83,7 @@ export default function DailyLifeAssistant() {
 
       {tasks.length === 0 ? (
         <p className="rounded-xl border-2 border-dashed border-border p-8 text-center text-muted">
-          No tasks yet — add your first one above.
+          No tasks yet - add your first one above.
         </p>
       ) : (
         <div className="flex flex-col gap-3">

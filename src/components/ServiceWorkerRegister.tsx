@@ -9,7 +9,7 @@ export default function ServiceWorkerRegister() {
     // Register after load so it never competes with first-paint resources.
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("/sw.js").catch(() => {
-        // Offline caching is a progressive enhancement — if registration
+        // Offline caching is a progressive enhancement - if registration
         // fails (e.g. unsupported browser context) the app still works online.
       });
     });

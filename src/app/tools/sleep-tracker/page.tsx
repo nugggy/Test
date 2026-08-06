@@ -9,7 +9,7 @@ import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 
 export const metadata: Metadata = {
-  title: "Sleep Tracker — Toolkit",
+  title: "Sleep Tracker - Toolkit",
   description:
     "Log bedtime, wake time and sleep quality each night, see hours slept over time on a chart, and export your log as a CSV.",
 };
@@ -31,7 +31,7 @@ export default function SleepTrackerPage() {
       </h1>
       <FavouriteToggleButton slug="sleep-tracker" />
       <p className="no-print mb-6 max-w-2xl text-muted">
-        Log your bedtime, wake time and how you slept each night — see your
+        Log your bedtime, wake time and how you slept each night - see your
         hours slept over time on a chart, and spot patterns.
       </p>
       <HowToUse

@@ -5,7 +5,7 @@ export interface WorldTimezoneOption {
 
 // A broad-ish list of major IANA zones, grouped roughly by region, for
 // tools (like the Easy-Read Clock) where someone might want to show a time
-// other than their own — e.g. family overseas. Not exhaustive (there are
+// other than their own - e.g. family overseas. Not exhaustive (there are
 // ~400 IANA zones) but covers the most commonly needed ones.
 export const WORLD_TIMEZONES: WorldTimezoneOption[] = [
   { value: "Australia/Sydney", label: "Sydney, Melbourne, Canberra, Hobart" },

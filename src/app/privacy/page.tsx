@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Privacy Policy — Toolkit",
+  title: "Privacy Policy - Toolkit",
 };
 
 export default function PrivacyPolicyPage() {
@@ -38,7 +38,7 @@ export default function PrivacyPolicyPage() {
               their staff who create an account.
             </li>
             <li>
-              Participants — the people receiving support — whose profiles
+              Participants - the people receiving support - whose profiles
               are created and managed by an individual or an organisation
               account on their behalf. A participant is not required to have
               their own login.
@@ -53,8 +53,8 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2>2. Tools that don&apos;t need an account</h2>
           <p>
-            Most tools on this site — including the Visual Communication
-            Board — work entirely on your own device. Favourites, custom
+            Most tools on this site - including the Visual Communication
+            Board - work entirely on your own device. Favourites, custom
             pictures and settings are stored locally in your browser, never
             sent to our servers, and we have no way to see or recover them.
           </p>
@@ -77,8 +77,8 @@ export default function PrivacyPolicyPage() {
             profile it was entered under.
           </p>
           <p>
-            Some of this information — health, disability, and behavioural
-            information — is &quot;sensitive information&quot; under the
+            Some of this information - health, disability, and behavioural
+            information - is &quot;sensitive information&quot; under the
             Privacy Act 1988 and is handled with extra care, as described
             below.
           </p>
@@ -107,7 +107,7 @@ export default function PrivacyPolicyPage() {
           <h2>5. Consent for participant profiles</h2>
           <p>
             Anyone creating a profile for another person confirms, at
-            sign-up, that they are authorised to do so — for example as a
+            sign-up, that they are authorised to do so - for example as a
             parent, guardian, or support coordinator, or under an
             organisation&apos;s existing service agreement or consent
             process with the participant. Organisations are responsible for
@@ -133,7 +133,7 @@ export default function PrivacyPolicyPage() {
             We keep account and participant information for as long as the
             account is active. You can request deletion of an account,
             organisation, or participant profile at any time by contacting
-            us — see below. [Add your specific retention periods here,
+            us - see below. [Add your specific retention periods here,
             especially any minimum periods required by NDIS record-keeping
             obligations, before publishing.]
           </p>
@@ -175,6 +175,10 @@ export default function PrivacyPolicyPage() {
       <p className="mt-10 text-sm text-muted">
         <Link href="/" className="font-semibold text-brand hover:underline">
           ← Back home
+        </Link>
+        {" · "}
+        <Link href="/terms" className="font-semibold text-brand hover:underline">
+          Terms of Use
         </Link>
       </p>
     </div>

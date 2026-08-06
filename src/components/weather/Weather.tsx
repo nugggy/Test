@@ -94,7 +94,7 @@ export default function Weather() {
           </p>
         ) : status === "error" ? (
           <p className="text-center" style={{ fontSize: `${1.1 * settings.fontScale}rem` }}>
-            Couldn&apos;t load the weather right now — check your internet connection and try
+            Couldn&apos;t load the weather right now - check your internet connection and try
             again.
           </p>
         ) : forecast ? (

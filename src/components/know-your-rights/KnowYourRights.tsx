@@ -40,11 +40,11 @@ export default function KnowYourRights() {
         <p>As an NDIS participant, you have the right to:</p>
         <ul className="list-disc space-y-1 pl-5">
           <li>Be treated with respect and dignity, and have your culture, identity, beliefs and relationships respected</li>
-          <li>Make your own decisions, and get the support you need to make them — including support to understand your options</li>
+          <li>Make your own decisions, and get the support you need to make them - including support to understand your options</li>
           <li>Choose and change your own providers and supports</li>
           <li>Have your privacy respected, and know how your information is used</li>
           <li>Receive safe, quality supports free from abuse, neglect, violence and exploitation</li>
-          <li>Get information in a way you can understand — Easy Read, your language, or another accessible format</li>
+          <li>Get information in a way you can understand - Easy Read, your language, or another accessible format</li>
           <li>Make a complaint about a provider or your supports, without being punished or losing services for doing so</li>
           <li>Have an advocate, family member or friend support you at any meeting</li>
         </ul>
@@ -71,19 +71,19 @@ export default function KnowYourRights() {
         <p>
           You have the right to make your own decisions. Supported
           decision-making means getting help to understand your options and
-          work out what you want — not someone else deciding for you.
+          work out what you want - not someone else deciding for you.
         </p>
         <ul className="list-disc space-y-1 pl-5">
           <li>A supporter can explain information in a way that makes sense to you</li>
           <li>They can help you think through options and what might happen</li>
           <li>The final decision is still yours</li>
-          <li>This is different to a substitute decision-maker (like a guardian), who can legally make some decisions for you — that should only ever be used when truly necessary, and for the smallest scope possible</li>
+          <li>This is different to a substitute decision-maker (like a guardian), who can legally make some decisions for you - that should only ever be used when truly necessary, and for the smallest scope possible</li>
         </ul>
       </InfoSection>
 
       <InfoSection title="How to make a complaint" icon="📢">
         <ol className="list-decimal space-y-1 pl-5">
-          <li>If it feels safe to, talk to the provider or worker directly first — sometimes it&apos;s a misunderstanding that can be sorted out quickly.</li>
+          <li>If it feels safe to, talk to the provider or worker directly first - sometimes it&apos;s a misunderstanding that can be sorted out quickly.</li>
           <li>If that doesn&apos;t work, or doesn&apos;t feel safe, put your complaint in writing (email or letter) with dates and details.</li>
           <li>If it&apos;s still not resolved, or it&apos;s serious (abuse, neglect, a safety risk), contact the NDIS Quality and Safeguards Commission.</li>
           <li>You can ask an advocate to help you make a complaint, or make it on your behalf.</li>
@@ -93,10 +93,10 @@ export default function KnowYourRights() {
 
       <InfoSection title="Where to get help" icon="🛟">
         <ul className="list-disc space-y-1 pl-5">
-          <li><strong>NDIS Quality and Safeguards Commission</strong> — 1800 035 544 — to make a complaint about an NDIS provider or worker</li>
-          <li><strong>National Disability Abuse and Neglect Hotline</strong> — 1800 880 052 — for abuse, neglect or exploitation</li>
-          <li><strong>Disability Gateway — Advocacy Finder</strong> — 1800 643 787 — a free, independent advocate to support you</li>
-          <li><strong>NDIS National Contact Centre</strong> — 1800 800 110 — general questions about your plan or funding</li>
+          <li><strong>NDIS Quality and Safeguards Commission</strong> - 1800 035 544 - to make a complaint about an NDIS provider or worker</li>
+          <li><strong>National Disability Abuse and Neglect Hotline</strong> - 1800 880 052 - for abuse, neglect or exploitation</li>
+          <li><strong>Disability Gateway - Advocacy Finder</strong> - 1800 643 787 - a free, independent advocate to support you</li>
+          <li><strong>NDIS National Contact Centre</strong> - 1800 800 110 - general questions about your plan or funding</li>
         </ul>
         <p>
           See the full list on{" "}
@@ -128,7 +128,7 @@ export default function KnowYourRights() {
       <EditableListSection
         title="My advocates and support people"
         description="Who can help you exercise your rights"
-        placeholder="e.g. My advocate — 0412 345 678"
+        placeholder="e.g. My advocate - 0412 345 678"
         items={notes.myAdvocatesAndSupportPeople}
         suggestions={PEOPLE_SUGGESTIONS}
         onChange={(items) => updateField("myAdvocatesAndSupportPeople", items)}

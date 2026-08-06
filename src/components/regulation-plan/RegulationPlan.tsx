@@ -149,7 +149,7 @@ export default function RegulationPlan() {
         <EditableListSection
           title="People I can go to"
           description="Who can support me, and how to reach them"
-          placeholder="e.g. Mum — 0412 345 678"
+          placeholder="e.g. Mum - 0412 345 678"
           items={plan.supportPeople}
           onChange={(items) => updateField("supportPeople", items)}
         />

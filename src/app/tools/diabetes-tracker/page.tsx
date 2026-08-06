@@ -9,7 +9,7 @@ import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
 
 export const metadata: Metadata = {
-  title: "Diabetes BGL & Insulin Tracker — Toolkit",
+  title: "Diabetes BGL & Insulin Tracker - Toolkit",
   description:
     "Log blood glucose readings and insulin doses, see the trend over time on a chart, and export or print a log to share with your diabetes care team.",
 };
@@ -41,15 +41,15 @@ export default function DiabetesTrackerPage() {
         management plan. Always follow the targets and insulin instructions
         from your own doctor or diabetes educator. If you or someone you
         support is showing signs of severe hypoglycaemia (very low blood
-        sugar) or hyperglycaemia (very high blood sugar) — confusion,
-        seizure, loss of consciousness, vomiting, difficulty breathing —
+        sugar) or hyperglycaemia (very high blood sugar) - confusion,
+        seizure, loss of consciousness, vomiting, difficulty breathing -
         call <strong>000</strong> immediately.
       </p>
       <HowToUse
         steps={[
           "Log each blood glucose reading, in mmol/L, as you take it.",
           "Add the insulin type and dose if one was given.",
-          "Add any notes — how you're feeling, food, activity, anything unusual.",
+          "Add any notes - how you're feeling, food, activity, anything unusual.",
           "Check the chart to spot patterns over time.",
           "Export a CSV or print the log to share with your care team.",
         ]}

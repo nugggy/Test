@@ -3,6 +3,27 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.25.0] - 2026-08-07
+### Changed
+- Replaced every em dash in the app's user-facing copy with a plain hyphen, sitewide (~400 occurrences across 165 files). Source-code comments in `globals.css` were left as-is since they're never rendered.
+
+### Added
+- **Cookie/local storage notice** (`CookieConsentBanner.tsx`): a one-time, honest notice (not a granular consent form - there are no ads or tracking cookies to opt in/out of) explaining that tool data lives in local storage on-device and that signing in sets a strictly-necessary session cookie. Links to Privacy Policy and the new Terms of Use.
+- **Terms of Use** (`/terms`): free-to-use, not professional advice, local-storage data responsibility, acceptable use, provider-listing disclaimer, no warranty, limitation of liability - flagged as a draft needing legal review, same as the existing Privacy Policy. Linked from the footer and the privacy page.
+
+### Fixed
+- **Read Page Aloud not working on mobile**: long text passed to `speechSynthesis` could be silently cut off or never start on mobile browsers (a known iOS Safari/mobile WebKit bug - the utterance can be garbage-collected mid-speech, and very long single utterances can just stop). `useSpeech` now chunks text into sentence-sized utterances queued in sequence and keeps a live reference to them, which is why the Communication Board's short tap-to-speak phrases were unaffected but whole-page reading wasn't working.
+- **Header layout on mobile**: the Read Aloud and Accessibility Settings buttons could overflow and overlap the "Toolkit" wordmark on narrow screens, especially with the "Larger touch targets" accessibility setting on. The header row now wraps onto a second line instead of overlapping, with tighter spacing/padding on small screens.
+
+## [0.24.0] - 2026-08-07
+### Added
+- **Money Counter** (`/tools/money-counter`) — a new tool for learning to recognise Australian coins and notes and practising counting. Tap coins/notes to build a pile and watch the total add up; remove items individually; pile persists locally. Coins and notes are self-drawn SVGs (`MoneyPieceIcon.tsx`) rather than sourced/downloaded currency images — reproducing real Australian currency artwork is legally restricted (Crimes (Currency) Act 1981) and downloading image files from arbitrary online sources isn't something this project does. The illustrations still match real proportions and colours (silver/gold coins, the 50c piece's 12 sides, the $2 coin being physically smaller than the $1 despite being worth more, notes getting longer for every step up in value) so recognition still works, and those details are called out in the tool's copy as a teaching point.
+- **Active Support**: each of the five elements now has an editable "What this looks like for this person" list, so a personalised note of what to notice for that specific person can be recorded (e.g. under "Every moment has potential": what a moment of disengagement looks like for them, and what meaningful engagement looks like for them).
+- **Dundaloo attribution**: the site footer (every page) and homepage hero now link to dundaloo.org.au; the 4 provider-directory tools (Find a Support Coordinator/Plan Manager/Support Provider/Allied Health Specialist) now also carry the Allied Health services callout, bringing it to all 38 tools.
+
+### Changed
+- Homepage tool directory's list view now shows 3 columns on desktop-width screens (was capped at 2), matching grid view's breakpoints — 1 column on mobile, 2 on tablet, 3 on desktop, in both view modes.
+
 ## [0.23.0] - 2026-08-07
 ### Added
 - New `useScrollIntoViewOnce` hook (`src/lib/use-scroll-into-view-once.ts`): the first time a selection reveals a results section further down the page, that section smoothly scrolls into view instead of relying on the person to notice and scroll manually. Only fires once per visit so it doesn't fight someone already looking at the results, and respects `prefers-reduced-motion`.

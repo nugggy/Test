@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "Social Story Creator — Toolkit",
+  title: "Social Story Creator - Toolkit",
   description:
     "Create a simple, illustrated story to prepare for a new place or event.",
 };
@@ -35,13 +35,13 @@ export default function SocialStoryPage() {
       </p>
       <p className="no-print mb-6 max-w-2xl rounded-xl border-2 border-accent bg-accent/10 px-4 py-3 text-sm">
         <strong>Preview mode:</strong> stories are saved on this device only
-        — no account needed yet. A future version will let you save stories
+        - no account needed yet. A future version will let you save stories
         against a participant&apos;s profile.
       </p>
       <HowToUse
         steps={[
           "Tap 'New story' and give it a title.",
-          "Tap 'Add page' — choose a picture and write (or say, using the microphone) what happens on that page.",
+          "Tap 'Add page' - choose a picture and write (or say, using the microphone) what happens on that page.",
           "Add as many pages as you need, and use the arrows to reorder them.",
           "Tap 'Read story' to go through it page by page, with read-aloud.",
           "Print the story to use offline, or share it with someone.",

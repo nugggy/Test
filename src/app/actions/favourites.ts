@@ -11,7 +11,7 @@ export interface TopFavouritedTool {
 /**
  * Records that some anonymous browser favourited a tool, for the homepage's
  * "most favourited" section. Best-effort: failures (including Supabase not
- * being configured) are swallowed by the caller — favouriting a tool always
+ * being configured) are swallowed by the caller - favouriting a tool always
  * works locally regardless of whether this succeeds.
  */
 export async function recordFavourite(toolSlug: string, deviceId: string): Promise<void> {
@@ -20,7 +20,7 @@ export async function recordFavourite(toolSlug: string, deviceId: string): Promi
 
   const supabase = await createClient();
   // Ignore unique-violation errors (already favourited from this device)
-  // and any other error — this is a best-effort public counter, not
+  // and any other error - this is a best-effort public counter, not
   // critical data, so it must never block or throw for the caller.
   await supabase
     .from("tool_favourites")

@@ -29,7 +29,7 @@ export default function StoryList({
 
       {stories.length === 0 ? (
         <p className="rounded-xl border-2 border-dashed border-border p-8 text-center text-muted">
-          No stories yet — create one to prepare for a new place, event or
+          No stories yet - create one to prepare for a new place, event or
           routine.
         </p>
       ) : (

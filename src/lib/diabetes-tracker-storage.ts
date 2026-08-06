@@ -6,7 +6,7 @@ const STORAGE_KEY = "dt:diabetes-tracker:entries:v1";
 
 export interface GlucoseEntry {
   id: string;
-  occurredAt: string; // ISO — when the reading was taken
+  occurredAt: string; // ISO - when the reading was taken
   bglMmol: number;
   context: string; // e.g. "Before breakfast"
   insulinType: string;
@@ -30,7 +30,7 @@ function writeJSON<T>(key: string, value: T) {
     window.localStorage.setItem(key, JSON.stringify(value));
   } catch {
     // If storage is full or unavailable, changes just won't persist across
-    // reloads — the tool still works for the current session.
+    // reloads - the tool still works for the current session.
   }
 }
 

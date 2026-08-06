@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "Traffic Light Check-In — Toolkit",
+  title: "Traffic Light Check-In - Toolkit",
   description:
     "A quick tap-in: green, amber or red, with a suggested strategy for each.",
 };
@@ -29,7 +29,7 @@ export default function TrafficLightCheckinPage() {
       </h1>
       <FavouriteToggleButton slug="traffic-light-checkin" />
       <p className="no-print mb-6 max-w-2xl text-muted">
-        A quick, visual way to check in on how you&apos;re feeling — tap a
+        A quick, visual way to check in on how you&apos;re feeling - tap a
         colour, get a suggestion, and see the pattern over time.
       </p>
       <HowToUse

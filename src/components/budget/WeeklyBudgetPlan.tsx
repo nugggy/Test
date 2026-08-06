@@ -18,7 +18,7 @@ export default function WeeklyBudgetPlan() {
     // Syncing local editable state from storage once hydration completes is
     // a legitimate synchronization-with-the-DOM effect, same pattern as the
     // storage hooks themselves. Only re-runs on hydration, not on every
-    // keystroke — afterwards amountInput is the source of truth for typing.
+    // keystroke - afterwards amountInput is the source of truth for typing.
     if (hydrated) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setAmountInput(plan.weeklyAmount ? String(plan.weeklyAmount) : "");

@@ -19,7 +19,7 @@ export default function SuggestionsPage() {
       <h1 className="font-display mb-2 text-3xl font-bold">Suggest a tool</h1>
       <p className="mb-6 text-muted">
         Is there a tool that would make your life, or the life of someone you
-        support, easier? Tell us about it — every suggestion is read by a
+        support, easier? Tell us about it - every suggestion is read by a
         real person, and this list directly shapes what gets built next.
       </p>
 
@@ -28,11 +28,11 @@ export default function SuggestionsPage() {
           role="status"
           className="rounded-2xl border-2 border-brand bg-brand/10 p-4"
         >
-          <p className="font-semibold">Thanks — your suggestion has been sent!</p>
+          <p className="font-semibold">Thanks - your suggestion has been sent!</p>
           <p className="mt-1 text-sm text-muted">
             If you left an email address, we&apos;ll try to let you know if
             we&apos;re able to build it. That said, replying isn&apos;t
-            automatic — it depends on someone here following up by hand.
+            automatic - it depends on someone here following up by hand.
           </p>
           <Link
             href="/suggestions"
@@ -48,7 +48,7 @@ export default function SuggestionsPage() {
               What tool would help you?
             </label>
             <p className="mb-2 text-sm text-muted">
-              Describe what it would do and who it&apos;s for — as much or as
+              Describe what it would do and who it&apos;s for - as much or as
               little detail as you like.
             </p>
             <textarea

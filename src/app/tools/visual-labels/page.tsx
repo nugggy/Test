@@ -9,9 +9,9 @@ import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 
 export const metadata: Metadata = {
-  title: "Visual Labels Maker — Toolkit",
+  title: "Visual Labels Maker - Toolkit",
   description:
-    "Create simple picture-and-word labels to print, cut out, and stick up around the house — doors, drawers, routines and reminders.",
+    "Create simple picture-and-word labels to print, cut out, and stick up around the house - doors, drawers, routines and reminders.",
 };
 
 export default function VisualLabelsPage() {
@@ -31,16 +31,16 @@ export default function VisualLabelsPage() {
       </h1>
       <FavouriteToggleButton slug="visual-labels" />
       <p className="no-print mb-6 max-w-2xl text-muted">
-        Create simple picture-and-word labels for around the house — doors,
+        Create simple picture-and-word labels for around the house - doors,
         drawers, the bathroom, reminders like &quot;turn off the lights&quot;
-        — then print and cut them out to stick up wherever they&apos;re
+        - then print and cut them out to stick up wherever they&apos;re
         needed.
       </p>
       <HowToUse
         steps={[
           "Type a word or phrase, or tap a suggestion.",
           "Pick a picture to go with it.",
-          "Tap 'Add label' — repeat for as many labels as you need.",
+          "Tap 'Add label' - repeat for as many labels as you need.",
           "Print the page, then cut out each label along its border.",
         ]}
       />

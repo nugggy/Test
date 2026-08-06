@@ -145,8 +145,8 @@ export default function SavingsGoalCard({
               className="flex items-center justify-between gap-2 rounded-lg border-2 border-border bg-background px-3 py-1.5 text-sm"
             >
               <span>
-                {formatCurrency(c.amount)} — {c.date}
-                {c.note && ` — ${c.note}`}
+                {formatCurrency(c.amount)} - {c.date}
+                {c.note && ` - ${c.note}`}
               </span>
               <button
                 type="button"

@@ -30,7 +30,7 @@ export default function SleepTrendChart({ entries }: SleepTrendChartProps) {
 
   return (
     <div>
-      {/* This chart is a visual summary — every entry is also listed in
+      {/* This chart is a visual summary - every entry is also listed in
           full, in text, in the Log below, which is the accessible source
           of truth for screen reader users. */}
       <div className="overflow-x-auto">

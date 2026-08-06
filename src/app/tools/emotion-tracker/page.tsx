@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "Emotion Tracker — Toolkit",
+  title: "Emotion Tracker - Toolkit",
   description:
     "Daily emotion check-ins to build self-awareness and spot patterns over time.",
 };

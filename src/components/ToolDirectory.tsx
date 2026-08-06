@@ -21,7 +21,7 @@ export default function ToolDirectory({ tools }: ToolDirectoryProps) {
   const { favourites, toggleFavourite } = useFavourites();
 
   useEffect(() => {
-    // Remember the user's chosen layout across visits — read after mount so
+    // Remember the user's chosen layout across visits - read after mount so
     // the server-rendered default ("list") always matches the first paint.
     const saved = window.localStorage.getItem(VIEW_STORAGE_KEY);
     if (saved === "grid" || saved === "list") {
@@ -36,7 +36,7 @@ export default function ToolDirectory({ tools }: ToolDirectoryProps) {
       window.localStorage.setItem(VIEW_STORAGE_KEY, next);
     } catch {
       // If storage is full or unavailable, the choice just won't persist
-      // across visits — the toggle still works for the current session.
+      // across visits - the toggle still works for the current session.
     }
   }
 
@@ -178,7 +178,7 @@ export default function ToolDirectory({ tools }: ToolDirectoryProps) {
           ))}
         </ul>
       ) : (
-        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((tool) => (
             <li key={tool.slug}>
               {tool.status === "live" ? (

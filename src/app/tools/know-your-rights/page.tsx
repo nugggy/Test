@@ -9,7 +9,7 @@ import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
 
 export const metadata: Metadata = {
-  title: "Know Your Rights — Toolkit",
+  title: "Know Your Rights - Toolkit",
   description:
     "Plain-language guide to your rights as an NDIS participant and your human rights, supported decision-making, how to make a complaint, and where to get help exercising your rights.",
 };
@@ -37,7 +37,7 @@ export default function KnowYourRightsPage() {
       </p>
       <HowToUse
         steps={[
-          "Read through each section — tap to expand it.",
+          "Read through each section - tap to expand it.",
           "Save any questions you want to ask at your next meeting.",
           "Note down any rights you want to look into further.",
           "Keep a list of advocates and support people who can help you.",

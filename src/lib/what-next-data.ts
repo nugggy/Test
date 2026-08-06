@@ -34,7 +34,7 @@ export const DEFAULT_STRATEGIES: Record<string, string[]> = {
     "Write it down so you remember how it felt",
   ],
   calm: [
-    "Enjoy it — notice how it feels",
+    "Enjoy it - notice how it feels",
     "This can be a good time to plan or make decisions",
     "Do something you enjoy",
   ],

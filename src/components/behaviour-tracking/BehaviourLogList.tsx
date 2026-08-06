@@ -19,7 +19,7 @@ export default function BehaviourLogList({
   if (entries.length === 0) {
     return (
       <p className="rounded-xl border-2 border-dashed border-border p-6 text-center text-muted">
-        No entries yet — use the form above to log the first one.
+        No entries yet - use the form above to log the first one.
       </p>
     );
   }

@@ -13,7 +13,7 @@ export interface Recipe {
 }
 
 // A starter cookbook of everyday meals, so the planner isn't a blank page
-// the first time someone opens it — these seed in only the very first
+// the first time someone opens it - these seed in only the very first
 // time (see readRecipes below); once saved, the person's own list (even
 // an empty one, if they delete everything) is respected from then on.
 const STARTER_RECIPES: Recipe[] = [
@@ -295,7 +295,7 @@ function readRecipes(): Recipe[] {
   if (typeof window === "undefined") return STARTER_RECIPES;
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    // No key at all means this person has never saved a recipe list yet —
+    // No key at all means this person has never saved a recipe list yet -
     // seed the starter cookbook. Once anything is saved (even an emptied
     // list, after they've deleted every starter recipe) this branch is
     // never hit again, so their own choices are always respected after that.
@@ -311,7 +311,7 @@ function writeJSON<T>(key: string, value: T) {
     window.localStorage.setItem(key, JSON.stringify(value));
   } catch {
     // If storage is full or unavailable, changes just won't persist across
-    // reloads — the tool still works for the current session.
+    // reloads - the tool still works for the current session.
   }
 }
 

@@ -22,7 +22,7 @@ export default function SeizureLogList({ entries, onRemove }: SeizureLogListProp
   if (entries.length === 0) {
     return (
       <p className="rounded-xl border-2 border-dashed border-border p-6 text-center text-muted">
-        No entries yet — use the form above to log the first one.
+        No entries yet - use the form above to log the first one.
       </p>
     );
   }
@@ -57,7 +57,7 @@ export default function SeizureLogList({ entries, onRemove }: SeizureLogListProp
           {entry.trigger && (
             <p className="text-sm text-muted">
               Possible trigger: {entry.trigger}
-              {entry.triggerReason && ` — ${entry.triggerReason}`}
+              {entry.triggerReason && ` - ${entry.triggerReason}`}
             </p>
           )}
           {entry.whatHappened && <p className="mt-1 text-sm">{entry.whatHappened}</p>}

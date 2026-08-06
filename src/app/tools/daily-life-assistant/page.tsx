@@ -9,9 +9,9 @@ import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 
 export const metadata: Metadata = {
-  title: "Daily Life Assistant — Toolkit",
+  title: "Daily Life Assistant - Toolkit",
   description:
-    "Create your own step-by-step instructions for everyday tasks — fully customisable, tick off each step, and reset for next time.",
+    "Create your own step-by-step instructions for everyday tasks - fully customisable, tick off each step, and reset for next time.",
 };
 
 export default function DailyLifeAssistantPage() {
@@ -32,12 +32,12 @@ export default function DailyLifeAssistantPage() {
       <FavouriteToggleButton slug="daily-life-assistant" />
       <p className="no-print mb-6 max-w-2xl text-muted">
         Pick a task you want to remember how to do, break it into your own
-        steps, then tick each one off as you go. Fully customisable —
+        steps, then tick each one off as you go. Fully customisable -
         there&apos;s no built-in content, it&apos;s entirely written by you.
       </p>
       <HowToUse
         steps={[
-          "Add a task, e.g. 'How to do laundry' — or tap a suggestion.",
+          "Add a task, e.g. 'How to do laundry' - or tap a suggestion.",
           "Add each step in order.",
           "Next time you do the task, tick off each step as you complete it.",
           "Tap 'Reset for next time' once you're done, ready to use again.",

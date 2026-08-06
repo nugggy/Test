@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "Weekly Schedule — Toolkit",
+  title: "Weekly Schedule - Toolkit",
   description:
     "Plan the whole week at a glance with picture activities for each day. Free and printable.",
 };

@@ -16,7 +16,7 @@ export interface TimezoneOption {
 }
 
 // Common Australian/NZ zones first (this toolkit is built for the Australian
-// NDIS context), plus UTC as a neutral fallback. Not exhaustive — a resident
+// NDIS context), plus UTC as a neutral fallback. Not exhaustive - a resident
 // of any other timezone can still type theirs into an app that lists the
 // world's ~400 IANA zones, but this covers this project's primary audience.
 export const COMMON_TIMEZONES: TimezoneOption[] = [

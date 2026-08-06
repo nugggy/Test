@@ -9,7 +9,7 @@ import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
 
 export const metadata: Metadata = {
-  title: "Exercise & Fitness Plan — Toolkit",
+  title: "Exercise & Fitness Plan - Toolkit",
   description:
     "Set fitness goals with steps to break them down, log each exercise session, and see your progress on a chart over time.",
 };
@@ -38,7 +38,7 @@ export default function FitnessPlanPage() {
         steps={[
           "Add a fitness goal and break it into steps.",
           "Tick off steps as you complete them.",
-          "Log each exercise session — activity, duration, and how it went.",
+          "Log each exercise session - activity, duration, and how it went.",
           "Watch your progress build up on the chart.",
           "Talk to your doctor or an exercise physiologist before starting a new exercise program, especially if you have an existing health condition.",
         ]}

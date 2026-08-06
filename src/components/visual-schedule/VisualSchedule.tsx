@@ -82,7 +82,7 @@ export default function VisualSchedule() {
 
         <p aria-live="polite" className="no-print mb-3 text-sm text-muted">
           {items.length === 0
-            ? "No activities yet — add some above to build today's schedule."
+            ? "No activities yet - add some above to build today's schedule."
             : `${doneCount} of ${items.length} done`}
         </p>
 

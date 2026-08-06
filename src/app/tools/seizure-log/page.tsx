@@ -9,9 +9,9 @@ import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 
 export const metadata: Metadata = {
-  title: "Seizure Observation Log — Toolkit",
+  title: "Seizure Observation Log - Toolkit",
   description:
-    "Record seizure type, duration, possible triggers, what happened, recovery and actions taken — export a CSV for clinical analysis or to share with a neurologist.",
+    "Record seizure type, duration, possible triggers, what happened, recovery and actions taken - export a CSV for clinical analysis or to share with a neurologist.",
 };
 
 export default function SeizureLogPage() {
@@ -31,8 +31,8 @@ export default function SeizureLogPage() {
       </h1>
       <FavouriteToggleButton slug="seizure-log" />
       <p className="no-print mb-6 max-w-2xl text-muted">
-        Record what happened during and after a seizure — type, duration,
-        possible triggers, and what was done — to spot patterns over time and
+        Record what happened during and after a seizure - type, duration,
+        possible triggers, and what was done - to spot patterns over time and
         share accurate detail with a neurologist or GP.
       </p>
       <HowToUse

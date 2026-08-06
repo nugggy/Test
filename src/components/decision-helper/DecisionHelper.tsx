@@ -112,8 +112,8 @@ export default function DecisionHelper() {
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
         <h2 className="font-display text-lg font-bold">My options</h2>
         <p className="mb-3 text-sm text-muted">
-          Add as many choices as you&apos;re considering — there&apos;s no
-          limit — then list what&apos;s for and against each one, and what
+          Add as many choices as you&apos;re considering - there&apos;s no
+          limit - then list what&apos;s for and against each one, and what
           would likely happen next
         </p>
 
@@ -173,7 +173,7 @@ export default function DecisionHelper() {
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
         <h2 className="font-display text-lg font-bold">My decision</h2>
         <p className="mb-3 text-sm text-muted">
-          There&apos;s no rush — come back to this any time. When you&apos;re
+          There&apos;s no rush - come back to this any time. When you&apos;re
           ready, choose which option you&apos;ve gone with and write down why
         </p>
 
@@ -246,7 +246,7 @@ export default function DecisionHelper() {
           </div>
           <p className="mb-3 text-sm text-muted">
             Past decisions you&apos;ve saved, with the options you weighed up
-            and the outcome — printed with this page, or downloadable as a
+            and the outcome - printed with this page, or downloadable as a
             CSV file
           </p>
           <div className="flex flex-col gap-3">

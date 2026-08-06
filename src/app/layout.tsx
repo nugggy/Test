@@ -14,10 +14,11 @@ import { TimezoneProvider } from "@/lib/timezone-context";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import CookieConsentBanner from "@/components/CookieConsentBanner";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Toolkit — Free disability support tools",
+  title: "Toolkit - Free disability support tools",
   description:
     "A free collection of practical tools for people with disability, families, support workers, educators, therapists and NDIS providers.",
   manifest: "/manifest.json",
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </main>
             <SiteFooter />
             <ServiceWorkerRegister />
+            <CookieConsentBanner />
           </TimezoneProvider>
         </AccessibilityProvider>
       </body>

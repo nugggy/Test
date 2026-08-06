@@ -30,7 +30,7 @@ function splitLongSentence(sentence: string): string[] {
     }
   }
 
-  // No good connector found — fall back to splitting on commas.
+  // No good connector found - fall back to splitting on commas.
   const commaParts = sentence.split(",").map((p) => p.trim()).filter(Boolean);
   if (commaParts.length > 1) {
     return commaParts.flatMap((part) => splitLongSentence(part));

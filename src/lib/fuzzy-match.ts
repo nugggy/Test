@@ -21,7 +21,7 @@ function levenshtein(a: string, b: string): number {
 /**
  * A typo-tolerant version of `haystack.includes(needle)`: every word in the
  * search query must either appear directly in the haystack, or be close
- * enough (by edit distance) to some word in it — so small misspellings like
+ * enough (by edit distance) to some word in it - so small misspellings like
  * "commnication" or "shedule" still find the right tool.
  */
 export function fuzzyIncludes(haystack: string, needle: string): boolean {

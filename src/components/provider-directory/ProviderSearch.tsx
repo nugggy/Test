@@ -85,7 +85,7 @@ export default function ProviderSearch({ categoryInfo }: ProviderSearchProps) {
         )}
         <p className="mt-3 text-xs text-muted">
           Search matches suburbs/regions written into each listing&apos;s
-          service area — it isn&apos;t a map or exact-distance search.
+          service area - it isn&apos;t a map or exact-distance search.
         </p>
       </div>
 
@@ -98,7 +98,7 @@ export default function ProviderSearch({ categoryInfo }: ProviderSearchProps) {
       ) : results.length === 0 ? (
         <p className="rounded-xl border-2 border-dashed border-border p-8 text-center text-muted">
           {hasSearched
-            ? "No approved listings match yet — be the first to list your service below."
+            ? "No approved listings match yet - be the first to list your service below."
             : "Loading…"}
         </p>
       ) : (

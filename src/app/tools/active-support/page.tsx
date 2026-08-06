@@ -9,9 +9,9 @@ import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
 
 export const metadata: Metadata = {
-  title: "Active Support for Support Workers — Toolkit",
+  title: "Active Support for Support Workers - Toolkit",
   description:
-    "A plain-language breakdown of the five core elements of Active Support — every moment has potential, little and often, graded assistance, maximising choice and control, and positive relationships — with a self-reflection checklist.",
+    "A plain-language breakdown of the five core elements of Active Support - every moment has potential, little and often, graded assistance, maximising choice and control, and positive relationships - with a self-reflection checklist.",
 };
 
 export default function ActiveSupportPage() {
@@ -37,7 +37,7 @@ export default function ActiveSupportPage() {
       </p>
       <HowToUse
         steps={[
-          "Read through each of the five elements — tap to expand it.",
+          "Read through each of the five elements - tap to expand it.",
           "Look at the 'In practice' examples for practical ways to apply each one.",
           "Use the self-reflection checklist at the end of a shift.",
           "Note down small opportunities that suit the specific person you support.",

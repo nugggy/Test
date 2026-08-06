@@ -11,7 +11,7 @@ export interface ToolEntry {
    * page has been opened at least once while online (the service worker at
    * public/sw.js then caches its assets). All current tools are
    * localStorage-only with no live network calls, so this is true across
-   * the board today — set to false only for a tool whose core function
+   * the board today - set to false only for a tool whose core function
    * requires a live network call (e.g. a future Supabase-backed sync).
    */
   worksOffline: boolean;
@@ -22,7 +22,7 @@ export const tools: ToolEntry[] = [
     slug: "who-can-help-me",
     name: "Who Can Help Me?",
     description:
-      "Find the right support service for how you're feeling right now — crisis lines, mental health support, family violence support, and NDIS complaints and advocacy.",
+      "Find the right support service for how you're feeling right now - crisis lines, mental health support, family violence support, and NDIS complaints and advocacy.",
     icon: "🛟",
     status: "live",
     category: "Emotional regulation",
@@ -146,7 +146,7 @@ export const tools: ToolEntry[] = [
     slug: "what-next",
     name: "What Should I Do Next?",
     description:
-      "Pick how you're feeling and get suggested strategies to help — plus a place to save your own strategies recommended just for you.",
+      "Pick how you're feeling and get suggested strategies to help - plus a place to save your own strategies recommended just for you.",
     icon: "🧩",
     status: "live",
     category: "Emotional regulation",
@@ -156,7 +156,7 @@ export const tools: ToolEntry[] = [
     slug: "goal-tracker",
     name: "Goal Tracker",
     description:
-      "Set goals, break them into steps, and tick them off as you go — with an optional target date and notes for each one.",
+      "Set goals, break them into steps, and tick them off as you go - with an optional target date and notes for each one.",
     icon: "🎯",
     status: "live",
     category: "Goals & planning",
@@ -166,7 +166,7 @@ export const tools: ToolEntry[] = [
     slug: "visual-labels",
     name: "Visual Labels Maker",
     description:
-      "Create simple picture-and-word labels to print, cut out, and stick up around the house — doors, drawers, routines and reminders.",
+      "Create simple picture-and-word labels to print, cut out, and stick up around the house - doors, drawers, routines and reminders.",
     icon: "🏷️",
     status: "live",
     category: "Independent living",
@@ -176,7 +176,7 @@ export const tools: ToolEntry[] = [
     slug: "friendship-goals",
     name: "Friendship Goal Planner",
     description:
-      "Set goals around meeting people, maintaining friendships, and community inclusion — with steps to break each one down.",
+      "Set goals around meeting people, maintaining friendships, and community inclusion - with steps to break each one down.",
     icon: "🧑‍🤝‍🧑",
     status: "live",
     category: "Goals & planning",
@@ -216,7 +216,7 @@ export const tools: ToolEntry[] = [
     slug: "daily-life-assistant",
     name: "Daily Life Assistant",
     description:
-      "Create your own step-by-step instructions for everyday tasks — fully customisable, tick off each step, and reset for next time.",
+      "Create your own step-by-step instructions for everyday tasks - fully customisable, tick off each step, and reset for next time.",
     icon: "🪜",
     status: "live",
     category: "Independent living",
@@ -236,7 +236,7 @@ export const tools: ToolEntry[] = [
     slug: "seizure-log",
     name: "Seizure Observation Log",
     description:
-      "Record seizure type, duration, possible triggers, what happened, recovery and actions taken — export a CSV for clinical analysis.",
+      "Record seizure type, duration, possible triggers, what happened, recovery and actions taken - export a CSV for clinical analysis.",
     icon: "🧠",
     status: "live",
     category: "Allied health",
@@ -257,7 +257,7 @@ export const tools: ToolEntry[] = [
     slug: "easy-read-converter",
     name: "Easy Read Converter",
     description:
-      "Paste in text and get a simplified, Easy Read version — short sentences, plain words, and a picture for key ideas. Works fully offline.",
+      "Paste in text and get a simplified, Easy Read version - short sentences, plain words, and a picture for key ideas. Works fully offline.",
     icon: "📝",
     status: "live",
     category: "Communication",
@@ -328,7 +328,7 @@ export const tools: ToolEntry[] = [
     slug: "healthy-relationships",
     name: "Healthy Relationships",
     description:
-      "Plain-language education on healthy relationships, consent, warning signs, communication and staying safe — plus a private, personal space to write down what matters to you.",
+      "Plain-language education on healthy relationships, consent, warning signs, communication and staying safe - plus a private, personal space to write down what matters to you.",
     icon: "💜",
     status: "live",
     category: "Wellbeing",
@@ -375,10 +375,20 @@ export const tools: ToolEntry[] = [
     worksOffline: true,
   },
   {
+    slug: "money-counter",
+    name: "Money Counter",
+    description:
+      "Learn to recognise Australian coins and notes and practise counting money - tap to build a pile and watch the total add up.",
+    icon: "💰",
+    status: "live",
+    category: "Independent living",
+    worksOffline: true,
+  },
+  {
     slug: "easy-read-clock",
     name: "Easy-Read Clock",
     description:
-      "A big, clear digital or analog clock — choose any timezone, and customise the colours, size and format to suit you.",
+      "A big, clear digital or analog clock - choose any timezone, and customise the colours, size and format to suit you.",
     icon: "🕐",
     status: "live",
     category: "Independent living",
@@ -388,7 +398,7 @@ export const tools: ToolEntry[] = [
     slug: "weather",
     name: "Weather",
     description:
-      "A simple, customisable weather display — search any location, see today's conditions and a short forecast, and customise the colours and text size.",
+      "A simple, customisable weather display - search any location, see today's conditions and a short forecast, and customise the colours and text size.",
     icon: "⛅",
     status: "live",
     category: "Independent living",

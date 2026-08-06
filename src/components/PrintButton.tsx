@@ -11,8 +11,8 @@ interface PrintButtonProps {
 /**
  * Shared print/PDF button, used on every tool page instead of a one-off
  * `<button onClick={() => window.print()}>`. Styled to stand out from
- * secondary actions (Clear, Download CSV, etc.) — filled accent colour,
- * bold text and a shadow — so it's easy to find at a glance rather than
+ * secondary actions (Clear, Download CSV, etc.) - filled accent colour,
+ * bold text and a shadow - so it's easy to find at a glance rather than
  * blending in as just another bordered button.
  */
 export default function PrintButton({

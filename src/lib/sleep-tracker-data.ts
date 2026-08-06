@@ -13,7 +13,7 @@ export const QUALITY_LEVELS: SleepQualityLevel[] = [
 ];
 
 /** Hours slept between a bedtime and wake time (both "HH:MM"), assuming an
- * overnight sleep — if wake time is earlier in the day than bedtime, it's
+ * overnight sleep - if wake time is earlier in the day than bedtime, it's
  * treated as the next day. */
 export function computeHoursSlept(bedTime: string, wakeTime: string): number {
   const [bedH, bedM] = bedTime.split(":").map(Number);

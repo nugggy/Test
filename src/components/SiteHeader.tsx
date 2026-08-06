@@ -11,20 +11,20 @@ export default async function SiteHeader() {
 
   return (
     <header className="no-print sticky top-0 z-30 border-b-2 border-border bg-surface">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-3 py-2.5 sm:px-4 sm:py-3">
         <Link
           href="/"
-          className="font-display text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2.5"
+          className="font-display flex shrink-0 items-center gap-2 text-lg font-bold text-foreground sm:gap-2.5 sm:text-xl md:text-2xl"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/dundaloo-logo.svg"
             alt="Dundaloo"
-            className="h-8 w-auto sm:h-9"
+            className="h-7 w-auto sm:h-8 md:h-9"
           />
-          <span className="border-l-2 border-border pl-2.5">Toolkit</span>
+          <span className="border-l-2 border-border pl-2 sm:pl-2.5">Toolkit</span>
         </Link>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <Link
             href={user ? "/account" : "/sign-in"}
             className="touch-target hidden items-center rounded-xl border-2 border-border bg-surface px-4 font-semibold hover:border-brand sm:flex"

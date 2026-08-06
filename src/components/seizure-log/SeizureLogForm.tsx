@@ -164,7 +164,7 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
 
       <div>
         <label className="block font-semibold mb-1" htmlFor="recovery">
-          Recovery — what happened afterwards?
+          Recovery - what happened afterwards?
         </label>
         <textarea
           id="recovery"

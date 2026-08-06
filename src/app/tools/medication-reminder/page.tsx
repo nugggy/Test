@@ -9,7 +9,7 @@ import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 
 export const metadata: Metadata = {
-  title: "Medication Reminder — Toolkit",
+  title: "Medication Reminder - Toolkit",
   description:
     "Keep a list of medications and doses, tick off today's checklist, and export a log to share with your doctor or support worker.",
 };

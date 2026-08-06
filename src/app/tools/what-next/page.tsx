@@ -8,9 +8,9 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "What Should I Do Next? — Toolkit",
+  title: "What Should I Do Next? - Toolkit",
   description:
-    "Pick how you're feeling and get suggested strategies to help — plus a place to save your own strategies that have been recommended just for you.",
+    "Pick how you're feeling and get suggested strategies to help - plus a place to save your own strategies that have been recommended just for you.",
 };
 
 export default function WhatNextPage() {
@@ -30,14 +30,14 @@ export default function WhatNextPage() {
       <FavouriteToggleButton slug="what-next" />
       <p className="no-print mb-6 max-w-2xl text-muted">
         Pick the mood that matches how you&apos;re feeling right now, and see
-        some things that might help — plus your own strategies, saved here so
+        some things that might help - plus your own strategies, saved here so
         they&apos;re ready whenever you need them.
       </p>
       <HowToUse
         steps={[
           "Tap the mood that best matches how you're feeling right now.",
           "See a list of things that can help.",
-          "Add your own strategies too — especially ones a support person has recommended just for you — so they're saved here for next time.",
+          "Add your own strategies too - especially ones a support person has recommended just for you - so they're saved here for next time.",
         ]}
       />
       <MedicalDisclaimerBanner />

@@ -2,9 +2,37 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+// Mobile browsers (particularly iOS Safari) have two well-known
+// speechSynthesis bugs that mainly bite on longer text: the utterance can
+// be silently garbage-collected mid-speech if nothing keeps a reference to
+// it, and very long single utterances can just stop partway through or
+// never start. Splitting into short, sentence-sized chunks queued as
+// separate utterances - and keeping a ref to all of them - works around
+// both. Short single-word/phrase speech (like the communication board)
+// rarely hits either bug, which is why it can work while whole-page
+// reading doesn't.
+const MAX_CHUNK_LENGTH = 200;
+
+function chunkText(text: string, maxLength = MAX_CHUNK_LENGTH): string[] {
+  const sentences = text.match(/[^.!?\n]+[.!?]*\s*/g) ?? [text];
+  const chunks: string[] = [];
+  let current = "";
+  for (const sentence of sentences) {
+    if (current && (current.length + sentence.length) > maxLength) {
+      chunks.push(current.trim());
+      current = sentence;
+    } else {
+      current += sentence;
+    }
+  }
+  if (current.trim()) chunks.push(current.trim());
+  return chunks.length > 0 ? chunks : [text];
+}
+
 export function useSpeech() {
   const [supported, setSupported] = useState(false);
   const [speaking, setSpeaking] = useState(false);
+  const utterancesRef = useRef<SpeechSynthesisUtterance[]>([]);
 
   useEffect(() => {
     // Feature detection must happen client-side; window/speechSynthesis
@@ -18,14 +46,23 @@ export function useSpeech() {
       if (!supported) return;
       try {
         window.speechSynthesis.cancel(); // don't queue/overlap taps
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.95;
-        utterance.onstart = () => setSpeaking(true);
-        utterance.onend = () => setSpeaking(false);
-        utterance.onerror = () => setSpeaking(false);
-        window.speechSynthesis.speak(utterance);
+
+        const chunks = chunkText(text);
+        const utterances = chunks.map((chunk, i) => {
+          const utterance = new SpeechSynthesisUtterance(chunk);
+          utterance.rate = 0.95;
+          if (i === 0) utterance.onstart = () => setSpeaking(true);
+          if (i === chunks.length - 1) utterance.onend = () => setSpeaking(false);
+          utterance.onerror = () => setSpeaking(false);
+          return utterance;
+        });
+        // Keep a live reference to every utterance for as long as they're
+        // queued/speaking - some mobile browsers stop speech early if the
+        // utterance object is garbage-collected first.
+        utterancesRef.current = utterances;
+        for (const utterance of utterances) window.speechSynthesis.speak(utterance);
       } catch {
-        // Speech synthesis can fail silently on some browsers/devices —
+        // Speech synthesis can fail silently on some browsers/devices -
         // the tile label is still visible, so communication isn't lost.
       }
     },
@@ -35,6 +72,7 @@ export function useSpeech() {
   const stop = useCallback(() => {
     if (!supported) return;
     window.speechSynthesis.cancel();
+    utterancesRef.current = [];
     setSpeaking(false);
   }, [supported]);
 
@@ -84,7 +122,7 @@ export function useSpeechToText() {
       recognition.start();
       setListening(true);
     } catch {
-      // start() throws if a recognition session is already active — safe
+      // start() throws if a recognition session is already active - safe
       // to ignore, the existing session keeps running.
     }
   }, []);

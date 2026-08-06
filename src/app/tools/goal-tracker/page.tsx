@@ -9,9 +9,9 @@ import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
 
 export const metadata: Metadata = {
-  title: "Goal Tracker — Toolkit",
+  title: "Goal Tracker - Toolkit",
   description:
-    "Set goals, break them into steps, and tick them off as you go — with an optional target date and notes for each one.",
+    "Set goals, break them into steps, and tick them off as you go - with an optional target date and notes for each one.",
 };
 
 export default function GoalTrackerPage() {
@@ -41,7 +41,7 @@ export default function GoalTrackerPage() {
           "Add steps to break the goal down into smaller pieces.",
           "Tick off each step as you complete it.",
           "Add an optional target date and notes.",
-          "Print your goals, or come back any time — everything saves automatically.",
+          "Print your goals, or come back any time - everything saves automatically.",
         ]}
       />
       <MedicalDisclaimerBanner />

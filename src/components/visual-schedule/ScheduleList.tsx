@@ -18,7 +18,7 @@ export default function ScheduleList({
   if (items.length === 0) {
     return (
       <p className="rounded-xl border-2 border-dashed border-border p-6 text-center text-muted">
-        No activities yet — tap a picture above to add it to today&apos;s
+        No activities yet - tap a picture above to add it to today&apos;s
         schedule.
       </p>
     );

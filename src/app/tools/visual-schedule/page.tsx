@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "Visual Schedule Builder — Toolkit",
+  title: "Visual Schedule Builder - Toolkit",
   description:
     "Build a picture timeline of the day so routines feel predictable. Free and printable.",
 };

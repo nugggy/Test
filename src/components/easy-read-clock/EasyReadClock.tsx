@@ -33,7 +33,7 @@ export default function EasyReadClock() {
       }
     } catch {
       // Full-screen isn't available on some browsers/devices (e.g. some
-      // iPad Safari contexts) — the clock still works at normal size.
+      // iPad Safari contexts) - the clock still works at normal size.
     }
   }
 

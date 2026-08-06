@@ -16,7 +16,7 @@ export default function CookbookTab() {
 
   useEffect(() => {
     // Default to "every recipe included" the first time recipes load, so
-    // there's something to preview straight away — after that, leave the
+    // there's something to preview straight away - after that, leave the
     // user's own selection alone even if the recipe list changes.
     if (!initialised && recipes.length > 0) {
       // eslint-disable-next-line react-hooks/set-state-in-effect

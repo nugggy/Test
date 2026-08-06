@@ -128,7 +128,7 @@ export default function TrafficLightCheckin() {
           What each zone looks like for you
         </h2>
         <p className="-mt-2 text-sm text-muted">
-          Everyone shows warning signs differently — write down what each
+          Everyone shows warning signs differently - write down what each
           colour actually looks like so it&apos;s easier for you and the
           people around you to notice early.
         </p>

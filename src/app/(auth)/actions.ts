@@ -42,8 +42,8 @@ export async function signUp(
   });
 
   if (error) {
-    // Log only a generic message — never the raw error object, which can
-    // include request context — and never the submitted password.
+    // Log only a generic message - never the raw error object, which can
+    // include request context - and never the submitted password.
     console.error("sign-up failed");
     return { error: error.message };
   }

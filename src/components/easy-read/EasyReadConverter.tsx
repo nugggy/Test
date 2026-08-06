@@ -32,7 +32,7 @@ export default function EasyReadConverter() {
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
     } catch {
-      // Clipboard access can fail (permissions, insecure context) — the
+      // Clipboard access can fail (permissions, insecure context) - the
       // text is still visible on screen so it can be copied by hand.
     }
   }
@@ -94,7 +94,7 @@ export default function EasyReadConverter() {
         <p className="mb-3 text-sm text-muted">
           This tool&apos;s conversion is simple word-swapping and sentence
           splitting, done entirely on your device. A general-purpose AI can
-          do a much better job of genuine plain-English rewriting — copy a
+          do a much better job of genuine plain-English rewriting - copy a
           ready-made prompt below, then paste it into whichever one you use.
         </p>
         <button

@@ -12,7 +12,7 @@ export default function SleepLogList({ entries, onRemove }: SleepLogListProps) {
   if (entries.length === 0) {
     return (
       <p className="rounded-xl border-2 border-dashed border-border p-6 text-center text-muted">
-        No entries yet — use the form above to log last night&apos;s sleep.
+        No entries yet - use the form above to log last night&apos;s sleep.
       </p>
     );
   }

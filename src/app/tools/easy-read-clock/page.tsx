@@ -8,9 +8,9 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "Easy-Read Clock — Toolkit",
+  title: "Easy-Read Clock - Toolkit",
   description:
-    "A big, clear digital or analog clock — choose any timezone, and customise the colours, size and format to suit you.",
+    "A big, clear digital or analog clock - choose any timezone, and customise the colours, size and format to suit you.",
 };
 
 export default function EasyReadClockPage() {
@@ -29,7 +29,7 @@ export default function EasyReadClockPage() {
       </h1>
       <FavouriteToggleButton slug="easy-read-clock" />
       <p className="no-print mb-6 max-w-2xl text-muted">
-        A big, clear clock — digital or analog, any timezone, and fully
+        A big, clear clock - digital or analog, any timezone, and fully
         customisable colours and size. Great for a wall display, a tablet
         propped up, or checking the time somewhere else in the world.
       </p>

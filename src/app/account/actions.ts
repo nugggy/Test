@@ -41,7 +41,7 @@ export async function createOrganisation(
 
   // create_organisation is a SECURITY DEFINER Postgres function (see
   // supabase/migrations) that atomically creates the org and adds the
-  // caller as owner — it always uses the authenticated user, never a value
+  // caller as owner - it always uses the authenticated user, never a value
   // from the request body, so this can't be used to create an org on
   // someone else's behalf.
   const { error } = await supabase.rpc("create_organisation", {
@@ -90,7 +90,7 @@ export async function createParticipant(
 
   // Row Level Security (see supabase/migrations) independently enforces
   // that this insert can only succeed if the caller owns this record
-  // individually, or is a member of the target organisation — this check
+  // individually, or is a member of the target organisation - this check
   // here is just for a clearer error message, not the actual security
   // boundary.
   const { error } = await supabase.from("participants").insert({

@@ -43,7 +43,7 @@ export default function EditableListSection({
 
   function handleSuggestionClick(suggestion: string) {
     // Suggestions ending in "..." are templates that need the person to
-    // fill in details (e.g. "Allergic to...") — prefill and focus the
+    // fill in details (e.g. "Allergic to...") - prefill and focus the
     // input instead of adding the raw template text as-is.
     if (suggestion.endsWith("...")) {
       const prefix = suggestion.slice(0, -3).trimEnd();

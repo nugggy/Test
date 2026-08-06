@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "Budget Tracker — Toolkit",
+  title: "Budget Tracker - Toolkit",
   description:
     "Log income and expenses and see where the money goes, category by category.",
 };

@@ -9,9 +9,9 @@ import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
 
 export const metadata: Metadata = {
-  title: "Healthy Relationships — Toolkit",
+  title: "Healthy Relationships - Toolkit",
   description:
-    "Plain-language education on healthy relationships, consent, warning signs, communication and staying safe — plus a private, personal space to write down what matters to you.",
+    "Plain-language education on healthy relationships, consent, warning signs, communication and staying safe - plus a private, personal space to write down what matters to you.",
 };
 
 export default function HealthyRelationshipsPage() {
@@ -34,11 +34,11 @@ export default function HealthyRelationshipsPage() {
         Everyone has the right to relationships that are safe, respectful,
         and their own choice. This tool covers what makes a relationship
         healthy, consent, warning signs, communication, and where to get
-        help — in plain language, written for adults.
+        help - in plain language, written for adults.
       </p>
       <HowToUse
         steps={[
-          "Read through each section — tap to expand it.",
+          "Read through each section - tap to expand it.",
           "There's no wrong way to use this: read it all, or just what's useful right now.",
           "Use the personal sections at the bottom to write down what matters to you, privately on this device.",
           "If anything here feels close to your own situation, the 'Where to get help' section has people you can talk to.",

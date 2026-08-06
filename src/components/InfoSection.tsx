@@ -10,7 +10,7 @@ interface InfoSectionProps {
 /**
  * An expand/collapse info card for education-style tools (built on the
  * native <details>/<summary> elements, so it's keyboard- and screen-reader-
- * accessible with no extra JS). Always prints fully expanded — see the
+ * accessible with no extra JS). Always prints fully expanded - see the
  * `details > *:not(summary)` rule in globals.css.
  */
 export default function InfoSection({ title, icon, defaultOpen, children }: InfoSectionProps) {

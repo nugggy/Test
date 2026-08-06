@@ -221,7 +221,7 @@ export default function NdisMeetingPrep() {
 
       <EditableListSection
         title="How this affects my daily life"
-        description="Concrete examples of your support needs — this is what funding decisions are based on"
+        description="Concrete examples of your support needs - this is what funding decisions are based on"
         placeholder="e.g. I need prompting to complete daily tasks"
         items={prep.dailyLifeImpact}
         suggestions={DAILY_LIFE_SUGGESTIONS}

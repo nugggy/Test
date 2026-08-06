@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
-  title: "Behaviour Tracking Tool — Toolkit",
+  title: "Behaviour Tracking Tool - Toolkit",
   description:
     "Quick ABC (antecedent-behaviour-consequence) data collection with trend charts.",
 };
@@ -34,12 +34,12 @@ export default function BehaviourTrackingPage() {
       </p>
       <p className="no-print mb-6 max-w-2xl rounded-xl border-2 border-accent bg-accent/10 px-4 py-3 text-sm">
         <strong>Preview mode:</strong> entries are saved on this device only
-        — no account needed yet. A future version will let you track data
+        - no account needed yet. A future version will let you track data
         against a participant&apos;s profile.
       </p>
       <HowToUse
         steps={[
-          "Fill in what happened before, the behaviour itself, and what happened after — tap a suggestion chip or type/say your own.",
+          "Fill in what happened before, the behaviour itself, and what happened after - tap a suggestion chip or type/say your own.",
           "Choose a severity from 1 (very mild) to 5 (very severe).",
           "Check the date and time, then tap 'Save entry'.",
           "Look at the Severity over time and Most common behaviours charts to spot patterns.",
