@@ -5,6 +5,7 @@ import { ACTIVITY_LIBRARY } from "@/lib/visual-schedule-data";
 import { useScheduleItems } from "@/lib/visual-schedule-storage";
 import AddActivityDialog from "@/components/visual-schedule/AddActivityDialog";
 import ScheduleList from "@/components/visual-schedule/ScheduleList";
+import PrintButton from "@/components/PrintButton";
 
 export default function VisualSchedule() {
   const {
@@ -75,14 +76,7 @@ export default function VisualSchedule() {
             >
               Clear all
             </button>
-            <button
-              type="button"
-              onClick={() => window.print()}
-              disabled={items.length === 0}
-              className="touch-target rounded-xl border-2 border-brand bg-brand px-3 text-sm font-semibold text-brand-ink disabled:opacity-40"
-            >
-              🖨️ Print
-            </button>
+            <PrintButton label="Print" disabled={items.length === 0} />
           </div>
         </div>
 

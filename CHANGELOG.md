@@ -3,6 +3,130 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.22.0] - 2026-08-07
+### Added
+- **Site-wide navigation**: the header is now sticky (`position: sticky`) so the way back to the homepage is always reachable without scrolling back to the top of a long tool page. The "← All tools" link on all 38 tool pages is now a larger, bordered touch-target button instead of small underlined text.
+- Homepage tool directory now defaults to **list view** instead of grid (still remembered per visitor once they pick one).
+- **Active Support**: added a "Why it matters" paragraph, a prominent free-training callout linking to La Trobe University / Greystanes Disability Services' free, self-paced Active Support course (`everymomenthaspotential.com.au` — 8 modules, video + interactive, no registration), and a new "Common pitfalls" section.
+- **NDIS Meeting Preparation**: captures significantly more detail — meeting type and format, current plan start/end dates, who's attending, a "Documents to bring" checklist, "Changes since my last plan", and "How this affects my daily life" (functional-impact examples, which is what funding decisions are actually based on).
+
+### Deployment
+- New, separate Vercel project (`dundaloo-tools`) and GitHub repo for this app, deployed at `tools.dunns.cc` for testing/feedback — deliberately decoupled from the main `dunns.cc` site/project. Runs without Supabase configured; every Supabase-backed feature already degrades gracefully when unconfigured, confirmed by a clean build.
+
+## [0.21.0] - 2026-08-06
+### Added
+Nine new tools:
+- **Holiday Planner** (`/tools/holiday-planner`) — destination and dates, accommodation/transport, a day-by-day itinerary, packing and documents checklists, budget, and emergency contacts. Printable, no account.
+- **Diabetes BGL & Insulin Tracker** (`/tools/diabetes-tracker`) — logs blood glucose readings (mmol/L) and insulin type/dose over time, with a colour-coded trend chart (general reference bands only — individual targets are always set by the person's own care team, called out explicitly in the disclaimer), CSV export and print.
+- **Healthy Relationships** (`/tools/healthy-relationships`) — plain-language, adult-oriented education covering what makes a relationship healthy, consent, warning signs, communication, staying safe, and where to get help (1800RESPECT, the National Disability Abuse and Neglect Hotline, etc.), plus a private personal reflection section.
+- **Know Your Rights** (`/tools/know-your-rights`) — NDIS participant rights, human rights (UN CRPD), supported decision-making, how to make a complaint, and advocacy contacts, plus a personal notes/questions section.
+- **Active Support for Support Workers** (`/tools/active-support`) — a plain-language breakdown of the five core elements of Active Support (Every Moment Has Potential, Little and Often, Graded Assistance, Maximising Choice and Control, Positive Relationships), each with practical examples, plus a shift-end self-reflection checklist. Framed as an introductory summary, with a pointer to La Trobe University's accredited training for the full model.
+- **Exercise & Fitness Plan** (`/tools/fitness-plan`) — fitness goals with steps (reusing the Goal Tracker's `createGoalListStorage`/`GoalCard`), plus a session log with a minutes-per-session trend chart.
+- **Savings Plan** (`/tools/savings-plan`) — one or more savings goals with a target amount, a contribution log, and a progress bar per goal. CSV export and print.
+- **Easy-Read Clock** (`/tools/easy-read-clock`) — a big digital or analog clock, any IANA timezone (`src/lib/world-timezones.ts`), fully customisable colours and text size, 12/24-hour and seconds/date toggles, and a full-screen wall-clock mode. Style choices saved per device.
+- **Weather** (`/tools/weather`) — search any location (or use device geolocation) for current conditions and a 3/5/7-day forecast, via [Open-Meteo](https://open-meteo.com) (free, no API key, no signup — chosen specifically so this stays true to the project's no-cost, no-account principle). Fully customisable colours and text size. Marked `worksOffline: false`, like the provider-directory tools.
+
+New shared building blocks used across the above: `InfoSection.tsx` (an accessible, printable expand/collapse card built on `<details>`, for the three education-style tools) and a `details > *:not(summary) { display: block !important }` print rule in `globals.css` so those sections always print fully expanded regardless of on-screen state.
+
+## [0.20.0] - 2026-08-06
+### Added
+- **Dark mode**: a new accessibility toggle (alongside high contrast, easy-read font, etc.) that switches the whole site to a dark purple/navy palette (`data-theme="dark"` in `globals.css`, `theme` setting in `accessibility-context.tsx`). Independent of high contrast — if both are on, high contrast still wins.
+- **Shared `PrintButton` component** (`src/components/PrintButton.tsx`), rolled out to all 25 tools that have a print/PDF action. Previously many print buttons used the same plain, low-contrast styling as secondary actions like "Clear" or "Download CSV" and were easy to miss; the new button uses a filled accent colour, bold text and a shadow so it stands out consistently everywhere.
+- **Support Plan**: health & safety information is now an "⚠️ Alerts — read first" section at the very top of the plan (both on screen and when printed), instead of being buried lower down — covers allergies, S8 (controlled) medications, seizure triggers, etc. Added S8 medication and trigger suggestion chips.
+- **Meal Planner**: 20 starter recipes (everyday meals like spaghetti bolognese, chicken curry, roast chicken, pancakes) are preloaded the first time someone opens the Cookbook, so it isn't a blank page — only seeded once; deleting them all stays deleted.
+- **Meal Planner shopping list**: ingredient quantities are now combined across the week's meals instead of just listing duplicates — three meals each needing 500g mince becomes one "1.5kg mince" line (`src/lib/shopping-list-aggregate.ts`), with unit conversion for weight (g/kg) and volume (ml/L/tsp/tbsp/cup) and plain addition for countable items (e.g. "3 cloves garlic" + "2 cloves garlic" → "5 cloves garlic").
+- **Who Can Help Me?**: added the Poisons Information Centre (13 11 26) and healthdirect (1800 022 222), under a new "Health or medication question" filter tag.
+- **Seizure Observation Log**: entering a possible trigger now reveals a follow-up field asking why they think that was the trigger, saved and shown alongside the trigger in the log.
+- Buttons and links now show a hand cursor on hover and a brief press-down effect when clicked, sitewide, so it's clear something is clickable and that a tap registered (respects reduced-motion).
+
+### Fixed
+- Lists could get cut mid-item across a page break when printing (most noticeably Support Plan's Emergency contacts) — every `EditableListSection` entry now has `print-avoid-break`.
+- Support Plan's "Allergic to..." and "Takes medication at..." suggestion chips previously added that literal placeholder text as a health & safety entry when tapped. Suggestions ending in "..." now prefill and focus the input instead, so the person completes the sentence rather than saving the template text as-is.
+
+## [0.19.0] - 2026-08-06
+### Added
+- **Provider directory — 4 new tools**: Find a Support Coordinator, Find a Plan Manager, Find a Support Provider, and Find an Allied Health Specialist (with a specialty-area filter/tag: OT, Speech Pathology, Physio, Psychology, Behaviour Support, etc). Search by state and a free-text suburb/region/business match (not a map or true distance search). Providers submit their own listing (name, contact, service area, and specialties for allied health) with no account needed.
+- New Supabase table `provider_listings` (`supabase/migrations/0005_provider_listings.sql`): public insert (always starts `pending`), public read of `approved` rows only. **There is no in-app moderation UI yet** — approving a submitted listing is a manual step in the Supabase dashboard (flip `status` to `approved`), the same pattern as the Suggest a Tool box. Build a real moderation UI before this gets meaningful submission volume.
+- Every provider-directory page carries an explicit disclaimer that listings are submitted directly by providers and are **not verified, vetted or endorsed** — with a link to the NDIS Quality and Safeguards Commission for checking registration independently. This felt necessary before publishing any real third-party business/contact details.
+- These four tools are marked `worksOffline: false` — unlike every other tool, search and submission need a live connection to Supabase.
+
+## [0.18.1] - 2026-08-06
+### Fixed
+- **Fact-checked every phone number and hours on Who Can Help Me?** against live official sources. Crisis lines (Lifeline, Suicide Call Back Service, Kids Helpline, 13YARN, Beyond Blue, 1800RESPECT, MensLine) and the NDIS Commission/Contact Centre numbers were all already correct. Corrected: QLife's hours (was "3pm–midnight", actually 3pm–9pm), Carer Gateway's hours (now "Mon–Fri, 8am–5pm"), the abuse/neglect hotline's hours (now "Mon–Fri, 9am–7pm"), and the "Disability advocacy support" entry — previously had no phone number, now lists the Disability Gateway's confirmed number (1800 643 787), which runs the Advocacy Finder.
+
+## [0.18.0] - 2026-08-06
+### Added
+- **Tool 25 — Easy Read Converter** (`src/app/tools/easy-read-converter/`) — the last tool from the original batch request. Paste in text and get a rule-based Easy Read version: long sentences are split at conjunctions/commas, common jargon is swapped for plain words (`src/lib/easy-read-data.ts`, `easy-read-convert.ts`), and each line gets a matching emoji where one applies. Runs entirely on-device — no server calls, no cost. An "Ask an AI to do this better" panel copies a ready-made prompt (with the pasted text) to the clipboard and links out to Claude, ChatGPT and Microsoft Copilot for a genuine rewrite, for anyone who wants a more thorough result than word-swapping can give. Printable.
+
+This closes out every item from the original tool-suggestions batch, on top of everything added along the way this session (favourites, Add to Home Screen, a visit counter, Visual Labels Maker, Seizure Observation Log, and CSV/print export across the board).
+
+## [0.17.0] - 2026-08-06
+### Added
+- **Tool 24 — Sleep Tracker** (`src/app/tools/sleep-tracker/`): log bedtime, wake time and a sleep-quality rating each night; hours slept is computed automatically (handles overnight wrap). A new `SleepTrendChart.tsx` (hand-rolled SVG bars, modelled on Behaviour Tracking's `SeverityTrendChart.tsx`) shows the last 14 nights. CSV export and print.
+- **Homepage visit counter**: "💜 Opened N times by people who needed it — and counting", incremented once per homepage request via a `SECURITY DEFINER` Postgres function (`supabase/migrations/0004_site_visit_counter.sql`) — no cookies, no client-side tracking, nothing personal collected. Hidden gracefully if Supabase isn't configured.
+
+## [0.16.0] - 2026-08-06
+### Added
+- **Tool 19 — My Support Team Directory** (`src/app/tools/support-team/`) and **Tool 20 — My Friends Directory** (`src/app/tools/friends-directory/`): both built on the Phase-0 `ContactDirectory`/`ContactEntryEditor` components — categorised contact cards (name, organisation, phone, email, notes), printable. Support Team: Plan Manager, Support Coordinator, Therapists, Medical Specialists, Emergency Contacts, Other. Friends: Family, Friends, Community/Neighbours.
+- **Tool 21 — Daily Life Assistant** (`src/app/tools/daily-life-assistant/`): create your own tasks (e.g. "How to do laundry") with a step checklist; "Reset for next time" once all steps are done. Fully user-authored, no built-in content. Printable.
+- **Tool 22 — Medication Reminder** (`src/app/tools/medication-reminder/`): medication list (name, dose, times) plus a daily tick-off checklist and a CSV/print-exportable log. Scoped honestly as a tracker, not a guaranteed alarm — it can only remind while the page is open, so time-critical medication should also use the phone's own alarm.
+- **Tool 23 — Seizure Observation Log** (`src/app/tools/seizure-log/`): seizure type, duration, possible trigger, what happened, recovery, and actions taken (first aid/rescue medication/ambulance/hospital), with CSV export for clinical analysis and print. Marked as needing an account eventually, like Behaviour Tracking.
+- A much larger shared emoji set (`src/lib/emoji-choices.ts`, ~40 → ~140 emoji across feelings/people/food/home/places/animals/activities) and a new `EmojiPicker.tsx` (big grid + a "type or paste any emoji" fallback so the full range of any device's emoji keyboard is always available, not just the curated set) — used by the communication board's add-picture dialog, Visual Labels Maker, and Daily Life Assistant's task icons.
+- `SuggestField.tsx` extracted as a shared component (text + dictation + suggestion chips), now used by both Behaviour Tracking and the new Seizure Log form instead of being duplicated.
+
+## [0.15.0] - 2026-08-06
+### Added
+- **Tool 17 — Friendship Goal Planner** (`src/app/tools/friendship-goals/`): goals grouped into Meeting people / Maintaining friendships / Community inclusion, each with suggestion chips and a step checklist. Built on the same `createGoalListStorage` factory and `GoalCard` as Goal Tracker. Printable.
+- **Tool 18 — NDIS Meeting Preparation** (`src/app/tools/ndis-meeting-prep/`): meeting date and plan manager/support coordinator names, then What's working well, What isn't working, My support needs, My future goals, and Questions for my planner — same one-page printable plan shape as Support Plan. Printable.
+
+## [0.14.0] - 2026-08-06
+### Added
+- **Tool 16 — Visual Labels Maker** (`src/app/tools/visual-labels/`): create simple picture-and-word labels — pick a word/phrase (with household suggestions like "Bathroom", "Turn off the lights") and a picture, then print a page of cut-out cards to stick up around the house. Printable.
+
+## [0.13.0] - 2026-08-06
+### Added
+- **Favourite tools**: a heart toggle on every tool card (homepage grid/list) and on each tool's own page. Favourites are saved per-device (`localStorage`) and also best-effort recorded to a new Supabase table (`supabase/migrations/0003_tool_favourites.sql`, insert-only RLS — there's no way to verify anonymous ownership well enough to allow retracting a vote server-side, so unfavouriting only updates your own local list). The homepage shows a "❤️ Most favourited by our community" section, sourced from a public aggregate view (`tool_favourite_counts`) — hidden gracefully if Supabase isn't configured.
+- **Add to Home Screen**: a dismissible prompt on every tool page (`AddToHomeScreen.tsx`) — a real install button via `beforeinstallprompt` on Chrome/Edge/Android, or Share → Add to Home Screen instructions on iOS Safari (which creates an icon that opens that specific tool directly). Hidden once already installed, and on browsers that support neither, rather than guessing at unverified instructions.
+
+### Changed
+- Homepage tool cards are now a uniform height (`line-clamp` + reserved space on titles/descriptions/account-status line) so mixed-length content no longer makes the grid look uneven, even with a favourite button now sitting inside each card.
+
+## [0.12.0] - 2026-08-06
+### Added
+- **Tool 15 — Goal Tracker** (`src/app/tools/goal-tracker/`): freeform goals with an optional target date, notes, and a step checklist (new `ChecklistSection`-backed `GoalCard.tsx`). Printable and CSV-exportable.
+- **CSV export, as a standing rule across every tool with a log/history**: Behaviour Tracking's ABC log, Emotion Tracker, Traffic Light Check-in, Budget Tracker's transactions, Decision Helper's decision log, Goal Tracker, and What Should I Do Next's saved strategies all gained a "Download CSV" button next to their existing data, using the shared `downloadCsv()` utility. Print buttons were also added wherever a tool had data worth taking away but no export at all yet (Who Can Help Me, What Should I Do Next, Communication Board, and the four tools above).
+- Homepage search is now typo-tolerant (`src/lib/fuzzy-match.ts`, plain edit-distance matching, no new dependency) — small misspellings like "commnication" or "shedule" still find the right tool.
+- Homepage now remembers your grid/list view choice across visits (`localStorage`).
+- A short note on the homepage explaining why this stays free: it could be monetised, but everyone deserves the right to access support regardless of cost.
+
+### Changed
+- **Who Can Help Me?** now always appears first in the tool directory (it's the most safety-relevant tool), and its icon changed from 🤝 to 🛟.
+
+## [0.11.0] - 2026-08-06
+### Added
+- **Tool 13 — Who Can Help Me?** (`src/app/tools/who-can-help-me/`): a directory of Australian support services — crisis lines, mental health support, family violence support, disability abuse/neglect reporting, and NDIS complaints and advocacy — filterable by how you're feeling or what's going on. Tap-to-call phone links. **Phone numbers and service names should get a manual fact-check pass before this goes live** — they're sourced from well-known, long-stable national services, but haven't been verified against a live source in this session.
+- **Tool 14 — What Should I Do Next?** (`src/app/tools/what-next/`): pick a mood (reusing the same 8 moods as Emotion Tracker) to see default coping strategies for that mood, plus your own saved custom strategies per mood (e.g. ones a therapist or support worker has recommended specifically for you).
+
+### Changed
+- **Emotional Regulation Plan** restructured into a step-by-step wizard (Warning signs → What helps → Grounding techniques → What makes it worse → Support people → Urgent help → Review & print), with a new "Grounding techniques" section (5-4-3-2-1 senses, box breathing, etc.) — this is the calm-down/grounding/crisis plan tool from the latest batch of requests, built by enhancing this existing tool rather than duplicating it.
+
+## [0.10.0] - 2026-08-06
+### Added
+- **Foundations for a larger batch of new tools**: `downloadCsv()` (`src/lib/csv-export.ts`, with CSV-formula-injection guarding), a `PrintHeader.tsx` letterhead component and an upgraded `@media print` stylesheet (`@page` margins, forced colour printing, a `.print-avoid-break` utility) for better print-to-PDF output, `ChecklistSection.tsx` (like `EditableListSection` but with toggleable done checkboxes), a shared `Tabs.tsx` component (`MealPlanner.tsx` migrated to it), and a shared contact-directory hook/editor (`contact-directory-storage.ts`, `ContactEntryEditor.tsx`, `ContactDirectory.tsx`) for the upcoming Support Team and Friends & Family directories.
+- **Decision Helper**: each option now has a "What would likely happen next" (natural consequences) list alongside for/against; "What I've decided" is now a tap-to-pick list of your actual options (still supports typing something else); decisions can be saved to a persistent **decision log** (question, options considered, pros/cons/consequences, chosen option, reasoning, date), exportable as CSV or via print/PDF.
+- **Meal Planner → My Cookbook tab**: compile selected recipes into a customisable, shareable cookbook — set a title/subtitle, choose which recipes to include, pick "one recipe per page" or "compact" layout, then print/download as PDF. Replaces a separate "Cook Book" tool, since it's the same recipe data as the existing Recipes tab.
+- **Suggest a tool** (`/suggestions`): a public form (no account needed) to request a new tool, with an optional email for follow-up if it ships. Stored in a new `tool_suggestions` Supabase table (`supabase/migrations/0002_tool_suggestions.sql`) — anonymous insert only, no read access via the API, so submissions are only visible via the Supabase dashboard. There's no automated "it shipped!" email yet — following up is a manual step. Linked from the site footer.
+- **"Works offline" badges** on every tool card (home page grid and list views): all current tools are `localStorage`-only with no live network calls, so once a tool's page has been opened while online it keeps working offline (the existing service worker caches it) — `ToolEntry.worksOffline` makes this explicit per tool instead of leaving it unstated.
+
+### Changed
+- Homepage list view is now 2 columns on tablet/desktop widths instead of a single stacked column.
+- Every page's content column widened by one step (e.g. `max-w-3xl` → `max-w-4xl`, `max-w-6xl` → `max-w-7xl`, header/footer included) so there's noticeably less empty space on either side on laptop/tablet screens, while still capping line length for readability on very large monitors. Narrow single-purpose forms (sign in/up, new participant) were left as-is.
+- Fixed the Accessibility settings panel's "Text size" buttons overflowing their container when "Larger touch targets" is also turned on (3 buttons × a larger forced touch-target width no longer fit); the row now wraps instead of clipping.
+
+## [0.9.0] - 2026-08-06
+### Added
+- **Tool 12 — Decision Helper** (`src/app/tools/decision-helper/`): a supported-decision-making tool — write the decision as a question, add options, list what's for and against each one (new `OptionCard.tsx`, built on the shared `EditableListSection`), note people to talk to and questions to get answered first, then record the final choice and reasoning once ready. Printable. Account-free, `localStorage` only.
+
 ## [0.8.1] - 2026-08-05
 ### Added
 - **"How to use this tool"** instructions on every tool page: a collapsible, numbered step-by-step block (new `HowToUse.tsx`, defaults open), tailored to each tool's actual workflow. Placed right after the intro text, before the disclaimer/Allied Health banners.

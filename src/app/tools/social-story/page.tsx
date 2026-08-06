@@ -3,6 +3,8 @@ import Link from "next/link";
 import SocialStoryApp from "@/components/social-story/SocialStoryApp";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import FavouriteToggleButton from "@/components/FavouriteToggleButton";
+import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
@@ -13,15 +15,19 @@ export const metadata: Metadata = {
 
 export default function SocialStoryPage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <nav className="no-print mb-4 text-sm">
-        <Link href="/" className="font-semibold text-brand hover:underline">
+    <div className="mx-auto max-w-5xl px-4 py-6 sm:py-8">
+      <nav className="no-print mb-4">
+        <Link
+          href="/"
+          className="touch-target inline-flex items-center gap-1.5 rounded-xl border-2 border-border bg-surface px-4 text-base font-semibold text-brand hover:border-brand"
+        >
           ← All tools
         </Link>
       </nav>
       <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
         Social Story Creator
       </h1>
+      <FavouriteToggleButton slug="social-story" />
       <p className="no-print mb-3 max-w-2xl text-muted">
         Build a simple, illustrated story to prepare for a new place, event
         or routine. Add a picture and a sentence for each page, then read it
@@ -43,6 +49,7 @@ export default function SocialStoryPage() {
       />
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
+      <AddToHomeScreen />
       <SocialStoryApp />
     </div>
   );

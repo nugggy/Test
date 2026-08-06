@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { useSpeechToText } from "@/lib/use-speech";
 
 interface EditableListSectionProps {
@@ -10,6 +10,10 @@ interface EditableListSectionProps {
   items: string[];
   suggestions?: string[];
   onChange: (items: string[]) => void;
+  /** "alert" renders as a highlighted banner, for critical info that needs
+   * to stand out (e.g. allergies, S8 medications) rather than blend in
+   * with regular sections. */
+  variant?: "default" | "alert";
 }
 
 export default function EditableListSection({
@@ -19,10 +23,12 @@ export default function EditableListSection({
   items,
   suggestions,
   onChange,
+  variant = "default",
 }: EditableListSectionProps) {
   const [draft, setDraft] = useState("");
   const { supported: sttSupported, listening, start, stop } = useSpeechToText();
   const inputId = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function handleAdd(value?: string) {
     const text = (value ?? draft).trim();
@@ -33,6 +39,19 @@ export default function EditableListSection({
 
   function handleRemove(index: number) {
     onChange(items.filter((_, i) => i !== index));
+  }
+
+  function handleSuggestionClick(suggestion: string) {
+    // Suggestions ending in "..." are templates that need the person to
+    // fill in details (e.g. "Allergic to...") — prefill and focus the
+    // input instead of adding the raw template text as-is.
+    if (suggestion.endsWith("...")) {
+      const prefix = suggestion.slice(0, -3).trimEnd();
+      setDraft(`${prefix} `);
+      inputRef.current?.focus();
+      return;
+    }
+    handleAdd(suggestion);
   }
 
   function handleMicClick() {
@@ -48,9 +67,20 @@ export default function EditableListSection({
     handleAdd();
   }
 
+  const isAlert = variant === "alert";
+
   return (
-    <div className="rounded-2xl border-2 border-border bg-surface p-4">
-      <h2 className="font-display text-lg font-bold">{title}</h2>
+    <div
+      className={`print-avoid-break rounded-2xl border-2 p-4 ${
+        isAlert
+          ? "border-accent bg-accent/10"
+          : "border-border bg-surface"
+      }`}
+    >
+      <h2 className="font-display flex items-center gap-2 text-lg font-bold">
+        {isAlert && <span aria-hidden="true">⚠️</span>}
+        {title}
+      </h2>
       {description && <p className="mb-3 text-sm text-muted">{description}</p>}
 
       {items.length > 0 && (
@@ -58,7 +88,11 @@ export default function EditableListSection({
           {items.map((item, i) => (
             <li
               key={i}
-              className="flex items-center gap-2 rounded-xl border-2 border-border bg-background p-3"
+              className={`print-avoid-break flex items-center gap-2 rounded-xl border-2 p-3 ${
+                isAlert
+                  ? "border-accent/40 bg-background font-semibold"
+                  : "border-border bg-background"
+              }`}
             >
               <span className="flex-1 text-sm">{item}</span>
               <button
@@ -79,6 +113,7 @@ export default function EditableListSection({
           {title}
         </label>
         <input
+          ref={inputRef}
           id={inputId}
           type="text"
           value={draft}
@@ -116,7 +151,7 @@ export default function EditableListSection({
             <button
               key={s}
               type="button"
-              onClick={() => handleAdd(s)}
+              onClick={() => handleSuggestionClick(s)}
               className="rounded-full border-2 border-border bg-background px-3 py-1 text-xs font-semibold hover:border-brand"
             >
               {s}

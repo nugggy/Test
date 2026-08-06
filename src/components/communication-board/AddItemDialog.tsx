@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { CATEGORIES, type CategoryId } from "@/lib/communication-board-data";
 import { EMOJI_CHOICES } from "@/lib/emoji-choices";
 import { useSpeechToText } from "@/lib/use-speech";
+import EmojiPicker from "@/components/EmojiPicker";
 
 interface AddItemDialogProps {
   open: boolean;
@@ -123,24 +124,8 @@ export default function AddItemDialog({
             {listening ? "Listening… say the word or phrase." : ""}
           </p>
 
-          <span className="block font-semibold mb-1">Picture</span>
-          <div className="mb-4 grid grid-cols-8 gap-1.5">
-            {EMOJI_CHOICES.map((choice) => (
-              <button
-                key={choice}
-                type="button"
-                onClick={() => setEmoji(choice)}
-                aria-pressed={emoji === choice}
-                aria-label={`Use picture ${choice}`}
-                className={`grid aspect-square place-items-center rounded-lg border-2 text-xl ${
-                  emoji === choice
-                    ? "border-brand bg-brand/10"
-                    : "border-border bg-background"
-                }`}
-              >
-                {choice}
-              </button>
-            ))}
+          <div className="mb-4">
+            <EmojiPicker value={emoji} onChange={setEmoji} />
           </div>
 
           <label htmlFor="item-category" className="block font-semibold mb-1">

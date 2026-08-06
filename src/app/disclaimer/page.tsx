@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function DisclaimerPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10 sm:py-14">
+    <div className="mx-auto max-w-4xl px-4 py-10 sm:py-14">
       <h1 className="font-display text-3xl font-bold mb-2">Disclaimer</h1>
       <p className="text-muted mb-8">Last updated: [add date before publishing]</p>
 

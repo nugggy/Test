@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { SocialStory } from "@/lib/social-story-storage";
 import { useSpeech } from "@/lib/use-speech";
+import PrintButton from "@/components/PrintButton";
 
 interface StoryPresenterProps {
   story: SocialStory;
@@ -47,13 +48,7 @@ export default function StoryPresenter({ story, onExit }: StoryPresenterProps) {
         <p aria-live="polite" className="font-semibold text-muted">
           Page {pageIndex + 1} of {story.pages.length}
         </p>
-        <button
-          type="button"
-          onClick={() => window.print()}
-          className="touch-target rounded-xl border-2 border-border bg-surface px-4 font-semibold"
-        >
-          🖨️ Print
-        </button>
+        <PrintButton label="Print" />
       </div>
 
       <h1 className="font-display text-center text-2xl font-bold">

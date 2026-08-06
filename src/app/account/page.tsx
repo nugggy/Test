@@ -45,7 +45,7 @@ export default async function AccountPage() {
   const primaryOrgId = memberships?.[0]?.organisation_id ?? "";
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:py-10">
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-3xl font-bold">

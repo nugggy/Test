@@ -5,12 +5,8 @@ import { DAYS } from "@/lib/weekly-schedule-storage";
 import { useMealPlan } from "@/lib/meal-plan-storage";
 import { useRecipes } from "@/lib/recipe-storage";
 import { useShoppingListState } from "@/lib/shopping-list-storage";
-
-interface ShoppingLine {
-  key: string;
-  text: string;
-  count: number;
-}
+import { aggregateIngredients } from "@/lib/shopping-list-aggregate";
+import PrintButton from "@/components/PrintButton";
 
 export default function ShoppingListTab() {
   const { recipes } = useRecipes();
@@ -26,26 +22,16 @@ export default function ShoppingListTab() {
   } = useShoppingListState();
   const [extraLabel, setExtraLabel] = useState("");
 
-  const lines = useMemo<ShoppingLine[]>(() => {
-    const counts = new Map<string, ShoppingLine>();
+  const lines = useMemo(() => {
+    const allIngredients: string[] = [];
     for (const day of DAYS) {
       const assignment = mealPlan[day.key];
       if (!assignment) continue;
       const recipe = recipes.find((r) => r.id === assignment.recipeId);
       if (!recipe) continue;
-      for (const ingredient of recipe.ingredients) {
-        const text = ingredient.trim();
-        if (!text) continue;
-        const key = text.toLowerCase();
-        const existing = counts.get(key);
-        if (existing) {
-          existing.count += 1;
-        } else {
-          counts.set(key, { key, text, count: 1 });
-        }
-      }
+      allIngredients.push(...recipe.ingredients);
     }
-    return [...counts.values()].sort((a, b) => a.text.localeCompare(b.text));
+    return aggregateIngredients(allIngredients);
   }, [mealPlan, recipes]);
 
   function handleAddExtra(e: React.FormEvent) {
@@ -79,13 +65,7 @@ export default function ShoppingListTab() {
           >
             Uncheck all
           </button>
-          <button
-            type="button"
-            onClick={() => window.print()}
-            className="rounded-xl border-2 border-brand bg-brand px-3 py-2 text-sm font-semibold text-brand-ink"
-          >
-            🖨️ Print
-          </button>
+          <PrintButton label="Print" />
         </div>
       </div>
 
@@ -114,7 +94,7 @@ export default function ShoppingListTab() {
                   }`}
                 >
                   {line.text}
-                  {line.count > 1 ? ` × ${line.count}` : ""}
+                  {line.repeatCount ? ` × ${line.repeatCount}` : ""}
                 </span>
               </label>
             </li>

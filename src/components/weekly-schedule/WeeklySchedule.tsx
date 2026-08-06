@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { DAYS, useWeeklySchedule, type DayKey } from "@/lib/weekly-schedule-storage";
 import ActivityPickerDialog from "@/components/weekly-schedule/ActivityPickerDialog";
+import PrintButton from "@/components/PrintButton";
 
 export default function WeeklySchedule() {
   const { week, addItem, removeItem, toggleDone, resetAllDone, clearWeek } =
@@ -34,13 +35,7 @@ export default function WeeklySchedule() {
         >
           Clear week
         </button>
-        <button
-          type="button"
-          onClick={() => window.print()}
-          className="touch-target rounded-xl border-2 border-brand bg-brand px-3 text-sm font-semibold text-brand-ink"
-        >
-          🖨️ Print
-        </button>
+        <PrintButton label="Print" />
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-7">

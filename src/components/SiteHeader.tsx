@@ -10,8 +10,8 @@ export default async function SiteHeader() {
   } = await supabase.auth.getUser();
 
   return (
-    <header className="no-print border-b-2 border-border bg-surface">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+    <header className="no-print sticky top-0 z-30 border-b-2 border-border bg-surface">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
         <Link
           href="/"
           className="font-display text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2.5"

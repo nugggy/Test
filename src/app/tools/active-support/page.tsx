@@ -1,0 +1,53 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import ActiveSupport from "@/components/active-support/ActiveSupport";
+import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
+import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import FavouriteToggleButton from "@/components/FavouriteToggleButton";
+import AddToHomeScreen from "@/components/AddToHomeScreen";
+import HowToUse from "@/components/HowToUse";
+import PrintHeader from "@/components/PrintHeader";
+
+export const metadata: Metadata = {
+  title: "Active Support for Support Workers — Toolkit",
+  description:
+    "A plain-language breakdown of the five core elements of Active Support — every moment has potential, little and often, graded assistance, maximising choice and control, and positive relationships — with a self-reflection checklist.",
+};
+
+export default function ActiveSupportPage() {
+  return (
+    <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
+      <nav className="no-print mb-4">
+        <Link
+          href="/"
+          className="touch-target inline-flex items-center gap-1.5 rounded-xl border-2 border-border bg-surface px-4 text-base font-semibold text-brand hover:border-brand"
+        >
+          ← All tools
+        </Link>
+      </nav>
+      <PrintHeader title="Active Support for Support Workers" />
+      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
+        Active Support for Support Workers
+      </h1>
+      <FavouriteToggleButton slug="active-support" />
+      <p className="no-print mb-6 max-w-2xl text-muted">
+        A quick-reference guide to Active Support: five core ideas for
+        helping the people you support be genuinely engaged in everyday
+        life, plus a self-reflection checklist for your own practice.
+      </p>
+      <HowToUse
+        steps={[
+          "Read through each of the five elements — tap to expand it.",
+          "Look at the 'In practice' examples for practical ways to apply each one.",
+          "Use the self-reflection checklist at the end of a shift.",
+          "Note down small opportunities that suit the specific person you support.",
+          "Print this page to keep as a quick-reference guide.",
+        ]}
+      />
+      <MedicalDisclaimerBanner />
+      <AlliedHealthCallout />
+      <AddToHomeScreen />
+      <ActiveSupport />
+    </div>
+  );
+}

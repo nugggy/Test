@@ -9,6 +9,7 @@ import {
 } from "react";
 
 export type TextSize = "default" | "large" | "xl";
+export type Theme = "default" | "dark";
 export type Contrast = "default" | "high";
 export type FontChoice = "default" | "dyslexia";
 export type Motion = "default" | "reduced";
@@ -18,6 +19,7 @@ export type TouchSize = "default" | "large";
 
 interface AccessibilitySettings {
   textSize: TextSize;
+  theme: Theme;
   contrast: Contrast;
   font: FontChoice;
   motion: Motion;
@@ -28,6 +30,7 @@ interface AccessibilitySettings {
 
 interface AccessibilityContextValue extends AccessibilitySettings {
   setTextSize: (v: TextSize) => void;
+  setTheme: (v: Theme) => void;
   setContrast: (v: Contrast) => void;
   setFont: (v: FontChoice) => void;
   setMotion: (v: Motion) => void;
@@ -41,6 +44,7 @@ const STORAGE_KEY = "dt:accessibility-settings:v1";
 
 const DEFAULTS: AccessibilitySettings = {
   textSize: "default",
+  theme: "default",
   contrast: "default",
   font: "default",
   motion: "default",
@@ -82,6 +86,7 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
     if (!hydrated) return;
     const root = document.documentElement;
     root.setAttribute("data-text-size", settings.textSize);
+    root.setAttribute("data-theme", settings.theme);
     root.setAttribute("data-contrast", settings.contrast);
     root.setAttribute("data-font", settings.font);
     root.setAttribute("data-motion", settings.motion);
@@ -99,6 +104,7 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
   const value: AccessibilityContextValue = {
     ...settings,
     setTextSize: (textSize) => setSettings((s) => ({ ...s, textSize })),
+    setTheme: (theme) => setSettings((s) => ({ ...s, theme })),
     setContrast: (contrast) => setSettings((s) => ({ ...s, contrast })),
     setFont: (font) => setSettings((s) => ({ ...s, font })),
     setMotion: (motion) => setSettings((s) => ({ ...s, motion })),

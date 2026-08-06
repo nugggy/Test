@@ -7,6 +7,7 @@ const STORAGE_KEY = "dt:regulation-plan:v1";
 export interface RegulationPlan {
   warningSigns: string[];
   strategies: string[];
+  groundingTechniques: string[];
   avoid: string[];
   supportPeople: string[];
   urgentHelpNotes: string;
@@ -15,6 +16,7 @@ export interface RegulationPlan {
 const EMPTY_PLAN: RegulationPlan = {
   warningSigns: [],
   strategies: [],
+  groundingTechniques: [],
   avoid: [],
   supportPeople: [],
   urgentHelpNotes: "",

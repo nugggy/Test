@@ -13,6 +13,7 @@ import {
 } from "@/lib/communication-board-storage";
 import { useSpeech } from "@/lib/use-speech";
 import BoardTile from "@/components/communication-board/BoardTile";
+import PrintButton from "@/components/PrintButton";
 import AddItemDialog from "@/components/communication-board/AddItemDialog";
 
 type TabId = CategoryId | "favourites";
@@ -162,6 +163,7 @@ export default function CommunicationBoard() {
           <span aria-hidden="true">{isFullscreen ? "🡼" : "⛶"}</span>{" "}
           {isFullscreen ? "Exit full screen" : "Full screen"}
         </button>
+        <PrintButton label="Print board" />
       </div>
 
       {/* Category tabs */}

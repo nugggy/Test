@@ -3,6 +3,8 @@ import Link from "next/link";
 import WeeklySchedule from "@/components/weekly-schedule/WeeklySchedule";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import FavouriteToggleButton from "@/components/FavouriteToggleButton";
+import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
@@ -13,15 +15,19 @@ export const metadata: Metadata = {
 
 export default function WeeklySchedulePage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
-      <nav className="no-print mb-4 text-sm">
-        <Link href="/" className="font-semibold text-brand hover:underline">
+    <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
+      <nav className="no-print mb-4">
+        <Link
+          href="/"
+          className="touch-target inline-flex items-center gap-1.5 rounded-xl border-2 border-border bg-surface px-4 text-base font-semibold text-brand hover:border-brand"
+        >
           ← All tools
         </Link>
       </nav>
       <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
         Weekly Schedule
       </h1>
+      <FavouriteToggleButton slug="weekly-schedule" />
       <p className="no-print mb-6 max-w-2xl text-muted">
         Plan the whole week at a glance. Add pictures to each day, tick them
         off as they&apos;re done, or print the week out.
@@ -36,6 +42,7 @@ export default function WeeklySchedulePage() {
       />
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
+      <AddToHomeScreen />
       <WeeklySchedule />
     </div>
   );

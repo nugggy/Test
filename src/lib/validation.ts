@@ -31,6 +31,29 @@ export const createOrganisationSchema = z.object({
     .or(z.literal("")),
 });
 
+export const toolSuggestionSchema = z.object({
+  message: z.string().trim().min(1, "Tell us a bit about what you'd like").max(2000),
+  contactEmail: z.string().trim().email("Enter a valid email address").max(254).optional().or(z.literal("")),
+});
+
+export const providerListingSchema = z.object({
+  category: z.enum(["support-coordinator", "plan-manager", "support-provider", "allied-health"]),
+  businessName: z.string().trim().min(1, "Business or practice name is required").max(160),
+  contactName: z.string().trim().max(160).optional().or(z.literal("")),
+  phone: z.string().trim().max(40).optional().or(z.literal("")),
+  email: z.string().trim().email("Enter a valid email address").max(254).optional().or(z.literal("")),
+  website: z.string().trim().max(300).optional().or(z.literal("")),
+  state: z.enum(["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"]),
+  serviceArea: z.string().trim().min(1, "Tell us where you provide services").max(200),
+  specialties: z.array(z.string().trim().max(60)).max(10).optional().default([]),
+  description: z.string().trim().max(1000).optional().or(z.literal("")),
+});
+
+export const recordFavouriteSchema = z.object({
+  toolSlug: z.string().trim().min(1).max(80),
+  deviceId: z.string().uuid(),
+});
+
 export const createParticipantSchema = z.object({
   displayName: z.string().trim().min(1, "Name is required").max(120),
   dateOfBirth: z.string().trim().max(10).optional().or(z.literal("")),

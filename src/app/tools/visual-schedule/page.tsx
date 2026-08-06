@@ -3,6 +3,8 @@ import Link from "next/link";
 import VisualSchedule from "@/components/visual-schedule/VisualSchedule";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AlliedHealthCallout from "@/components/AlliedHealthCallout";
+import FavouriteToggleButton from "@/components/FavouriteToggleButton";
+import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 
 export const metadata: Metadata = {
@@ -13,15 +15,19 @@ export const metadata: Metadata = {
 
 export default function VisualSchedulePage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
-      <nav className="no-print mb-4 text-sm">
-        <Link href="/" className="font-semibold text-brand hover:underline">
+    <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
+      <nav className="no-print mb-4">
+        <Link
+          href="/"
+          className="touch-target inline-flex items-center gap-1.5 rounded-xl border-2 border-border bg-surface px-4 text-base font-semibold text-brand hover:border-brand"
+        >
           ← All tools
         </Link>
       </nav>
       <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
         Visual Schedule Builder
       </h1>
+      <FavouriteToggleButton slug="visual-schedule" />
       <p className="no-print mb-6 max-w-2xl text-muted">
         Tap pictures to build today&apos;s schedule in order. Tick off each
         activity as it&apos;s done, reorder with the arrows, or print it out
@@ -38,6 +44,7 @@ export default function VisualSchedulePage() {
       />
       <MedicalDisclaimerBanner />
       <AlliedHealthCallout />
+      <AddToHomeScreen />
       <VisualSchedule />
     </div>
   );

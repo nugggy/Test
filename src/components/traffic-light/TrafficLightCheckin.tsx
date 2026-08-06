@@ -7,8 +7,10 @@ import {
   type TrafficLightState,
 } from "@/lib/traffic-light-data";
 import { useTrafficLightLog, useZoneGuide } from "@/lib/traffic-light-storage";
+import { downloadCsv } from "@/lib/csv-export";
 import TrafficLightHistory from "@/components/traffic-light/TrafficLightHistory";
 import EditableListSection from "@/components/EditableListSection";
+import PrintButton from "@/components/PrintButton";
 
 export default function TrafficLightCheckin() {
   const { entries, addEntry, removeEntry, clearAll } = useTrafficLightLog();
@@ -28,6 +30,18 @@ export default function TrafficLightCheckin() {
     setConfirmation(`Logged: ${selected.label}`);
     setSelectedId(null);
     setNote("");
+  }
+
+  function handleExportCsv() {
+    downloadCsv(
+      "traffic-light-history",
+      ["Date", "Zone", "Note"],
+      entries.map((e) => [
+        new Date(e.timestamp).toLocaleString("en-AU"),
+        TRAFFIC_LIGHT_STATES.find((s) => s.id === e.state)?.label ?? e.state,
+        e.note ?? "",
+      ])
+    );
   }
 
   return (
@@ -142,22 +156,32 @@ export default function TrafficLightCheckin() {
       </div>
 
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
-        <div className="mb-3 flex items-center justify-between">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-display text-lg font-bold">History</h2>
           {entries.length > 0 && (
-            <button
-              type="button"
-              onClick={() => {
-                if (
-                  window.confirm("Clear all check-ins? This can't be undone.")
-                ) {
-                  clearAll();
-                }
-              }}
-              className="no-print text-sm font-semibold text-muted hover:text-foreground"
-            >
-              Clear history
-            </button>
+            <div className="no-print flex items-center gap-3">
+              <button
+                type="button"
+                onClick={handleExportCsv}
+                className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold hover:border-brand"
+              >
+                ⬇️ Download CSV
+              </button>
+              <PrintButton label="Print" />
+              <button
+                type="button"
+                onClick={() => {
+                  if (
+                    window.confirm("Clear all check-ins? This can't be undone.")
+                  ) {
+                    clearAll();
+                  }
+                }}
+                className="text-sm font-semibold text-muted hover:text-foreground"
+              >
+                Clear history
+              </button>
+            </div>
           )}
         </div>
         <TrafficLightHistory entries={entries} onRemove={removeEntry} />

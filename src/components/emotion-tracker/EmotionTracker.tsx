@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { EMOTIONS, INTENSITY_LEVELS } from "@/lib/emotion-tracker-data";
 import { useEmotionLog } from "@/lib/emotion-tracker-storage";
+import { downloadCsv } from "@/lib/csv-export";
 import EmotionHistory from "@/components/emotion-tracker/EmotionHistory";
+import PrintButton from "@/components/PrintButton";
 
 export default function EmotionTracker() {
   const { entries, addEntry, removeEntry, clearAll } = useEmotionLog();
@@ -27,6 +29,19 @@ export default function EmotionTracker() {
     setSelectedEmotionId(null);
     setIntensity(2);
     setNote("");
+  }
+
+  function handleExportCsv() {
+    downloadCsv(
+      "emotion-history",
+      ["Date", "Emotion", "Intensity", "Note"],
+      entries.map((e) => [
+        new Date(e.timestamp).toLocaleString("en-AU"),
+        EMOTIONS.find((emo) => emo.id === e.emotionId)?.label ?? e.emotionId,
+        INTENSITY_LEVELS.find((l) => l.value === e.intensity)?.label ?? e.intensity,
+        e.note ?? "",
+      ])
+    );
   }
 
   return (
@@ -118,16 +133,26 @@ export default function EmotionTracker() {
       </div>
 
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
-        <div className="mb-3 flex items-center justify-between">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-display text-lg font-bold">History</h2>
           {entries.length > 0 && (
-            <button
-              type="button"
-              onClick={clearAll}
-              className="no-print text-sm font-semibold text-muted hover:text-foreground"
-            >
-              Clear history
-            </button>
+            <div className="no-print flex items-center gap-3">
+              <button
+                type="button"
+                onClick={handleExportCsv}
+                className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold hover:border-brand"
+              >
+                ⬇️ Download CSV
+              </button>
+              <PrintButton label="Print" />
+              <button
+                type="button"
+                onClick={clearAll}
+                className="text-sm font-semibold text-muted hover:text-foreground"
+              >
+                Clear history
+              </button>
+            </div>
           )}
         </div>
         <EmotionHistory entries={entries} onRemove={removeEntry} />

@@ -2,6 +2,7 @@
 
 import { useSupportPlan } from "@/lib/support-plan-storage";
 import EditableListSection from "@/components/EditableListSection";
+import PrintButton from "@/components/PrintButton";
 
 const GOAL_SUGGESTIONS = [
   "Learn to catch the bus independently",
@@ -22,9 +23,11 @@ const SUPPORT_SUGGESTIONS = [
 
 const HEALTH_SUGGESTIONS = [
   "Allergic to...",
+  "Takes S8 (controlled) medication...",
   "Takes medication at...",
   "Epilepsy — call 000 if a seizure lasts over 5 minutes",
   "Diabetic — needs regular meals",
+  "Trigger — avoid...",
 ];
 
 const COMMUNICATION_SUGGESTIONS = [
@@ -52,16 +55,20 @@ export default function SupportPlan() {
         >
           Clear plan
         </button>
-        <button
-          type="button"
-          onClick={() => window.print()}
-          className="touch-target rounded-xl border-2 border-brand bg-brand px-3 text-sm font-semibold text-brand-ink"
-        >
-          🖨️ Print
-        </button>
+        <PrintButton label="Print" />
       </div>
 
-      <div className="rounded-2xl border-2 border-border bg-surface p-4">
+      <EditableListSection
+        title="Alerts — read first"
+        description="Critical things a new support worker or service needs to know straight away: allergies, S8 (controlled) medications, seizure triggers, and anything else urgent."
+        placeholder="e.g. Allergic to penicillin"
+        items={plan.healthAndSafety}
+        suggestions={HEALTH_SUGGESTIONS}
+        onChange={(items) => updateField("healthAndSafety", items)}
+        variant="alert"
+      />
+
+      <div className="print-avoid-break rounded-2xl border-2 border-border bg-surface p-4">
         <h2 className="font-display text-lg font-bold">About me</h2>
         <p className="mb-3 text-sm text-muted">
           Who I am, what I like, and anything else that helps someone new get
@@ -93,15 +100,6 @@ export default function SupportPlan() {
         items={plan.supports}
         suggestions={SUPPORT_SUGGESTIONS}
         onChange={(items) => updateField("supports", items)}
-      />
-
-      <EditableListSection
-        title="Health & safety information"
-        description="Allergies, conditions, medication — anything a support worker needs to know"
-        placeholder="e.g. Allergic to penicillin"
-        items={plan.healthAndSafety}
-        suggestions={HEALTH_SUGGESTIONS}
-        onChange={(items) => updateField("healthAndSafety", items)}
       />
 
       <EditableListSection

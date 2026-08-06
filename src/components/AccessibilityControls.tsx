@@ -51,6 +51,8 @@ export default function AccessibilityControls() {
   const {
     textSize,
     setTextSize,
+    theme,
+    setTheme,
     contrast,
     setContrast,
     font,
@@ -110,14 +112,14 @@ export default function AccessibilityControls() {
         >
           <fieldset className="mb-4">
             <legend className="font-display font-bold mb-2">Text size</legend>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {(Object.keys(TEXT_SIZE_LABELS) as TextSize[]).map((size) => (
                 <button
                   key={size}
                   type="button"
                   onClick={() => setTextSize(size)}
                   aria-pressed={textSize === size}
-                  className={`flex-1 rounded-lg border-2 py-2 px-2 text-sm font-semibold touch-target ${
+                  className={`min-w-[80px] flex-1 rounded-lg border-2 py-2 px-2 text-sm font-semibold touch-target ${
                     textSize === size
                       ? "border-brand bg-brand text-brand-ink"
                       : "border-border bg-background"
@@ -129,6 +131,12 @@ export default function AccessibilityControls() {
             </div>
           </fieldset>
 
+          <ToggleRow
+            label="Dark mode"
+            description="Switches to a dark background with light text."
+            checked={theme === "dark"}
+            onChange={(v) => setTheme(v ? "dark" : "default")}
+          />
           <ToggleRow
             label="High contrast"
             checked={contrast === "high"}
