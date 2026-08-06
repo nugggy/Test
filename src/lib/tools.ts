@@ -345,6 +345,16 @@ export const tools: ToolEntry[] = [
     worksOffline: true,
   },
   {
+    slug: "ndis-compliance",
+    name: "NDIS Compliance & Provider Obligations",
+    description:
+      "What your NDIS provider is required to do - the Code of Conduct, service agreements, cancellations, worker screening, incidents and restrictive practices, and complaints - with a self-check and how to raise a concern.",
+    icon: "🛡️",
+    status: "live",
+    category: "Preparation",
+    worksOffline: true,
+  },
+  {
     slug: "active-support",
     name: "Active Support for Support Workers",
     description:

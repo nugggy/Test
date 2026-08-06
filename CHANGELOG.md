@@ -3,6 +3,10 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.26.0] - 2026-08-07
+### Added
+- **NDIS Compliance & Provider Obligations** (`/tools/ndis-compliance`) - a plain-language guide to what registered NDIS providers are required to do: the NDIS Code of Conduct, service agreements, cancellations/pricing, worker screening checks, incident management and reportable incidents, regulated restrictive practices, and complaints handling. Includes a self-check checklist, a "questions for my provider" list, a private notes list, and clear steps (with the NDIS Commission's 1800 035 544) for raising a concern. Complements the existing Know Your Rights tool - that one covers the participant's own rights, this one covers what the provider is obligated to do.
+
 ## [0.25.0] - 2026-08-07
 ### Changed
 - Replaced every em dash in the app's user-facing copy with a plain hyphen, sitewide (~400 occurrences across 165 files). Source-code comments in `globals.css` were left as-is since they're never rendered.
