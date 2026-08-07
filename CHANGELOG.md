@@ -3,6 +3,10 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.29.0] - 2026-08-07
+### Added
+- **Diabetes tracker: visual Management Plan tab.** Enter the target BGL range, emergency thresholds, low/high action steps, insulin correction scale, carb ratio, basal insulin, sick day rules and care team details straight from your doctor/diabetes educator's own written plan, and it builds into a colour-coded, printable visual summary (green target zone through to red emergency zones) - the kind of thing you'd stick on the fridge, send to school, or hand to a support worker. The tool never sets or suggests any of these numbers itself, only displays what's entered. The Log & Trend view (readings, chart, CSV export) is unchanged, now alongside the plan as a second tab.
+
 ## [0.28.0] - 2026-08-07
 ### Added
 - **Sensory Needs** (`/tools/sensory-needs`) - covers seeking vs avoiding patterns across sound, light/visual, touch, taste/smell, movement and body awareness, with a personal profile of what helps and what overwhelms per sense (reuses the personalised-notes pattern from Active Support).

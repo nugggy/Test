@@ -297,7 +297,7 @@ export const tools: ToolEntry[] = [
     slug: "diabetes-tracker",
     name: "Diabetes BGL & Insulin Tracker",
     description:
-      "Log blood glucose readings and insulin doses, see the trend over time on a chart, and export or print a log to share with your diabetes care team.",
+      "Log blood glucose readings and insulin doses, see the trend over time on a chart, build a visual management plan from your doctor's recommendations, and export or print to share with your diabetes care team.",
     icon: "🩸",
     status: "live",
     category: "Allied health",
