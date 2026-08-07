@@ -3,6 +3,11 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.28.0] - 2026-08-07
+### Added
+- **Sensory Needs** (`/tools/sensory-needs`) - covers seeking vs avoiding patterns across sound, light/visual, touch, taste/smell, movement and body awareness, with a personal profile of what helps and what overwhelms per sense (reuses the personalised-notes pattern from Active Support).
+- **Understanding Conditions** (`/tools/conditions-guide`) - plain-language, strengths-aware summaries of 20 common disabilities/conditions (autism, ADHD, intellectual disability, cerebral palsy, Down syndrome, epilepsy, vision/hearing impairment, spinal cord injury, acquired brain injury, MS, muscular dystrophy, spina bifida, FASD, dyslexia, dyspraxia/DCD, speech/language disorders, psychosocial disability, Tourette syndrome, and Fragile X), each with a link to a genuine Australian peak body or (where one wasn't confidently available) the Australian Government's healthdirect service - every link was checked live before publishing. Search or tap to select a condition.
+
 ## [0.27.0] - 2026-08-07
 ### Changed
 - **Merged the 4 "find a provider" tools into one**: `/tools/find-a-provider` now has a category switcher (Support Coordinator / Plan Manager / Support Provider / Allied Health) instead of 4 separate pages/homepage entries. The old URLs (`/tools/find-support-coordinator` etc.) redirect to the merged tool with the right category preselected via `?category=`, so old links/bookmarks still work. No backend changes needed - the search/submit actions were already category-parameterised.

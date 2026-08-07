@@ -114,6 +114,16 @@ export const tools: ToolEntry[] = [
     worksOffline: true,
   },
   {
+    slug: "sensory-needs",
+    name: "Sensory Needs",
+    description:
+      "Understand sensory seeking and avoiding across sound, light, touch, taste/smell, movement and body awareness, and build a personal profile of what helps and what overwhelms.",
+    icon: "🧠",
+    status: "live",
+    category: "Emotional regulation",
+    worksOffline: true,
+  },
+  {
     slug: "meal-planner",
     name: "Meal Planner & Shopping List",
     description: "Build recipes, plan meals for the week, get an automatic shopping list, and export a shareable cookbook PDF.",
@@ -310,6 +320,16 @@ export const tools: ToolEntry[] = [
     description:
       "Plain-language guide to your rights as an NDIS participant and your human rights, supported decision-making, how to make a complaint, and where to get help exercising your rights.",
     icon: "📜",
+    status: "live",
+    category: "Preparation",
+    worksOffline: true,
+  },
+  {
+    slug: "conditions-guide",
+    name: "Understanding Conditions",
+    description:
+      "Plain-language information on 20 common disabilities and conditions - autism, ADHD, intellectual disability, cerebral palsy, Down syndrome and more - with links to reputable Australian organisations for each.",
+    icon: "🔬",
     status: "live",
     category: "Preparation",
     worksOffline: true,
