@@ -41,7 +41,8 @@ export const tools: ToolEntry[] = [
   {
     slug: "visual-schedule",
     name: "Visual Schedule Builder",
-    description: "Build a picture timeline of the day so routines feel predictable.",
+    description:
+      "Build a picture timeline of the day so routines feel predictable - drag to reorder, and set a countdown timer per step.",
     icon: "🗓️",
     status: "live",
     category: "Routines",
@@ -236,7 +237,7 @@ export const tools: ToolEntry[] = [
     slug: "medication-reminder",
     name: "Medication Reminder",
     description:
-      "Keep a list of medications and doses, tick off today's checklist, and export a log to share with your doctor or support worker.",
+      "Keep a list of medications and doses, tick off today's checklist, see an adherence dashboard, and export a CSV or PDF for a doctor or pharmacist review.",
     icon: "💊",
     status: "live",
     category: "Independent living",
@@ -246,7 +247,7 @@ export const tools: ToolEntry[] = [
     slug: "seizure-log",
     name: "Seizure Observation Log",
     description:
-      "Record seizure type, duration, possible triggers, what happened, recovery and actions taken - export a CSV for clinical analysis.",
+      "Record seizure type, duration, severity and triggers, see the patterns on a visual dashboard, and export a CSV or PDF for a specialist review.",
     icon: "🧠",
     status: "live",
     category: "Allied health",
@@ -388,7 +389,7 @@ export const tools: ToolEntry[] = [
     slug: "easy-read-clock",
     name: "Easy-Read Clock",
     description:
-      "A big, clear digital or analog clock - choose any timezone, and customise the colours, size and format to suit you.",
+      "A big, clear digital or analog clock with numbers, hand styles and a speak-the-time button - choose any timezone, and customise the colours, size and format to suit you.",
     icon: "🕐",
     status: "live",
     category: "Independent living",
@@ -403,5 +404,25 @@ export const tools: ToolEntry[] = [
     status: "live",
     category: "Independent living",
     worksOffline: false,
+  },
+  {
+    slug: "first-then-board",
+    name: "First-Then Board & Choice Board",
+    description:
+      "A First-Then board for what's happening now and next, plus a Choice Board for offering options - tap-to-speak pictures, ready to use straight away.",
+    icon: "🔜",
+    status: "live",
+    category: "Communication",
+    worksOffline: true,
+  },
+  {
+    slug: "visual-timer",
+    name: "Visual Timer",
+    description:
+      "A big, simple countdown that shows time passing - a shrinking pie or bar, not just numbers. Great for transitions, sensory breaks and turn-taking.",
+    icon: "⏳",
+    status: "live",
+    category: "Routines",
+    worksOffline: true,
   },
 ];

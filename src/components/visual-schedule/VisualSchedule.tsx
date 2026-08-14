@@ -14,6 +14,8 @@ export default function VisualSchedule() {
     removeItem,
     toggleDone,
     moveItem,
+    reorderItem,
+    setDuration,
     resetDone,
     clearAll,
   } = useScheduleItems();
@@ -91,6 +93,8 @@ export default function VisualSchedule() {
           onToggleDone={toggleDone}
           onRemove={removeItem}
           onMove={moveItem}
+          onSetDuration={setDuration}
+          onReorder={reorderItem}
         />
       </div>
 

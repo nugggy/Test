@@ -1,12 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import type { ScheduleItem } from "@/lib/visual-schedule-storage";
+import ScheduleListItem from "./ScheduleListItem";
 
 interface ScheduleListProps {
   items: ScheduleItem[];
   onToggleDone: (id: string) => void;
   onRemove: (id: string) => void;
   onMove: (id: string, direction: "up" | "down") => void;
+  onSetDuration: (id: string, minutes: number) => void;
+  onReorder: (id: string, beforeId: string | null) => void;
 }
 
 export default function ScheduleList({
@@ -14,7 +18,11 @@ export default function ScheduleList({
   onToggleDone,
   onRemove,
   onMove,
+  onSetDuration,
+  onReorder,
 }: ScheduleListProps) {
+  const [draggedId, setDraggedId] = useState<string | null>(null);
+
   if (items.length === 0) {
     return (
       <p className="rounded-xl border-2 border-dashed border-border p-6 text-center text-muted">
@@ -25,76 +33,44 @@ export default function ScheduleList({
   }
 
   return (
-    <ol className="flex flex-col gap-2">
-      {items.map((item, index) => (
-        <li
-          key={item.id}
-          className={`flex items-center gap-3 rounded-xl border-2 p-3 ${
-            item.done
-              ? "border-brand/40 bg-brand/5 opacity-70"
-              : "border-border bg-background"
-          }`}
-        >
-          <span className="no-print font-display w-6 shrink-0 text-center text-sm font-bold text-muted">
-            {index + 1}
-          </span>
-          <button
-            type="button"
-            onClick={() => onToggleDone(item.id)}
-            aria-pressed={item.done}
-            aria-label={
-              item.done
-                ? `Mark ${item.label} as not done`
-                : `Mark ${item.label} as done`
-            }
-            className="touch-target flex flex-1 items-center gap-3 rounded-lg text-left"
+    <>
+      <p className="no-print mb-2 text-xs text-muted sm:hidden">
+        Use the ▲▼ buttons to reorder on a touchscreen, or drag the ⠿ handle with a mouse.
+      </p>
+      <ol className="flex flex-col gap-2">
+        {items.map((item, index) => (
+          <ScheduleListItem
+            key={item.id}
+            item={item}
+            index={index}
+            isLast={index === items.length - 1}
+            draggedId={draggedId}
+            onToggleDone={onToggleDone}
+            onRemove={onRemove}
+            onMove={onMove}
+            onSetDuration={onSetDuration}
+            onDragStart={setDraggedId}
+            onDragEnd={() => setDraggedId(null)}
+            onDropBefore={(beforeId) => {
+              if (draggedId) onReorder(draggedId, beforeId);
+              setDraggedId(null);
+            }}
+          />
+        ))}
+        {draggedId && (
+          <li
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => {
+              e.preventDefault();
+              onReorder(draggedId, null);
+              setDraggedId(null);
+            }}
+            className="no-print rounded-xl border-2 border-dashed border-brand/40 p-2 text-center text-xs text-muted"
           >
-            <span aria-hidden="true" className="text-3xl shrink-0">
-              {item.icon}
-            </span>
-            <span
-              className={`font-display text-base font-bold sm:text-lg ${
-                item.done ? "line-through" : ""
-              }`}
-            >
-              {item.label}
-            </span>
-            {item.done && (
-              <span aria-hidden="true" className="ml-auto text-2xl">
-                ✅
-              </span>
-            )}
-          </button>
-          <div className="no-print flex flex-col gap-1">
-            <button
-              type="button"
-              onClick={() => onMove(item.id, "up")}
-              disabled={index === 0}
-              aria-label={`Move ${item.label} earlier`}
-              className="grid h-9 w-9 place-items-center rounded-lg border-2 border-border bg-surface disabled:opacity-30"
-            >
-              <span aria-hidden="true">▲</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => onMove(item.id, "down")}
-              disabled={index === items.length - 1}
-              aria-label={`Move ${item.label} later`}
-              className="grid h-9 w-9 place-items-center rounded-lg border-2 border-border bg-surface disabled:opacity-30"
-            >
-              <span aria-hidden="true">▼</span>
-            </button>
-          </div>
-          <button
-            type="button"
-            onClick={() => onRemove(item.id)}
-            aria-label={`Remove ${item.label} from schedule`}
-            className="no-print grid h-9 w-9 shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
-          >
-            <span aria-hidden="true">🗑️</span>
-          </button>
-        </li>
-      ))}
-    </ol>
+            Drop here to move to the end
+          </li>
+        )}
+      </ol>
+    </>
   );
 }

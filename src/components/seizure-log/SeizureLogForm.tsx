@@ -5,6 +5,9 @@ import {
   ACTION_OPTIONS,
   SEIZURE_TYPE_SUGGESTIONS,
   TRIGGER_SUGGESTIONS,
+  SEVERITY_OPTIONS,
+  CONSCIOUSNESS_OPTIONS,
+  LOCATION_SUGGESTIONS,
 } from "@/lib/seizure-log-data";
 import type { SeizureLogEntry } from "@/lib/seizure-log-storage";
 import SuggestField from "@/components/SuggestField";
@@ -22,11 +25,17 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
   const [seizureType, setSeizureType] = useState("");
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  const [severity, setSeverity] = useState("");
+  const [consciousness, setConsciousness] = useState("");
+  const [warningSigns, setWarningSigns] = useState("");
   const [trigger, setTrigger] = useState("");
   const [triggerReason, setTriggerReason] = useState("");
   const [whatHappened, setWhatHappened] = useState("");
   const [recovery, setRecovery] = useState("");
+  const [recoveryMinutes, setRecoveryMinutes] = useState(0);
+  const [location, setLocation] = useState("");
   const [actionsTaken, setActionsTaken] = useState<string[]>([]);
+  const [medicationDetail, setMedicationDetail] = useState("");
   const [notes, setNotes] = useState("");
   const [occurredAtLocal, setOccurredAtLocal] = useState(() =>
     toLocalDatetimeInputValue(new Date())
@@ -47,21 +56,35 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
       occurredAt: new Date(occurredAtLocal).toISOString(),
       seizureType: seizureType.trim(),
       durationSeconds: minutes * 60 + seconds,
+      severity,
+      consciousness,
+      warningSigns: warningSigns.trim(),
       trigger: trigger.trim(),
       triggerReason: trigger.trim() ? triggerReason.trim() : "",
       whatHappened: whatHappened.trim(),
       recovery: recovery.trim(),
+      recoveryMinutes,
+      location: location.trim(),
       actionsTaken,
+      medicationDetail: actionsTaken.includes("Rescue medication given")
+        ? medicationDetail.trim()
+        : "",
       notes: notes.trim(),
     });
     setSeizureType("");
     setMinutes(0);
     setSeconds(0);
+    setSeverity("");
+    setConsciousness("");
+    setWarningSigns("");
     setTrigger("");
     setTriggerReason("");
     setWhatHappened("");
     setRecovery("");
+    setRecoveryMinutes(0);
+    setLocation("");
     setActionsTaken([]);
+    setMedicationDetail("");
     setNotes("");
     setOccurredAtLocal(toLocalDatetimeInputValue(new Date()));
   }
@@ -122,6 +145,71 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
         </div>
       </div>
 
+      <div>
+        <span className="block font-semibold mb-2">Severity</span>
+        <div className="flex flex-wrap gap-1.5">
+          {SEVERITY_OPTIONS.map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => setSeverity(severity === option ? "" : option)}
+              aria-pressed={severity === option}
+              className={`touch-target rounded-full border-2 px-4 text-sm font-semibold ${
+                severity === option
+                  ? "border-brand bg-brand text-brand-ink"
+                  : "border-border bg-background"
+              }`}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <span className="block font-semibold mb-2">Awareness during the seizure</span>
+        <div className="flex flex-wrap gap-1.5">
+          {CONSCIOUSNESS_OPTIONS.map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => setConsciousness(consciousness === option ? "" : option)}
+              aria-pressed={consciousness === option}
+              className={`touch-target rounded-full border-2 px-4 text-sm font-semibold ${
+                consciousness === option
+                  ? "border-brand bg-brand text-brand-ink"
+                  : "border-border bg-background"
+              }`}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <label className="block font-semibold mb-1" htmlFor="warning-signs">
+          Any warning signs beforehand (aura)?
+        </label>
+        <input
+          id="warning-signs"
+          type="text"
+          value={warningSigns}
+          onChange={(e) => setWarningSigns(e.target.value)}
+          maxLength={300}
+          placeholder="e.g. Said they could smell something odd"
+          className="w-full rounded-xl border-2 border-border bg-background px-4 py-3 touch-target"
+        />
+      </div>
+
+      <SuggestField
+        label="Where did it happen?"
+        value={location}
+        onChange={setLocation}
+        suggestions={LOCATION_SUGGESTIONS}
+        placeholder="e.g. Home"
+      />
+
       <SuggestField
         label="Possible trigger"
         value={trigger}
@@ -178,6 +266,21 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
       </div>
 
       <div>
+        <label className="block font-semibold mb-1" htmlFor="recovery-minutes">
+          How long until they were back to normal? (minutes)
+        </label>
+        <input
+          id="recovery-minutes"
+          type="number"
+          min={0}
+          max={1440}
+          value={recoveryMinutes}
+          onChange={(e) => setRecoveryMinutes(Math.max(0, Number(e.target.value)))}
+          className="w-28 rounded-xl border-2 border-border bg-background px-3 py-3 text-center touch-target"
+        />
+      </div>
+
+      <div>
         <span className="block font-semibold mb-2">Actions taken</span>
         <div className="flex flex-wrap gap-1.5">
           {ACTION_OPTIONS.map((action) => (
@@ -197,6 +300,23 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
           ))}
         </div>
       </div>
+
+      {actionsTaken.includes("Rescue medication given") && (
+        <div>
+          <label className="block font-semibold mb-1" htmlFor="medication-detail">
+            Medication name and dose given
+          </label>
+          <input
+            id="medication-detail"
+            type="text"
+            value={medicationDetail}
+            onChange={(e) => setMedicationDetail(e.target.value)}
+            maxLength={200}
+            placeholder="e.g. Midazolam 10mg buccal"
+            className="w-full rounded-xl border-2 border-border bg-background px-4 py-3 touch-target"
+          />
+        </div>
+      )}
 
       <div>
         <label className="block font-semibold mb-1" htmlFor={notesId}>

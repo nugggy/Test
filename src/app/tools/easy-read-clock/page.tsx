@@ -10,7 +10,7 @@ import HowToUse from "@/components/HowToUse";
 export const metadata: Metadata = {
   title: "Easy-Read Clock - Toolkit",
   description:
-    "A big, clear digital or analog clock - choose any timezone, and customise the colours, size and format to suit you.",
+    "A big, clear digital or analog clock with numbers, hand styles and a speak-the-time button - choose any timezone, and customise the colours, size and format to suit you.",
 };
 
 export default function EasyReadClockPage() {
@@ -36,8 +36,10 @@ export default function EasyReadClockPage() {
       <HowToUse
         steps={[
           "Choose digital or analog, and pick a timezone if you want somewhere other than your own.",
+          "For the analog clock, choose numbers, hand style, tick marks and a face colour.",
           "Customise the text size and colours to suit you.",
           "Turn 24-hour time, seconds, or the date on or off.",
+          "Tap 'Tap to hear the time' to have the time read aloud.",
           "Tap 'Full screen' for a clear wall-clock display.",
           "Your choices are remembered next time you open this page.",
         ]}

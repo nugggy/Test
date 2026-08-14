@@ -11,7 +11,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 export const metadata: Metadata = {
   title: "Seizure Observation Log - Toolkit",
   description:
-    "Record seizure type, duration, possible triggers, what happened, recovery and actions taken - export a CSV for clinical analysis or to share with a neurologist.",
+    "Record seizure type, duration, severity, triggers, warning signs and recovery, see the patterns on a visual dashboard, and export a CSV or PDF to share with a neurologist.",
 };
 
 export default function SeizureLogPage() {
@@ -38,10 +38,11 @@ export default function SeizureLogPage() {
       <HowToUse
         steps={[
           "Log an entry as soon as possible after a seizure, while details are fresh.",
-          "Tap a suggestion chip for seizure type and trigger, or type your own.",
-          "Describe what happened during and the recovery afterwards.",
-          "Tick off any actions taken, like first aid or rescue medication.",
-          "Download the log as a CSV for clinical analysis, or print it to take to an appointment.",
+          "Tap a suggestion chip for seizure type, trigger and location, or type your own.",
+          "Record severity, awareness, warning signs and how long recovery took.",
+          "Tick off any actions taken, like first aid or rescue medication given.",
+          "Open the Dashboard tab to see trends, patterns and totals build up over time.",
+          "Download the log as a CSV, or print/save a PDF, to take to a specialist appointment.",
         ]}
       />
       <MedicalDisclaimerBanner />

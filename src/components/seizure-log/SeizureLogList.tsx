@@ -3,6 +3,7 @@
 import type { SeizureLogEntry } from "@/lib/seizure-log-storage";
 import { formatDateTime } from "@/lib/datetime";
 import { useTimezone } from "@/lib/timezone-context";
+import { PROLONGED_SEIZURE_SECONDS } from "@/lib/seizure-log-data";
 
 interface SeizureLogListProps {
   entries: SeizureLogEntry[];
@@ -37,11 +38,23 @@ export default function SeizureLogList({ entries, onRemove }: SeizureLogListProp
           className="print-avoid-break rounded-xl border-2 border-border bg-background p-3"
         >
           <div className="mb-1 flex items-start justify-between gap-2">
-            <div>
+            <div className="flex flex-wrap items-center gap-2">
               <span className="font-semibold">{entry.seizureType}</span>
               {entry.durationSeconds > 0 && (
-                <span className="ml-2 text-sm text-muted">
+                <span
+                  className={`text-sm ${
+                    entry.durationSeconds >= PROLONGED_SEIZURE_SECONDS
+                      ? "font-bold text-[var(--sev-5)]"
+                      : "text-muted"
+                  }`}
+                >
                   {formatDuration(entry.durationSeconds)}
+                  {entry.durationSeconds >= PROLONGED_SEIZURE_SECONDS && " ⚠️"}
+                </span>
+              )}
+              {entry.severity && (
+                <span className="rounded-full bg-background px-2 py-0.5 text-xs font-semibold">
+                  {entry.severity}
                 </span>
               )}
             </div>
@@ -54,6 +67,14 @@ export default function SeizureLogList({ entries, onRemove }: SeizureLogListProp
               <span aria-hidden="true">🗑️</span>
             </button>
           </div>
+          {(entry.consciousness || entry.location) && (
+            <p className="text-sm text-muted">
+              {[entry.consciousness, entry.location].filter(Boolean).join(" · ")}
+            </p>
+          )}
+          {entry.warningSigns && (
+            <p className="mt-1 text-sm text-muted">Warning signs: {entry.warningSigns}</p>
+          )}
           {entry.trigger && (
             <p className="text-sm text-muted">
               Possible trigger: {entry.trigger}
@@ -61,12 +82,17 @@ export default function SeizureLogList({ entries, onRemove }: SeizureLogListProp
             </p>
           )}
           {entry.whatHappened && <p className="mt-1 text-sm">{entry.whatHappened}</p>}
-          {entry.recovery && (
-            <p className="mt-1 text-sm text-muted">Recovery: {entry.recovery}</p>
+          {(entry.recovery || entry.recoveryMinutes > 0) && (
+            <p className="mt-1 text-sm text-muted">
+              Recovery: {entry.recovery}
+              {entry.recoveryMinutes > 0 &&
+                ` (back to normal after about ${entry.recoveryMinutes} min)`}
+            </p>
           )}
           {entry.actionsTaken.length > 0 && (
             <p className="mt-1 text-xs text-muted">
               Actions: {entry.actionsTaken.join(", ")}
+              {entry.medicationDetail && ` - ${entry.medicationDetail}`}
             </p>
           )}
           {entry.notes && <p className="mt-1 text-sm text-muted">{entry.notes}</p>}

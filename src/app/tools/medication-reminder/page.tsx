@@ -11,7 +11,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 export const metadata: Metadata = {
   title: "Medication Reminder - Toolkit",
   description:
-    "Keep a list of medications and doses, tick off today's checklist, and export a log to share with your doctor or support worker.",
+    "Keep a list of medications and doses, tick off today's checklist, see an adherence dashboard, and export a CSV or PDF to share with your doctor or pharmacist.",
 };
 
 export default function MedicationReminderPage() {
@@ -39,7 +39,8 @@ export default function MedicationReminderPage() {
         steps={[
           "Add each medication, its dose, and the times you take it each day.",
           "Tick off each dose in Today's checklist as you take it.",
-          "Print your schedule, or download a CSV log of everything you've taken.",
+          "Open the Dashboard tab to see adherence over the last 14 days, overall and per medication.",
+          "Print your schedule, or download a CSV/PDF log to take to a doctor or pharmacist review.",
         ]}
       />
       <MedicalDisclaimerBanner />
