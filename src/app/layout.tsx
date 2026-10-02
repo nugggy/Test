@@ -15,6 +15,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
+import AppUpdateChecker from "@/components/AppUpdateChecker";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#594295",
+  themeColor: "#0f6e67",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             >
               Skip to main content
             </a>
+            <AppUpdateChecker />
             <SiteHeader />
             <main id="main-content" className="flex-1">
               {children}

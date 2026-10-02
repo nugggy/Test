@@ -58,7 +58,7 @@ export default function ContactEntryEditor({
             type="text"
             value={contact.organisation}
             onChange={(e) => onChange({ organisation: e.target.value })}
-            placeholder="e.g. Dundaloo"
+            placeholder="e.g. Sunrise Support Services"
             maxLength={120}
             className="touch-target w-full rounded-lg border-2 border-border bg-surface px-3"
           />

@@ -16,13 +16,13 @@ export default async function SiteHeader() {
           href="/"
           className="font-display flex shrink-0 items-center gap-2 text-lg font-bold text-foreground sm:gap-2.5 sm:text-xl md:text-2xl"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/dundaloo-logo.svg"
-            alt="Dundaloo"
-            className="h-7 w-auto sm:h-8 md:h-9"
-          />
-          <span className="border-l-2 border-border pl-2 sm:pl-2.5">Toolkit</span>
+          <span
+            aria-hidden="true"
+            className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-lg text-brand-ink sm:h-10 sm:w-10 sm:text-xl"
+          >
+            ✦
+          </span>
+          Toolkit
         </Link>
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <Link

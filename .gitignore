@@ -48,3 +48,7 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# android release signing - never commit (see docs/android-release.md)
+/android/keystore/
+/android/keystore.properties

@@ -96,7 +96,7 @@ export default function SupportPlan() {
       <EditableListSection
         title="My supports"
         description="Who supports me, and what they help with"
-        placeholder="e.g. Speech pathologist - Tuesdays, Dundaloo"
+        placeholder="e.g. Speech pathologist - Tuesdays"
         items={plan.supports}
         suggestions={SUPPORT_SUGGESTIONS}
         onChange={(items) => updateField("supports", items)}

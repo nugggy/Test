@@ -28,6 +28,9 @@ export interface Service {
    * note to verify locally rather than a number, so nothing unverified is
    * presented as if it were as solid as the crisis lines above it. */
   needsVerification?: boolean;
+  /** Official website, where one exists - each URL checked live before
+   * being added here. Omitted for entries without one clear official site. */
+  website?: string;
 }
 
 export const SERVICES: Service[] = [
@@ -38,6 +41,7 @@ export const SERVICES: Service[] = [
     hours: "24/7",
     description: "If you or someone else is in immediate danger, or it's a medical emergency.",
     tags: ["crisis", "family-violence", "abuse-neglect"],
+    website: "https://www.triplezero.gov.au",
   },
   {
     id: "lifeline",
@@ -46,6 +50,7 @@ export const SERVICES: Service[] = [
     hours: "24/7",
     description: "Crisis support and suicide prevention, for any kind of personal crisis.",
     tags: ["crisis", "just-talk", "anxious"],
+    website: "https://www.lifeline.org.au",
   },
   {
     id: "poisons-information-centre",
@@ -55,6 +60,7 @@ export const SERVICES: Service[] = [
     description:
       "For poisoning or suspected poisoning - including medication taken by mistake, too much medication, or swallowing something harmful.",
     tags: ["crisis", "medical"],
+    website: "https://www.health.gov.au/contacts/poisons-information-centre",
   },
   {
     id: "healthdirect",
@@ -64,6 +70,7 @@ export const SERVICES: Service[] = [
     description:
       "Speak to a registered nurse for health advice, or help deciding whether you need a GP, hospital or pharmacy.",
     tags: ["medical", "just-talk"],
+    website: "https://www.healthdirect.gov.au",
   },
   {
     id: "suicide-call-back",
@@ -72,6 +79,7 @@ export const SERVICES: Service[] = [
     hours: "24/7",
     description: "Free phone and online counselling for people affected by suicide.",
     tags: ["crisis"],
+    website: "https://www.suicidecallbackservice.org.au",
   },
   {
     id: "kids-helpline",
@@ -80,6 +88,7 @@ export const SERVICES: Service[] = [
     hours: "24/7",
     description: "Free, confidential support for anyone aged 5 to 25.",
     tags: ["crisis", "anxious", "lonely", "just-talk"],
+    website: "https://kidshelpline.com.au",
   },
   {
     id: "13yarn",
@@ -88,6 +97,7 @@ export const SERVICES: Service[] = [
     hours: "24/7",
     description: "Crisis support line for Aboriginal and Torres Strait Islander peoples.",
     tags: ["crisis", "just-talk"],
+    website: "https://www.13yarn.org.au",
   },
   {
     id: "beyond-blue",
@@ -96,6 +106,7 @@ export const SERVICES: Service[] = [
     hours: "24/7",
     description: "Support for anxiety, depression and general mental health.",
     tags: ["anxious", "just-talk"],
+    website: "https://www.beyondblue.org.au",
   },
   {
     id: "1800respect",
@@ -104,6 +115,7 @@ export const SERVICES: Service[] = [
     hours: "24/7",
     description: "Counselling and support for domestic, family and sexual violence.",
     tags: ["family-violence", "crisis"],
+    website: "https://www.1800respect.org.au",
   },
   {
     id: "mensline",
@@ -112,6 +124,7 @@ export const SERVICES: Service[] = [
     hours: "24/7",
     description: "Support and counselling for men, on relationships and life challenges.",
     tags: ["men", "just-talk"],
+    website: "https://mensline.org.au",
   },
   {
     id: "qlife",
@@ -120,6 +133,7 @@ export const SERVICES: Service[] = [
     hours: "3pm–9pm, every day",
     description: "Peer support and referral for LGBTIQ+ people.",
     tags: ["lgbtiq", "lonely", "just-talk"],
+    website: "https://qlife.org.au",
   },
   {
     id: "carer-gateway",
@@ -128,6 +142,7 @@ export const SERVICES: Service[] = [
     hours: "Mon–Fri, 8am–5pm",
     description: "Free services and support for carers, including counselling and respite.",
     tags: ["carer"],
+    website: "https://www.carergateway.gov.au",
   },
   {
     id: "disability-abuse-neglect",
@@ -137,6 +152,7 @@ export const SERVICES: Service[] = [
     description:
       "For reporting abuse, neglect or exploitation of a person with disability, and getting help.",
     tags: ["abuse-neglect", "ndis-complaint"],
+    website: "https://www.dss.gov.au/help-and-support-disability/national-disability-abuse-and-neglect-hotline",
   },
   {
     id: "ndis-commission",
@@ -145,6 +161,7 @@ export const SERVICES: Service[] = [
     hours: "Mon–Fri, 9am–5pm (7:30am–3:30pm in WA)",
     description: "To make a complaint about an NDIS provider or the support you've received.",
     tags: ["ndis-complaint", "abuse-neglect"],
+    website: "https://www.ndiscommission.gov.au",
   },
   {
     id: "ndis-contact-centre",
@@ -153,6 +170,7 @@ export const SERVICES: Service[] = [
     hours: "Mon–Fri, 8am–8pm",
     description: "General questions about your NDIS plan, funding or providers.",
     tags: ["ndis-complaint", "carer"],
+    website: "https://www.ndis.gov.au",
   },
   {
     id: "disability-advocacy",
@@ -162,5 +180,6 @@ export const SERVICES: Service[] = [
     description:
       "A free, independent advocate can support you to sort out a problem with a provider or the NDIS. Call the Disability Gateway, or search \"Disability Advocacy Finder\" on Ask Izzy to find one near you.",
     tags: ["ndis-complaint", "abuse-neglect"],
+    website: "https://www.disabilitygateway.gov.au",
   },
 ];

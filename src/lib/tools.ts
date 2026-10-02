@@ -41,7 +41,8 @@ export const tools: ToolEntry[] = [
   {
     slug: "visual-schedule",
     name: "Visual Schedule Builder",
-    description: "Build a picture timeline of the day so routines feel predictable.",
+    description:
+      "Build a picture timeline of the day so routines feel predictable - drag to reorder, and set a countdown timer per step.",
     icon: "🗓️",
     status: "live",
     category: "Routines",
@@ -236,7 +237,7 @@ export const tools: ToolEntry[] = [
     slug: "medication-reminder",
     name: "Medication Reminder",
     description:
-      "Keep a list of medications and doses, tick off today's checklist, and export a log to share with your doctor or support worker.",
+      "Keep a list of medications and doses, tick off today's checklist, see an adherence dashboard, and export a CSV or PDF for a doctor or pharmacist review.",
     icon: "💊",
     status: "live",
     category: "Independent living",
@@ -246,7 +247,7 @@ export const tools: ToolEntry[] = [
     slug: "seizure-log",
     name: "Seizure Observation Log",
     description:
-      "Record seizure type, duration, possible triggers, what happened, recovery and actions taken - export a CSV for clinical analysis.",
+      "Record seizure type, duration, severity and triggers, see the patterns on a visual dashboard, and export a CSV or PDF for a specialist review.",
     icon: "🧠",
     status: "live",
     category: "Allied health",
@@ -388,7 +389,7 @@ export const tools: ToolEntry[] = [
     slug: "easy-read-clock",
     name: "Easy-Read Clock",
     description:
-      "A big, clear digital or analog clock - choose any timezone, and customise the colours, size and format to suit you.",
+      "A big, clear digital or analog clock with numbers, hand styles and a speak-the-time button - choose any timezone, and customise the colours, size and format to suit you.",
     icon: "🕐",
     status: "live",
     category: "Independent living",
@@ -403,5 +404,95 @@ export const tools: ToolEntry[] = [
     status: "live",
     category: "Independent living",
     worksOffline: false,
+  },
+  {
+    slug: "first-then-board",
+    name: "First-Then Board & Choice Board",
+    description:
+      "A First-Then board for what's happening now and next, plus a Choice Board for offering options - tap-to-speak pictures, ready to use straight away.",
+    icon: "🔜",
+    status: "live",
+    category: "Communication",
+    worksOffline: true,
+  },
+  {
+    slug: "visual-timer",
+    name: "Visual Timer",
+    description:
+      "A big, simple countdown that shows time passing - a shrinking pie or bar, not just numbers. Great for transitions, sensory breaks and turn-taking.",
+    icon: "⏳",
+    status: "live",
+    category: "Routines",
+    worksOffline: true,
+  },
+  {
+    slug: "emergency-info-card",
+    name: "Emergency / About Me Card",
+    description:
+      "A printable, phone-ready card with conditions, allergies, medications, communication needs and emergency contacts - to hand to first responders or new support staff.",
+    icon: "🆘",
+    status: "live",
+    category: "Preparation",
+    worksOffline: true,
+  },
+  {
+    slug: "conversation-starter-cards",
+    name: "Conversation Starter Cards",
+    description:
+      "A deck of conversation-starter prompts, grouped by category, for anyone who finds small talk hard - especially useful in group or day programs.",
+    icon: "💬",
+    status: "live",
+    category: "Communication",
+    worksOffline: true,
+  },
+  {
+    slug: "memory-aid-board",
+    name: "Memory Aid / Reminder Board",
+    description:
+      "Visual daily prompts for memory or executive-function difficulties - a checklist of recurring reminders grouped by time of day that resets automatically each morning.",
+    icon: "🧠",
+    status: "live",
+    category: "Independent living",
+    worksOffline: true,
+  },
+  {
+    slug: "core-word-board",
+    name: "Core Word Board",
+    description:
+      "A fixed, colour-coded core-vocabulary AAC board of high-frequency words, arranged by part of speech. Tap to speak, or build a short sentence.",
+    icon: "🔤",
+    status: "live",
+    category: "Communication",
+    worksOffline: true,
+  },
+  {
+    slug: "change-preparation",
+    name: "Change Preparation Toolkit",
+    description:
+      "Prepare for an upcoming change - moving house, a new school, a new support worker - with what's changing, what's staying the same, a countdown, and things that might help.",
+    icon: "🧭",
+    status: "live",
+    category: "Preparation",
+    worksOffline: true,
+  },
+  {
+    slug: "task-sequencing",
+    name: "Task Sequencing Tool",
+    description:
+      "Break a task down into ordered picture steps, then run through it one step at a time and tick each one off as it's done.",
+    icon: "🪜",
+    status: "live",
+    category: "Independent living",
+    worksOffline: true,
+  },
+  {
+    slug: "ndis-budget-tracker",
+    name: "NDIS Plan Budget Tracker",
+    description:
+      "See spend vs. plan allocation for each NDIS support category - Core Supports, Capacity Building and Capital Supports.",
+    icon: "🧾",
+    status: "live",
+    category: "Independent living",
+    worksOffline: true,
   },
 ];

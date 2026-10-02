@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import SupportPlan from "@/components/support-plan/SupportPlan";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import AlliedHealthCallout from "@/components/AlliedHealthCallout";
 import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
+import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Support Plan - Toolkit",
@@ -16,14 +15,7 @@ export const metadata: Metadata = {
 export default function SupportPlanPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <nav className="no-print mb-4">
-        <Link
-          href="/"
-          className="touch-target inline-flex items-center gap-1.5 rounded-xl border-2 border-border bg-surface px-4 text-base font-semibold text-brand hover:border-brand"
-        >
-          ← All tools
-        </Link>
-      </nav>
+      <BackToToolsLink />
       <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
         Support Plan
       </h1>
@@ -48,7 +40,6 @@ export default function SupportPlanPage() {
         ]}
       />
       <MedicalDisclaimerBanner />
-      <AlliedHealthCallout />
       <AddToHomeScreen />
       <SupportPlan />
     </div>

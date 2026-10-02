@@ -178,13 +178,16 @@ export default function ToolDirectory({ tools }: ToolDirectoryProps) {
           ))}
         </ul>
       ) : (
-        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((tool) => (
-            <li key={tool.slug}>
+        <ul className="flex flex-col overflow-hidden rounded-2xl border-2 border-border bg-surface">
+          {filtered.map((tool, i) => (
+            <li
+              key={tool.slug}
+              className={i > 0 ? "border-t border-border" : ""}
+            >
               {tool.status === "live" ? (
                 <Link
                   href={`/tools/${tool.slug}`}
-                  className="group flex items-center gap-4 rounded-2xl border-2 border-border bg-surface p-4 hover:border-brand hover:shadow-md transition-colors"
+                  className="group flex items-center gap-3 px-3 py-2 hover:bg-background transition-colors"
                 >
                   <ToolListRowContent
                     tool={tool}
@@ -193,7 +196,7 @@ export default function ToolDirectory({ tools }: ToolDirectoryProps) {
                   />
                 </Link>
               ) : (
-                <div className="flex items-center gap-4 rounded-2xl border-2 border-dashed border-border bg-surface/60 p-4 opacity-80">
+                <div className="flex items-center gap-3 px-3 py-2 opacity-70">
                   <ToolListRowContent tool={tool} />
                 </div>
               )}
@@ -210,11 +213,16 @@ function FavouriteButton({
   onToggle,
   toolName,
   className = "",
+  compact = false,
 }: {
   favourited: boolean;
   onToggle: () => void;
   toolName: string;
   className?: string;
+  /** Skips the shared 88px touch-target minimum for the dense list view,
+   * where the whole row is still the large tappable target - only this
+   * secondary icon shrinks. */
+  compact?: boolean;
 }) {
   return (
     <button
@@ -226,7 +234,7 @@ function FavouriteButton({
       }}
       aria-pressed={favourited}
       aria-label={favourited ? `Remove ${toolName} from favourites` : `Add ${toolName} to favourites`}
-      className={`touch-target grid h-11 w-11 place-items-center rounded-full border-2 bg-surface text-lg ${
+      className={`${compact ? "" : "touch-target"} grid h-11 w-11 place-items-center rounded-full border-2 bg-surface text-lg ${
         favourited ? "border-brand text-brand" : "border-border text-muted"
       } ${className}`}
     >
@@ -327,41 +335,33 @@ function ToolListRowContent({
     <>
       <span
         aria-hidden="true"
-        className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-background text-2xl"
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-background text-lg"
       >
         {tool.icon}
       </span>
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2">
-          <h3 className="font-display font-bold">{tool.name}</h3>
-          <span className="rounded-full bg-background px-2.5 py-0.5 text-xs font-semibold text-muted">
-            {tool.category}
-          </span>
-          <OfflineBadge worksOffline={tool.worksOffline} />
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+          <h3 className="font-display truncate text-sm font-bold">{tool.name}</h3>
+          <span className="shrink-0 text-xs text-muted">{tool.category}</span>
           {tool.status === "soon" && (
-            <span className="rounded-full bg-accent px-2.5 py-0.5 text-xs font-bold text-accent-ink">
+            <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-accent-ink">
               Coming soon
             </span>
           )}
+          {tool.requiresAccount && (
+            <span className="shrink-0 text-[10px] font-semibold text-muted">
+              {tool.status === "soon" ? "Needs free account" : "On this device only"}
+            </span>
+          )}
         </div>
-        <p className="text-sm text-muted">{tool.description}</p>
-        {tool.requiresAccount && tool.status === "soon" && (
-          <p className="mt-1 text-xs font-semibold text-muted">
-            Will need a free account
-          </p>
-        )}
-        {tool.requiresAccount && tool.status === "live" && (
-          <p className="mt-1 text-xs font-semibold text-muted">
-            Preview: saved on this device only
-          </p>
-        )}
       </div>
       {onToggleFavourite && (
         <FavouriteButton
           favourited={Boolean(favourited)}
           onToggle={onToggleFavourite}
           toolName={tool.name}
-          className="shrink-0"
+          compact
+          className="h-8 w-8 shrink-0 text-base"
         />
       )}
       {tool.status === "live" && (

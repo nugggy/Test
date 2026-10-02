@@ -62,10 +62,23 @@ preserving — see "Full tool roadmap" below.
 **Not yet built:** every other tool beyond the Communication Board. The
 `behaviour_logs` and `social_stories` tables exist but have no UI yet.
 
+## Android app (added 02/10/2026)
+
+`android/` is a Capacitor shell that loads the live site in a WebView; there is
+no separate mobile codebase and no static export (the site is server-rendered).
+APK version lives in `android/app/build.gradle`, independent of `package.json`.
+Releases are GitHub Releases on nugggy/Test tagged `android-v<version>` with the
+APK attached; `src/components/AppUpdateChecker.tsx` offers the download inside
+the app. Printing inside the app goes through `printPage()` from
+`src/lib/native-app.ts` (use it, not `window.print()`, in any new tool). Build
+and release steps: `docs/android-release.md`. The signing keystore is gitignored
+and must never change between releases.
+
 ## Known gaps / next steps
 
-- No automated tests yet (no Jest/Playwright set up). Add before the tool
-  count grows much further.
+- Tests: Vitest is set up (`npm test`) but only covers the update-channel
+  logic so far. Add component/tool tests before the tool count grows much
+  further.
 - `/privacy` needs a Terms of Use companion page, real contact details, and
   legal review before going live.
 - `public/manifest.json` icon is a placeholder SVG — needs real app icons
@@ -84,18 +97,21 @@ preserving — see "Full tool roadmap" below.
 
 **Phase 1 (flagship, build first):**
 1. Visual Communication Board — ✅ live, no account
-2. Visual Schedule Builder — no account
+2. Visual Schedule Builder — ✅ live, no account
 3. Social Story Creator — needs account (persists per participant)
 4. Behaviour Tracking Tool — needs account (persists per participant)
 5. Emotion Tracker — no account (unless tied to a participant profile later)
 
 **Phase 2 (expand into a full toolkit library), grouped by theme:**
-- Communication: Choice Board Creator, First-Then Board, Conversation
-  Helper, Pain Communication Board, Communication Passport Builder
+- Communication: Choice Board Creator — ✅ live (`first-then-board`, merged
+  with First-Then Board), First-Then Board — ✅ live (same tool, mode
+  switcher), Conversation Helper, Pain Communication Board, Communication
+  Passport Builder
 - Emotional regulation: Calm Down Toolkit, Anxiety Scale, Coping Strategy
   Generator, Sensory Regulation Toolkit, Safe Space Planner
-- Autism support: Transition Timer, Routine Builder, Change Preparation
-  Tool, Interest-Based Activity Finder, Social Scenario Practice
+- Autism support: Transition Timer — ✅ live (`visual-timer`), Routine
+  Builder, Change Preparation Tool, Interest-Based Activity Finder, Social
+  Scenario Practice
 - Allied health: Therapy Activity Generator, Goal Tracker, SMART Goal
   Builder, Session Planner, Progress Note Assistant, Home Program Builder,
   Resource Recommendation Engine, Fine Motor / Sensory / Social Skills
@@ -104,13 +120,61 @@ preserving — see "Full tool roadmap" below.
   Community Access Planner, Incident Reflection Tool, Risk Awareness
   Checklist
 - Independent living: Visual Shopping List, Meal Planning Tool, Medication
-  Reminder System, Budgeting Tool, Travel Training Planner, Packing
-  Checklist Creator, Task Sequencing Tool
+  Reminder System — ✅ live (`medication-reminder`), Budgeting Tool, Travel
+  Training Planner, Packing Checklist Creator, Task Sequencing Tool
 - Learning/life skills: Reading/Numeracy Practice, Daily Independence
   Skill Builder, Time Management Assistant, Job Readiness Toolkit,
   Workplace Communication Helper
 - Family/carer: Behaviour Observation Tool, Positive Behaviour Diary,
   Family Support Planner, Goal Achievement Celebrator
+- Safety & records: **Emergency/"About Me" Info Card** — printable/phone-
+  ready card with medical conditions, allergies, communication needs and
+  emergency contacts, to hand to first responders or new support staff;
+  no account needed. **Appointment Prep Tool** — a checklist/question list
+  to bring to a specialist appointment plus a "what's changed since last
+  visit" summary; complements the Seizure Log and BGL Tracker dashboards.
+- Money: **NDIS Plan Budget Tracker** — like the existing Budget Tracker
+  but scoped to NDIS support categories (Core/Capacity Building/Capital),
+  so participants can see spend vs. plan allocation per category.
+- Reading/access: ~~Text Simplifier~~ — ✅ already live as
+  **Easy Read Converter** (`easy-read-converter`), which does this today.
+  **Read-Aloud Tool** — paste/upload any text and have it read aloud at an
+  adjustable speed; cheap to ship since `useSpeech` (the site-wide TTS
+  hook) already exists, and helps low-vision/dyslexic/low-literacy users
+  on any page, not just one tool.
+
+**More ideas, grouped by who they'd help most** (added 2026-08-14, not yet
+built):
+- Sensory & regulation: **Sensory Break Planner** — customisable checklist
+  of calming activities/environments to pick from when overstimulated.
+  **Noise/Light Sensitivity Guide** — a simple prep sheet for new
+  environments (venues, appointments) flagging likely sensory triggers.
+  **Quiet/Stim-Friendly Activity Finder**.
+- Communication & social: Social Story Creator (already Phase 1, above).
+  **Conversation Starter Cards** — for people who find small talk hard,
+  especially useful in group/day programs. **Core Word Board** — a more
+  clinically standard core-vocabulary board than the existing pictorial
+  Communication Board, for higher-frequency AAC use.
+- Physical/mobility & daily living: **Accessible Venue Checklist** —
+  questions to ask/check before visiting somewhere new (step-free access,
+  accessible toilets, quiet spaces). **Energy/Spoon Tracker** — for
+  chronic illness/fatigue conditions, logging energy expenditure across a
+  day to plan pacing. **Adaptive Equipment Finder** — a simple
+  directory/quiz pointing to equipment categories (not a shop, just
+  guidance).
+- Mental health & cognitive: Anxiety/Mood Scale (already Phase 2, above,
+  as "Anxiety Scale") — extend with a simple trend log when built.
+  ~~Decision-Making Helper~~ — ✅ already live (`decision-helper`). **Memory
+  Aid / Reminder Board** — visual daily prompts for people with memory or
+  executive-function difficulties.
+- Education & employment: **Job Interview Practice Tool** — common
+  questions plus a script-builder for answers. **Workplace Adjustment
+  Request Builder** — helps someone draft a plain-language request for
+  reasonable adjustments.
+- Family/carer-facing: **New Diagnosis Info Pack Builder** — curated
+  starting-point resources based on a condition. **Respite/Support Roster
+  Planner** — a simple shared calendar for coordinating multiple carers/
+  support workers.
 
 As a rule of thumb: a tool needs an account only if it stores information
 tied to a specific person over multiple sessions (progress, logs, stories,

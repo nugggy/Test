@@ -17,6 +17,20 @@ export interface SeizureLogEntry {
   recovery: string;
   actionsTaken: string[];
   notes: string;
+  /** How severe it was, in the loggers own judgement - "" if not recorded
+   * (entries saved before this field existed). */
+  severity: string;
+  /** Awareness/consciousness during the seizure - "" if not recorded. */
+  consciousness: string;
+  /** Any warning signs beforehand (aura), e.g. a strange smell or feeling. */
+  warningSigns: string;
+  /** Where it happened, e.g. Home, School, In the community. */
+  location: string;
+  /** Medication name/dose given, if "Rescue medication given" was ticked. */
+  medicationDetail: string;
+  /** How long recovery/confusion afterwards lasted, in minutes - separate
+   * from the free-text `recovery` description. 0 if not recorded. */
+  recoveryMinutes: number;
 }
 
 function readJSON<T>(key: string, fallback: T): T {
@@ -45,13 +59,38 @@ function makeId() {
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
+/** Fills in defaults for fields added after some entries were already
+ * saved, so older localStorage data keeps working without a migration. */
+function normalizeEntry(entry: Partial<SeizureLogEntry>): SeizureLogEntry {
+  return {
+    id: entry.id ?? makeId(),
+    occurredAt: entry.occurredAt ?? new Date().toISOString(),
+    seizureType: entry.seizureType ?? "",
+    durationSeconds: entry.durationSeconds ?? 0,
+    trigger: entry.trigger ?? "",
+    triggerReason: entry.triggerReason ?? "",
+    whatHappened: entry.whatHappened ?? "",
+    recovery: entry.recovery ?? "",
+    actionsTaken: entry.actionsTaken ?? [],
+    notes: entry.notes ?? "",
+    severity: entry.severity ?? "",
+    consciousness: entry.consciousness ?? "",
+    warningSigns: entry.warningSigns ?? "",
+    location: entry.location ?? "",
+    medicationDetail: entry.medicationDetail ?? "",
+    recoveryMinutes: entry.recoveryMinutes ?? 0,
+  };
+}
+
 export function useSeizureLog() {
   const [entries, setEntries] = useState<SeizureLogEntry[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setEntries(readJSON<SeizureLogEntry[]>(STORAGE_KEY, []));
+    setEntries(
+      readJSON<Partial<SeizureLogEntry>[]>(STORAGE_KEY, []).map(normalizeEntry)
+    );
     setHydrated(true);
   }, []);
 

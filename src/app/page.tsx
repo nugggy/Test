@@ -52,27 +52,6 @@ export default async function HomePage() {
         )}
       </section>
 
-      <section className="mb-12 sm:mb-16">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/dundaloo-hero.jpg"
-          alt="A diverse group of people smiling together, including wheelchair users, a person using a guide cane, a person using a walking frame, and a support dog, under the Dundaloo Support Services banner: We Listen, We Support, We Empower, We Include, We Belong."
-          className="w-full rounded-2xl border-2 border-border"
-        />
-        <p className="mt-2 text-center text-sm text-muted">
-          Built and maintained by{" "}
-          <a
-            href="https://dundaloo.org.au"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-brand hover:underline"
-          >
-            Dundaloo Support Services
-          </a>
-          , a registered NDIS provider.
-        </p>
-      </section>
-
       <MostFavourited tools={mostFavouritedTools} />
 
       <ToolDirectory tools={tools} />

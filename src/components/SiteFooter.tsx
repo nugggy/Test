@@ -4,18 +4,7 @@ export default function SiteFooter() {
   return (
     <footer className="no-print border-t-2 border-border bg-surface py-6">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 text-sm text-muted">
-        <p>
-          Free, forever. No ads, no data sold. A project by{" "}
-          <a
-            href="https://dundaloo.org.au"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-brand hover:underline"
-          >
-            Dundaloo Support Services
-          </a>
-          .
-        </p>
+        <p>Free, forever. No ads, no data sold.</p>
         <nav className="flex flex-wrap gap-4">
           <Link href="/suggestions" className="font-semibold text-brand hover:underline">
             Suggest a tool

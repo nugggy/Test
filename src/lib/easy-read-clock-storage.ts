@@ -6,6 +6,8 @@ import { DEFAULT_TIMEZONE } from "@/lib/timezone-context";
 const STORAGE_KEY = "dt:easy-read-clock:v1";
 
 export type ClockMode = "digital" | "analog";
+export type NumberStyle = "arabic" | "roman" | "none";
+export type HandStyle = "classic" | "modern" | "minimal";
 
 export interface ClockSettings {
   mode: ClockMode;
@@ -15,7 +17,13 @@ export interface ClockSettings {
   showDate: boolean;
   backgroundColor: string;
   textColor: string;
-  fontScale: number; // 1 = default, up to 2 = extra large
+  fontScale: number; // 1 = default, up to 2.4 = huge
+  // Analog-only customisation
+  numberStyle: NumberStyle;
+  showMinuteTicks: boolean;
+  faceColor: string; // "transparent" = see-through, otherwise a CSS colour
+  secondHandColor: string;
+  handStyle: HandStyle;
 }
 
 export const DEFAULT_CLOCK_SETTINGS: ClockSettings = {
@@ -27,6 +35,11 @@ export const DEFAULT_CLOCK_SETTINGS: ClockSettings = {
   backgroundColor: "#241a38",
   textColor: "#ffffff",
   fontScale: 1,
+  numberStyle: "arabic",
+  showMinuteTicks: true,
+  faceColor: "transparent",
+  secondHandColor: "#e0524a",
+  handStyle: "classic",
 };
 
 export const BACKGROUND_PRESETS = [
@@ -35,6 +48,17 @@ export const BACKGROUND_PRESETS = [
 
 export const TEXT_COLOR_PRESETS = [
   "#ffffff", "#ffe066", "#9b6fe8", "#4caf6d", "#f2c230", "#e0524a", "#241a38", "#000000",
+];
+
+export const FACE_COLOR_PRESETS = [
+  "#ffffff", "#f6f2fb", "#0a0a0a", "#241a38", "#0b3d2e", "#fff4e0",
+];
+
+export const FONT_SCALE_OPTIONS: { value: number; label: string }[] = [
+  { value: 1, label: "Standard" },
+  { value: 1.4, label: "Large" },
+  { value: 1.8, label: "Extra large" },
+  { value: 2.4, label: "Huge" },
 ];
 
 function readJSON<T>(key: string, fallback: T): T {

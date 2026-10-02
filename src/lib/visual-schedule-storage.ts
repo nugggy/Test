@@ -9,6 +9,8 @@ export interface ScheduleItem {
   label: string;
   icon: string;
   done: boolean;
+  /** Minutes to spend on this step - 0 means no countdown offered. */
+  durationMinutes: number;
 }
 
 function readJSON<T>(key: string, fallback: T): T {
@@ -31,6 +33,18 @@ function writeJSON<T>(key: string, value: T) {
   }
 }
 
+/** Fills in defaults for fields added after some items were already saved,
+ * so older localStorage data keeps working without a migration. */
+function normalizeItem(item: Partial<ScheduleItem>): ScheduleItem {
+  return {
+    id: item.id ?? `sched-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    label: item.label ?? "",
+    icon: item.icon ?? "✨",
+    done: item.done ?? false,
+    durationMinutes: item.durationMinutes ?? 0,
+  };
+}
+
 export function useScheduleItems() {
   const [items, setItems] = useState<ScheduleItem[]>([]);
   const [hydrated, setHydrated] = useState(false);
@@ -39,7 +53,7 @@ export function useScheduleItems() {
     // localStorage only exists client-side, so items are synced in after
     // mount rather than during the (server) initial render.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setItems(readJSON<ScheduleItem[]>(SCHEDULE_KEY, []));
+    setItems(readJSON<Partial<ScheduleItem>[]>(SCHEDULE_KEY, []).map(normalizeItem));
     setHydrated(true);
   }, []);
 
@@ -55,8 +69,38 @@ export function useScheduleItems() {
         label: activity.label,
         icon: activity.icon,
         done: false,
+        durationMinutes: 0,
       },
     ]);
+  }, []);
+
+  const setDuration = useCallback((id: string, minutes: number) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, durationMinutes: Math.max(0, minutes) } : item
+      )
+    );
+  }, []);
+
+  /** Reorders by dragging `id` to sit just before `beforeId` (or to the end
+   * when `beforeId` is null) - the drag-and-drop counterpart to `moveItem`'s
+   * one-step-at-a-time arrows, which stay in place for keyboard/switch
+   * access. */
+  const reorderItem = useCallback((id: string, beforeId: string | null) => {
+    setItems((prev) => {
+      if (id === beforeId) return prev;
+      const dragged = prev.find((item) => item.id === id);
+      if (!dragged) return prev;
+      const withoutDragged = prev.filter((item) => item.id !== id);
+      const targetIndex =
+        beforeId == null
+          ? withoutDragged.length
+          : withoutDragged.findIndex((item) => item.id === beforeId);
+      if (targetIndex === -1) return prev;
+      const next = [...withoutDragged];
+      next.splice(targetIndex, 0, dragged);
+      return next;
+    });
   }, []);
 
   const removeItem = useCallback((id: string) => {
@@ -93,6 +137,8 @@ export function useScheduleItems() {
     removeItem,
     toggleDone,
     moveItem,
+    reorderItem,
+    setDuration,
     resetDone,
     clearAll,
     hydrated,

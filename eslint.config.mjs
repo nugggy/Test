@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Untracked scratch copy of the repo, not part of the app.
+    "Test/**",
+    // Native Android project and its Gradle build output.
+    "android/**",
+    "mobile/**",
   ]),
 ]);
 
