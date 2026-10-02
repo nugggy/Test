@@ -14,6 +14,21 @@ interface PrinterPlugin {
 
 const Printer = registerPlugin<PrinterPlugin>("Printer");
 
+interface SpeechPlugin {
+  speak(options: { text: string; rate?: number }): Promise<void>;
+  stop(): Promise<void>;
+  addListener(
+    eventName: "speechStart" | "speechEnd",
+    listener: () => void
+  ): Promise<{ remove: () => Promise<void> }>;
+}
+
+/**
+ * Native text-to-speech (android/.../SpeechPlugin.java). Android WebViews
+ * have no window.speechSynthesis, so useSpeech uses this inside the app.
+ */
+export const NativeSpeech = registerPlugin<SpeechPlugin>("Speech");
+
 /** True when the page is running inside the Android app's WebView. */
 export function isAndroidApp(): boolean {
   if (typeof navigator === "undefined") return false;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { isAndroidApp, NativeSpeech } from "@/lib/native-app";
 
 // Mobile browsers (particularly iOS Safari) have two well-known
 // speechSynthesis bugs that mainly bite on longer text: the utterance can
@@ -29,21 +30,54 @@ function chunkText(text: string, maxLength = MAX_CHUNK_LENGTH): string[] {
   return chunks.length > 0 ? chunks : [text];
 }
 
+/**
+ * Text-to-speech for every "tap to speak" feature. In a browser it uses the
+ * Web Speech API. Inside the Android app it uses the phone's own speech
+ * engine through the native Speech plugin, because Android WebViews don't
+ * implement window.speechSynthesis at all.
+ */
 export function useSpeech() {
   const [supported, setSupported] = useState(false);
+  const [native, setNative] = useState(false);
   const [speaking, setSpeaking] = useState(false);
   const utterancesRef = useRef<SpeechSynthesisUtterance[]>([]);
 
   useEffect(() => {
     // Feature detection must happen client-side; window/speechSynthesis
     // don't exist during server rendering.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setSupported(typeof window !== "undefined" && "speechSynthesis" in window);
+    const inApp = isAndroidApp();
+    /* eslint-disable react-hooks/set-state-in-effect */
+    setNative(inApp);
+    setSupported(inApp || (typeof window !== "undefined" && "speechSynthesis" in window));
+    /* eslint-enable react-hooks/set-state-in-effect */
+    if (!inApp) return;
+
+    const handles: Array<{ remove: () => Promise<void> }> = [];
+    let cancelled = false;
+    void Promise.all([
+      NativeSpeech.addListener("speechStart", () => setSpeaking(true)),
+      NativeSpeech.addListener("speechEnd", () => setSpeaking(false)),
+    ])
+      .then((hs) => {
+        if (cancelled) hs.forEach((h) => void h.remove());
+        else handles.push(...hs);
+      })
+      .catch(() => {
+        // Older app versions without the plugin: speech just won't play.
+      });
+    return () => {
+      cancelled = true;
+      handles.forEach((h) => void h.remove());
+    };
   }, []);
 
   const speak = useCallback(
     (text: string) => {
       if (!supported) return;
+      if (native) {
+        NativeSpeech.speak({ text, rate: 0.95 }).catch(() => setSpeaking(false));
+        return;
+      }
       try {
         window.speechSynthesis.cancel(); // don't queue/overlap taps
 
@@ -66,15 +100,20 @@ export function useSpeech() {
         // the tile label is still visible, so communication isn't lost.
       }
     },
-    [supported]
+    [supported, native]
   );
 
   const stop = useCallback(() => {
     if (!supported) return;
+    if (native) {
+      NativeSpeech.stop().catch(() => undefined);
+      setSpeaking(false);
+      return;
+    }
     window.speechSynthesis.cancel();
     utterancesRef.current = [];
     setSpeaking(false);
-  }, [supported]);
+  }, [supported, native]);
 
   return { speak, stop, speaking, supported };
 }

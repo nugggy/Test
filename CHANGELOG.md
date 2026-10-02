@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.39.1] - 2026-10-02
+### Fixed
+- **Speech was silent in the Android app.** Android WebViews have no `window.speechSynthesis`, so every tap-to-speak feature did nothing in the app (it worked in browsers). New native `SpeechPlugin.java` uses the phone's own text-to-speech engine (Australian English voice preferred), with a manifest `<queries>` entry so Android 11+ can find the engine. The shared `useSpeech` hook uses it automatically inside the app, so all 11 speaking tools are fixed at once; browsers are unchanged.
+- **The Android back button closed the app.** `MainActivity` now handles back: on the homepage it leaves the app as normal; elsewhere it goes back one page, or to the homepage if there is no history (for example when the app opened straight onto a tool).
+- Android app released as `android-v1.2.1` (versionCode 6). Both fixes need this version; older installs will see the update prompt.
+
 ## [0.39.0] - 2026-10-02
 ### Changed
 - **Complete visual overhaul: "bento with personality".** A clean, professional base (Lexend headings replacing Baloo 2, neutral warm-stone palette, hairline 1px borders, one radius and shadow scale, consistent quiet card shadows) with the fun carried by bold colour blocks and a colour-coded category system. Every text/background pairing re-checked at WCAG AA or better in light and dark; high-contrast mode keeps 2px borders, drops shadows and decoration, and outlines solid blocks.

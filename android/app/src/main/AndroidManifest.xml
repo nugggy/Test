@@ -29,6 +29,14 @@
         </provider>
     </application>
 
+    <!-- Android 11+ package visibility: lets the app find the phone's
+         text-to-speech engine (used by SpeechPlugin). -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
