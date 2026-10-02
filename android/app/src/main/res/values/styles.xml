@@ -17,6 +17,11 @@
 
 
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
+        <!-- Android 11 and below: full-bleed splash.png from mobile/assets/splash.svg. -->
         <item name="android:background">@drawable/splash</item>
+        <!-- Android 12 and up: system splash shows the launcher icon on this colour.
+             Brand teal, so it matches the legacy splash.png exactly. -->
+        <item name="windowSplashScreenBackground">#0f6e67</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
     </style>
 </resources>

@@ -7,7 +7,7 @@ This project follows [Semantic Versioning](https://semver.org/).
 ### Changed
 - **Product renamed to "My Support Buddy"** (was "Toolkit"): site header, every page title, PWA manifest (`short_name` "Support Buddy"), print letterhead, update banner, provider-directory disclaimers, offline page, README and project brief. Internal identifiers deliberately unchanged so existing installs keep working: package ID `cc.dunns.tools`, the `ToolkitAndroid/<version>` user-agent token, localStorage keys, service-worker cache name, `package.json` `name`, and tool names that happen to contain the word (Calm Down Toolkit, etc.).
 - **New brand icon**: a friendly smiling face on the teal rounded square, replacing the four-pointed star. Shared `BrandMark` component used in the header and print letterhead; same artwork in `public/icon.svg` (favicon/PWA), the Android launcher icon (adaptive + legacy) and, new, the Android splash screen (replacing Capacitor's default logo). Sources in `mobile/assets/`.
-- Android app released as `android-v1.1.0` (versionCode 3) with the new name, icon and splash. APK files are now named `my-support-buddy-<version>.apk`.
+- Android app released as `android-v1.1.0` (versionCode 3) with the new name, icon and splash, then `android-v1.1.1` (versionCode 4) fixing the Android 12+ system splash background, which was the theme default lavender instead of brand teal (`windowSplashScreenBackground` in `styles.xml`). APK files are now named `my-support-buddy-<version>.apk`.
 
 ## [0.35.1] - 2026-10-02
 ### Changed

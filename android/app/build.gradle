@@ -22,8 +22,8 @@ android {
         // Bump both for every APK release. versionCode must always increase;
         // versionName is what the website's update checker compares against
         // the latest "android-v<versionName>" GitHub release tag.
-        versionCode 3
-        versionName "1.1.0"
+        versionCode 4
+        versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
