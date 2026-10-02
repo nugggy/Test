@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Weather - Toolkit",
+  title: "Weather - My Support Buddy",
   description:
     "A simple, customisable weather display - search any location, see today's conditions and a short forecast, and customise the colours and text size.",
 };

@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Who Can Help Me? - Toolkit",
+  title: "Who Can Help Me? - My Support Buddy",
   description:
     "Find the right support service for how you're feeling right now - crisis lines, mental health support, family violence support, and NDIS complaints and advocacy.",
 };

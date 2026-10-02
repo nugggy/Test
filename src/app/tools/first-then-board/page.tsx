@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "First-Then Board & Choice Board - Toolkit",
+  title: "First-Then Board & Choice Board - My Support Buddy",
   description:
     "A First-Then board for what's happening now and next, and a Choice Board for offering options - lightweight AAC tools with tap-to-speak pictures, for everyday use.",
 };

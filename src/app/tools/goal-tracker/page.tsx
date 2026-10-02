@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Goal Tracker - Toolkit",
+  title: "Goal Tracker - My Support Buddy",
   description:
     "Set goals, break them into steps, and tick them off as you go - with an optional target date and notes for each one.",
 };

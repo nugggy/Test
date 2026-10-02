@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Emotion Tracker - Toolkit",
+  title: "Emotion Tracker - My Support Buddy",
   description:
     "Daily emotion check-ins to build self-awareness and spot patterns over time.",
 };

@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Visual Schedule Builder - Toolkit",
+  title: "Visual Schedule Builder - My Support Buddy",
   description:
     "Build a picture timeline of the day so routines feel predictable - drag to reorder, set a countdown timer per step, tick off as you go. Free and printable.",
 };

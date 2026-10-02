@@ -22,10 +22,10 @@ public class PrinterPlugin extends Plugin {
 
     @PluginMethod
     public void print(PluginCall call) {
-        String rawName = call.getString("name", "Toolkit");
+        String rawName = call.getString("name", "My Support Buddy");
         // Keep the job name short and plain: it shows in the system print UI.
         final String jobName = rawName == null || rawName.trim().isEmpty()
-            ? "Toolkit"
+            ? "My Support Buddy"
             : rawName.replaceAll("[\r\n\t]", " ").trim().substring(0, Math.min(80, rawName.trim().length()));
 
         getActivity().runOnUiThread(() -> {

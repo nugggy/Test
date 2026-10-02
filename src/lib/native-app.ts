@@ -28,7 +28,7 @@ export function isAndroidApp(): boolean {
 export async function printPage(): Promise<void> {
   if (isAndroidApp()) {
     try {
-      await Printer.print({ name: document.title || "Toolkit" });
+      await Printer.print({ name: document.title || "My Support Buddy" });
       return;
     } catch {
       // Fall through to window.print(); on a WebView that is a harmless no-op.

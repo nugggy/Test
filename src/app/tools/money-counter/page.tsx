@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Money Counter - Toolkit",
+  title: "Money Counter - My Support Buddy",
   description:
     "Learn to recognise Australian coins and notes and practise counting money - tap coins and notes to build a pile and watch the total add up.",
 };

@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Meal Planner & Shopping List - Toolkit",
+  title: "Meal Planner & Shopping List - My Support Buddy",
   description:
     "Build recipes, plan meals for the week, and get an automatic shopping list you can check off as you go.",
 };

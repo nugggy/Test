@@ -19,7 +19,7 @@ import AppUpdateChecker from "@/components/AppUpdateChecker";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Toolkit - Free disability support tools",
+  title: "My Support Buddy - Free disability support tools",
   description:
     "A free collection of practical tools for people with disability, families, support workers, educators, therapists and NDIS providers.",
   manifest: "/manifest.json",

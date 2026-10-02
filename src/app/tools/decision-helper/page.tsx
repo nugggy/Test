@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Decision Helper - Toolkit",
+  title: "Decision Helper - My Support Buddy",
   description:
     "Work through a decision step by step: list your options, weigh up what's for and against each one, note who to talk to, and record your choice.",
 };

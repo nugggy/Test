@@ -1,7 +1,7 @@
 @AGENTS.md
 
 <!-- BEGIN:project-plan -->
-# Toolkit — free disability support tools: project plan
+# My Support Buddy — free disability support tools: project plan
 
 This file is the persistent project brief and plan for Claude Code (or any
 other agent) working in this repo. Read this before making changes. Keep it
@@ -63,6 +63,11 @@ preserving — see "Full tool roadmap" below.
 `behaviour_logs` and `social_stories` tables exist but have no UI yet.
 
 ## Android app (added 02/10/2026)
+
+Product name is "My Support Buddy" (renamed from "Toolkit" on 02/10/2026).
+Internal identifiers deliberately keep the old word and must not change:
+package ID `cc.dunns.tools`, the `ToolkitAndroid/<version>` user-agent token,
+localStorage keys, the service-worker cache name and `package.json` `name`.
 
 `android/` is a Capacitor shell that loads the live site in a WebView; there is
 no separate mobile codebase and no static export (the site is server-rendered).

@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "NDIS Compliance & Provider Obligations - Toolkit",
+  title: "NDIS Compliance & Provider Obligations - My Support Buddy",
   description:
     "A plain-language guide to what registered NDIS providers are required to do - the Code of Conduct, service agreements, cancellations, worker screening, incident management, restrictive practices and complaints - with a self-check and how to raise a concern.",
 };

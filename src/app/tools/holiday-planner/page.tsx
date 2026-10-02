@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Holiday Planner - Toolkit",
+  title: "Holiday Planner - My Support Buddy",
   description:
     "Plan a trip step by step: destination and dates, accommodation and transport, a day-by-day itinerary, packing and documents checklists, budget, and emergency contacts.",
 };

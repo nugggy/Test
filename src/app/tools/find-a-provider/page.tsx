@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Find a Provider - Toolkit",
+  title: "Find a Provider - My Support Buddy",
   description:
     "Search for a Support Coordinator, Plan Manager, Support Provider, or Allied Health Specialist by state and service area, or list your own service.",
 };

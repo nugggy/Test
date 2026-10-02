@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Terms of Use - Toolkit",
+  title: "Terms of Use - My Support Buddy",
 };
 
 export default function TermsOfUsePage() {

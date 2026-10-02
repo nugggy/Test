@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Easy-Read Clock - Toolkit",
+  title: "Easy-Read Clock - My Support Buddy",
   description:
     "A big, clear digital or analog clock with numbers, hand styles and a speak-the-time button - choose any timezone, and customise the colours, size and format to suit you.",
 };

@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "NDIS Plan Budget Tracker - Toolkit",
+  title: "NDIS Plan Budget Tracker - My Support Buddy",
   description:
     "See spend vs. plan allocation for each NDIS support category - Core Supports, Capacity Building and Capital Supports.",
 };

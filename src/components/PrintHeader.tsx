@@ -1,3 +1,5 @@
+import BrandMark from "@/components/BrandMark";
+
 interface PrintHeaderProps {
   title: string;
 }
@@ -18,10 +20,8 @@ export default function PrintHeader({ title }: PrintHeaderProps) {
   return (
     <div className="mb-4 hidden items-center justify-between border-b-2 border-black pb-3 print:flex">
       <div className="flex items-center gap-2.5">
-        <span aria-hidden="true" className="text-xl font-bold">
-          ✦
-        </span>
-        <span className="text-lg font-bold">Toolkit - {title}</span>
+        <BrandMark className="h-8 w-8" />
+        <span className="text-lg font-bold">My Support Buddy - {title}</span>
       </div>
       <span className="text-xs">Generated {generatedOn}</span>
     </div>

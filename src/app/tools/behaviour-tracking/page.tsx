@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Behaviour Tracking Tool - Toolkit",
+  title: "Behaviour Tracking Tool - My Support Buddy",
   description:
     "Quick ABC (antecedent-behaviour-consequence) data collection with trend charts.",
 };

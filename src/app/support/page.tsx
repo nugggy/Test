@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Support us - Toolkit",
+  title: "Support us - My Support Buddy",
   description: "Help keep these disability support tools free, ad-free, and available to everyone.",
 };
 

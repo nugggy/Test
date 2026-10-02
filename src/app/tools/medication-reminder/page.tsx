@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Medication Reminder - Toolkit",
+  title: "Medication Reminder - My Support Buddy",
   description:
     "Keep a list of medications and doses, tick off today's checklist, see an adherence dashboard, and export a CSV or PDF to share with your doctor or pharmacist.",
 };

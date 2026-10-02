@@ -16,7 +16,7 @@ export default function ProviderDirectoryPage({ categoryInfo }: ProviderDirector
     <div className="flex flex-col gap-4">
       <p className="no-print rounded-xl border-2 border-border bg-surface px-4 py-3 text-sm text-muted">
         Listings are submitted directly by providers and are not verified,
-        vetted or endorsed by this Toolkit. Always confirm registration,
+        vetted or endorsed by My Support Buddy. Always confirm registration,
         qualifications and NDIS registration status yourself - for example
         via the{" "}
         <a

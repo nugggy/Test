@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Privacy Policy - Toolkit",
+  title: "Privacy Policy - My Support Buddy",
 };
 
 export default function PrivacyPolicyPage() {

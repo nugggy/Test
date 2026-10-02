@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Friendship Goal Planner - Toolkit",
+  title: "Friendship Goal Planner - My Support Buddy",
   description:
     "Set goals for meeting people, maintaining friendships, and getting involved in your community - with steps to break each one down.",
 };

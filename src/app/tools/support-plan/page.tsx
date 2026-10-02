@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Support Plan - Toolkit",
+  title: "Support Plan - My Support Buddy",
   description:
     "A person-centred support plan: about me, my goals, my supports, health & safety info, communication tips and emergency contacts.",
 };

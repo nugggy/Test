@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Sensory Needs - Toolkit",
+  title: "Sensory Needs - My Support Buddy",
   description:
     "Understand sensory seeking and avoiding across sound, light, touch, taste/smell, movement and body awareness, and build a personal sensory profile of what helps and what overwhelms.",
 };

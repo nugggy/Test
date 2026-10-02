@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Exercise & Fitness Plan - Toolkit",
+  title: "Exercise & Fitness Plan - My Support Buddy",
   description:
     "Set fitness goals with steps to break them down, log each exercise session, and see your progress on a chart over time.",
 };

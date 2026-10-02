@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Sleep Tracker - Toolkit",
+  title: "Sleep Tracker - My Support Buddy",
   description:
     "Log bedtime, wake time and sleep quality each night, see hours slept over time on a chart, and export your log as a CSV.",
 };

@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Diabetes BGL & Insulin Tracker - Toolkit",
+  title: "Diabetes BGL & Insulin Tracker - My Support Buddy",
   description:
     "Log blood glucose readings and insulin doses, see the trend over time on a chart, build a visual management plan from your doctor's recommendations, and export or print to share with your diabetes care team.",
 };

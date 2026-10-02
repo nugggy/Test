@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Visual Communication Board - Toolkit",
+  title: "Visual Communication Board - My Support Buddy",
   description:
     "Tap pictures to speak wants, needs and feelings out loud. Free and works offline.",
 };

@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Healthy Relationships - Toolkit",
+  title: "Healthy Relationships - My Support Buddy",
   description:
     "Plain-language education on healthy relationships, consent, warning signs, communication and staying safe - plus a private, personal space to write down what matters to you.",
 };

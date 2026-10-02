@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Budget Tracker - Toolkit",
+  title: "Budget Tracker - My Support Buddy",
   description:
     "Log income and expenses and see where the money goes, category by category.",
 };

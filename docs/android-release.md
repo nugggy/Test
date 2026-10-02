@@ -1,5 +1,10 @@
 # Android app: building and releasing
 
+Product name: **My Support Buddy**. Internal identifiers (package ID
+`cc.dunns.tools`, the `ToolkitAndroid/<version>` user-agent token, release tag
+prefix `android-v`) keep their original names on purpose: changing them would
+break updates for phones that already have the app.
+
 The Android app is a thin native shell (Capacitor) whose WebView loads the live
 site at https://tools.dunns.cc. There is no separate mobile codebase: every tool,
 sign-in, server action and localStorage save behaves exactly as it does in a phone
@@ -27,7 +32,7 @@ Download link for users: https://github.com/nugggy/Test/releases/latest
 
 ## How the update channel works
 
-1. The app's WebView sends the user agent token `ToolkitAndroid/1.0.0` (the
+1. The app's WebView sends the user agent token `ToolkitAndroid/1.1.0` (the
    `versionName` from `build.gradle`).
 2. On load, `AppUpdateChecker` sees that token, fetches
    `https://api.github.com/repos/nugggy/Test/releases` (at most once an hour) and
@@ -62,10 +67,10 @@ publishing it.
 
    The signed APK is written to `android/app/build/outputs/apk/release/app-release.apk`.
    Check it: `apksigner verify --print-certs <apk>` from `build-tools/36.0.0`.
-3. Rename it to `toolkit-<versionName>.apk`.
+3. Rename it to `my-support-buddy-<versionName>.apk`.
 4. Commit and push, then create a GitHub release on nugggy/Test:
    - Tag: `android-v<versionName>` (exactly, e.g. `android-v1.1.0`).
-   - Title: `Toolkit Android v<versionName>`.
+   - Title: `My Support Buddy Android v<versionName>`.
    - Body: plain-text release notes. The app shows them under "What's new".
    - Attach the renamed APK. Publish (not draft, not pre-release).
 5. Open the previous version of the app. The update banner appears within the hour
@@ -78,14 +83,15 @@ local data. Keep `android/keystore/toolkit-release.jks` and
 
 ## Launcher icon
 
-The launcher icon matches the site icon (`public/icon.svg`): a teal rounded
-square with a white four-pointed star. Sources are `mobile/assets/icon-only.svg`
+The launcher icon matches the site icon (`public/icon.svg`): a friendly smiling
+face on a teal rounded square. Sources are `mobile/assets/icon-only.svg`
 (legacy icon), `icon-foreground.svg` and `icon-background.svg` (adaptive icon
-layers, star kept inside the 66% safe zone). After editing them, regenerate every
+layers, face kept inside the 66% safe zone), plus `splash.svg` / `splash-dark.svg`
+for the launch screen. After editing them, regenerate every
 density with:
 
 ```powershell
-npx @capacitor/assets generate --android --assetPath mobile/assets --iconBackgroundColor '#0f6e67' --iconBackgroundColorDark '#0f6e67'
+npx @capacitor/assets generate --android --assetPath mobile/assets --iconBackgroundColor '#0f6e67' --iconBackgroundColorDark '#0f6e67' --splashBackgroundColor '#0f6e67' --splashBackgroundColorDark '#0f6e67'
 ```
 
 ## Installing on a phone

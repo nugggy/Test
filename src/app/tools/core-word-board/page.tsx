@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Core Word Board - Toolkit",
+  title: "Core Word Board - My Support Buddy",
   description:
     "A fixed, colour-coded core-vocabulary AAC board of high-frequency words, arranged by part of speech. Tap to speak, or build a short sentence.",
 };

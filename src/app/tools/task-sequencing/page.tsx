@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Task Sequencing Tool - Toolkit",
+  title: "Task Sequencing Tool - My Support Buddy",
   description:
     "Break a task down into ordered picture steps, then run through it one step at a time and tick each one off as it's done.",
 };

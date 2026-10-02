@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Social Story Creator - Toolkit",
+  title: "Social Story Creator - My Support Buddy",
   description:
     "Create a simple, illustrated story to prepare for a new place or event.",
 };

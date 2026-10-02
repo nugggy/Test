@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Change Preparation Toolkit - Toolkit",
+  title: "Change Preparation Toolkit - My Support Buddy",
   description:
     "Prepare for an upcoming change - moving house, a new school, a new support worker - with what's changing, what's staying the same, a countdown, and things that might help.",
 };

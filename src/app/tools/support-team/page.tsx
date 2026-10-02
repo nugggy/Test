@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "My Support Team Directory - Toolkit",
+  title: "My Support Team Directory - My Support Buddy",
   description:
     "Keep every support contact in one place: Plan Manager, Support Coordinator, therapists, medical specialists and emergency contacts. Printable.",
 };

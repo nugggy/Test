@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Emergency / About Me Card - Toolkit",
+  title: "Emergency / About Me Card - My Support Buddy",
   description:
     "A printable, phone-ready card with conditions, allergies, medications, communication needs and emergency contacts - to hand to first responders or new support staff.",
 };

@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Memory Aid / Reminder Board - Toolkit",
+  title: "Memory Aid / Reminder Board - My Support Buddy",
   description:
     "Visual daily prompts for memory or executive-function difficulties - a checklist of recurring reminders grouped by time of day that resets automatically each morning.",
 };

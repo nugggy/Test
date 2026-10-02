@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Visual Labels Maker - Toolkit",
+  title: "Visual Labels Maker - My Support Buddy",
   description:
     "Create simple picture-and-word labels to print, cut out, and stick up around the house - doors, drawers, routines and reminders.",
 };

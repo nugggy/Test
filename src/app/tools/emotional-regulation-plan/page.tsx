@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Emotional Regulation Plan - Toolkit",
+  title: "Emotional Regulation Plan - My Support Buddy",
   description:
     "Build a personal calm-down, grounding and crisis plan, step by step: warning signs, calming strategies, grounding techniques, people to go to, and when to get urgent help.",
 };

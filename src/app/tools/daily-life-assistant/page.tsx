@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Daily Life Assistant - Toolkit",
+  title: "Daily Life Assistant - My Support Buddy",
   description:
     "Create your own step-by-step instructions for everyday tasks - fully customisable, tick off each step, and reset for next time.",
 };

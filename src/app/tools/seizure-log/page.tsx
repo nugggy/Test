@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Seizure Observation Log - Toolkit",
+  title: "Seizure Observation Log - My Support Buddy",
   description:
     "Record seizure type, duration, severity, triggers, warning signs and recovery, see the patterns on a visual dashboard, and export a CSV or PDF to share with a neurologist.",
 };

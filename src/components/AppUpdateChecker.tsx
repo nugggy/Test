@@ -97,7 +97,7 @@ export default function AppUpdateChecker() {
       <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
           <p id="app-update-title" className="font-display text-lg font-bold">
-            A new version of the Toolkit app is ready (v{release.version})
+            A new version of the My Support Buddy app is ready (v{release.version})
           </p>
           <p className="text-sm text-muted">
             You have v{installedVersion}. Download the update, then open the file to install it.

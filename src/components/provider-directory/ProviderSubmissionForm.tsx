@@ -38,7 +38,7 @@ export default function ProviderSubmissionForm({ categoryInfo }: ProviderSubmiss
 
       <p className="rounded-xl border-2 border-accent bg-accent/10 px-4 py-3 text-sm">
         Listings are submitted directly by providers and are{" "}
-        <strong>not verified or vetted</strong> by this Toolkit. Only submit
+        <strong>not verified or vetted</strong> by My Support Buddy. Only submit
         accurate information about a real, currently operating service.
       </p>
 

@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Visual Timer - Toolkit",
+  title: "Visual Timer - My Support Buddy",
   description:
     "A big, simple countdown timer with a shrinking pie-chart or bar display - great for transitions, sensory breaks, and turn-taking. Customise the colour, style, sound and vibration.",
 };

@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Savings Plan - Toolkit",
+  title: "Savings Plan - My Support Buddy",
   description:
     "Set one or more savings goals with a target amount, log every contribution, and watch a progress bar build up towards each goal.",
 };

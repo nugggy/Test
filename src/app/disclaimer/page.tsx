@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Disclaimer - Toolkit",
+  title: "Disclaimer - My Support Buddy",
 };
 
 export default function DisclaimerPage() {

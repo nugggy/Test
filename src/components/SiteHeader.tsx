@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AccessibilityControls from "@/components/AccessibilityControls";
 import ReadPageAloudButton from "@/components/ReadPageAloudButton";
+import BrandMark from "@/components/BrandMark";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function SiteHeader() {
@@ -16,13 +17,8 @@ export default async function SiteHeader() {
           href="/"
           className="font-display flex shrink-0 items-center gap-2 text-lg font-bold text-foreground sm:gap-2.5 sm:text-xl md:text-2xl"
         >
-          <span
-            aria-hidden="true"
-            className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-lg text-brand-ink sm:h-10 sm:w-10 sm:text-xl"
-          >
-            ✦
-          </span>
-          Toolkit
+          <BrandMark className="h-9 w-9 sm:h-10 sm:w-10" />
+          My Support Buddy
         </Link>
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <Link

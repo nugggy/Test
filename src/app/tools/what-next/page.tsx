@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "What Should I Do Next? - Toolkit",
+  title: "What Should I Do Next? - My Support Buddy",
   description:
     "Pick how you're feeling and get suggested strategies to help - plus a place to save your own strategies that have been recommended just for you.",
 };

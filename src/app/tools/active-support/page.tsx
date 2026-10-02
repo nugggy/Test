@@ -8,7 +8,7 @@ import PrintHeader from "@/components/PrintHeader";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Active Support for Support Workers - Toolkit",
+  title: "Active Support for Support Workers - My Support Buddy",
   description:
     "A plain-language breakdown of the five core elements of Active Support - every moment has potential, little and often, graded assistance, maximising choice and control, and positive relationships - with a self-reflection checklist.",
 };

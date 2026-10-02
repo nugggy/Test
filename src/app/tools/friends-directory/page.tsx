@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "My Friends Directory - Toolkit",
+  title: "My Friends Directory - My Support Buddy",
   description:
     "Keep family, friends and community contacts in one place, with phone, email and notes for each. Printable.",
 };

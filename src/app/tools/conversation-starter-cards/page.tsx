@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Conversation Starter Cards - Toolkit",
+  title: "Conversation Starter Cards - My Support Buddy",
   description:
     "A deck of conversation-starter prompts, grouped by category, for anyone who finds small talk hard - especially useful in group or day programs.",
 };

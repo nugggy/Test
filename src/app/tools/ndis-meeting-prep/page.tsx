@@ -8,7 +8,7 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "NDIS Meeting Preparation - Toolkit",
+  title: "NDIS Meeting Preparation - My Support Buddy",
   description:
     "Get ready for an NDIS planning or review meeting: meeting and plan details, documents to bring, what's working, what isn't, changes since your last plan, how your disability affects daily life, support needs, future goals, and questions for your planner.",
 };

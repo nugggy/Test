@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Toolkit</string>
-    <string name="title_activity_main">Toolkit</string>
+    <string name="app_name">My Support Buddy</string>
+    <string name="title_activity_main">My Support Buddy</string>
     <string name="package_name">cc.dunns.tools</string>
     <string name="custom_url_scheme">cc.dunns.tools</string>
 </resources>

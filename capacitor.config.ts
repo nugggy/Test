@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 /**
- * Android shell for the Toolkit website.
+ * Android shell for the My Support Buddy website.
  *
  * The app is a native WebView that loads the live site, so sign-in cookies,
  * server actions, the service worker cache and localStorage all behave
@@ -14,7 +14,7 @@ import type { CapacitorConfig } from "@capacitor/cli";
  */
 const config: CapacitorConfig = {
   appId: "cc.dunns.tools",
-  appName: "Toolkit",
+  appName: "My Support Buddy",
   webDir: "mobile/www",
   server: {
     url: "https://tools.dunns.cc",

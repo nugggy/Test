@@ -1,4 +1,4 @@
-# Toolkit — free disability support tools
+# My Support Buddy — free disability support tools
 
 Free tools for people with disability, families, support workers,
 educators, therapists and NDIS providers. Accounts are only required for

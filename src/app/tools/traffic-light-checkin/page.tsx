@@ -7,7 +7,7 @@ import HowToUse from "@/components/HowToUse";
 import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
-  title: "Traffic Light Check-In - Toolkit",
+  title: "Traffic Light Check-In - My Support Buddy",
   description:
     "A quick tap-in: green, amber or red, with a suggested strategy for each.",
 };
