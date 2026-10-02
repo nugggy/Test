@@ -7,7 +7,6 @@ export const metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:py-14">
-
       <h1 className="font-display text-3xl font-bold mb-2">Privacy Policy</h1>
       <p className="text-muted mb-8">Last updated: 2 October 2026</p>
 
@@ -16,154 +15,94 @@ export default function PrivacyPolicyPage() {
           <h2>1. Who runs My Support Buddy</h2>
           <p>
             My Support Buddy is a free, non-commercial project built and run
-            privately by one person in New South Wales, Australia, to help people with
-            disability, their families and the people who support them. It
-            is not a company, charity or registered organisation, it is not
-            an NDIS provider, and it is not connected to any service
+            privately by one person in New South Wales, Australia, to help
+            people with disability, their families and the people who support
+            them. It is not a company, charity or registered organisation, it
+            is not an NDIS provider, and it is not connected to any service
             provider. There are no ads, nothing is sold, and the site does
             not make money.
           </p>
           <p>
             In this policy, &quot;we&quot; and &quot;us&quot; mean the
-            person who runs My Support Buddy. It explains how personal
-            information is handled on this website and in the My Support
-            Buddy Android app (together, &quot;the Service&quot;). It applies
-            to:
+            person who runs My Support Buddy. It explains how information is
+            handled on this website and in the My Support Buddy Android app
+            (together, &quot;the Service&quot;).
+          </p>
+        </section>
+
+        <section>
+          <h2>2. Your tool information stays on your device</h2>
+          <p>
+            There are no accounts and no sign-in. Everything you enter into a
+            tool - including any health, disability, behaviour, medication or
+            personal details - is stored only on your own device, in your
+            browser&apos;s local storage or in the app on your phone. It is
+            never sent to us, and we have no way to see, back up, or recover
+            it.
           </p>
           <ul>
-            <li>Anyone using a tool that doesn&apos;t need an account.</li>
-            <li>People who create an individual or family account.</li>
             <li>
-              Organisations (such as NDIS providers, schools or clinics) and
-              their staff who create an account.
+              If you clear your browser data, use a different device or
+              browser, or uninstall the app, that information is gone.
             </li>
             <li>
-              Participants - the people receiving support - whose profiles
-              are created and managed by an individual or an organisation
-              account on their behalf. A participant is not required to have
-              their own login.
+              Anything you print, export or share (for example as a PDF or
+              CSV file) is in your control from that point on.
             </li>
             <li>
-              Anyone who sends a tool suggestion or a provider directory
-              listing through the forms on this site.
+              Anyone who can use your device may be able to see what you have
+              entered, so use your device&apos;s lock screen if that matters
+              to you.
             </li>
           </ul>
         </section>
 
         <section>
-          <h2>2. Tools that don&apos;t need an account</h2>
-          <p>
-            Most tools on this site work entirely on your own device. What
-            you enter, plus favourites, custom pictures and settings, is
-            stored locally in your browser or in the app on your phone. It
-            is never sent to us, and we have no way to see or recover it. If
-            you clear your browser data or uninstall the app, it is gone.
-          </p>
-        </section>
-
-        <section>
-          <h2>3. Information we collect for accounts</h2>
-          <p>For account holders (individuals, families, and organisation staff), we collect:</p>
-          <ul>
-            <li>Name and email address.</li>
-            <li>Account type (individual/family or organisation) and, for organisations, the organisation&apos;s name and ABN.</li>
-            <li>A securely hashed password (we never store or can see your actual password).</li>
-          </ul>
-          <p>
-            For participant profiles created by an account holder, we collect
-            only what is entered into the tool: typically a name, and
-            optionally a date of birth and notes. Some tools (for example
-            behaviour tracking or social stories) will store further
-            information specific to that tool, tied to the participant
-            profile it was entered under.
-          </p>
-          <p>
-            Some of this information - health, disability, and behavioural
-            information - is &quot;sensitive information&quot; under the
-            Privacy Act 1988 and is handled with extra care, as described
-            below.
-          </p>
-        </section>
-
-        <section>
-          <h2>4. Other information we receive</h2>
+          <h2>3. Information that does reach us</h2>
+          <p>Only these things are ever sent to us, and only if you use them:</p>
           <ul>
             <li>
               <strong>Tool suggestions:</strong> what you write, and an email
-              address only if you choose to give one so we can reply.
+              address only if you choose to give one so we can reply. Please
+              don&apos;t include health or personal details about anyone.
             </li>
             <li>
               <strong>Provider directory listings:</strong> the business and
-              contact details you submit, which are shown publicly in the
-              directory once approved.
+              contact details a provider submits, which are shown publicly in
+              the directory once approved.
             </li>
             <li>
               <strong>Favourite counts:</strong> when you favourite a tool, a
-              random device code (not linked to your name or account) is
-              stored so the &quot;community favourites&quot; totals can be
+              random device code (not linked to your name or anything about
+              you) is stored so the community favourites totals can be
               counted.
             </li>
             <li>
               <strong>Visit count:</strong> a single running total of how many
-              times the homepage has been opened. Nothing about who opened
-              it is stored.
+              times the homepage has been opened. Nothing about who opened it
+              is stored.
             </li>
           </ul>
-        </section>
-
-        <section>
-          <h2>5. Who can see participant information</h2>
           <p>
-            Access is restricted at the database level, not just in the
-            app, so it cannot be bypassed by a bug in a single tool:
-          </p>
-          <ul>
-            <li>
-              A participant profile created by an individual/family account
-              is visible only to that account holder.
-            </li>
-            <li>
-              A participant profile created by an organisation is visible
-              only to staff who belong to that organisation.
-            </li>
-            <li>Organisations cannot see another organisation&apos;s participants or staff.</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>6. Consent for participant profiles</h2>
-          <p>
-            Anyone creating a profile for another person confirms, at
-            sign-up, that they are authorised to do so - for example as a
-            parent, guardian, or support coordinator, or under an
-            organisation&apos;s existing service agreement or consent
-            process with the participant. Organisations are responsible for
-            obtaining and recording any consent required by their own
-            obligations (including NDIS Practice Standards) before entering
-            a participant&apos;s information.
+            We do not sell information, use it for advertising, or use it to
+            train AI models.
           </p>
         </section>
 
         <section>
-          <h2>7. Where information is stored and how it&apos;s protected</h2>
-          <ul>
-            <li>Account and participant data is stored with Supabase, the database service this site uses, with encryption in transit and at rest.</li>
-            <li>Every table enforces row-level security so a query can only ever return the rows a signed-in user is actually authorised to see.</li>
-            <li>We do not sell personal information, and we do not use it for advertising.</li>
-            <li>We do not use participant or account data to train AI models.</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>8. Outside services the Service relies on</h2>
+          <h2>4. Outside services the Service relies on</h2>
           <p>
             These services receive the normal technical details any website
-            receives when your device connects to it, such as your IP
-            address and browser type:
+            receives when your device connects to it, such as your IP address
+            and browser type:
           </p>
           <ul>
             <li><strong>Vercel</strong> hosts the website.</li>
-            <li><strong>Supabase</strong> stores account data and the form submissions described above.</li>
+            <li>
+              <strong>Supabase</strong> stores the suggestions, provider
+              listings, favourite counts and visit count described above, with
+              encryption in transit and at rest.
+            </li>
             <li>
               <strong>GitHub</strong> hosts the Android app download. The app
               also checks GitHub for a newer version when it opens.
@@ -182,44 +121,44 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2>9. Data retention and deletion</h2>
+          <h2>5. Keeping and deleting information</h2>
           <p>
-            We keep account and participant information for as long as the
-            account is active. You can ask for an account, organisation, or
-            participant profile to be deleted at any time using the contact
-            details below. Organisations remain responsible for keeping their
-            own copies of any records they are required to keep, such as
-            under NDIS record-keeping obligations.
+            Suggestions and provider listings are kept for as long as they
+            are useful for running the site. You can ask for a suggestion or
+            listing you sent to be corrected or deleted at any time using the
+            contact details below. Information in the tools on your device is
+            deleted whenever you clear it, clear your browser data, or
+            uninstall the app.
           </p>
         </section>
 
         <section>
-          <h2>10. Your rights</h2>
+          <h2>6. Cookies and local storage</h2>
           <p>
-            You can ask to see, correct, or delete personal information we
-            hold about you or a participant you manage. Use the contact
-            details below to make a request.
+            The Service does not use advertising, analytics or tracking
+            cookies. Your tool information and preferences (such as text
+            size, contrast and font) are kept in your browser&apos;s local
+            storage on your own device.
           </p>
         </section>
 
         <section>
-          <h2>11. Cookies and local storage</h2>
+          <h2>7. Changes to this policy</h2>
           <p>
-            We use essential cookies only to keep you signed in securely.
-            There are no advertising or tracking cookies. Accessibility
-            preferences (text size, contrast, font) and no-account tool data
-            are stored only in your browser&apos;s local storage, on your own
-            device.
+            If how the Service handles information changes, this page will
+            be updated and the date at the top changed.
           </p>
         </section>
 
         <section>
-          <h2>12. Contact</h2>
+          <h2>8. Contact</h2>
           <p>
-            For any privacy question, or to ask for access to, correction
-            of, or deletion of your information: <a href="mailto:gwclissold@gmail.com" className="font-semibold text-brand hover:underline">gwclissold@gmail.com</a>. If you&apos;re not satisfied with the response, you
-            can contact the Office of the Australian Information
-            Commissioner (oaic.gov.au).
+            For any privacy question, or to ask for something you sent us to
+            be corrected or deleted:{" "}
+            <a href="mailto:gwclissold@gmail.com" className="font-semibold text-brand hover:underline">gwclissold@gmail.com</a>.
+            If you&apos;re not satisfied with the response, you can contact
+            the Office of the Australian Information Commissioner
+            (oaic.gov.au).
           </p>
         </section>
       </div>

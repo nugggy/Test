@@ -38,23 +38,24 @@ preserving — see "Full tool roadmap" below.
   colour-coded categories, tap-to-speak (Web Speech API), message-strip
   sentence building, favourites, add-your-own picture, full-screen mode,
   offline app-shell caching (`public/sw.js`)
-- **Accounts system** (only used by tools that hold sensitive/longitudinal
-  data — most tools stay account-free):
-  - Supabase Auth via `@supabase/ssr`, cookie-based sessions
-  - Two account types: individual/family, and organisation (NDIS
-    provider/clinic/school) with staff roles (owner/admin/staff)
-  - Organisations can create **participant profiles** for people who don't
-    have/need their own login
-  - Row Level Security on every table — see
-    `supabase/migrations/0001_accounts_and_participants.sql` for the full
-    policy set; this is the security boundary, not application code
-  - Worked-example sensitive tables: `behaviour_logs`, `social_stories`
-  - `/privacy` — draft privacy policy, flagged for legal review before
-    publishing (health/disability data, data about non-account-holders)
+- **No accounts, by design (decided 02/10/2026).** The owner runs this
+  privately as one person in NSW, not as a company, and will not take on the
+  legal risk of holding anyone's health or disability information. So there
+  is no sign-in, no user accounts and no participant profiles, and every
+  tool keeps its data on the user's own device only (localStorage, or the
+  Android app's WebView storage). **Do not add accounts, cloud sync or any
+  server-side storage of tool data.** The account system that used to exist
+  was removed in 0.38.2; `supabase/migrations/0006_remove_accounts.sql`
+  drops its tables (written, not yet applied to the live project).
+- Supabase is still used only for non-sensitive shared features: tool
+  suggestions, provider directory listings, anonymous favourite counts and
+  the visit counter.
+- `/privacy` and `/terms` are published (0.38.1, updated 0.38.2): private
+  operator in NSW, NSW governing law, contact gwclissold@gmail.com. Keep them
+  accurate whenever a feature changes what data leaves the device.
 - `/disclaimer` — "not medical advice" disclaimer, plus emergency/crisis
   contacts (000, Lifeline 13 11 14, Kids Helpline 1800 55 1800, 13YARN
-  13 92 76). Linked from the footer, homepage, and sign-up consent
-  checkbox, and shown as a compact banner
+  13 92 76). Linked from the footer and homepage, and shown as a compact banner
   (`src/components/MedicalDisclaimerBanner.tsx`) on tool pages — **add
   this banner to every new tool page going forward**, not just
   Communication Board.
@@ -89,24 +90,17 @@ and must never change between releases.
 - `public/manifest.json` icon is a single SVG — needs PNG sizes and a maskable
   variant before PWA install prompts look right. (The Android launcher icon is
   done: see `mobile/assets/` and `docs/android-release.md`.)
-- Sensitive tools (Behaviour Tracking, Social Story Creator) have a DB
-  schema but no pages/UI yet — build these next, following the
-  `participant_id`-scoped RLS pattern already in the migration.
 - npm has a major version available (was 10.9.7 → 12.0.2 as of this
   writing) — ask the user before upgrading globally.
-- This repo was developed in a sandboxed environment with no network path
-  to Supabase, so the accounts system is code-complete and passes
-  `tsc`/`eslint`/`next build`, but has **not been run against a live
-  Supabase project**. Treat first integration as the first real test.
 
 ## Full tool roadmap
 
 **Phase 1 (flagship, build first):**
 1. Visual Communication Board — ✅ live, no account
 2. Visual Schedule Builder — ✅ live, no account
-3. Social Story Creator — needs account (persists per participant)
-4. Behaviour Tracking Tool — needs account (persists per participant)
-5. Emotion Tracker — no account (unless tied to a participant profile later)
+3. Social Story Creator — live, on-device only
+4. Behaviour Tracking Tool — live, on-device only
+5. Emotion Tracker — live, on-device only
 
 **Phase 2 (expand into a full toolkit library), grouped by theme:**
 - Communication: Choice Board Creator — ✅ live (`first-then-board`, merged
@@ -182,10 +176,9 @@ built):
   Planner** — a simple shared calendar for coordinating multiple carers/
   support workers.
 
-As a rule of thumb: a tool needs an account only if it stores information
-tied to a specific person over multiple sessions (progress, logs, stories,
-goals). Anything that's a single-session utility (a calculator, a
-checklist you print, a generator you use once) should stay account-free.
+Rule: no tool ever needs an account. Tools that track information over
+time (logs, goals, stories) store it on the device, and offer print or
+export (PDF/CSV) so people can keep or share their own copy.
 
 ## Architecture & conventions
 
@@ -220,19 +213,14 @@ self-hosting is strictly better for offline PWA use anyway.
 src/app/tools/<slug>/page.tsx     one route per tool
 src/components/<tool>/            tool-specific components
 src/lib/<tool>-data.ts            static/seed data for a tool
-src/lib/<tool>-storage.ts         localStorage hooks, for account-free tools
-src/app/account/actions.ts        server actions needing auth
+src/lib/<tool>-storage.ts         localStorage hooks (all tool data lives here)
 supabase/migrations/              append-only numbered SQL migrations
 ```
 
-**Data layer rule:** account-free tools use `localStorage` only (see
+**Data layer rule:** every tool uses `localStorage` only (see
 `src/lib/communication-board-storage.ts` for the pattern: hydration-safe
-hooks with a `hydrated` guard to avoid SSR/client mismatches). Sensitive or
-multi-session tools use Supabase tables scoped by `participant_id`, with
-RLS policies of the shape `participant_id in (select id from
-public.participants)` — this automatically inherits `participants`' own
-access rules, so there's exactly one place that defines "who can see this
-participant."
+hooks with a `hydrated` guard to avoid SSR/client mismatches). Tool data
+never goes to Supabase or any other server.
 
 ## User's standing preferences (apply to all future work here)
 

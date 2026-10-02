@@ -306,13 +306,6 @@ function ToolCardContent({
       <p className="mt-1 line-clamp-2 min-h-[2.5rem] flex-1 text-sm text-muted">
         {tool.description}
       </p>
-      <p className="mt-2 min-h-[1rem] text-xs font-semibold text-muted">
-        {tool.requiresAccount && tool.status === "soon"
-          ? "Will need a free account (saves data over time)"
-          : tool.requiresAccount && tool.status === "live"
-            ? "Preview: saved on this device only for now"
-            : " "}
-      </p>
       {tool.status === "live" && (
         <span className="mt-3 font-semibold text-brand group-hover:underline">
           Open tool →
@@ -346,11 +339,6 @@ function ToolListRowContent({
           {tool.status === "soon" && (
             <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-accent-ink">
               Coming soon
-            </span>
-          )}
-          {tool.requiresAccount && (
-            <span className="shrink-0 text-[10px] font-semibold text-muted">
-              {tool.status === "soon" ? "Needs free account" : "On this device only"}
             </span>
           )}
         </div>

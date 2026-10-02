@@ -3,6 +3,15 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.38.2] - 2026-10-02
+### Removed
+- **The account system.** Some tools hold sensitive health information, and the site is run privately, so it no longer offers accounts at all. Removed: sign-in, sign-up, check-email and account pages (organisation setup, participant profiles), their server actions, the session-refreshing proxy (`src/proxy.ts`, `src/lib/supabase/middleware.ts`), the header's Sign in link, and the `requiresAccount` flag on six tools with its "needs a free account" labels. Old account URLs now redirect to the homepage.
+- `supabase/migrations/0006_remove_accounts.sql` drops the account tables, functions and trigger (profiles, organisations, organisation members, participants, behaviour logs, social stories). It has **not** been applied to the live project, because it permanently deletes data.
+
+### Changed
+- Privacy Policy rewritten for a no-accounts site: all tool information stays on the device, and only suggestions, provider listings, anonymous favourite counts and the visit count ever reach the server. Terms of Use updated to match. Cookie notice no longer mentions a sign-in cookie.
+- The Behaviour Tracking, Emotional Regulation Plan, Social Story and Support Plan pages now say their data is private to the device instead of "preview mode, accounts coming later".
+
 ## [0.38.1] - 2026-10-02
 ### Changed
 - **Privacy Policy and Terms of Use published.** Both now state that My Support Buddy is a free, non-commercial project run privately by one person in New South Wales, not a company, charity, NDIS provider or registered organisation. Drafting notes and placeholders removed, dated 2 October 2026, with gwclissold@gmail.com as the contact.

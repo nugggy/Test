@@ -6,9 +6,8 @@ import { useCookieNotice } from "@/lib/cookie-consent-storage";
 /**
  * A one-time notice, not a granular consent form - this site has no ads,
  * no analytics, and no tracking cookies to opt in or out of. It exists to
- * plainly disclose the two things that are actually stored: your tool
- * data in this browser's local storage, and (only if you create an
- * account) a strictly-necessary cookie that keeps you signed in.
+ * plainly disclose the one thing that is actually stored: your tool data,
+ * in this browser's local storage on your own device.
  */
 export default function CookieConsentBanner() {
   const { showBanner, dismiss } = useCookieNotice();
@@ -25,8 +24,7 @@ export default function CookieConsentBanner() {
         <p className="text-sm">
           This site doesn&apos;t use ads or tracking cookies. Your tool data
           is saved in this browser&apos;s local storage, on your own
-          device; if you sign in, a strictly-necessary cookie keeps you
-          logged in. See our{" "}
+          device, and never sent to us. See our{" "}
           <Link href="/privacy" className="font-semibold text-brand hover:underline">
             Privacy Policy
           </Link>{" "}

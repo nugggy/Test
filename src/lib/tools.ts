@@ -5,7 +5,6 @@ export interface ToolEntry {
   icon: string;
   status: "live" | "soon";
   category: string;
-  requiresAccount?: boolean;
   /**
    * Whether the tool keeps working with no internet connection, once its
    * page has been opened at least once while online (the service worker at
@@ -32,7 +31,7 @@ export const tools: ToolEntry[] = [
     slug: "communication-board",
     name: "Visual Communication Board",
     description:
-      "Tap pictures to speak wants, needs and feelings out loud. Works offline, no account needed.",
+      "Tap pictures to speak wants, needs and feelings out loud. Works offline.",
     icon: "🗣️",
     status: "live",
     category: "Communication",
@@ -55,7 +54,6 @@ export const tools: ToolEntry[] = [
     icon: "📖",
     status: "live",
     category: "Preparation",
-    requiresAccount: true,
     worksOffline: true,
   },
   {
@@ -65,7 +63,6 @@ export const tools: ToolEntry[] = [
     icon: "📊",
     status: "live",
     category: "Allied health",
-    requiresAccount: true,
     worksOffline: true,
   },
   {
@@ -102,7 +99,6 @@ export const tools: ToolEntry[] = [
     icon: "🧭",
     status: "live",
     category: "Emotional regulation",
-    requiresAccount: true,
     worksOffline: true,
   },
   {
@@ -140,7 +136,6 @@ export const tools: ToolEntry[] = [
     icon: "📋",
     status: "live",
     category: "Preparation",
-    requiresAccount: true,
     worksOffline: true,
   },
   {
@@ -251,7 +246,6 @@ export const tools: ToolEntry[] = [
     icon: "🧠",
     status: "live",
     category: "Allied health",
-    requiresAccount: true,
     worksOffline: true,
   },
   {
@@ -302,7 +296,6 @@ export const tools: ToolEntry[] = [
     icon: "🩸",
     status: "live",
     category: "Allied health",
-    requiresAccount: true,
     worksOffline: true,
   },
   {

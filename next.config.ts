@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
     // with a category switcher - send old links/bookmarks to the right
     // starting category instead of 404ing.
     return [
+      // Accounts were removed in 0.38.2 - send old links home.
+      { source: "/sign-in", destination: "/", permanent: true },
+      { source: "/sign-up", destination: "/", permanent: true },
+      { source: "/check-email", destination: "/", permanent: true },
+      { source: "/account/:path*", destination: "/", permanent: true },
       {
         source: "/tools/find-support-coordinator",
         destination: "/tools/find-a-provider?category=support-coordinator",

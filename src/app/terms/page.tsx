@@ -30,10 +30,9 @@ export default function TermsOfUsePage() {
           <p>
             By using this website or the My Support Buddy Android app
             (together, &quot;the Service&quot;), you agree to
-            these terms. If you&apos;re creating a participant profile or
-            account on behalf of someone else, you&apos;re agreeing on
-            their behalf too, and confirming you&apos;re authorised to do
-            so.
+            these terms. If you use a tool on behalf of someone else, please
+            make sure you have their permission, or are otherwise allowed, to
+            record information about them.
           </p>
         </section>
 
@@ -42,8 +41,7 @@ export default function TermsOfUsePage() {
           <p>
             Every tool on this site is free to use, with no subscription,
             no paywalled features, and no ads. We intend to keep it that
-            way. Some tools may in future require a free account, only
-            where that&apos;s needed to save information across visits.
+            way. There are no accounts and nothing to sign up for.
           </p>
         </section>
 
@@ -65,9 +63,9 @@ export default function TermsOfUsePage() {
         <section>
           <h2>5. Your data and your device</h2>
           <p>
-            Most tools save information only on your own device, in your
-            browser&apos;s local storage or in the app - it never reaches our servers, and we have no
-            way to see, back up, or recover it. This means:
+            Every tool saves information only on your own device, in your
+            browser&apos;s local storage or in the app. It never reaches us,
+            and we have no way to see, back up, or recover it. This means:
           </p>
           <ul>
             <li>
@@ -81,11 +79,11 @@ export default function TermsOfUsePage() {
               otherwise backing up anything you want to keep long-term.
             </li>
             <li>
-              For tools that do use an account, see the{" "}
+              See the{" "}
               <Link href="/privacy" className="font-semibold text-brand hover:underline">
                 Privacy Policy
               </Link>{" "}
-              for how that information is stored and protected.
+              for the small amount of information that does reach us.
             </li>
           </ul>
         </section>
@@ -97,7 +95,7 @@ export default function TermsOfUsePage() {
           </p>
           <ul>
             <li>Submit false, misleading, or harmful information through any shared feature (e.g. the provider directory or tool suggestions).</li>
-            <li>Attempt to access another person&apos;s account, participant profile, or data.</li>
+            <li>Attempt to access anyone else&apos;s data.</li>
             <li>Interfere with the Service, scrape it at scale, or attempt to bypass its security.</li>
             <li>Use the Service for anything unlawful.</li>
           </ul>

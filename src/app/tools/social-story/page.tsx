@@ -26,9 +26,8 @@ export default function SocialStoryPage() {
         aloud or print it.
       </p>
       <p className="no-print mb-6 max-w-2xl rounded-xl border-2 border-accent bg-accent/10 px-4 py-3 text-sm">
-        <strong>Preview mode:</strong> stories are saved on this device only
-        - no account needed yet. A future version will let you save stories
-        against a participant&apos;s profile.
+        <strong>Private to you:</strong> stories are saved on this device only.
+        Nothing is sent to us.
       </p>
       <HowToUse
         steps={[
