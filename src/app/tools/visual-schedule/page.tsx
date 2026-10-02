@@ -16,19 +16,17 @@ export default function VisualSchedulePage() {
     <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
       <ToolHero slug="visual-schedule" title="Visual Schedule Builder">
         <p>
-        Tap pictures to build today&apos;s schedule in order. Tick off each
-        activity as it&apos;s done, drag to reorder, set a countdown for any
-        step, or print it out to use offline.
+        Build a picture schedule for the day. A big &quot;Now&quot; and &quot;Next&quot; card shows what to do and what comes after, so the day feels predictable.
         </p>
       </ToolHero>
       <HowToUse
         steps={[
-          "Tap a picture in the activity list to add it to today's schedule.",
-          "Can't find what you need? Tap 'Add your own' to create it, and say or type the name.",
-          "Tap an activity in your schedule to tick it off once it's done.",
-          "Drag the ⠿ handle to reorder with a mouse, or use the ▲▼ arrows on any device.",
-          "Pick a number of minutes under a step, then tap 'Start timer' for a countdown with a sound when time's up.",
-          "Print today's schedule, or use 'Reset ticks' / 'Clear all' to start fresh.",
+          "Tap a picture under 'Add an activity' to put it in today's schedule. Can't find it? Tap 'Add your own'.",
+          "The big 'Now' card shows what to do now, and 'Next' shows what comes after. Tap 'Done' to move on.",
+          "You can also tap any activity in the list to tick it off or untick it.",
+          "Tap 'Change order or timers' to move steps earlier or later, set a timer for a step, or remove one.",
+          "Ticks clear by themselves each new day, so the same schedule is ready again tomorrow.",
+          "Tap 'Say it out loud' to hear what's now and next, or print the schedule to use on paper.",
         ]}
       />
       <MedicalDisclaimerBanner />

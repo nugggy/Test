@@ -53,7 +53,12 @@ export default function AddToHomeScreen() {
 
   async function handleInstallClick() {
     if (!deferredPrompt) return;
-    await deferredPrompt.prompt();
+    try {
+      await deferredPrompt.prompt();
+    } catch {
+      // The browser refused (e.g. not a direct user tap) - keep the tip.
+      return;
+    }
     setDeferredPrompt(null);
   }
 

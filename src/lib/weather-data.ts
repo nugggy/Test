@@ -63,7 +63,67 @@ export interface ForecastData {
     maxTemp: number;
     minTemp: number;
     precipitationChance: number;
+    /** Highest UV index for the day. Missing in forecasts saved or fetched
+     * before UV was added. */
+    uvIndexMax?: number | null;
   }[];
+}
+
+export interface WeatherTip {
+  emoji: string;
+  text: string;
+}
+
+/** Standard UV index categories (World Health Organization), used by the
+ * Bureau of Meteorology and SunSmart. */
+export function uvCategory(uv: number): string {
+  if (uv < 3) return "Low";
+  if (uv < 6) return "Moderate";
+  if (uv < 8) return "High";
+  if (uv < 11) return "Very high";
+  return "Extreme";
+}
+
+/**
+ * Plain-language "what to wear or bring" tips for one day of the forecast.
+ * These are everyday suggestions only. The sun protection tip follows the
+ * SunSmart guidance of protecting your skin when the UV index is 3 or
+ * above. Temperatures are converted, so the same tips work in Fahrenheit.
+ */
+export function weatherTips(
+  day: ForecastData["daily"][number],
+  unit: "celsius" | "fahrenheit"
+): WeatherTip[] {
+  const toC = (t: number) => (unit === "fahrenheit" ? ((t - 32) * 5) / 9 : t);
+  const max = toC(day.maxTemp);
+  const min = toC(day.minTemp);
+  const tips: WeatherTip[] = [];
+
+  if (day.weatherCode >= 95) {
+    tips.push({
+      emoji: "⛈️",
+      text: "Storms are possible. Check the Bureau of Meteorology for any warnings.",
+    });
+  }
+  if (day.precipitationChance >= 50) {
+    tips.push({ emoji: "☂️", text: "Rain is likely. Take an umbrella or raincoat." });
+  } else if (day.precipitationChance >= 30) {
+    tips.push({ emoji: "🌂", text: "It might rain. A raincoat could be handy." });
+  }
+  if (max >= 30) {
+    tips.push({ emoji: "🥤", text: "A hot day. Wear light clothes and take water with you." });
+  } else if (max <= 16 || min <= 8) {
+    tips.push({ emoji: "🧥", text: "A cool or cold day. Take a warm jacket." });
+  }
+  if (typeof day.uvIndexMax === "number" && day.uvIndexMax >= 3) {
+    tips.push({
+      emoji: "🧢",
+      text: `UV is ${uvCategory(day.uvIndexMax).toLowerCase()} (${Math.round(
+        day.uvIndexMax
+      )}). Wear a hat, sunscreen and sunglasses when outside.`,
+    });
+  }
+  return tips;
 }
 
 export const BACKGROUND_PRESETS = [

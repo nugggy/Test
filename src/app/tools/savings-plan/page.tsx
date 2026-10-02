@@ -18,17 +18,18 @@ export default function SavingsPlanPage() {
       <PrintHeader title="Savings Plan" />
       <ToolHero slug="savings-plan" title="Savings Plan">
         <p>
-        Set a savings goal - a target amount, an optional date - then log
-        every bit you put aside and watch the progress bar build up.
+        Set a savings goal, add money as you put it aside, and see how much
+        is left to go. It can work out how much to save each week or
+        fortnight to reach your goal by a date.
         </p>
       </ToolHero>
       <HowToUse
         steps={[
-          "Add a savings goal with a name and target amount.",
-          "Every time you put money aside, log it as a contribution.",
-          "Watch the progress bar fill up towards your target.",
-          "Add as many goals as you like - a holiday, equipment, an emergency fund.",
-          "Export a CSV or print your plan any time.",
+          "Add a savings goal with a name and goal amount.",
+          "Add a date if you want it by a certain time, to see how much to put aside each week, fortnight or month.",
+          "Or type how much you can put aside, to see about how long it will take.",
+          "Each time you save money, type the amount and tap 'I saved this'. If you take money out, tap 'I took this out'.",
+          "Download a CSV or print your plan any time.",
         ]}
       />
       <MedicalDisclaimerBanner />

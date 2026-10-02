@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useGlucoseLog } from "@/lib/diabetes-tracker-storage";
+import { formatRecordDateTime, useGlucoseLog } from "@/lib/diabetes-tracker-storage";
+import {
+  classifyReading,
+  READING_BAND_LABELS,
+  useDiabetesManagementPlan,
+} from "@/lib/diabetes-management-plan-storage";
+import { useTimezone } from "@/lib/timezone-context";
 import { downloadCsv } from "@/lib/csv-export";
 import GlucoseEntryForm from "./GlucoseEntryForm";
 import GlucoseTrendChart from "./GlucoseTrendChart";
@@ -20,19 +26,36 @@ const TABS = [
 export default function DiabetesTracker() {
   const [tab, setTab] = useState<Tab>("log");
   const { entries, addEntry, removeEntry, clearAll } = useGlucoseLog();
+  // One shared copy of the plan, so the chart and log use the range the
+  // person entered on the Management Plan tab straight away.
+  const planState = useDiabetesManagementPlan();
+  const { plan } = planState;
+  const { timezone } = useTimezone();
 
   function handleExportCsv() {
     downloadCsv(
       "bgl-insulin-log",
-      ["Date/time", "BGL (mmol/L)", "Reading context", "Insulin type", "Insulin dose (units)", "Notes"],
-      entries.map((e) => [
-        new Date(e.occurredAt).toLocaleString("en-AU"),
+      [
+        "Date/time",
+        "BGL (mmol/L)",
+        "Compared with the plan's range",
+        "Reading context",
+        "Insulin type",
+        "Insulin dose (units)",
+        "Notes",
+      ],
+      [...entries].sort((a, b) => a.occurredAt.localeCompare(b.occurredAt)).map((e) => {
+        const band = classifyReading(e.bglMmol, plan);
+        return [
+        formatRecordDateTime(e.occurredAt, timezone),
         e.bglMmol,
+        band ? READING_BAND_LABELS[band] : "",
         e.context,
         e.insulinType,
         e.insulinDose,
         e.notes,
-      ])
+        ];
+      })
     );
   }
 
@@ -46,7 +69,7 @@ export default function DiabetesTracker() {
 
           <div className="rounded-2xl border-2 border-border bg-surface p-4">
             <h2 className="font-display mb-3 text-lg font-bold">BGL over time</h2>
-            <GlucoseTrendChart entries={entries} />
+            <GlucoseTrendChart entries={entries} plan={plan} />
           </div>
 
           <div className="rounded-2xl border-2 border-border bg-surface p-4">
@@ -69,18 +92,18 @@ export default function DiabetesTracker() {
                         clearAll();
                       }
                     }}
-                    className="text-sm font-semibold text-muted hover:text-foreground"
+                    className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold text-muted hover:text-foreground"
                   >
                     Clear all
                   </button>
                 </div>
               )}
             </div>
-            <GlucoseLogList entries={entries} onRemove={removeEntry} />
+            <GlucoseLogList entries={entries} onRemove={removeEntry} plan={plan} />
           </div>
         </>
       ) : (
-        <DiabetesManagementPlan />
+        <DiabetesManagementPlan {...planState} />
       )}
     </div>
   );

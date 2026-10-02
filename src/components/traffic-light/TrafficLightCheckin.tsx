@@ -8,13 +8,23 @@ import {
 } from "@/lib/traffic-light-data";
 import { useTrafficLightLog, useZoneGuide } from "@/lib/traffic-light-storage";
 import { downloadCsv } from "@/lib/csv-export";
+import Link from "next/link";
 import TrafficLightHistory from "@/components/traffic-light/TrafficLightHistory";
+import TrafficLightPatterns from "@/components/traffic-light/TrafficLightPatterns";
+import CrisisContacts from "@/components/who-can-help-me/CrisisContacts";
+import { TextWithPhoneLinks } from "@/components/regulation-plan/PlanSummary";
+import { useRegulationPlan } from "@/lib/regulation-plan-storage";
+import { useTimezone } from "@/lib/timezone-context";
 import EditableListSection from "@/components/EditableListSection";
 import PrintButton from "@/components/PrintButton";
 
 export default function TrafficLightCheckin() {
   const { entries, addEntry, removeEntry, clearAll } = useTrafficLightLog();
   const { guide, setZoneItems } = useZoneGuide();
+  // Read-only: the person's own calm-down plan, shown when they pick amber
+  // or red so their strategies and people are right there.
+  const { plan } = useRegulationPlan();
+  const { timezone } = useTimezone();
   const [selectedId, setSelectedId] = useState<TrafficLightState["id"] | null>(
     null
   );
@@ -27,7 +37,7 @@ export default function TrafficLightCheckin() {
   function handleSave() {
     if (!selected) return;
     addEntry({ state: selected.id, note: note.trim() || undefined });
-    setConfirmation(`Logged: ${selected.label}`);
+    setConfirmation(`Saved: ${selected.label}.`);
     setSelectedId(null);
     setNote("");
   }
@@ -37,7 +47,7 @@ export default function TrafficLightCheckin() {
       "traffic-light-history",
       ["Date", "Zone", "Note"],
       entries.map((e) => [
-        new Date(e.timestamp).toLocaleString("en-AU"),
+        new Date(e.timestamp).toLocaleString("en-AU", { timeZone: timezone }),
         TRAFFIC_LIGHT_STATES.find((s) => s.id === e.state)?.label ?? e.state,
         e.note ?? "",
       ])
@@ -59,7 +69,10 @@ export default function TrafficLightCheckin() {
             <button
               key={state.id}
               type="button"
-              onClick={() => setSelectedId(state.id)}
+              onClick={() => {
+                setSelectedId(state.id);
+                setConfirmation("");
+              }}
               aria-pressed={selectedId === state.id}
               className="touch-target flex flex-col items-center justify-center gap-2 rounded-2xl border-4 p-6 text-center shadow-sm transition-transform active:scale-95"
               style={{
@@ -86,6 +99,45 @@ export default function TrafficLightCheckin() {
             <p className="mb-3 rounded-xl border-2 border-border bg-background p-3 text-sm">
               <strong>Try this:</strong> {selected.suggestion}
             </p>
+            {selected.id === "red" && (
+              <CrisisContacts
+                className="mb-3"
+                title="Get help now"
+                ids={["emergency", "lifeline", "kids-helpline", "13yarn"]}
+              />
+            )}
+            {selected.id !== "green" &&
+              (plan.strategies.length > 0 ||
+                plan.groundingTechniques.length > 0 ||
+                plan.supportPeople.length > 0) && (
+                <div className="mb-3 rounded-xl border-2 border-brand bg-brand-soft p-3">
+                  <p className="font-semibold">From your calm-down plan:</p>
+                  {[
+                    { title: "What helps me", items: plan.strategies },
+                    { title: "Grounding", items: plan.groundingTechniques },
+                    { title: "People I can go to", items: plan.supportPeople },
+                  ]
+                    .filter((group) => group.items.length > 0)
+                    .map((group) => (
+                      <div key={group.title} className="mt-2">
+                        <p className="text-sm font-semibold">{group.title}</p>
+                        <ul className="list-disc pl-5">
+                          {group.items.map((item, i) => (
+                            <li key={i}>
+                              <TextWithPhoneLinks text={item} />
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  <Link
+                    href="/tools/emotional-regulation-plan"
+                    className="mt-2 inline-block text-sm font-semibold text-brand underline hover:no-underline"
+                  >
+                    Open my whole plan
+                  </Link>
+                </div>
+              )}
             {selectedZoneGuide.length > 0 && (
               <div className="mb-3 rounded-xl border-2 border-border bg-background p-3 text-sm">
                 <strong>What this looks like for you:</strong>
@@ -118,9 +170,14 @@ export default function TrafficLightCheckin() {
           </div>
         )}
 
-        <p aria-live="polite" className="sr-only">
-          {confirmation}
-        </p>
+        <div aria-live="polite">
+          {confirmation && (
+            <p className="mt-4 rounded-xl border-2 border-brand bg-brand-soft px-4 py-3 font-semibold">
+              <span aria-hidden="true">✅ </span>
+              {confirmation}
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-col gap-4">
@@ -155,11 +212,18 @@ export default function TrafficLightCheckin() {
         />
       </div>
 
+      {entries.length > 0 && (
+        <div className="rounded-2xl border-2 border-border bg-surface p-4">
+          <h2 className="font-display mb-3 text-lg font-bold">Patterns</h2>
+          <TrafficLightPatterns entries={entries} />
+        </div>
+      )}
+
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-display text-lg font-bold">History</h2>
           {entries.length > 0 && (
-            <div className="no-print flex items-center gap-3">
+            <div className="no-print flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={handleExportCsv}
@@ -177,14 +241,19 @@ export default function TrafficLightCheckin() {
                     clearAll();
                   }
                 }}
-                className="text-sm font-semibold text-muted hover:text-foreground"
+                className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold text-muted hover:text-foreground"
               >
                 Clear history
               </button>
             </div>
           )}
         </div>
-        <TrafficLightHistory entries={entries} onRemove={removeEntry} />
+        <TrafficLightHistory
+          entries={entries}
+          onRemove={(id) => {
+            if (window.confirm("Delete this check-in?")) removeEntry(id);
+          }}
+        />
       </div>
     </div>
   );

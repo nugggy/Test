@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { CONDITIONS, type ConditionInfo } from "@/lib/conditions-data";
 import { fuzzyIncludes } from "@/lib/fuzzy-match";
 import { useScrollIntoViewOnce } from "@/lib/use-scroll-into-view-once";
@@ -19,11 +20,14 @@ export default function ConditionsGuide() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="no-print flex justify-end">
-        <PrintButton />
+      <div className="no-print flex flex-wrap items-center justify-end gap-2">
+        {!selected && (
+          <p className="text-sm text-muted">Choose a condition to print its page.</p>
+        )}
+        <PrintButton disabled={!selected} />
       </div>
 
-      <div className="rounded-2xl border-2 border-border bg-surface p-4">
+      <div className="no-print rounded-2xl border-2 border-border bg-surface p-4">
         <label htmlFor="condition-search" className="mb-1 block font-semibold">
           Search a condition
         </label>
@@ -52,6 +56,9 @@ export default function ConditionsGuide() {
               {c.name}
             </button>
           ))}
+          <p aria-live="polite" className="sr-only">
+            {query.trim() ? `${filtered.length} conditions match` : ""}
+          </p>
           {filtered.length === 0 && (
             <p className="text-sm text-muted">No conditions match &quot;{query}&quot;.</p>
           )}
@@ -91,6 +98,15 @@ export default function ConditionsGuide() {
               </li>
             ))}
           </ul>
+
+          <p className="no-print mt-4 text-sm">
+            Getting ready for an NDIS meeting? Write down how this affects
+            your daily life in{" "}
+            <Link href="/tools/ndis-meeting-prep" className="font-semibold underline">
+              NDIS Meeting Prep
+            </Link>
+            .
+          </p>
         </div>
       )}
     </div>

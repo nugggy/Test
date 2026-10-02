@@ -23,11 +23,12 @@ export default function VisualTimerPage() {
       </ToolHero>
       <HowToUse
         steps={[
-          "Pick a length, or set a custom number of minutes and seconds.",
-          "Tap Start - the pie (or bar) shrinks as time passes.",
-          "Pause and Reset at any time.",
-          "Choose pie or bar style, a colour, and whether to play a sound or vibrate when time's up.",
-          "Tap 'Full screen' for a clear display anyone in the room can see.",
+          "Pick a length, or type in minutes and seconds.",
+          "Optional: type what happens when time is up, like 'Lunch'. It shows as 'Next' and is read out at the end.",
+          "Choose a warning, like 1 minute before the end. You get a soft chime and a 'Nearly finished' sign.",
+          "Tap Start. The pie (or bar) shrinks as time passes. Pause or Reset at any time.",
+          "Tap 'Full screen' for a big display anyone in the room can see. The screen stays on while the timer runs, where your device allows it.",
+          "Choose pie or bar, a colour, and whether to use sound or vibration.",
         ]}
       />
       <MedicalDisclaimerBanner />

@@ -19,6 +19,31 @@ export default function WhoCanHelpMe() {
         <PrintButton label="Print this list" />
       </div>
 
+      {/* Always visible, whatever filter is picked - 000 and a "not sure who
+          to call" option should never be filtered out of view. */}
+      <div className="print-avoid-break rounded-2xl border-2 border-accent bg-accent-soft p-4">
+        <h2 className="font-display text-lg font-bold">In danger right now?</h2>
+        <p className="mb-3 text-sm">
+          If you or someone else might get hurt, or it&apos;s a medical
+          emergency, call 000 now.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <a
+            href="tel:000"
+            className="touch-target inline-flex items-center rounded-xl border-2 border-brand bg-brand px-5 text-lg font-bold text-brand-ink"
+          >
+            <span aria-hidden="true">📞&nbsp;</span>Call 000
+          </a>
+          <a
+            href="tel:131114"
+            className="touch-target inline-flex flex-col justify-center rounded-xl border-2 border-border bg-surface px-4 py-2 font-semibold hover:border-brand"
+          >
+            <span>Not sure who to call?</span>
+            <span className="font-bold">Lifeline 13 11 14 (24/7)</span>
+          </a>
+        </div>
+      </div>
+
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
         <h2 className="font-display mb-3 text-lg font-bold">What&apos;s going on?</h2>
         <p className="mb-3 text-sm text-muted">
@@ -56,8 +81,10 @@ export default function WhoCanHelpMe() {
         </div>
       </div>
 
-      <p aria-live="polite" className="sr-only">
-        {filtered.length} services shown
+      <p aria-live="polite" className="text-sm font-semibold text-muted">
+        {activeTag
+          ? `Showing ${filtered.length} ${filtered.length === 1 ? "service" : "services"} for "${FEELING_TAGS.find((t) => t.id === activeTag)?.label ?? ""}"`
+          : `Showing all ${filtered.length} services`}
       </p>
 
       <div ref={resultsRef} className="flex flex-col gap-3 scroll-mt-20">

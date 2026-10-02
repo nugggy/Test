@@ -3,12 +3,16 @@
 import { useRef, useState } from "react";
 import { CORE_CATEGORIES, CORE_WORDS, type CoreWord } from "@/lib/core-word-board-data";
 import { useSpeech } from "@/lib/use-speech";
+import { useFullscreenDisplay } from "@/lib/visual-timer-display";
 
 export default function CoreWordBoard() {
   const { speak, supported: speechSupported } = useSpeech();
   const [message, setMessage] = useState<CoreWord[]>([]);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const boardRef = useRef<HTMLDivElement>(null);
+  // Shared full-screen helper: native full screen where the browser
+  // supports it, otherwise a page-covering overlay (iPhone Safari and the
+  // Android app WebView), and it keeps the label right after Esc/back.
+  const { isFullscreen, isOverlay, toggle: toggleFullscreen } = useFullscreenDisplay(boardRef);
 
   function handleTap(word: CoreWord) {
     speak(word.label);
@@ -17,34 +21,27 @@ export default function CoreWordBoard() {
 
   function handleSpeakMessage() {
     if (message.length === 0) return;
-    speak(message.map((w) => w.label).join(", "));
+    // Core words are joined with spaces (not commas) so the message is
+    // spoken as one natural sentence, e.g. "I want more", not "I, want, more".
+    speak(message.map((w) => w.label).join(" "));
+  }
+
+  function handleUndo() {
+    setMessage((prev) => prev.slice(0, -1));
   }
 
   function handleClearMessage() {
     setMessage([]);
   }
 
-  async function toggleFullscreen() {
-    if (!boardRef.current) return;
-    try {
-      if (!document.fullscreenElement) {
-        await boardRef.current.requestFullscreen();
-        setIsFullscreen(true);
-      } else {
-        await document.exitFullscreen();
-        setIsFullscreen(false);
-      }
-    } catch {
-      // Full-screen isn't available on some browsers/devices - the board
-      // still works at normal size.
-    }
-  }
 
   return (
     <div
       ref={boardRef}
-      className="flex min-h-[70vh] flex-col rounded-2xl bg-background"
-      style={isFullscreen ? { padding: "1rem" } : undefined}
+      className={`flex min-h-[70vh] flex-col overflow-y-auto bg-background ${
+        isOverlay ? "fixed inset-0 z-50 p-4" : "rounded-2xl"
+      }`}
+      style={isFullscreen && !isOverlay ? { padding: "1rem" } : undefined}
     >
       {!speechSupported && (
         <p className="no-print mb-3 rounded-xl border-2 border-accent bg-accent/10 px-4 py-2 text-sm">
@@ -57,7 +54,7 @@ export default function CoreWordBoard() {
       <div className="no-print mb-4 flex flex-wrap items-center gap-2 rounded-2xl border-2 border-border bg-surface p-3">
         <div className="flex min-h-[3.5rem] flex-1 flex-wrap items-center gap-2" aria-live="polite">
           {message.length === 0 ? (
-            <span className="text-muted">Tap words below to build a message…</span>
+            <span className="text-muted">Tap words below to build a message.</span>
           ) : (
             message.map((word, i) => (
               <span
@@ -69,7 +66,7 @@ export default function CoreWordBoard() {
             ))
           )}
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={handleSpeakMessage}
@@ -77,6 +74,15 @@ export default function CoreWordBoard() {
             className="touch-target rounded-xl border-2 border-brand bg-brand px-4 font-semibold text-brand-ink disabled:opacity-40"
           >
             🔊 Speak
+          </button>
+          <button
+            type="button"
+            onClick={handleUndo}
+            disabled={message.length === 0}
+            aria-label="Undo the last word in the message"
+            className="touch-target rounded-xl border-2 border-border bg-background px-4 font-semibold disabled:opacity-40"
+          >
+            <span aria-hidden="true">⌫</span> Undo
           </button>
           <button
             type="button"
@@ -110,7 +116,7 @@ export default function CoreWordBoard() {
                   key={word.id}
                   type="button"
                   onClick={() => handleTap(word)}
-                  className="touch-target flex flex-col items-center justify-center gap-1 rounded-2xl border-2 border-black/10 p-3 text-center shadow-sm transition-transform active:scale-95"
+                  className="touch-target flex flex-col items-center justify-center gap-1 rounded-2xl border-2 border-black/10 p-3 text-center shadow-sm transition-transform active:scale-95 motion-reduce:transition-none motion-reduce:active:scale-100"
                   style={{
                     background: `var(--${category.colorVar})`,
                     color: `var(--${category.colorVar}-ink)`,

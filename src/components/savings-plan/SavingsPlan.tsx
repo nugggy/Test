@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useSavingsGoals, totalSaved } from "@/lib/savings-plan-storage";
 import { downloadCsv } from "@/lib/csv-export";
+import { parseDollars } from "@/lib/budget-calc";
 import SavingsGoalCard from "./SavingsGoalCard";
 import PrintButton from "@/components/PrintButton";
 
@@ -21,7 +22,7 @@ export default function SavingsPlan() {
   function handleAddGoal(e: React.FormEvent) {
     e.preventDefault();
     if (!newTitle.trim()) return;
-    addGoal(newTitle, Number(newTarget) || 0);
+    addGoal(newTitle, parseDollars(newTarget) ?? 0);
     setNewTitle("");
     setNewTarget("");
   }
@@ -29,7 +30,7 @@ export default function SavingsPlan() {
   function handleExportCsv() {
     downloadCsv(
       "savings-plan",
-      ["Goal", "Target amount", "Saved so far", "Contribution date", "Contribution amount", "Note"],
+      ["Goal", "Goal amount", "Saved so far", "Date", "Saved or taken out", "Amount", "Note"],
       goals.flatMap((g) =>
         g.contributions.length > 0
           ? g.contributions.map((c) => [
@@ -37,10 +38,11 @@ export default function SavingsPlan() {
               g.targetAmount,
               totalSaved(g),
               c.date,
-              c.amount,
+              c.amount < 0 ? "Taken out" : "Saved",
+              Math.abs(c.amount),
               c.note,
             ])
-          : [[g.title, g.targetAmount, totalSaved(g), "", "", ""]]
+          : [[g.title, g.targetAmount, totalSaved(g), "", "", "", ""]]
       )
     );
   }
@@ -73,12 +75,16 @@ export default function SavingsPlan() {
           maxLength={140}
           className="min-w-[200px] flex-[2] rounded-xl border-2 border-border bg-surface px-4 py-3 touch-target"
         />
+        <label htmlFor="new-savings-target" className="sr-only">
+          Goal amount in dollars
+        </label>
         <input
-          type="number"
-          min={0}
+          id="new-savings-target"
+          type="text"
+          inputMode="decimal"
           value={newTarget}
           onChange={(e) => setNewTarget(e.target.value)}
-          placeholder="Target amount"
+          placeholder="Goal amount $"
           className="w-40 flex-1 rounded-xl border-2 border-border bg-surface px-4 py-3 touch-target"
         />
         <button

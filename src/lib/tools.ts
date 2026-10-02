@@ -269,16 +269,6 @@ export const tools: ToolEntry[] = [
     worksOffline: true,
   },
   {
-    slug: "find-a-provider",
-    name: "Find a Provider",
-    description:
-      "Search for a Support Coordinator, Plan Manager, Support Provider, or Allied Health Specialist by state and service area, or list your own service.",
-    icon: "🔎",
-    status: "live",
-    category: "Preparation",
-    worksOffline: false,
-  },
-  {
     slug: "holiday-planner",
     name: "Holiday Planner",
     description:

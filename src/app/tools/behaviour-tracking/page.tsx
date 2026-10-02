@@ -4,6 +4,7 @@ import BehaviourTracking from "@/components/behaviour-tracking/BehaviourTracking
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
+import PrintHeader from "@/components/PrintHeader";
 
 export const metadata: Metadata = {
   title: "Behaviour Tracking Tool - My Support Buddy",
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function BehaviourTrackingPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
+      <PrintHeader title="Behaviour Tracking Tool" />
       <ToolHero slug="behaviour-tracking" title="Behaviour Tracking Tool">
         <p>
         Log antecedent-behaviour-consequence (ABC) data quickly, then spot
@@ -28,9 +30,9 @@ export default function BehaviourTrackingPage() {
         steps={[
           "Fill in what happened before, the behaviour itself, and what happened after - tap a suggestion chip or type/say your own.",
           "Choose a severity from 1 (very mild) to 5 (very severe).",
-          "Check the date and time, then tap 'Save entry'.",
-          "Look at the Severity over time and Most common behaviours charts to spot patterns.",
-          "Scroll down to the Log to review or delete past entries.",
+          "Check the date and time. Open 'More detail' to add how long it lasted, where it happened, notes and who recorded it. Then tap 'Save entry'.",
+          "Look at the charts for severity over time, the most common behaviours and triggers, and the time of day to spot patterns.",
+          "Print the page or download a CSV to share with a behaviour support practitioner or the care team.",
         ]}
       />
       <MedicalDisclaimerBanner />

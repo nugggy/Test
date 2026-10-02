@@ -70,11 +70,11 @@ export default function WeekTab() {
                     </span>
                     <span className="text-sm font-semibold">{recipe.name}</span>
                   </div>
-                  <div className="mt-2 flex gap-1.5">
+                  <div className="mt-2 flex flex-wrap gap-1.5">
                     <button
                       type="button"
                       onClick={() => setPickerDay(day.key)}
-                      className="flex-1 rounded-lg border-2 border-border bg-background px-2 py-1.5 text-xs font-semibold"
+                      className="touch-target flex-1 rounded-lg border-2 border-border bg-background px-2 text-sm font-semibold"
                     >
                       Change
                     </button>
@@ -82,7 +82,7 @@ export default function WeekTab() {
                       type="button"
                       onClick={() => handleRemoveMeal(day.key)}
                       aria-label={`Remove meal from ${day.label}`}
-                      className="rounded-lg border-2 border-border bg-background px-2 py-1.5 text-xs font-semibold"
+                      className="touch-target rounded-lg border-2 border-border bg-background px-2 text-sm font-semibold"
                     >
                       <span aria-hidden="true">✕</span>
                     </button>

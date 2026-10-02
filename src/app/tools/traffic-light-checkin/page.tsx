@@ -23,10 +23,10 @@ export default function TrafficLightCheckinPage() {
       <HowToUse
         steps={[
           "Tap green, amber or red for how you're doing right now.",
-          "Read the suggested strategy, and anything you've written for what that colour looks like for you.",
+          "Read the suggestion. On amber or red, the things that help from your Emotional Regulation Plan show here too. On red, phone numbers to get help now are shown.",
           "Add a note if you want to, then tap 'Save check-in'.",
           "Fill in 'What each zone looks like for you' further down, so it's ready next time.",
-          "Scroll down to History to see your past check-ins.",
+          "Scroll down to Patterns to see how the last week or month has gone, and History for every check-in.",
         ]}
       />
       <MedicalDisclaimerBanner />

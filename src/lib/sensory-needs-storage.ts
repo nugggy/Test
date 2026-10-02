@@ -1,29 +1,26 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import {
+  EMPTY_SENSORY_NOTES,
+  normaliseSensoryNotes,
+  type SensoryNeedsNotes,
+} from "@/lib/sensory-needs-data";
 
+export type { SensoryNeedsNotes } from "@/lib/sensory-needs-data";
+
+// Same key as the first version - older profiles are upgraded on load by
+// normaliseSensoryNotes(), never wiped.
 const STORAGE_KEY = "dt:sensory-needs:v1";
 
-export interface SensoryNeedsNotes {
-  /** What helps, keyed by sensory domain id (see SENSORY_DOMAINS). */
-  helps: Record<string, string[]>;
-  /** What overwhelms/triggers, keyed by sensory domain id. */
-  overwhelms: Record<string, string[]>;
-}
-
-const EMPTY: SensoryNeedsNotes = {
-  helps: {},
-  overwhelms: {},
-};
-
-function readJSON<T>(key: string, fallback: T): T {
-  if (typeof window === "undefined") return fallback;
+function readRaw(key: string): unknown {
+  if (typeof window === "undefined") return null;
   try {
     const raw = window.localStorage.getItem(key);
-    if (!raw) return fallback;
-    return JSON.parse(raw) as T;
+    if (!raw) return null;
+    return JSON.parse(raw);
   } catch {
-    return fallback;
+    return null;
   }
 }
 
@@ -37,12 +34,12 @@ function writeJSON<T>(key: string, value: T) {
 }
 
 export function useSensoryNeedsNotes() {
-  const [notes, setNotes] = useState<SensoryNeedsNotes>(EMPTY);
+  const [notes, setNotes] = useState<SensoryNeedsNotes>(EMPTY_SENSORY_NOTES);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setNotes({ ...EMPTY, ...readJSON<Partial<SensoryNeedsNotes>>(STORAGE_KEY, {}) });
+    setNotes(normaliseSensoryNotes(readRaw(STORAGE_KEY)));
     setHydrated(true);
   }, []);
 
@@ -58,5 +55,9 @@ export function useSensoryNeedsNotes() {
     setNotes((prev) => ({ ...prev, overwhelms: { ...prev.overwhelms, [domainId]: items } }));
   }, []);
 
-  return { notes, updateHelps, updateOverwhelms, hydrated };
+  const updateName = useCallback((name: string) => {
+    setNotes((prev) => ({ ...prev, name }));
+  }, []);
+
+  return { notes, updateHelps, updateOverwhelms, updateName, hydrated };
 }

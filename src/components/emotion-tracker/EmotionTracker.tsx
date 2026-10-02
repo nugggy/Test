@@ -4,8 +4,16 @@ import { useState } from "react";
 import { EMOTIONS, INTENSITY_LEVELS } from "@/lib/emotion-tracker-data";
 import { useEmotionLog } from "@/lib/emotion-tracker-storage";
 import { downloadCsv } from "@/lib/csv-export";
+import Link from "next/link";
 import EmotionHistory from "@/components/emotion-tracker/EmotionHistory";
+import EmotionPatterns from "@/components/emotion-tracker/EmotionPatterns";
+import CrisisContacts from "@/components/who-can-help-me/CrisisContacts";
 import PrintButton from "@/components/PrintButton";
+import { useTimezone } from "@/lib/timezone-context";
+
+// Feelings where, if someone says they feel it "a lot", we gently show
+// where to get support. This is signposting only, not an assessment.
+const SUPPORT_PROMPT_EMOTIONS = ["sad", "angry", "scared"];
 
 export default function EmotionTracker() {
   const { entries, addEntry, removeEntry, clearAll } = useEmotionLog();
@@ -15,6 +23,8 @@ export default function EmotionTracker() {
   const [intensity, setIntensity] = useState(2);
   const [note, setNote] = useState("");
   const [confirmation, setConfirmation] = useState("");
+  const [showSupport, setShowSupport] = useState(false);
+  const { timezone } = useTimezone();
 
   const selectedEmotion = EMOTIONS.find((e) => e.id === selectedEmotionId);
 
@@ -25,7 +35,12 @@ export default function EmotionTracker() {
       intensity,
       note: note.trim() || undefined,
     });
-    setConfirmation(`Logged: ${selectedEmotion.label}`);
+    setConfirmation(
+      `Saved: ${selectedEmotion.label}, ${
+        INTENSITY_LEVELS.find((l) => l.value === intensity)?.label.toLowerCase() ?? ""
+      }.`
+    );
+    setShowSupport(intensity === 3 && SUPPORT_PROMPT_EMOTIONS.includes(selectedEmotion.id));
     setSelectedEmotionId(null);
     setIntensity(2);
     setNote("");
@@ -36,7 +51,7 @@ export default function EmotionTracker() {
       "emotion-history",
       ["Date", "Emotion", "Intensity", "Note"],
       entries.map((e) => [
-        new Date(e.timestamp).toLocaleString("en-AU"),
+        new Date(e.timestamp).toLocaleString("en-AU", { timeZone: timezone }),
         EMOTIONS.find((emo) => emo.id === e.emotionId)?.label ?? e.emotionId,
         INTENSITY_LEVELS.find((l) => l.value === e.intensity)?.label ?? e.intensity,
         e.note ?? "",
@@ -59,7 +74,11 @@ export default function EmotionTracker() {
             <button
               key={emotion.id}
               type="button"
-              onClick={() => setSelectedEmotionId(emotion.id)}
+              onClick={() => {
+                setSelectedEmotionId(emotion.id);
+                setConfirmation("");
+                setShowSupport(false);
+              }}
               aria-pressed={selectedEmotionId === emotion.id}
               className="touch-target flex flex-col items-center justify-center gap-1 rounded-2xl border-2 p-3 text-center shadow-sm transition-transform active:scale-95"
               style={{
@@ -127,16 +146,45 @@ export default function EmotionTracker() {
           </div>
         )}
 
-        <p aria-live="polite" className="sr-only">
-          {confirmation}
-        </p>
+        <div aria-live="polite">
+          {confirmation && (
+            <p className="mt-4 rounded-xl border-2 border-brand bg-brand-soft px-4 py-3 font-semibold">
+              <span aria-hidden="true">✅ </span>
+              {confirmation}
+            </p>
+          )}
+        </div>
+
+        {showSupport && (
+          <div className="mt-4 flex flex-col gap-3">
+            <p className="rounded-xl border-2 border-border bg-background px-4 py-3">
+              That sounds like a lot to feel. You don&apos;t have to handle it
+              on your own. You could try something from your{" "}
+              <Link
+                href="/tools/emotional-regulation-plan"
+                className="font-semibold text-brand underline hover:no-underline"
+              >
+                calm-down plan
+              </Link>
+              , or talk to someone you trust.
+            </p>
+            <CrisisContacts ids={["lifeline", "kids-helpline", "13yarn", "beyond-blue"]} />
+          </div>
+        )}
       </div>
+
+      {entries.length > 0 && (
+        <div className="rounded-2xl border-2 border-border bg-surface p-4">
+          <h2 className="font-display mb-3 text-lg font-bold">Patterns</h2>
+          <EmotionPatterns entries={entries} />
+        </div>
+      )}
 
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-display text-lg font-bold">History</h2>
           {entries.length > 0 && (
-            <div className="no-print flex items-center gap-3">
+            <div className="no-print flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={handleExportCsv}
@@ -147,15 +195,24 @@ export default function EmotionTracker() {
               <PrintButton label="Print" />
               <button
                 type="button"
-                onClick={clearAll}
-                className="text-sm font-semibold text-muted hover:text-foreground"
+                onClick={() => {
+                  if (window.confirm("Clear all check-ins? This can't be undone.")) {
+                    clearAll();
+                  }
+                }}
+                className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold text-muted hover:text-foreground"
               >
                 Clear history
               </button>
             </div>
           )}
         </div>
-        <EmotionHistory entries={entries} onRemove={removeEntry} />
+        <EmotionHistory
+          entries={entries}
+          onRemove={(id) => {
+            if (window.confirm("Delete this check-in?")) removeEntry(id);
+          }}
+        />
       </div>
     </div>
   );

@@ -25,10 +25,10 @@ export default function HolidayPlannerPage() {
       </ToolHero>
       <HowToUse
         steps={[
-          "Fill in the destination and dates.",
+          "Fill in the destination and dates. You will see how many sleeps until the trip.",
           "Add accommodation, transport bookings, and a rough day-by-day plan.",
           "Tick off the packing and documents checklists as you go.",
-          "Add a budget estimate and emergency contacts.",
+          "Add budget lines with a $ amount (e.g. Food - $200) to see the total, and add emergency contacts.",
           "Print the whole plan to take with you - everything saves automatically as you go.",
         ]}
       />

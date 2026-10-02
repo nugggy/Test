@@ -18,16 +18,19 @@ function todayKey() {
 export default function FitnessLogForm({ onSave }: FitnessLogFormProps) {
   const [date, setDate] = useState(todayKey());
   const [activity, setActivity] = useState("");
-  const [durationMinutes, setDurationMinutes] = useState(30);
+  const [durationMinutes, setDurationMinutes] = useState("30");
+  const [savedMessage, setSavedMessage] = useState("");
   const [notes, setNotes] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!activity.trim()) return;
-    onSave({ date, activity: activity.trim(), durationMinutes, notes: notes.trim() });
+    const minutes = Number(durationMinutes);
+    if (!activity.trim() || !date || !Number.isFinite(minutes) || minutes <= 0) return;
+    onSave({ date, activity: activity.trim(), durationMinutes: minutes, notes: notes.trim() });
     setActivity("");
-    setDurationMinutes(30);
+    setDurationMinutes("30");
     setNotes("");
+    setSavedMessage("Session saved.");
   }
 
   return (
@@ -52,10 +55,12 @@ export default function FitnessLogForm({ onSave }: FitnessLogFormProps) {
           <span className="mb-1 block font-semibold">Duration (minutes)</span>
           <input
             type="number"
+            inputMode="numeric"
             min={1}
             max={600}
+            required
             value={durationMinutes}
-            onChange={(e) => setDurationMinutes(Math.max(1, Number(e.target.value)))}
+            onChange={(e) => setDurationMinutes(e.target.value)}
             className="w-full rounded-xl border-2 border-border bg-background px-4 py-3 touch-target"
           />
         </label>
@@ -81,7 +86,10 @@ export default function FitnessLogForm({ onSave }: FitnessLogFormProps) {
               key={s}
               type="button"
               onClick={() => setActivity(s)}
-              className="rounded-full border-2 border-border bg-background px-3 py-1 text-xs font-semibold hover:border-brand"
+              aria-pressed={activity === s}
+              className={`touch-target rounded-full border-2 px-4 text-sm font-semibold hover:border-brand ${
+                activity === s ? "border-brand bg-brand text-brand-ink" : "border-border bg-background"
+              }`}
             >
               {s}
             </button>
@@ -107,6 +115,9 @@ export default function FitnessLogForm({ onSave }: FitnessLogFormProps) {
       >
         Save session
       </button>
+      <p aria-live="polite" className="text-sm font-semibold">
+        {savedMessage}
+      </p>
     </form>
   );
 }

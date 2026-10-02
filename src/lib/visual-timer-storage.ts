@@ -14,6 +14,12 @@ export interface VisualTimerSettings {
   backgroundColor: string;
   soundOn: boolean;
   vibrateOn: boolean;
+  /** Give a heads-up this many seconds before the end. 0 = no warning.
+   * Added later - older saved settings get the default below. */
+  warnAtSeconds: number;
+  /** Optional "what happens next" label, shown under the timer and read out
+   * when time is up, to help with the transition. */
+  nextLabel: string;
 }
 
 export const DEFAULT_TIMER_SETTINGS: VisualTimerSettings = {
@@ -24,7 +30,42 @@ export const DEFAULT_TIMER_SETTINGS: VisualTimerSettings = {
   backgroundColor: "#ffffff",
   soundOn: true,
   vibrateOn: true,
+  warnAtSeconds: 60,
+  nextLabel: "",
 };
+
+export const WARNING_OPTIONS: { seconds: number; label: string }[] = [
+  { seconds: 0, label: "No warning" },
+  { seconds: 30, label: "30 sec before" },
+  { seconds: 60, label: "1 min before" },
+  { seconds: 120, label: "2 min before" },
+  { seconds: 300, label: "5 min before" },
+];
+
+export const MAX_TIMER_MINUTES = 180;
+
+/** Merges saved settings over the defaults, ignoring any values of the wrong
+ * type, so older or damaged saved data can never break the timer. */
+export function normaliseTimerSettings(raw: unknown): VisualTimerSettings {
+  const d = DEFAULT_TIMER_SETTINGS;
+  if (!raw || typeof raw !== "object") return { ...d };
+  const r = raw as Partial<Record<keyof VisualTimerSettings, unknown>>;
+  const num = (v: unknown, fallback: number, min: number, max: number) =>
+    typeof v === "number" && Number.isFinite(v) ? Math.min(max, Math.max(min, Math.floor(v))) : fallback;
+  const str = (v: unknown, fallback: string) => (typeof v === "string" ? v : fallback);
+  const bool = (v: unknown, fallback: boolean) => (typeof v === "boolean" ? v : fallback);
+  return {
+    lastMinutes: num(r.lastMinutes, d.lastMinutes, 0, MAX_TIMER_MINUTES),
+    lastSeconds: num(r.lastSeconds, d.lastSeconds, 0, 59),
+    style: r.style === "bar" || r.style === "pie" ? r.style : d.style,
+    color: str(r.color, d.color),
+    backgroundColor: str(r.backgroundColor, d.backgroundColor),
+    soundOn: bool(r.soundOn, d.soundOn),
+    vibrateOn: bool(r.vibrateOn, d.vibrateOn),
+    warnAtSeconds: num(r.warnAtSeconds, d.warnAtSeconds, 0, 3600),
+    nextLabel: str(r.nextLabel, d.nextLabel).slice(0, 60),
+  };
+}
 
 export const TIMER_COLOR_PRESETS = [
   "#c23b37", "#f5b324", "#e0524a", "#f2c230", "#4caf6d", "#1a2b4c",
@@ -67,10 +108,7 @@ export function useTimerSettings() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setSettings({
-      ...DEFAULT_TIMER_SETTINGS,
-      ...readJSON<Partial<VisualTimerSettings>>(STORAGE_KEY, {}),
-    });
+    setSettings(normaliseTimerSettings(readJSON<unknown>(STORAGE_KEY, {})));
     setHydrated(true);
   }, []);
 

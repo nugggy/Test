@@ -48,8 +48,9 @@ preserving — see "Full tool roadmap" below.
   was removed in 0.38.2; `supabase/migrations/0006_remove_accounts.sql`
   drops its tables (written, not yet applied to the live project).
 - Supabase is still used only for non-sensitive shared features: tool
-  suggestions, provider directory listings, anonymous favourite counts and
-  the visit counter.
+  suggestions, anonymous favourite counts and the visit counter. The
+  provider directory was removed in 0.40.0 (`0007_remove_provider_listings.sql`
+  drops its table; written, not yet applied).
 - `/privacy` and `/terms` are published (0.38.1, updated 0.38.2): private
   operator in NSW, NSW governing law, contact gwclissold@gmail.com. Keep them
   accurate whenever a feature changes what data leaves the device.

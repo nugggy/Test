@@ -25,8 +25,8 @@ export default function FriendsDirectoryPage() {
       <HowToUse
         steps={[
           "Tap '+ Add' under Family, Friends, or Community/Neighbours.",
-          "Fill in a name, phone, email and any notes.",
-          "Add as many contacts as you like in each category.",
+          "Fill in a name, phone, email and any notes, then tap Done.",
+          "Tap Call, Text or Email on a contact to get in touch straight away. Tap Edit to change the details.",
           "Print the whole directory to keep a copy.",
         ]}
       />

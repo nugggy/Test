@@ -24,9 +24,10 @@ export default function ChangePreparationPage() {
       <HowToUse
         steps={[
           "Add a plan for the upcoming change, e.g. \"Moving house\" or \"Starting a new school\".",
-          "Add the date if you know it, to see a countdown.",
-          "List what's changing and what's staying the same, side by side.",
-          "Add things that might help - comfort items, a visual schedule, people to call - and any notes.",
+          "Add the date if you know it. You'll see how many days (sleeps) are left, with circles to cross off.",
+          "List what's changing and what's staying the same. Tap an idea to add it quickly.",
+          "Add things that might help, like comfort items, a visual schedule or people to call, plus any notes.",
+          "Print the plan to go through together, or to take along on the day.",
         ]}
       />
       <MedicalDisclaimerBanner />

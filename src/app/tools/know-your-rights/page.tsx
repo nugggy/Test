@@ -25,6 +25,8 @@ export default function KnowYourRightsPage() {
       </ToolHero>
       <HowToUse
         steps={[
+          "Not sure who to contact? Tap the problem that sounds most like yours under 'Who do I contact?'.",
+          "Tap a phone number to call straight from your phone.",
           "Read through each section - tap to expand it.",
           "Save any questions you want to ask at your next meeting.",
           "Note down any rights you want to look into further.",

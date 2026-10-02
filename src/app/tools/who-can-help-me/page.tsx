@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ToolHero from "@/components/ToolHero";
+import QuickExit from "@/components/QuickExit";
 import WhoCanHelpMe from "@/components/who-can-help-me/WhoCanHelpMe";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
@@ -22,6 +23,7 @@ export default function WhoCanHelpMePage() {
         you&apos;re feeling to narrow the list.
         </p>
       </ToolHero>
+      <QuickExit />
       <HowToUse
         steps={[
           "If you or someone else is in immediate danger, call 000 now.",

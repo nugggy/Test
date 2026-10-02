@@ -45,3 +45,7 @@ export const DEFAULT_STRATEGIES: Record<string, string[]> = {
     "Take a break and come back to it",
   ],
 };
+
+/** Moods where a short "need help right now?" note with the same crisis
+ * contacts as the site's /disclaimer page is shown under the ideas. */
+export const SUPPORT_NOW_MOODS = ["sad", "scared", "angry"];

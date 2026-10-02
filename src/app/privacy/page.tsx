@@ -67,11 +67,6 @@ export default function PrivacyPolicyPage() {
               don&apos;t include health or personal details about anyone.
             </li>
             <li>
-              <strong>Provider directory listings:</strong> the business and
-              contact details a provider submits, which are shown publicly in
-              the directory once approved.
-            </li>
-            <li>
               <strong>Favourite counts:</strong> when you favourite a tool, a
               random device code (not linked to your name or anything about
               you) is stored so the community favourites totals can be
@@ -99,9 +94,9 @@ export default function PrivacyPolicyPage() {
           <ul>
             <li><strong>Vercel</strong> hosts the website.</li>
             <li>
-              <strong>Supabase</strong> stores the suggestions, provider
-              listings, favourite counts and visit count described above, with
-              encryption in transit and at rest.
+              <strong>Supabase</strong> stores the suggestions, favourite
+              counts and visit count described above, with encryption in
+              transit and at rest.
             </li>
             <li>
               <strong>GitHub</strong> hosts the Android app download. The app
@@ -123,10 +118,9 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2>5. Keeping and deleting information</h2>
           <p>
-            Suggestions and provider listings are kept for as long as they
-            are useful for running the site. You can ask for a suggestion or
-            listing you sent to be corrected or deleted at any time using the
-            contact details below. Information in the tools on your device is
+            Suggestions are kept for as long as they are useful for running
+            the site. You can ask for a suggestion you sent to be corrected or
+            deleted at any time using the contact details below. Information in the tools on your device is
             deleted whenever you clear it, clear your browser data, or
             uninstall the app.
           </p>

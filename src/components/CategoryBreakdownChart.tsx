@@ -36,12 +36,15 @@ export default function CategoryBreakdownChart({
   return (
     <div className="flex flex-col gap-3">
       {data.map(({ label, count, color, displayValue, ariaLabel }) => (
-        <div key={label} className="flex items-center gap-3">
-          <span className="w-24 shrink-0 truncate text-sm font-semibold sm:w-36" title={label}>
+        // On phones the label sits above its bar so long names are never cut
+        // off; from sm up, label, bar and value share one row.
+        <div key={label} className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
+          <span className="text-sm font-semibold sm:w-36 sm:shrink-0 sm:truncate" title={label}>
             {label}
           </span>
+          <div className="flex flex-1 items-center gap-3">
           <div
-            className="h-6 flex-1 overflow-hidden rounded-full bg-background"
+            className="h-6 flex-1 overflow-hidden rounded-full bg-surface-2"
             role="img"
             aria-label={ariaLabel ?? `${label}: ${count} ${count === 1 ? unit : `${unit}s`}`}
           >
@@ -56,6 +59,7 @@ export default function CategoryBreakdownChart({
           <span className="w-10 shrink-0 text-right text-sm font-bold text-muted">
             {displayValue ?? count}
           </span>
+          </div>
         </div>
       ))}
     </div>

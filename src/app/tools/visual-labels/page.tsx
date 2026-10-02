@@ -26,10 +26,11 @@ export default function VisualLabelsPage() {
       </ToolHero>
       <HowToUse
         steps={[
-          "Type a word or phrase, or tap a suggestion.",
-          "Pick a picture to go with it.",
-          "Tap 'Add label' - repeat for as many labels as you need.",
-          "Print the page, then cut out each label along its border.",
+          "Type a word or phrase, or tap an idea. Ideas fill in the word and a matching picture.",
+          "Pick a different picture if you like.",
+          "Tap 'Add label'. Repeat for as many labels as you need.",
+          "Choose a label size: Small for drawers, Large for doors, or Sign for one big label per page.",
+          "Print the page, then cut out each label along the dashed line.",
         ]}
       />
       <MedicalDisclaimerBanner />

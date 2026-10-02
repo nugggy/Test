@@ -18,17 +18,17 @@ export default function MoneyCounterPage() {
       <PrintHeader title="Money Counter" />
       <ToolHero slug="money-counter" title="Money Counter">
         <p>
-        Practise recognising Australian coins and notes, and counting them
-        up. Tap a coin or note to add it to your pile and watch the total
-        build.
+        Practise with real-sized Australian coins and notes. Count your
+        money, practise making an amount, or check if you have enough to pay
+        and how much change you should get.
         </p>
       </ToolHero>
       <HowToUse
         steps={[
-          "Tap any coin or note to add one to your pile.",
-          "Watch the total at the top add up as you go.",
-          "Tap the ➖ next to an item in your pile to remove one.",
-          "Use 'Clear pile' to start again from zero.",
+          "Tap any coin or note to add one to your pile. The total shows at the top.",
+          "Choose 'Make an amount' to practise making a price, then tap Check. Tap 'Show me how' for help.",
+          "Choose 'Can I pay for it?' and type a price to see if your pile is enough, and what change to expect.",
+          "Tap the ➖ next to an item in your pile to take one away, or 'Clear pile' to start again.",
         ]}
       />
       <MedicalDisclaimerBanner />

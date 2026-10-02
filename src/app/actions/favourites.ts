@@ -18,17 +18,18 @@ export async function recordFavourite(toolSlug: string, deviceId: string): Promi
   const parsed = recordFavouriteSchema.safeParse({ toolSlug, deviceId });
   if (!parsed.success) return;
 
-  const supabase = await createClient();
   // Ignore unique-violation errors (already favourited from this device)
-  // and any other error - this is a best-effort public counter, not
-  // critical data, so it must never block or throw for the caller.
-  await supabase
-    .from("tool_favourites")
-    .insert({ tool_slug: parsed.data.toolSlug, device_id: parsed.data.deviceId })
-    .then(
-      () => {},
-      () => {}
-    );
+  // and any other error, including Supabase not being configured - this is
+  // a best-effort public counter, not critical data, so it must never
+  // block or throw for the caller.
+  try {
+    const supabase = await createClient();
+    await supabase
+      .from("tool_favourites")
+      .insert({ tool_slug: parsed.data.toolSlug, device_id: parsed.data.deviceId });
+  } catch {
+    // Best effort only.
+  }
 }
 
 /**

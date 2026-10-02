@@ -3,6 +3,31 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.40.0] - 2026-10-02
+A usefulness review of every tool, from the point of view of people with disability, carers and support workers. Every tool keeps its existing storage keys and loads older saved data through a defensive parser (new fields get defaults, nothing is wiped); migrations are covered by tests. 208 unit tests in total.
+
+### Removed
+- **Provider directory** (Find a Provider tool, public listings, submission form, server actions, `provider-directory-data.ts`, the listing schema). Old URLs, including the four pre-merge `/tools/find-*` links, redirect home. Privacy Policy and Terms updated. `supabase/migrations/0007_remove_provider_listings.sql` drops the table (written, not applied). Guidance on checking a provider's NDIS registration remains in the NDIS Compliance tool.
+- Unused account validation schemas left over from 0.38.2.
+
+### Changed: tools
+- **Communication**: Communication Board has an always-visible Yes / No / Help me / Stop row, Undo, and an Edit mode so pictures can't be deleted by accident. Core Word Board adds 28 high-frequency words (appended, so no word moves) and speaks sentences naturally. First-Then says what's next and has "Move on". Conversation cards add an Easy questions set, Back, a card counter and "What about you?". Easy Read Converter output is editable line by line, readable aloud, copyable and printable, with smarter sentence splitting and a saved draft. Social Story and Task Sequencing gain six example stories/tasks each, whole-story printing, read-aloud and a guided do-the-task view. Visual Labels sets the picture from an idea, adds label sizes up to a full-page sign and prints with cut lines.
+- **Routines and time**: Visual Schedule shows Now and Next with ticks that clear each day; Weekly Schedule highlights today, clears ticks each Monday and copies days; Visual Timer adds a warning before time is up, a "Next:" label and a full-screen fallback; Easy-Read Clock shows the time in words and the part of the day; Memory Aid resets reliably overnight; Change Preparation counts down in sleeps; Weather adds what-to-wear tips, UV and auto refresh; What Next shows the person's own strategies first.
+- **Emotions and wellbeing**: Emotion Tracker and Traffic Light show 7/30-day patterns; amber/red check-ins show the person's own strategies and, on red, crisis lines. Emotional Regulation Plan opens straight to a one-screen crisis view with a new "How other people can help me" section and a clean printout. Sensory Needs has a one-card profile. Who Can Help Me always shows 000. Sleep Tracker fixes month-first dates and adds night wakings and averages. Healthy Relationships always shows 000 and 1800RESPECT and explains device privacy.
+- **Health records and contacts**: Medication Reminder fixes doses before ~10 am being saved to the previous day (dates were UTC; old entries are re-dated, tested), adds one-tap Taken / Not taken with reasons, as-needed medication, "Recorded by" and a stronger "not an alarm" note. Seizure Log adds a large one-handed timer that survives a reload, with plan-time alerts only from the person's own plan. Diabetes Tracker removes built-in 4/8 mmol/L bands (readings are only coloured against the person's own plan) and now prints sick-day rules. Behaviour Tracking adds detail fields and trigger/time-of-day charts. The Emergency Card now actually shows contacts, with allergies at the top. Contacts get Call / Text / Email buttons and safe tel:/sms:/mailto: links.
+- **Money and daily living**: Budget supports weekly/fortnightly/monthly pay, bill ticking and "Can I afford this?". Savings shows weekly amounts needed and time to goal. Money Counter draws coins and notes at real sizes (fixes an unreadable $50 label) and adds make-an-amount and change practice. NDIS Budget has all 15 support categories and only counts spending inside the plan dates. Meal Planner's shopping list has pictures and an "In my trolley" section. Daily Life has starter tasks and a one-step-at-a-time mode. Holiday Planner adds a countdown and budget totals. Goals show the next step and progress.
+- **Information and NDIS**: Meeting Prep and Support Plan print clean one-page summaries; Know Your Rights adds a "Who do I contact?" finder with tap-to-call; NDIS Compliance's notes now have real dates; Active Support ticks reset per shift.
+- Many destructive actions now ask for confirmation, delete buttons are full touch targets, and dates are Australian format throughout.
+
+### Changed: shared
+- Diabetes plan suggestion chips no longer contain treatment amounts, foods or timings; they point to the person's own care team's plan.
+- Quick exit button (`QuickExit.tsx`) on Healthy Relationships and Who Can Help Me.
+- Full screen on the Communication Board and Core Word Board uses the shared helper with an overlay fallback, so it works in the Android app and on iPhone.
+- Timer digits pick dark or white ink per colour (yellow was unreadable). Emoji picker, list delete buttons and suggestion chips are larger. Chart labels stack above bars on phones instead of being cut off.
+
+### Fixed
+- Provider search (before removal) and all remaining server actions: the favourite counter and suggestion form no longer throw a 500 when the database is unreachable; the install prompt no longer throws if the browser refuses it.
+
 ## [0.39.1] - 2026-10-02
 ### Fixed
 - **Speech was silent in the Android app.** Android WebViews have no `window.speechSynthesis`, so every tap-to-speak feature did nothing in the app (it worked in browsers). New native `SpeechPlugin.java` uses the phone's own text-to-speech engine (Australian English voice preferred), with a manifest `<queries>` entry so Android 11+ can find the engine. The shared `useSpeech` hook uses it automatically inside the app, so all 11 speaking tools are fixed at once; browsers are unchanged.

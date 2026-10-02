@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import type { ScheduleItem } from "@/lib/visual-schedule-storage";
-import ScheduleListItem from "./ScheduleListItem";
+import ScheduleListItem, { type StepStatus } from "./ScheduleListItem";
 
 interface ScheduleListProps {
   items: ScheduleItem[];
+  nowIndex: number;
+  nextIndex: number;
+  editing: boolean;
   onToggleDone: (id: string) => void;
   onRemove: (id: string) => void;
   onMove: (id: string, direction: "up" | "down") => void;
@@ -15,6 +18,9 @@ interface ScheduleListProps {
 
 export default function ScheduleList({
   items,
+  nowIndex,
+  nextIndex,
+  editing,
   onToggleDone,
   onRemove,
   onMove,
@@ -26,17 +32,27 @@ export default function ScheduleList({
   if (items.length === 0) {
     return (
       <p className="rounded-xl border-2 border-dashed border-border p-6 text-center text-muted">
-        No activities yet - tap a picture above to add it to today&apos;s
-        schedule.
+        No activities yet. Tap a picture under &quot;Add an activity&quot; to put it in
+        today&apos;s schedule.
       </p>
     );
   }
 
+  function statusFor(index: number, done: boolean): StepStatus {
+    if (done) return "done";
+    if (index === nowIndex) return "now";
+    if (index === nextIndex) return "next";
+    return "later";
+  }
+
   return (
     <>
-      <p className="no-print mb-2 text-xs text-muted sm:hidden">
-        Use the ▲▼ buttons to reorder on a touchscreen, or drag the ⠿ handle with a mouse.
-      </p>
+      {editing && (
+        <p className="no-print mb-2 text-sm text-muted">
+          Use &quot;Earlier&quot; and &quot;Later&quot; to change the order. With a mouse you
+          can also drag the ⠿ handle.
+        </p>
+      )}
       <ol className="flex flex-col gap-2">
         {items.map((item, index) => (
           <ScheduleListItem
@@ -44,6 +60,8 @@ export default function ScheduleList({
             item={item}
             index={index}
             isLast={index === items.length - 1}
+            status={statusFor(index, item.done)}
+            editing={editing}
             draggedId={draggedId}
             onToggleDone={onToggleDone}
             onRemove={onRemove}
@@ -65,7 +83,7 @@ export default function ScheduleList({
               onReorder(draggedId, null);
               setDraggedId(null);
             }}
-            className="no-print rounded-xl border-2 border-dashed border-brand/40 p-2 text-center text-xs text-muted"
+            className="no-print rounded-xl border-2 border-dashed border-brand p-3 text-center text-sm text-muted"
           >
             Drop here to move to the end
           </li>

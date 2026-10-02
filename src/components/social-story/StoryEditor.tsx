@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { EMOJI_CHOICES } from "@/lib/emoji-choices";
-import { useSpeechToText } from "@/lib/use-speech";
+import { useSpeech, useSpeechToText } from "@/lib/use-speech";
+import { WRITING_TIPS } from "@/lib/social-story-templates";
+import EmojiPicker from "@/components/EmojiPicker";
 import type { StoryPage, SocialStory } from "@/lib/social-story-storage";
 
 interface StoryEditorProps {
@@ -41,6 +43,8 @@ export default function StoryEditor({
   }
 
   function handleRemovePage(id: string) {
+    const page = pages.find((p) => p.id === id);
+    if (page?.text.trim() && !window.confirm("Delete this page? This can't be undone.")) return;
     commit(title, pages.filter((p) => p.id !== id));
   }
 
@@ -56,7 +60,6 @@ export default function StoryEditor({
       title,
       pages.map((p) => (p.id === id ? { ...p, emoji } : p))
     );
-    setPickerOpenFor(null);
   }
 
   function handleMove(id: string, direction: "up" | "down") {
@@ -104,7 +107,23 @@ export default function StoryEditor({
         />
       </div>
 
+      <details className="rounded-2xl border-2 border-border bg-surface p-4">
+        <summary className="touch-target flex cursor-pointer items-center font-display text-lg font-bold">
+          <span aria-hidden="true" className="mr-2">💡</span> Tips for writing a good story
+        </summary>
+        <ul className="mt-2 list-disc space-y-1 pl-6">
+          {WRITING_TIPS.map((tip) => (
+            <li key={tip}>{tip}</li>
+          ))}
+        </ul>
+      </details>
+
       <div className="flex flex-col gap-3">
+        {pages.length === 0 && (
+          <p className="rounded-xl border-2 border-dashed border-border p-6 text-center text-muted">
+            No pages yet. Tap &quot;Add page&quot; below to write the first page.
+          </p>
+        )}
         {pages.map((page, index) => (
           <StoryPageRow
             key={page.id}
@@ -115,6 +134,7 @@ export default function StoryEditor({
             onTogglePicker={() =>
               setPickerOpenFor(pickerOpenFor === page.id ? null : page.id)
             }
+            onClosePicker={() => setPickerOpenFor(null)}
             onChangeEmoji={(emoji) => handlePageEmoji(page.id, emoji)}
             onChangeText={(text) => handlePageText(page.id, text)}
             onRemove={() => handleRemovePage(page.id)}
@@ -140,6 +160,7 @@ interface StoryPageRowProps {
   total: number;
   pickerOpen: boolean;
   onTogglePicker: () => void;
+  onClosePicker: () => void;
   onChangeEmoji: (emoji: string) => void;
   onChangeText: (text: string) => void;
   onRemove: () => void;
@@ -152,18 +173,23 @@ function StoryPageRow({
   total,
   pickerOpen,
   onTogglePicker,
+  onClosePicker,
   onChangeEmoji,
   onChangeText,
   onRemove,
   onMove,
 }: StoryPageRowProps) {
   const { supported: sttSupported, listening, start, stop } = useSpeechToText();
+  const { speak, supported: ttsSupported } = useSpeech();
 
   function handleMicClick() {
     if (listening) {
       stop();
     } else {
-      start((text) => onChangeText(text));
+      // Add what was said after any words already on the page, so a page
+      // can be dictated one sentence at a time.
+      const existing = page.text.trim();
+      start((text) => onChangeText(existing ? `${existing} ${text}` : text));
     }
   }
 
@@ -173,34 +199,6 @@ function StoryPageRow({
         <span className="font-display shrink-0 text-sm font-bold text-muted">
           Page {index + 1}
         </span>
-        <div className="no-print ml-auto flex gap-1">
-          <button
-            type="button"
-            onClick={() => onMove("up")}
-            disabled={index === 0}
-            aria-label={`Move page ${index + 1} earlier`}
-            className="grid h-9 w-9 place-items-center rounded-lg border-2 border-border bg-background disabled:opacity-30"
-          >
-            <span aria-hidden="true">▲</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => onMove("down")}
-            disabled={index === total - 1}
-            aria-label={`Move page ${index + 1} later`}
-            className="grid h-9 w-9 place-items-center rounded-lg border-2 border-border bg-background disabled:opacity-30"
-          >
-            <span aria-hidden="true">▼</span>
-          </button>
-          <button
-            type="button"
-            onClick={onRemove}
-            aria-label={`Delete page ${index + 1}`}
-            className="grid h-9 w-9 place-items-center rounded-lg border-2 border-border bg-background"
-          >
-            <span aria-hidden="true">🗑️</span>
-          </button>
-        </div>
       </div>
 
       <div className="flex gap-3">
@@ -209,10 +207,10 @@ function StoryPageRow({
             type="button"
             onClick={onTogglePicker}
             aria-expanded={pickerOpen}
-            aria-label="Change picture"
+            aria-label={`Change picture for page ${index + 1}`}
             className="touch-target grid place-items-center rounded-xl border-2 border-border bg-background text-4xl"
           >
-            {page.emoji}
+            <span aria-hidden="true">{page.emoji}</span>
           </button>
         </div>
         <div className="flex-1">
@@ -222,7 +220,8 @@ function StoryPageRow({
               onChange={(e) => onChangeText(e.target.value)}
               rows={3}
               maxLength={300}
-              placeholder="What happens on this page?"
+              placeholder="e.g. I will sit in the waiting room."
+              aria-label={`Words for page ${index + 1}`}
               className="flex-1 rounded-xl border-2 border-border bg-background px-4 py-3 text-base"
             />
             {sttSupported && (
@@ -254,20 +253,61 @@ function StoryPageRow({
       </div>
 
       {pickerOpen && (
-        <div className="mt-3 grid grid-cols-8 gap-1.5 border-t-2 border-border pt-3">
-          {EMOJI_CHOICES.map((choice) => (
-            <button
-              key={choice}
-              type="button"
-              onClick={() => onChangeEmoji(choice)}
-              aria-label={`Use picture ${choice}`}
-              className="grid aspect-square place-items-center rounded-lg border-2 border-border bg-background text-xl hover:border-brand"
-            >
-              {choice}
-            </button>
-          ))}
+        <div className="mt-3 border-t-2 border-border pt-3">
+          <EmojiPicker
+            value={page.emoji}
+            onChange={onChangeEmoji}
+            label={`Picture for page ${index + 1}`}
+          />
+          <button
+            type="button"
+            onClick={onClosePicker}
+            className="touch-target mt-2 rounded-xl border-2 border-brand bg-brand px-4 font-semibold text-brand-ink"
+          >
+            Done
+          </button>
         </div>
       )}
+
+      <div className="no-print mt-3 flex flex-wrap gap-2">
+        {ttsSupported && (
+          <button
+            type="button"
+            onClick={() => speak(page.text)}
+            disabled={!page.text.trim()}
+            aria-label={`Hear page ${index + 1}`}
+            className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold disabled:opacity-40"
+          >
+            🔊 Hear
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={() => onMove("up")}
+          disabled={index === 0}
+          aria-label={`Move page ${index + 1} earlier`}
+          className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold disabled:opacity-40"
+        >
+          ▲ Earlier
+        </button>
+        <button
+          type="button"
+          onClick={() => onMove("down")}
+          disabled={index === total - 1}
+          aria-label={`Move page ${index + 1} later`}
+          className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold disabled:opacity-40"
+        >
+          ▼ Later
+        </button>
+        <button
+          type="button"
+          onClick={onRemove}
+          aria-label={`Delete page ${index + 1}`}
+          className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold"
+        >
+          🗑️ Delete
+        </button>
+      </div>
     </div>
   );
 }

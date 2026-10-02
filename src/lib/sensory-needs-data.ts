@@ -182,3 +182,42 @@ export const SENSORY_DOMAINS: SensoryDomain[] = [
     ],
   },
 ];
+
+export interface SensoryNeedsNotes {
+  /** Who the profile is about, shown at the top when printed. Added later,
+   * so older saved profiles load with "". */
+  name: string;
+  /** What helps, keyed by sensory domain id (see SENSORY_DOMAINS). */
+  helps: Record<string, string[]>;
+  /** What overwhelms/triggers, keyed by sensory domain id. */
+  overwhelms: Record<string, string[]>;
+}
+
+export const EMPTY_SENSORY_NOTES: SensoryNeedsNotes = { name: "", helps: {}, overwhelms: {} };
+
+function listRecord(value: unknown): Record<string, string[]> {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+  const out: Record<string, string[]> = {};
+  for (const [key, list] of Object.entries(value as Record<string, unknown>)) {
+    if (Array.isArray(list)) out[key] = list.filter((v): v is string => typeof v === "string");
+  }
+  return out;
+}
+
+/** Load a saved profile from any earlier version safely, keeping everything
+ * valid (including entries for senses no longer listed) and defaulting the rest. */
+export function normaliseSensoryNotes(raw: unknown): SensoryNeedsNotes {
+  if (!raw || typeof raw !== "object") return { ...EMPTY_SENSORY_NOTES };
+  const r = raw as Record<string, unknown>;
+  return {
+    name: typeof r.name === "string" ? r.name : "",
+    helps: listRecord(r.helps),
+    overwhelms: listRecord(r.overwhelms),
+  };
+}
+
+export function sensoryNotesHaveContent(notes: SensoryNeedsNotes): boolean {
+  return [...Object.values(notes.helps), ...Object.values(notes.overwhelms)].some(
+    (list) => list.length > 0
+  );
+}

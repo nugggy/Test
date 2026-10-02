@@ -9,7 +9,7 @@ import PrintHeader from "@/components/PrintHeader";
 export const metadata: Metadata = {
   title: "Emotional Regulation Plan - My Support Buddy",
   description:
-    "Build a personal calm-down, grounding and crisis plan, step by step: warning signs, calming strategies, grounding techniques, people to go to, and when to get urgent help.",
+    "Build a personal calm-down plan step by step: warning signs, calming strategies, grounding, how others can help, people to go to, and when to get urgent help. Open it in one tap or print it to share.",
 };
 
 export default function EmotionalRegulationPlanPage() {
@@ -18,9 +18,10 @@ export default function EmotionalRegulationPlanPage() {
       <PrintHeader title="Emotional Regulation Plan" />
       <ToolHero slug="emotional-regulation-plan" title="Emotional Regulation Plan">
         <p>
-        A step-by-step personal calm-down, grounding and crisis plan - warning
-        signs, what helps, grounding techniques, what to avoid, and who to go
-        to - built up over time and printable to share with support people.
+        A personal calm-down plan: your warning signs, what helps, how other
+        people can help, what to avoid, and who to go to. Build it step by
+        step, then open it in one tap when you need it, or print it to share
+        with support people.
         </p>
       </ToolHero>
       <p className="no-print mb-6 max-w-2xl rounded-xl border-2 border-accent bg-accent/10 px-4 py-3 text-sm">
@@ -30,10 +31,11 @@ export default function EmotionalRegulationPlanPage() {
       <HowToUse
         steps={[
           "Work through the plan one step at a time using the step buttons or Back/Next.",
-          "Tap a suggestion chip on each step, or type/say your own using the microphone.",
-          "Warning signs → what helps → grounding techniques → what makes it worse → support people → urgent help.",
-          "Everything saves automatically as you go - there's no need to press save.",
-          "On the last step, print your plan or download it as a PDF to keep a copy or share it with support people.",
+          "Tap a suggestion on each step, or type or say your own using the microphone.",
+          "Warning signs, what helps, grounding, how others can help, what makes it worse, support people, and urgent help.",
+          "Everything saves automatically as you go. There's no need to press save.",
+          "Once your plan has something in it, it opens straight to the whole plan on one screen, so it's quick to find when you need it.",
+          "Print it or save it as a PDF to share with family or support workers. Phone numbers in your plan can be tapped to call.",
         ]}
       />
       <MedicalDisclaimerBanner />

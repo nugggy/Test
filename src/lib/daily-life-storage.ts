@@ -38,13 +38,32 @@ function makeId() {
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
+/** Loads saved tasks, skipping anything unreadable rather than crashing. */
+export function normaliseDailyTasks(raw: unknown): DailyTask[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((t): t is Record<string, unknown> => !!t && typeof t === "object")
+    .map((t, index) => ({
+      id: typeof t.id === "string" ? t.id : `task-legacy-${index}`,
+      title: typeof t.title === "string" ? t.title : "",
+      emoji: typeof t.emoji === "string" ? t.emoji : "✅",
+      steps: (Array.isArray(t.steps) ? t.steps : [])
+        .filter((s): s is Record<string, unknown> => !!s && typeof s === "object")
+        .map((s, sIndex) => ({
+          id: typeof s.id === "string" ? s.id : `step-legacy-${index}-${sIndex}`,
+          text: typeof s.text === "string" ? s.text : "",
+          done: s.done === true,
+        })),
+    }));
+}
+
 export function useDailyTasks() {
   const [tasks, setTasks] = useState<DailyTask[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTasks(readJSON<DailyTask[]>(STORAGE_KEY, []));
+    setTasks(normaliseDailyTasks(readJSON<unknown>(STORAGE_KEY, [])));
     setHydrated(true);
   }, []);
 
@@ -52,10 +71,19 @@ export function useDailyTasks() {
     if (hydrated) writeJSON(STORAGE_KEY, tasks);
   }, [tasks, hydrated]);
 
-  const addTask = useCallback((title: string, emoji: string) => {
+  /** Adds a task, optionally with starter steps already filled in. */
+  const addTask = useCallback((title: string, emoji: string, steps: string[] = []) => {
     const trimmed = title.trim();
     if (!trimmed) return;
-    setTasks((prev) => [...prev, { id: makeId(), title: trimmed, emoji, steps: [] }]);
+    setTasks((prev) => [
+      ...prev,
+      {
+        id: makeId(),
+        title: trimmed,
+        emoji,
+        steps: steps.map((text) => ({ id: makeId(), text, done: false })),
+      },
+    ]);
   }, []);
 
   const updateTask = useCallback((id: string, patch: Partial<Omit<DailyTask, "id">>) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { EMOTIONS } from "@/lib/emotion-tracker-data";
+import { EMOTIONS, INTENSITY_LEVELS } from "@/lib/emotion-tracker-data";
 import type { EmotionLogEntry } from "@/lib/emotion-tracker-storage";
 import { formatDateTime } from "@/lib/datetime";
 import { useTimezone } from "@/lib/timezone-context";
@@ -10,7 +10,6 @@ interface EmotionHistoryProps {
   onRemove: (id: string) => void;
 }
 
-const INTENSITY_LABELS = ["", "A little", "Medium", "A lot"];
 
 export default function EmotionHistory({
   entries,
@@ -42,7 +41,7 @@ export default function EmotionHistory({
               <p className="font-semibold">
                 {emotion?.label ?? "Unknown"}{" "}
                 <span className="font-normal text-muted">
-                  · {INTENSITY_LABELS[entry.intensity] ?? ""}
+                  · {INTENSITY_LEVELS.find((l) => l.value === entry.intensity)?.label ?? ""}
                 </span>
               </p>
               {entry.note && (
@@ -56,7 +55,7 @@ export default function EmotionHistory({
               type="button"
               onClick={() => onRemove(entry.id)}
               aria-label={`Delete this ${emotion?.label ?? ""} check-in`}
-              className="no-print grid h-9 w-9 shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
+              className="no-print touch-target grid shrink-0 place-items-center rounded-xl border-2 border-border bg-surface"
             >
               <span aria-hidden="true">🗑️</span>
             </button>

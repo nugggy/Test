@@ -10,6 +10,7 @@ import InfoSection from "@/components/InfoSection";
 import ChecklistSection from "@/components/ChecklistSection";
 import EditableListSection from "@/components/EditableListSection";
 import PrintButton from "@/components/PrintButton";
+import NoticedLog from "./NoticedLog";
 
 export default function NdisCompliance() {
   const { notes, updateField } = useNdisComplianceNotes();
@@ -51,6 +52,38 @@ export default function NdisCompliance() {
               <p className="text-sm text-muted">{item.description}</p>
             </li>
           ))}
+        </ul>
+      </InfoSection>
+
+      <InfoSection title="Registered or not? How to check" icon="🔎">
+        <ul className="list-disc space-y-1 pl-5">
+          <li>
+            Search the <strong>NDIS Provider Register</strong> on the{" "}
+            <a
+              href="https://www.ndiscommission.gov.au"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-brand hover:underline"
+            >
+              NDIS Commission website
+            </a>
+            . It shows if a provider is registered, and what types of
+            support they are registered for.
+          </li>
+          <li>
+            The NDIS Commission website also lists compliance actions, such
+            as providers or workers who have been banned.
+          </li>
+          <li>
+            If the NDIA manages your plan, you can only use registered
+            providers. If you self-manage or have a plan manager, you can
+            also use unregistered providers. They still have to follow the
+            Code of Conduct.
+          </li>
+          <li>
+            You can ask any provider to show you their registration. A good
+            provider won&apos;t mind.
+          </li>
         </ul>
       </InfoSection>
 
@@ -167,12 +200,9 @@ export default function NdisCompliance() {
         onChange={(items) => updateField("questionsForProvider", items)}
       />
 
-      <EditableListSection
-        title="Things I've noticed"
-        description="A private, dated record for yourself of anything that concerned you - useful if you decide to raise it later"
-        placeholder="e.g. Charged a cancellation fee with no notice given"
-        items={notes.thingsIveNoticed}
-        onChange={(items) => updateField("thingsIveNoticed", items)}
+      <NoticedLog
+        entries={notes.thingsIveNoticed}
+        onChange={(entries) => updateField("thingsIveNoticed", entries)}
       />
     </div>
   );

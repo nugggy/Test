@@ -64,3 +64,38 @@ export function useVisualLabels() {
 
   return { labels, addLabel, removeLabel, clearAll, hydrated };
 }
+
+// Print size is stored under its own key so the saved labels list keeps
+// exactly the same shape as before.
+const SIZE_KEY = "dt:visual-labels:size:v1";
+
+export type LabelSize = "small" | "medium" | "large" | "sign";
+
+export const LABEL_SIZES: { id: LabelSize; name: string; hint: string }[] = [
+  { id: "small", name: "Small", hint: "4 across. Good for cupboards and drawers." },
+  { id: "medium", name: "Medium", hint: "3 across." },
+  { id: "large", name: "Large", hint: "2 across. Good for doors." },
+  { id: "sign", name: "Sign", hint: "1 per page. Good for a door or wall sign." },
+];
+
+function isLabelSize(value: unknown): value is LabelSize {
+  return LABEL_SIZES.some((s) => s.id === value);
+}
+
+export function useLabelSize() {
+  const [size, setSize] = useState<LabelSize>("medium");
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    const stored = readJSON<unknown>(SIZE_KEY, "medium");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSize(isLabelSize(stored) ? stored : "medium");
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (hydrated) writeJSON(SIZE_KEY, size);
+  }, [size, hydrated]);
+
+  return { size, setSize };
+}

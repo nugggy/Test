@@ -41,13 +41,45 @@ function makeId() {
     : `change-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 }
 
+function parseChecklist(raw: unknown): ChecklistItem[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((x): x is Partial<ChecklistItem> => !!x && typeof x === "object")
+    .filter((x) => typeof x.text === "string")
+    .map((x) => ({
+      id: typeof x.id === "string" && x.id ? x.id : makeId(),
+      text: x.text as string,
+      done: x.done === true,
+    }));
+}
+
+/** Cleans saved plans so older or damaged data can't break the page.
+ * Missing lists become empty, nothing readable is dropped. */
+export function parseChangePrepEntries(raw: unknown): ChangePrepEntry[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((x): x is Partial<ChangePrepEntry> => !!x && typeof x === "object")
+    .map((x) => ({
+      id: typeof x.id === "string" && x.id ? x.id : makeId(),
+      title: typeof x.title === "string" && x.title.trim() ? x.title : "My change",
+      changeDate:
+        typeof x.changeDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(x.changeDate)
+          ? x.changeDate
+          : "",
+      whatsChanging: parseChecklist(x.whatsChanging),
+      whatsStaying: parseChecklist(x.whatsStaying),
+      thingsThatMightHelp: parseChecklist(x.thingsThatMightHelp),
+      notes: typeof x.notes === "string" ? x.notes : "",
+    }));
+}
+
 export function useChangePrepEntries() {
   const [entries, setEntries] = useState<ChangePrepEntry[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setEntries(readJSON<ChangePrepEntry[]>(STORAGE_KEY, []));
+    setEntries(parseChangePrepEntries(readJSON<unknown>(STORAGE_KEY, [])));
     setHydrated(true);
   }, []);
 

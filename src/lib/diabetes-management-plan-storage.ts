@@ -47,6 +47,28 @@ const EMPTY_PLAN: DiabetesManagementPlan = {
   lastConfirmed: "",
 };
 
+const LIST_FIELDS = ["lowActionSteps", "highActionSteps", "correctionScale", "sickDayRules"] as const;
+
+/** Loads a saved plan, keeping known fields and filling any gaps. */
+export function normalizeDiabetesPlan(raw: unknown): DiabetesManagementPlan {
+  const out: DiabetesManagementPlan = { ...EMPTY_PLAN };
+  if (!raw || typeof raw !== "object") return out;
+  const source = raw as Record<string, unknown>;
+  for (const key of Object.keys(EMPTY_PLAN) as (keyof DiabetesManagementPlan)[]) {
+    const value = source[key];
+    if ((LIST_FIELDS as readonly string[]).includes(key)) {
+      if (Array.isArray(value)) {
+        (out[key] as string[]) = value.filter((v): v is string => typeof v === "string");
+      }
+    } else if (typeof value === "string") {
+      (out[key] as string) = value;
+    } else if (typeof value === "number" && Number.isFinite(value)) {
+      (out[key] as string) = String(value);
+    }
+  }
+  return out;
+}
+
 function readJSON<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
   try {
@@ -73,7 +95,7 @@ export function useDiabetesManagementPlan() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPlan({ ...EMPTY_PLAN, ...readJSON<Partial<DiabetesManagementPlan>>(STORAGE_KEY, {}) });
+    setPlan(normalizeDiabetesPlan(readJSON<unknown>(STORAGE_KEY, {})));
     setHydrated(true);
   }, []);
 
@@ -92,3 +114,61 @@ export function useDiabetesManagementPlan() {
 
   return { plan, updateField, clearPlan, hydrated };
 }
+
+export type ReadingBand = "emergency-low" | "low" | "in-range" | "high" | "emergency-high";
+
+function toNumber(value: string): number | null {
+  if (!value.trim()) return null;
+  const n = Number(value);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+/** The person's own target range from their plan, or null if not entered
+ * (or entered back to front). */
+export function planTargetRange(
+  plan: Pick<DiabetesManagementPlan, "targetLowMmol" | "targetHighMmol">
+): { low: number; high: number } | null {
+  const low = toNumber(plan.targetLowMmol);
+  const high = toNumber(plan.targetHighMmol);
+  if (low === null || high === null || low >= high) return null;
+  return { low, high };
+}
+
+/**
+ * Where a reading sits against the numbers the person copied from their
+ * own diabetes plan. Returns null when no target range has been entered -
+ * this tool never applies a range of its own.
+ */
+export function classifyReading(
+  bglMmol: number,
+  plan: Pick<
+    DiabetesManagementPlan,
+    "targetLowMmol" | "targetHighMmol" | "emergencyLowMmol" | "emergencyHighMmol"
+  >
+): ReadingBand | null {
+  const range = planTargetRange(plan);
+  if (!range || !Number.isFinite(bglMmol)) return null;
+  const emergencyLow = toNumber(plan.emergencyLowMmol);
+  const emergencyHigh = toNumber(plan.emergencyHighMmol);
+  if (emergencyLow !== null && bglMmol < emergencyLow) return "emergency-low";
+  if (bglMmol < range.low) return "low";
+  if (emergencyHigh !== null && bglMmol > emergencyHigh) return "emergency-high";
+  if (bglMmol > range.high) return "high";
+  return "in-range";
+}
+
+export const READING_BAND_LABELS: Record<ReadingBand, string> = {
+  "emergency-low": "Below the plan's emergency low",
+  low: "Below the plan's target range",
+  "in-range": "Within the plan's target range",
+  high: "Above the plan's target range",
+  "emergency-high": "Above the plan's emergency high",
+};
+
+export const READING_BAND_COLOURS: Record<ReadingBand, string> = {
+  "emergency-low": "var(--sev-5)",
+  low: "var(--sev-4)",
+  "in-range": "var(--sev-1)",
+  high: "var(--sev-3)",
+  "emergency-high": "var(--sev-5)",
+};

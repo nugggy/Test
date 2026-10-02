@@ -1,35 +1,22 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { EMPTY_PLAN, normalisePlan, type RegulationPlan } from "@/lib/regulation-plan-data";
 
+export type { RegulationPlan } from "@/lib/regulation-plan-data";
+
+// Same key as the very first version - older plans are upgraded on load by
+// normalisePlan(), never wiped.
 const STORAGE_KEY = "dt:regulation-plan:v1";
 
-export interface RegulationPlan {
-  warningSigns: string[];
-  strategies: string[];
-  groundingTechniques: string[];
-  avoid: string[];
-  supportPeople: string[];
-  urgentHelpNotes: string;
-}
-
-const EMPTY_PLAN: RegulationPlan = {
-  warningSigns: [],
-  strategies: [],
-  groundingTechniques: [],
-  avoid: [],
-  supportPeople: [],
-  urgentHelpNotes: "",
-};
-
-function readJSON<T>(key: string, fallback: T): T {
-  if (typeof window === "undefined") return fallback;
+function readRaw(key: string): unknown {
+  if (typeof window === "undefined") return null;
   try {
     const raw = window.localStorage.getItem(key);
-    if (!raw) return fallback;
-    return JSON.parse(raw) as T;
+    if (!raw) return null;
+    return JSON.parse(raw);
   } catch {
-    return fallback;
+    return null;
   }
 }
 
@@ -50,7 +37,7 @@ export function useRegulationPlan() {
     // localStorage only exists client-side, so the plan is synced in after
     // mount rather than during the (server) initial render.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPlan({ ...EMPTY_PLAN, ...readJSON<Partial<RegulationPlan>>(STORAGE_KEY, {}) });
+    setPlan(normalisePlan(readRaw(STORAGE_KEY)));
     setHydrated(true);
   }, []);
 
@@ -60,7 +47,7 @@ export function useRegulationPlan() {
 
   const updateField = useCallback(
     <K extends keyof RegulationPlan>(key: K, value: RegulationPlan[K]) => {
-      setPlan((prev) => ({ ...prev, [key]: value }));
+      setPlan((prev) => ({ ...prev, [key]: value, updatedAt: new Date().toISOString() }));
     },
     []
   );

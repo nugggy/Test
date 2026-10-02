@@ -1,6 +1,6 @@
 "use client";
 
-import type { FitnessLogEntry } from "@/lib/fitness-log-storage";
+import { formatFitnessDate, type FitnessLogEntry } from "@/lib/fitness-log-storage";
 
 interface FitnessLogListProps {
   entries: FitnessLogEntry[];
@@ -28,15 +28,17 @@ export default function FitnessLogList({ entries, onRemove }: FitnessLogListProp
           <div>
             <span className="font-semibold">{entry.activity}</span>
             <span className="ml-2 text-sm text-muted">
-              {entry.durationMinutes} min - {entry.date}
+              {entry.durationMinutes} min, {formatFitnessDate(entry.date)}
             </span>
             {entry.notes && <p className="mt-1 text-sm">{entry.notes}</p>}
           </div>
           <button
             type="button"
-            onClick={() => onRemove(entry.id)}
-            aria-label="Delete this entry"
-            className="no-print grid h-9 w-9 shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
+            onClick={() => {
+              if (window.confirm("Delete this session? This cannot be undone.")) onRemove(entry.id);
+            }}
+            aria-label={`Delete the ${entry.activity} session on ${formatFitnessDate(entry.date)}`}
+            className="no-print touch-target grid shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
           >
             <span aria-hidden="true">🗑️</span>
           </button>

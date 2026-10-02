@@ -12,8 +12,18 @@ import {
 import type { SeizureLogEntry } from "@/lib/seizure-log-storage";
 import SuggestField from "@/components/SuggestField";
 
+export interface SeizureFormPrefill {
+  occurredAt: string; // ISO
+  durationSeconds: number;
+  actionsTaken: string[];
+  medicationDetail: string;
+  notes: string;
+}
+
 interface SeizureLogFormProps {
   onSave: (data: Omit<SeizureLogEntry, "id">) => void;
+  /** Filled in from the seizure timer. Remount the form (via `key`) to apply. */
+  prefill?: SeizureFormPrefill | null;
 }
 
 function toLocalDatetimeInputValue(date: Date) {
@@ -21,10 +31,12 @@ function toLocalDatetimeInputValue(date: Date) {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
-export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
+export default function SeizureLogForm({ onSave, prefill }: SeizureLogFormProps) {
   const [seizureType, setSeizureType] = useState("");
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(() =>
+    prefill ? Math.floor(prefill.durationSeconds / 60) : 0
+  );
+  const [seconds, setSeconds] = useState(() => (prefill ? prefill.durationSeconds % 60 : 0));
   const [severity, setSeverity] = useState("");
   const [consciousness, setConsciousness] = useState("");
   const [warningSigns, setWarningSigns] = useState("");
@@ -34,12 +46,15 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
   const [recovery, setRecovery] = useState("");
   const [recoveryMinutes, setRecoveryMinutes] = useState(0);
   const [location, setLocation] = useState("");
-  const [actionsTaken, setActionsTaken] = useState<string[]>([]);
-  const [medicationDetail, setMedicationDetail] = useState("");
-  const [notes, setNotes] = useState("");
-  const [occurredAtLocal, setOccurredAtLocal] = useState(() =>
-    toLocalDatetimeInputValue(new Date())
+  const [actionsTaken, setActionsTaken] = useState<string[]>(() =>
+    prefill ? [...prefill.actionsTaken] : []
   );
+  const [medicationDetail, setMedicationDetail] = useState(() => prefill?.medicationDetail ?? "");
+  const [notes, setNotes] = useState(() => prefill?.notes ?? "");
+  const [occurredAtLocal, setOccurredAtLocal] = useState(() =>
+    toLocalDatetimeInputValue(prefill ? new Date(prefill.occurredAt) : new Date())
+  );
+  const [savedMessage, setSavedMessage] = useState("");
   const occurredAtId = useId();
   const notesId = useId();
 
@@ -52,8 +67,10 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!seizureType.trim()) return;
+    const occurred = new Date(occurredAtLocal);
+    if (Number.isNaN(occurred.getTime())) return;
     onSave({
-      occurredAt: new Date(occurredAtLocal).toISOString(),
+      occurredAt: occurred.toISOString(),
       seizureType: seizureType.trim(),
       durationSeconds: minutes * 60 + seconds,
       severity,
@@ -87,6 +104,7 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
     setMedicationDetail("");
     setNotes("");
     setOccurredAtLocal(toLocalDatetimeInputValue(new Date()));
+    setSavedMessage("Entry saved. It is now in the log below.");
   }
 
   return (
@@ -94,7 +112,15 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
       onSubmit={handleSubmit}
       className="flex flex-col gap-5 rounded-2xl border-2 border-border bg-surface p-4"
     >
-      <h2 className="font-display text-lg font-bold">Log a seizure</h2>
+      <h2 id="seizure-form-heading" tabIndex={-1} className="font-display text-lg font-bold">
+        Log a seizure
+      </h2>
+      {prefill && (
+        <p className="rounded-xl border-2 border-accent bg-accent-soft px-3 py-2 text-sm">
+          The start time and duration have been filled in from the timer.
+          Check them, add the details, then tap Save entry.
+        </p>
+      )}
 
       <div>
         <label htmlFor={occurredAtId} className="block font-semibold mb-1">
@@ -127,7 +153,7 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
             min={0}
             max={180}
             value={minutes}
-            onChange={(e) => setMinutes(Math.max(0, Number(e.target.value)))}
+            onChange={(e) => setMinutes(Math.max(0, Math.floor(Number(e.target.value) || 0)))}
             aria-label="Minutes"
             className="w-20 rounded-xl border-2 border-border bg-background px-3 py-3 text-center touch-target"
           />
@@ -137,7 +163,9 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
             min={0}
             max={59}
             value={seconds}
-            onChange={(e) => setSeconds(Math.min(59, Math.max(0, Number(e.target.value))))}
+            onChange={(e) =>
+              setSeconds(Math.min(59, Math.max(0, Math.floor(Number(e.target.value) || 0))))
+            }
             aria-label="Seconds"
             className="w-20 rounded-xl border-2 border-border bg-background px-3 py-3 text-center touch-target"
           />
@@ -275,7 +303,7 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
           min={0}
           max={1440}
           value={recoveryMinutes}
-          onChange={(e) => setRecoveryMinutes(Math.max(0, Number(e.target.value)))}
+          onChange={(e) => setRecoveryMinutes(Math.max(0, Math.floor(Number(e.target.value) || 0)))}
           className="w-28 rounded-xl border-2 border-border bg-background px-3 py-3 text-center touch-target"
         />
       </div>
@@ -338,6 +366,9 @@ export default function SeizureLogForm({ onSave }: SeizureLogFormProps) {
       >
         Save entry
       </button>
+      <p aria-live="polite" className="text-sm font-semibold">
+        {savedMessage}
+      </p>
     </form>
   );
 }

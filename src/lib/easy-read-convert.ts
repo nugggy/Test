@@ -6,40 +6,98 @@ export interface EasyReadPoint {
 }
 
 const MAX_WORDS_PER_POINT = 12;
-const SPLIT_CONNECTORS = [" because ", " which ", " although ", " however ", " and ", " but ", " so "];
+/** Lines longer than this are flagged to the person editing the result. */
+export const LONG_LINE_WORDS = 15;
 
-function splitIntoSentences(text: string): string[] {
+// Connectors we can split a long sentence on, with the smallest number of
+// words each half must have for the split to be worth it. "and", "but" and
+// "so" only split when a new clause clearly starts after them (e.g. "and you
+// will..."), otherwise "fish and chips" style phrases get chopped into
+// meaningless fragments.
+const CLAUSE_STARTERS = new Set([
+  "i", "you", "we", "they", "he", "she", "it", "there", "then", "this",
+  "that", "these", "your", "our", "my", "their", "please",
+]);
+
+const SPLIT_CONNECTORS: { text: string; minWords: number; needsClause?: boolean }[] = [
+  { text: " because ", minWords: 3 },
+  { text: " although ", minWords: 3 },
+  { text: " however ", minWords: 3 },
+  { text: " which ", minWords: 4 },
+  { text: " but ", minWords: 3, needsClause: true },
+  { text: " and ", minWords: 3, needsClause: true },
+  { text: " so ", minWords: 3, needsClause: true },
+];
+
+// Common abbreviations whose full stop should NOT end a sentence.
+const ABBREVIATIONS = ["e.g.", "i.e.", "etc.", "Dr.", "Mr.", "Mrs.", "Ms.", "St.", "No.", "approx."];
+const PLACEHOLDER = "\u0000";
+
+export function countWords(text: string): number {
+  return text.split(/\s+/).filter(Boolean).length;
+}
+
+function protectAbbreviations(text: string): string {
+  let out = text;
+  for (const abbr of ABBREVIATIONS) {
+    const escaped = abbr.replace(/\./g, "\\.");
+    out = out.replace(new RegExp(`(^|\\s)${escaped}`, "gi"), (match) =>
+      match.replace(/\./g, PLACEHOLDER)
+    );
+  }
+  return out;
+}
+
+function restoreAbbreviations(text: string): string {
+  return text.split(PLACEHOLDER).join(".");
+}
+
+/** Strip list markers like "-", "*", "•" or "1." / "2)" from the start of a line. */
+function stripListMarker(line: string): string {
+  return line.replace(/^\s*(?:[-*•‣◦]+|\d{1,3}[.)])\s+/, "");
+}
+
+export function splitIntoSentences(text: string): string[] {
   return text
-    .split(/(?<=[.!?])\s+/)
-    .map((s) => s.trim())
+    .split(/\r?\n+/) // every line (and every bullet point) is its own idea
+    .map(stripListMarker)
+    .flatMap((line) => protectAbbreviations(line).split(/(?<=[.!?])\s+/))
+    .map((s) => restoreAbbreviations(s).trim())
     .filter(Boolean);
 }
 
 function splitLongSentence(sentence: string): string[] {
-  const wordCount = sentence.split(/\s+/).filter(Boolean).length;
-  if (wordCount <= MAX_WORDS_PER_POINT) return [sentence];
+  if (countWords(sentence) <= MAX_WORDS_PER_POINT) return [sentence];
 
+  const lower = sentence.toLowerCase();
   for (const connector of SPLIT_CONNECTORS) {
-    const index = sentence.toLowerCase().indexOf(connector);
+    const index = lower.indexOf(connector.text);
     if (index > 0) {
-      const first = sentence.slice(0, index).trim();
-      const second = sentence.slice(index + connector.length).trim();
-      if (first && second) {
+      const first = sentence.slice(0, index).trim().replace(/,$/, "");
+      const second = sentence.slice(index + connector.text.length).trim();
+      const nextWord = second.split(/\s+/)[0]?.toLowerCase().replace(/[^a-z]/g, "") ?? "";
+      const clauseOk = !connector.needsClause || CLAUSE_STARTERS.has(nextWord);
+      if (
+        clauseOk &&
+        countWords(first) >= connector.minWords &&
+        countWords(second) >= connector.minWords
+      ) {
         return [...splitLongSentence(first), ...splitLongSentence(second)];
       }
     }
   }
 
-  // No good connector found - fall back to splitting on commas.
+  // No good connector found - fall back to splitting on commas, as long as
+  // each part is still a meaningful chunk.
   const commaParts = sentence.split(",").map((p) => p.trim()).filter(Boolean);
-  if (commaParts.length > 1) {
+  if (commaParts.length > 1 && commaParts.every((p) => countWords(p) >= 3)) {
     return commaParts.flatMap((part) => splitLongSentence(part));
   }
 
   return [sentence];
 }
 
-function simplifyWords(text: string): string {
+export function simplifyWords(text: string): string {
   return text.replace(/[A-Za-z]+/g, (word) => {
     const lower = word.toLowerCase();
     const replacement = SIMPLE_WORD_MAP[lower];
@@ -51,7 +109,7 @@ function simplifyWords(text: string): string {
   });
 }
 
-function findEmoji(text: string): string | null {
+export function findEmoji(text: string): string | null {
   const lower = text.toLowerCase();
   for (const { keyword, emoji } of KEYWORD_EMOJI_MAP) {
     if (new RegExp(`\\b${keyword}\\b`).test(lower)) {
@@ -67,7 +125,7 @@ function capitaliseFirst(text: string): string {
 }
 
 function ensureFullStop(text: string): string {
-  return /[.!?]$/.test(text) ? text : `${text}.`;
+  return /[.!?:]$/.test(text) ? text : `${text}.`;
 }
 
 export function convertToEasyRead(input: string): EasyReadPoint[] {

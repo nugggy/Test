@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useActiveSupportNotes } from "@/lib/active-support-storage";
 import { ACTIVE_SUPPORT_ELEMENTS, SELF_REFLECTION_SUGGESTIONS } from "@/lib/active-support-data";
 import EditableListSection from "@/components/EditableListSection";
@@ -14,7 +15,9 @@ const IDEA_SUGGESTIONS = [
 ];
 
 export default function ActiveSupport() {
-  const { notes, updateField, updatePersonalExamples } = useActiveSupportNotes();
+  const { notes, updateField, updatePersonalExamples, resetReflection } = useActiveSupportNotes();
+  const [resetMessage, setResetMessage] = useState("");
+  const tickedCount = notes.selfReflection.filter((i) => i.done).length;
 
   return (
     <div className="flex flex-col gap-4">
@@ -123,6 +126,26 @@ export default function ActiveSupport() {
         suggestions={SELF_REFLECTION_SUGGESTIONS}
         onChange={(items) => updateField("selfReflection", items)}
       />
+      {notes.selfReflection.length > 0 && (
+        <div className="no-print -mt-2 flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={() => {
+              resetReflection();
+              setResetMessage("All ticks cleared. Ready for your next shift.");
+            }}
+            disabled={tickedCount === 0}
+            className="touch-target rounded-xl border-2 border-border bg-surface px-4 font-semibold disabled:opacity-50"
+          >
+            Start a new shift (clear ticks)
+          </button>
+          <p aria-live="polite" className="text-sm text-muted">
+            {tickedCount > 0
+              ? `${tickedCount} of ${notes.selfReflection.length} ticked`
+              : resetMessage}
+          </p>
+        </div>
+      )}
 
       <EditableListSection
         title="Ideas for this person"

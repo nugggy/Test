@@ -27,10 +27,10 @@ export default function NdisCompliancePage() {
       </ToolHero>
       <HowToUse
         steps={[
-          "Read through each section to learn what providers are required to do.",
+          "Read through each section to learn what providers are required to do, and how to check if a provider is registered.",
           "Use the checklist to check your own provider against common obligations.",
           "Save questions you want to ask your provider directly.",
-          "Keep a private, dated note of anything that concerns you.",
+          "Keep a private, dated note of anything that concerns you. It stays on this device.",
           "If something's not right, follow the steps to raise it or contact the NDIS Commission.",
         ]}
       />

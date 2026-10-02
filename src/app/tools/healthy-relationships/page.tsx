@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ToolHero from "@/components/ToolHero";
+import QuickExit from "@/components/QuickExit";
 import HealthyRelationships from "@/components/healthy-relationships/HealthyRelationships";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
@@ -24,12 +25,14 @@ export default function HealthyRelationshipsPage() {
         help - in plain language, written for adults.
         </p>
       </ToolHero>
+      <QuickExit />
       <HowToUse
         steps={[
           "Read through each section - tap to expand it.",
           "There's no wrong way to use this: read it all, or just what's useful right now.",
-          "Use the personal sections at the bottom to write down what matters to you, privately on this device.",
-          "If anything here feels close to your own situation, the 'Where to get help' section has people you can talk to.",
+          "Use the personal sections at the bottom to write down what matters to you. They're saved on this device only, and you can clear them any time.",
+          "If you're not safe, the box at the top has 000 and 1800RESPECT. Tap a number to call.",
+          "If anything here feels close to your own situation, the 'Where to get help' section has more people you can talk to.",
         ]}
       />
       <MedicalDisclaimerBanner />

@@ -17,6 +17,7 @@ export default function FirstThenBoard() {
     setFirstItem,
     setThenItem,
     toggleFirstDone,
+    moveOn,
     resetFirstThen,
     addChoiceItem,
     removeChoiceItem,
@@ -24,6 +25,21 @@ export default function FirstThenBoard() {
   } = useFirstThenBoard();
   const { speak } = useSpeech();
   const [pickerTarget, setPickerTarget] = useState<"first" | "then" | "choice" | null>(null);
+  const [editingChoices, setEditingChoices] = useState(false);
+
+  function handleToggleFirstDone() {
+    // Ticking "First" off is the moment the person needs to hear what
+    // comes next, so say it straight away.
+    if (!state.firstDone && state.thenItem) {
+      speak(`First is done. Now, ${state.thenItem.label}`);
+    }
+    toggleFirstDone();
+  }
+
+  function handleMoveOn() {
+    if (state.thenItem) speak(`First, ${state.thenItem.label}`);
+    moveOn();
+  }
 
   function handlePick(item: PictureItem) {
     if (pickerTarget === "first") setFirstItem(item);
@@ -79,11 +95,27 @@ export default function FirstThenBoard() {
               <input
                 type="checkbox"
                 checked={state.firstDone}
-                onChange={toggleFirstDone}
+                onChange={handleToggleFirstDone}
                 className="h-7 w-7 accent-brand"
               />
               {state.firstDone ? "First is done ✅" : "Mark 'First' as done"}
             </label>
+          )}
+
+          {state.firstDone && state.thenItem && (
+            <div className="no-print flex flex-col items-center gap-2 rounded-2xl border-2 border-brand bg-brand-soft p-4 text-center">
+              <p className="font-semibold">
+                Ready for the next step? &quot;{state.thenItem.label}&quot; moves into First,
+                and you can choose a new Then.
+              </p>
+              <button
+                type="button"
+                onClick={handleMoveOn}
+                className="touch-target rounded-xl border-2 border-brand bg-brand px-5 font-semibold text-brand-ink"
+              >
+                ➡️ Move on
+              </button>
+            </div>
           )}
 
           <div className="no-print flex flex-wrap justify-center gap-2">
@@ -116,12 +148,39 @@ export default function FirstThenBoard() {
       ) : (
         <div className="flex flex-col gap-4">
           <p className="no-print max-w-2xl text-sm text-muted">
-            Build a set of up to 6 pictures, then offer the board - tapping an option
-            selects it and speaks it aloud.
+            Build a set of up to 6 pictures, then offer the board. Tapping an option
+            selects it and speaks it aloud. Fewer choices (2 or 3) are often easier.
+          </p>
+          <div className="no-print flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setEditingChoices((v) => !v)}
+              aria-pressed={editingChoices}
+              className={`touch-target rounded-xl border-2 px-4 font-semibold ${
+                editingChoices
+                  ? "border-brand bg-brand text-brand-ink"
+                  : "border-border bg-surface"
+              }`}
+            >
+              {editingChoices ? "✅ Finish editing" : "✏️ Edit choices"}
+            </button>
+            <button
+              type="button"
+              onClick={() => selectChoice(null)}
+              disabled={!state.selectedChoiceId}
+              className="touch-target rounded-xl border-2 border-border bg-surface px-4 font-semibold disabled:opacity-40"
+            >
+              ↺ Clear the choice
+            </button>
+          </div>
+          <p aria-live="polite" className="sr-only">
+            {state.selectedChoiceId
+              ? `Chosen: ${state.choiceItems.find((i) => i.id === state.selectedChoiceId)?.label ?? ""}`
+              : ""}
           </p>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {state.choiceItems.map((item) => (
-              <div key={item.id} className="relative">
+              <div key={item.id} className="flex flex-col gap-2">
                 <button
                   type="button"
                   onClick={() => {
@@ -129,7 +188,7 @@ export default function FirstThenBoard() {
                     speak(item.label);
                   }}
                   aria-pressed={state.selectedChoiceId === item.id}
-                  className={`touch-target flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-4 p-5 text-center shadow-sm transition-transform active:scale-95 ${
+                  className={`touch-target flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-4 p-5 text-center shadow-sm transition-transform active:scale-95 motion-reduce:transition-none motion-reduce:active:scale-100 ${
                     state.selectedChoiceId === item.id
                       ? "border-brand bg-brand/15"
                       : "border-border bg-surface"
@@ -142,17 +201,19 @@ export default function FirstThenBoard() {
                     {item.label}
                   </span>
                 </button>
-                <button
-                  type="button"
-                  onClick={() => removeChoiceItem(item.id)}
-                  aria-label={`Remove ${item.label} from the choice board`}
-                  className="no-print absolute -top-2 -right-2 grid h-9 w-9 place-items-center rounded-full border-2 border-border bg-background text-sm shadow"
-                >
-                  🗑️
-                </button>
+                {editingChoices && (
+                  <button
+                    type="button"
+                    onClick={() => removeChoiceItem(item.id)}
+                    aria-label={`Remove ${item.label} from the choice board`}
+                    className="no-print touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold"
+                  >
+                    <span aria-hidden="true">🗑️</span> Remove
+                  </button>
+                )}
               </div>
             ))}
-            {state.choiceItems.length < 6 && (
+            {state.choiceItems.length < 6 && (editingChoices || state.choiceItems.length === 0) && (
               <button
                 type="button"
                 onClick={() => setPickerTarget("choice")}

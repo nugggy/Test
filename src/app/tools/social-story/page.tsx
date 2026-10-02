@@ -27,11 +27,12 @@ export default function SocialStoryPage() {
       </p>
       <HowToUse
         steps={[
-          "Tap 'New story' and give it a title.",
-          "Tap 'Add page' - choose a picture and write (or say, using the microphone) what happens on that page.",
-          "Add as many pages as you need, and use the arrows to reorder them.",
-          "Tap 'Read story' to go through it page by page, with read-aloud.",
-          "Print the story to use offline, or share it with someone.",
+          "Tap 'New blank story', or start from an example like 'Going to the doctor' and change it to fit.",
+          "Tap 'Add page'. Choose a picture and write (or say, using the microphone) what happens on that page.",
+          "Write as 'I', with short sentences. Open 'Tips for writing a good story' for help.",
+          "Use 'Earlier' and 'Later' to reorder pages.",
+          "Tap 'Read story' to go through it page by page. Turn on 'Read each page aloud' to hear every page as you go.",
+          "Tap 'Print whole story' to print every page, ready to make into a little book.",
         ]}
       />
       <MedicalDisclaimerBanner />

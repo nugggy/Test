@@ -25,6 +25,7 @@ export default function CoreWordBoardPage() {
         steps={[
           "Tap any word to hear it spoken aloud and add it to the message strip at the top.",
           "Keep tapping words to build a short sentence, then tap Speak to hear the whole thing.",
+          "Tapped the wrong word? Tap Undo to take off just the last word. Clear starts again.",
           "Words stay in the same colour-coded position every time - pronouns, verbs, descriptors, social words, questions and yes/no - so the layout becomes familiar with practice.",
         ]}
       />

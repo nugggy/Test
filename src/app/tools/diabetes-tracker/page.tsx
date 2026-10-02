@@ -38,7 +38,8 @@ export default function DiabetesTrackerPage() {
       <HowToUse
         steps={[
           "Log & Trend tab: log each blood glucose reading and any insulin dose, and check the chart to spot patterns.",
-          "Management Plan tab: enter your doctor's target range, low/high action steps, correction scale and care team details.",
+          "Management Plan tab: enter your doctor's target range, low/high action steps, correction scale, sick day rules and care team details.",
+          "Once your own target range is entered, the chart and log show each reading as below, within or above that range. Without it, readings are not coloured.",
           "The plan builds into a clear, colour-coded visual summary you can print for the fridge, school or a support worker.",
           "Export a CSV or print the log to share with your care team.",
         ]}

@@ -88,7 +88,7 @@ export default function FriendshipGoalPlanner() {
                 onChange={(e) =>
                   setDrafts((prev) => ({ ...prev, [category]: e.target.value }))
                 }
-                placeholder="Add a goal…"
+                placeholder="Type a goal"
                 maxLength={140}
                 className="flex-1 rounded-xl border-2 border-border bg-background px-4 py-3 touch-target"
               />
@@ -100,12 +100,14 @@ export default function FriendshipGoalPlanner() {
               </button>
             </form>
             <div className="no-print mt-2 flex flex-wrap gap-1.5">
-              {GOAL_SUGGESTIONS[category].map((s) => (
+              {GOAL_SUGGESTIONS[category]
+                .filter((s) => !categoryGoals.some((g) => g.title === s))
+                .map((s) => (
                 <button
                   key={s}
                   type="button"
                   onClick={() => addGoal(s, category)}
-                  className="rounded-full border-2 border-border bg-background px-3 py-1 text-xs font-semibold hover:border-brand"
+                  className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold hover:border-brand"
                 >
                   {s}
                 </button>

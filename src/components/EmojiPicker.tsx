@@ -21,7 +21,7 @@ export default function EmojiPicker({ value, onChange, label = "Picture" }: Emoj
   return (
     <div>
       <span className="mb-1 block text-sm font-semibold">{label}</span>
-      <div className="mb-2 grid max-h-56 grid-cols-8 gap-1.5 overflow-y-auto rounded-xl border-2 border-border bg-background p-2 sm:grid-cols-10">
+      <div className="mb-2 grid max-h-80 grid-cols-4 gap-2 overflow-y-auto rounded-xl border-2 border-border bg-surface-2 p-2 sm:grid-cols-6 lg:grid-cols-8">
         {EMOJI_CHOICES.map((choice) => (
           <button
             key={choice}
@@ -29,7 +29,7 @@ export default function EmojiPicker({ value, onChange, label = "Picture" }: Emoj
             onClick={() => onChange(choice)}
             aria-pressed={value === choice}
             aria-label={`Use picture ${choice}`}
-            className={`grid aspect-square place-items-center rounded-lg border-2 text-xl ${
+            className={`grid aspect-square min-h-16 place-items-center rounded-xl border-2 text-3xl ${
               value === choice ? "border-brand bg-brand/10" : "border-border bg-surface"
             }`}
           >

@@ -1,4 +1,10 @@
-export type CardCategoryId = "interests" | "feelings" | "weekend" | "favourites" | "getting-to-know-you";
+export type CardCategoryId =
+  | "easy"
+  | "interests"
+  | "feelings"
+  | "weekend"
+  | "favourites"
+  | "getting-to-know-you";
 
 export interface CardCategoryDef {
   id: CardCategoryId;
@@ -14,6 +20,7 @@ export interface ConversationCard {
 }
 
 export const CARD_CATEGORIES: CardCategoryDef[] = [
+  { id: "easy", name: "Easy questions", icon: "💬" },
   { id: "interests", name: "Interests", icon: "🎨" },
   { id: "feelings", name: "Feelings", icon: "💭" },
   { id: "weekend", name: "Weekend", icon: "📅" },
@@ -22,8 +29,21 @@ export const CARD_CATEGORIES: CardCategoryDef[] = [
 ];
 
 export const DEFAULT_CARDS: ConversationCard[] = [
+  // Easy questions: short, with a yes/no or "this or that" answer, for
+  // people who find open questions hard to answer.
+  { id: "easy-1", text: "Do you like music?", categoryId: "easy" },
+  { id: "easy-2", text: "Dogs or cats?", categoryId: "easy" },
+  { id: "easy-3", text: "Tea or coffee?", categoryId: "easy" },
+  { id: "easy-4", text: "Beach or pool?", categoryId: "easy" },
+  { id: "easy-5", text: "Do you like footy?", categoryId: "easy" },
+  { id: "easy-6", text: "Hot day or cold day?", categoryId: "easy" },
+  { id: "easy-7", text: "What did you have for lunch?", categoryId: "easy" },
+  { id: "easy-8", text: "Pizza or sausage sizzle?", categoryId: "easy" },
+  { id: "easy-9", text: "Do you like watching movies?", categoryId: "easy" },
+  { id: "easy-10", text: "Morning or night?", categoryId: "easy" },
+
   // Interests
-  { id: "int-1", text: "What's something you've gotten really good at?", categoryId: "interests" },
+  { id: "int-1", text: "What's something you've got really good at?", categoryId: "interests" },
   { id: "int-2", text: "Is there a hobby you'd like to try?", categoryId: "interests" },
   { id: "int-3", text: "What's a show or game you can't stop thinking about?", categoryId: "interests" },
   { id: "int-4", text: "What do you like to do when you have free time?", categoryId: "interests" },

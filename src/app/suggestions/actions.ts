@@ -26,15 +26,21 @@ export async function submitToolSuggestion(
     return { error: "Please fix the highlighted fields.", fieldErrors };
   }
 
-  const supabase = await createClient();
-  // Anonymous submissions are allowed by RLS (see
-  // supabase/migrations/0002_tool_suggestions.sql) - no sign-in required.
-  const { error } = await supabase.from("tool_suggestions").insert({
-    message: parsed.data.message,
-    contact_email: parsed.data.contactEmail || null,
-  });
+  let failed = false;
+  try {
+    const supabase = await createClient();
+    // Anonymous submissions are allowed by RLS (see
+    // supabase/migrations/0002_tool_suggestions.sql) - no sign-in required.
+    const { error } = await supabase.from("tool_suggestions").insert({
+      message: parsed.data.message,
+      contact_email: parsed.data.contactEmail || null,
+    });
+    failed = Boolean(error);
+  } catch {
+    failed = true;
+  }
 
-  if (error) {
+  if (failed) {
     // Generic message only - never surface raw database errors to the
     // client, and never log request data (which could include the
     // submitter's email).

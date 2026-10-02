@@ -38,6 +38,36 @@ function writeJSON<T>(key: string, value: T) {
   }
 }
 
+function makePageId() {
+  return `page-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+}
+
+/**
+ * Defensive parse of saved stories: anything malformed gets sensible
+ * defaults instead of breaking the tool, and nothing valid is dropped.
+ */
+export function parseStories(raw: unknown): SocialStory[] {
+  if (!Array.isArray(raw)) return [];
+  const now = new Date().toISOString();
+  return raw
+    .filter((s): s is Record<string, unknown> => Boolean(s) && typeof s === "object")
+    .map((s, i) => ({
+      id: typeof s.id === "string" ? s.id : `story-restored-${i}`,
+      title: typeof s.title === "string" ? s.title : "",
+      pages: Array.isArray(s.pages)
+        ? s.pages
+            .filter((p): p is Record<string, unknown> => Boolean(p) && typeof p === "object")
+            .map((p) => ({
+              id: typeof p.id === "string" ? p.id : makePageId(),
+              emoji: typeof p.emoji === "string" ? p.emoji : "📖",
+              text: typeof p.text === "string" ? p.text : "",
+            }))
+        : [],
+      createdAt: typeof s.createdAt === "string" ? s.createdAt : now,
+      updatedAt: typeof s.updatedAt === "string" ? s.updatedAt : now,
+    }));
+}
+
 export function useSocialStories() {
   const [stories, setStories] = useState<SocialStory[]>([]);
   const [hydrated, setHydrated] = useState(false);
@@ -46,7 +76,7 @@ export function useSocialStories() {
     // localStorage only exists client-side, so stories are synced in after
     // mount rather than during the (server) initial render.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setStories(readJSON<SocialStory[]>(STORAGE_KEY, []));
+    setStories(parseStories(readJSON<unknown>(STORAGE_KEY, [])));
     setHydrated(true);
   }, []);
 
@@ -54,15 +84,19 @@ export function useSocialStories() {
     if (hydrated) writeJSON(STORAGE_KEY, stories);
   }, [stories, hydrated]);
 
-  const createStory = useCallback((title: string) => {
-    const now = new Date().toISOString();
-    const id = `story-${Date.now()}`;
-    setStories((prev) => [
-      { id, title, pages: [], createdAt: now, updatedAt: now },
-      ...prev,
-    ]);
-    return id;
-  }, []);
+  const createStory = useCallback(
+    (title: string, pages: { emoji: string; text: string }[] = []) => {
+      const now = new Date().toISOString();
+      const id = `story-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+      const storyPages = pages.map((p) => ({ id: makePageId(), emoji: p.emoji, text: p.text }));
+      setStories((prev) => [
+        { id, title, pages: storyPages, createdAt: now, updatedAt: now },
+        ...prev,
+      ]);
+      return id;
+    },
+    []
+  );
 
   const updateStory = useCallback(
     (id: string, updates: Partial<Pick<SocialStory, "title" | "pages">>) => {

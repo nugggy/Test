@@ -27,7 +27,9 @@ export default function EasyReadConverterPage() {
         steps={[
           "Paste or type the text you want simplified.",
           "Tap 'Convert to Easy Read'.",
-          "Read the short, simple version below - print it if you like.",
+          "Check each line below. Fix the wording, change or remove pictures, move lines up or down, and add or delete lines.",
+          "Tap 'Hear' or 'Read all aloud' to listen. Copy the text, or print a clean version with pictures.",
+          "Your work is saved on this device. Tap 'Start again' to clear it.",
           "For a more thorough rewrite, copy the ready-made AI prompt and paste it into Claude, ChatGPT or Copilot.",
         ]}
       />

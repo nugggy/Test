@@ -4,6 +4,7 @@ import SupportPlan from "@/components/support-plan/SupportPlan";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
+import PrintHeader from "@/components/PrintHeader";
 
 export const metadata: Metadata = {
   title: "Support Plan - My Support Buddy",
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function SupportPlanPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
+      <PrintHeader title="Support Plan" />
       <ToolHero slug="support-plan" title="Support Plan">
         <p>
         A one-page, person-centred plan to introduce yourself to a new
@@ -28,10 +30,11 @@ export default function SupportPlanPage() {
       </p>
       <HowToUse
         steps={[
-          "Start with 'About me' - a few sentences about who you are.",
-          "Work through the other sections - tap a suggestion chip, or type/say your own using the microphone.",
-          "Everything saves automatically as you go.",
-          "Print it to share with a new support worker, service or school.",
+          "Add your name, then any alerts a new worker must know straight away.",
+          "Write a few sentences in 'About me', then add what's important to you and how to support you well.",
+          "Work through the other sections - tap a suggestion chip, or type or say your own using the microphone.",
+          "Everything saves on this device as you go.",
+          "Tap 'See one-page plan' to check it, then print it for a new support worker, service or school.",
         ]}
       />
       <MedicalDisclaimerBanner />

@@ -4,19 +4,15 @@ import { useState } from "react";
 import { useDailyTasks } from "@/lib/daily-life-storage";
 import DailyTaskCard from "./DailyTaskCard";
 import PrintButton from "@/components/PrintButton";
+import { STARTER_TASKS } from "@/lib/daily-life-data";
 
-const TASK_SUGGESTIONS = [
-  { title: "How to do laundry", emoji: "🧺" },
-  { title: "How to make a doctor's appointment", emoji: "📞" },
-  { title: "How to cook pasta", emoji: "🍝" },
-  { title: "Morning routine", emoji: "🌅" },
-  { title: "How to catch the bus", emoji: "🚌" },
-];
 
 export default function DailyLifeAssistant() {
   const { tasks, addTask, updateTask, removeTask, resetTaskSteps } = useDailyTasks();
   const [title, setTitle] = useState("");
   const [emoji, setEmoji] = useState("✅");
+  const existingTitles = new Set(tasks.map((t) => t.title.trim().toLowerCase()));
+  const starters = STARTER_TASKS.filter((s) => !existingTitles.has(s.title.toLowerCase()));
 
   function handleAdd(e: React.FormEvent) {
     e.preventDefault();
@@ -34,7 +30,7 @@ export default function DailyLifeAssistant() {
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
         <h2 className="font-display mb-3 text-lg font-bold">Create a task</h2>
         <p className="mb-3 text-sm text-muted">
-          Any everyday task you want step-by-step instructions for - fully your own
+          Any everyday task you want step-by-step instructions for. Type a name, then add the steps.
         </p>
         <form onSubmit={handleAdd} className="no-print flex gap-2">
           <label htmlFor="task-emoji" className="sr-only">
@@ -67,18 +63,30 @@ export default function DailyLifeAssistant() {
             Add task
           </button>
         </form>
-        <div className="no-print mt-2 flex flex-wrap gap-1.5">
-          {TASK_SUGGESTIONS.map((s) => (
-            <button
-              key={s.title}
-              type="button"
-              onClick={() => addTask(s.title, s.emoji)}
-              className="rounded-full border-2 border-border bg-background px-3 py-1 text-xs font-semibold hover:border-brand"
-            >
-              {s.emoji} {s.title}
-            </button>
-          ))}
-        </div>
+        {starters.length > 0 && (
+          <div className="no-print mt-4">
+            <p className="mb-2 text-sm font-semibold">
+              Or start with one of these. The steps are already filled in, and
+              you can change them.
+            </p>
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {starters.map((s) => (
+                <button
+                  key={s.title}
+                  type="button"
+                  onClick={() => addTask(s.title, s.emoji, s.steps)}
+                  className="touch-target flex items-center gap-3 rounded-xl border-2 border-border bg-background px-3 text-left font-semibold hover:border-brand"
+                >
+                  <span aria-hidden="true" className="text-2xl">
+                    {s.emoji}
+                  </span>
+                  <span className="flex-1">{s.title}</span>
+                  <span className="text-xs font-normal text-muted">{s.steps.length} steps</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {tasks.length === 0 ? (

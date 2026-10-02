@@ -4,6 +4,11 @@ import { useHolidayPlan } from "@/lib/holiday-planner-storage";
 import EditableListSection from "@/components/EditableListSection";
 import ChecklistSection from "@/components/ChecklistSection";
 import PrintButton from "@/components/PrintButton";
+import { budgetTotal, tripLength, tripStatus } from "@/lib/holiday-planner-calc";
+import { formatDateOnly } from "@/lib/budget-calc";
+import { formatCurrency } from "@/lib/budget-data";
+import { getTodayDateString } from "@/lib/datetime";
+import { useTimezone } from "@/lib/timezone-context";
 
 const ACCOMMODATION_SUGGESTIONS = [
   "Hotel booking - confirmation number...",
@@ -11,6 +16,7 @@ const ACCOMMODATION_SUGGESTIONS = [
   "Train/coach - booking reference...",
   "Airport transfer booked",
   "Accessible room/seating requested",
+  "Airline told about my support needs",
 ];
 
 const ITINERARY_SUGGESTIONS = [
@@ -28,6 +34,8 @@ const PACKING_SUGGESTIONS = [
   "Sensory/regulation tools",
   "Weather-appropriate clothing",
   "Communication device/board",
+  "Medication in my carry-on bag, with a copy of my scripts",
+  "Phone charger and power bank",
 ];
 
 const DOCUMENTS_SUGGESTIONS = [
@@ -38,6 +46,8 @@ const DOCUMENTS_SUGGESTIONS = [
   "Tickets/bookings",
   "Medication list from GP",
   "Emergency contact card",
+  "Companion Card (if I have one)",
+  "Accessible parking permit (if I have one)",
 ];
 
 const BUDGET_SUGGESTIONS = [
@@ -50,6 +60,12 @@ const BUDGET_SUGGESTIONS = [
 
 export default function HolidayPlanner() {
   const { plan, updateField, clearPlan } = useHolidayPlan();
+  const { timezone } = useTimezone();
+  const today = getTodayDateString(timezone);
+  const status = tripStatus(plan.startDate, plan.endDate, today);
+  const length = tripLength(plan.startDate, plan.endDate);
+  const budget = budgetTotal(plan.budget);
+  const datesBackwards = !!plan.startDate && !!plan.endDate && plan.endDate < plan.startDate;
 
   return (
     <div className="flex flex-col gap-4">
@@ -101,6 +117,43 @@ export default function HolidayPlanner() {
             />
           </label>
         </div>
+        {datesBackwards && (
+          <p className="mt-2 text-sm font-semibold" role="alert">
+            <span aria-hidden="true">⚠️ </span>The end date is before the start date.
+          </p>
+        )}
+        {status.kind !== "none" && (
+          <div className="mt-3 rounded-xl border-2 border-brand bg-brand-soft p-3 text-center" aria-live="polite">
+            <p className="font-display text-2xl font-bold">
+              {status.kind === "upcoming" && (
+                <>
+                  <span aria-hidden="true">🗓️ </span>
+                  {status.sleeps} {status.sleeps === 1 ? "sleep" : "sleeps"} until the trip
+                </>
+              )}
+              {status.kind === "today" && (
+                <>
+                  <span aria-hidden="true">🎒 </span>The trip starts today!
+                </>
+              )}
+              {status.kind === "during" && (
+                <>
+                  <span aria-hidden="true">🏖️ </span>Day {status.day} of {status.of}
+                </>
+              )}
+              {status.kind === "finished" && (
+                <>
+                  <span aria-hidden="true">🏠 </span>This trip has finished
+                </>
+              )}
+            </p>
+            <p className="text-sm">
+              {formatDateOnly(plan.startDate)}
+              {plan.endDate && ` to ${formatDateOnly(plan.endDate)}`}
+              {length && ` · ${length.days} ${length.days === 1 ? "day" : "days"}, ${length.nights} ${length.nights === 1 ? "night" : "nights"}`}
+            </p>
+          </div>
+        )}
         <label className="mt-3 block text-sm">
           <span className="mb-1 block font-semibold text-muted">
             Overview - what&apos;s this trip for, and anything a support person should know
@@ -154,12 +207,23 @@ export default function HolidayPlanner() {
 
       <EditableListSection
         title="Budget"
-        description="A rough estimate of costs, so there are no surprises"
+        description="Write each cost with a $ amount, e.g. Food - $200. The total is added up for you."
         placeholder="e.g. Flights - $450"
         items={plan.budget}
         suggestions={BUDGET_SUGGESTIONS}
         onChange={(items) => updateField("budget", items)}
       />
+      {budget.counted > 0 && (
+        <p className="-mt-2 rounded-xl border-2 border-border bg-surface-2 p-3 font-semibold">
+          Budget total: {formatCurrency(budget.total)}
+          {budget.skipped > 0 && (
+            <span className="block text-sm font-normal text-muted">
+              {budget.skipped} {budget.skipped === 1 ? "line has" : "lines have"} no $ amount, so{" "}
+              {budget.skipped === 1 ? "it is" : "they are"} not counted.
+            </span>
+          )}
+        </p>
+      )}
 
       <EditableListSection
         title="Emergency contacts"

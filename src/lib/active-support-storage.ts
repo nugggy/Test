@@ -67,5 +67,14 @@ export function useActiveSupportNotes() {
     }));
   }, []);
 
-  return { notes, updateField, updatePersonalExamples, hydrated };
+  /** Unticks every self-reflection item (keeping the items themselves),
+   * so the same checklist can be reused at the end of the next shift. */
+  const resetReflection = useCallback(() => {
+    setNotes((prev) => ({
+      ...prev,
+      selfReflection: prev.selfReflection.map((item) => ({ ...item, done: false })),
+    }));
+  }, []);
+
+  return { notes, updateField, updatePersonalExamples, resetReflection, hydrated };
 }

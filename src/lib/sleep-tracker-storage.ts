@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { normaliseSleepEntries } from "@/lib/sleep-tracker-data";
 
 const STORAGE_KEY = "dt:sleep-tracker:entries:v1";
 
@@ -11,6 +12,8 @@ export interface SleepEntry {
   wakeTime: string; // HH:MM
   quality: number; // 1-5
   notes: string;
+  /** Times woken during the night. Optional: older entries don't have it. */
+  wakeUps?: number;
 }
 
 function readJSON<T>(key: string, fallback: T): T {
@@ -44,8 +47,9 @@ export function useSleepLog() {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    // Same storage key as always; older entries are upgraded, never wiped.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setEntries(readJSON<SleepEntry[]>(STORAGE_KEY, []));
+    setEntries(normaliseSleepEntries(readJSON<unknown>(STORAGE_KEY, [])));
     setHydrated(true);
   }, []);
 
@@ -57,11 +61,16 @@ export function useSleepLog() {
     setEntries((prev) => [{ id: makeId(), ...data }, ...prev]);
   }, []);
 
+  /** Replace an existing entry's details, keeping its id. */
+  const updateEntry = useCallback((id: string, data: Omit<SleepEntry, "id">) => {
+    setEntries((prev) => prev.map((entry) => (entry.id === id ? { id, ...data } : entry)));
+  }, []);
+
   const removeEntry = useCallback((id: string) => {
     setEntries((prev) => prev.filter((entry) => entry.id !== id));
   }, []);
 
   const clearAll = useCallback(() => setEntries([]), []);
 
-  return { entries, addEntry, removeEntry, clearAll, hydrated };
+  return { entries, addEntry, updateEntry, removeEntry, clearAll, hydrated };
 }

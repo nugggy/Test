@@ -39,6 +39,30 @@ function makeId() {
 }
 
 /**
+ * Loads saved goals, skipping anything unreadable and filling in any
+ * missing fields, rather than crashing on unexpected data.
+ */
+export function normaliseGoals(raw: unknown, defaultCategory: string): Goal[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((g): g is Record<string, unknown> => !!g && typeof g === "object")
+    .map((g, index) => ({
+      id: typeof g.id === "string" ? g.id : `goal-legacy-${index}`,
+      title: typeof g.title === "string" ? g.title : "",
+      category: typeof g.category === "string" ? g.category : defaultCategory,
+      targetDate: typeof g.targetDate === "string" ? g.targetDate : "",
+      notes: typeof g.notes === "string" ? g.notes : "",
+      steps: (Array.isArray(g.steps) ? g.steps : [])
+        .filter((s): s is Record<string, unknown> => !!s && typeof s === "object")
+        .map((s, sIndex) => ({
+          id: typeof s.id === "string" ? s.id : `step-legacy-${index}-${sIndex}`,
+          text: typeof s.text === "string" ? s.text : "",
+          done: s.done === true,
+        })),
+    }));
+}
+
+/**
  * Factory so Goal Tracker and Friendship Goal Planner can each get their own
  * localStorage-backed goal list, scoped to their own storage key and
  * default category, without duplicating the read/write logic.
@@ -49,7 +73,7 @@ export function createGoalListStorage(storageKey: string, defaultCategory: strin
     const [hydrated, setHydrated] = useState(false);
 
     useEffect(() => {
-      setGoals(readJSON<Goal[]>(storageKey, []));
+      setGoals(normaliseGoals(readJSON<unknown>(storageKey, []), defaultCategory));
       setHydrated(true);
     }, []);
 

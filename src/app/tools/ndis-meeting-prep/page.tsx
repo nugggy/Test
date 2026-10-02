@@ -21,17 +21,18 @@ export default function NdisMeetingPrepPage() {
         Get ready for a planning or plan review meeting - meeting and plan
         details, documents to bring, what&apos;s working, what isn&apos;t,
         changes since your last plan, how your disability affects daily
-        life, support needs, future goals, and questions for your planner,
-        all in one printable page.
+        life, support needs, future goals, and questions for your planner.
+        Print a tidy summary to hand to your planner.
         </p>
       </ToolHero>
       <HowToUse
         steps={[
-          "Add the meeting details - date, type, format, who's coming, and your current plan dates.",
+          "Add your name and the meeting details - date, type, format, who's coming, and your current plan dates.",
+          "Write down the 3 most important things you want the planner to hear.",
           "Tick off the documents you need to bring.",
-          "Work through each section - tap a suggestion chip, or type/say your own.",
-          "Everything saves automatically as you go.",
-          "Print it to take to your meeting, or share it with your support coordinator beforehand.",
+          "Work through the other sections - tap a suggestion chip, or type or say your own.",
+          "Everything saves on this device as you go.",
+          "Tap 'See my summary' to check it, then print it to take to your meeting or give to your support coordinator.",
         ]}
       />
       <MedicalDisclaimerBanner />

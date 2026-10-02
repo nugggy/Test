@@ -49,7 +49,7 @@ export default function BudgetForm({ onSave }: BudgetFormProps) {
       onSubmit={handleSubmit}
       className="flex flex-col gap-4 rounded-2xl border-2 border-border bg-surface p-4"
     >
-      <h2 className="font-display text-lg font-bold">Log a transaction</h2>
+      <h2 className="font-display text-lg font-bold">Add money in or out</h2>
 
       <div role="group" aria-label="Transaction type" className="flex gap-2">
         <button
@@ -62,7 +62,7 @@ export default function BudgetForm({ onSave }: BudgetFormProps) {
               : "border-border bg-background"
           }`}
         >
-          Expense
+          <span aria-hidden="true">➖ </span>Money out
         </button>
         <button
           type="button"
@@ -74,7 +74,7 @@ export default function BudgetForm({ onSave }: BudgetFormProps) {
               : "border-border bg-background"
           }`}
         >
-          Income
+          <span aria-hidden="true">➕ </span>Money in
         </button>
       </div>
 
@@ -149,7 +149,7 @@ export default function BudgetForm({ onSave }: BudgetFormProps) {
         type="submit"
         className="touch-target rounded-xl border-2 border-brand bg-brand font-semibold text-brand-ink"
       >
-        Save transaction
+        Save
       </button>
     </form>
   );

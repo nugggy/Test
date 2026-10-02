@@ -6,6 +6,8 @@ import { downloadCsv } from "@/lib/csv-export";
 import EditableListSection from "@/components/EditableListSection";
 import OptionCard from "./OptionCard";
 import PrintButton from "@/components/PrintButton";
+import { formatDate } from "@/lib/datetime";
+import { useTimezone } from "@/lib/timezone-context";
 
 const PEOPLE_SUGGESTIONS = [
   "Family member",
@@ -28,10 +30,14 @@ export default function DecisionHelper() {
   const { entries: logEntries, addEntry: addLogEntry, removeEntry: removeLogEntry } =
     useDecisionLog();
   const [newOption, setNewOption] = useState("");
+  const [announcement, setAnnouncement] = useState("");
+  const { timezone } = useTimezone();
 
   function handleAddOption(e: React.FormEvent) {
     e.preventDefault();
+    if (!newOption.trim()) return;
     addOption(newOption);
+    setAnnouncement(`Added option: ${newOption.trim()}`);
     setNewOption("");
   }
 
@@ -46,6 +52,7 @@ export default function DecisionHelper() {
     }
     addLogEntry(decision);
     clearDecision();
+    setAnnouncement("Saved to your decision log. You can start a new decision now.");
   }
 
   function handleExportCsv() {
@@ -62,7 +69,7 @@ export default function DecisionHelper() {
     const rows = logEntries.map((entry) => {
       const chosen = entry.options.find((o) => o.name === entry.finalChoice);
       return [
-        new Date(entry.decidedAt).toLocaleDateString("en-AU"),
+        new Date(entry.decidedAt).toLocaleDateString("en-AU", { timeZone: timezone }),
         entry.question,
         entry.finalChoice,
         entry.reasoning,
@@ -191,7 +198,12 @@ export default function DecisionHelper() {
                     : "border-border bg-background"
                 }`}
               >
-                {o.name || "Untitled option"}
+                <span className="flex flex-col items-start">
+                  <span>{o.name || "Untitled option"}</span>
+                  <span className="text-xs font-normal">
+                    {o.pros.length} for, {o.cons.length} against
+                  </span>
+                </span>
               </button>
             ))}
           </div>
@@ -232,6 +244,10 @@ export default function DecisionHelper() {
         </button>
       </div>
 
+      <p aria-live="polite" className="sr-only">
+        {announcement}
+      </p>
+
       {logEntries.length > 0 && (
         <div className="rounded-2xl border-2 border-border bg-surface p-4">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
@@ -258,11 +274,7 @@ export default function DecisionHelper() {
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <p className="text-xs font-semibold text-muted">
-                      {new Date(entry.decidedAt).toLocaleDateString("en-AU", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                      })}
+                      {formatDate(entry.decidedAt, timezone)}
                     </p>
                     <p className="font-semibold">{entry.question}</p>
                   </div>
@@ -273,8 +285,8 @@ export default function DecisionHelper() {
                         removeLogEntry(entry.id);
                       }
                     }}
-                    aria-label="Remove from log"
-                    className="no-print grid h-9 w-9 shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
+                    aria-label={`Remove "${entry.question}" from your log`}
+                    className="no-print touch-target grid shrink-0 place-items-center rounded-xl border-2 border-border bg-surface"
                   >
                     <span aria-hidden="true">🗑️</span>
                   </button>

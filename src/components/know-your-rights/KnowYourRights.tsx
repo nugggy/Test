@@ -5,6 +5,31 @@ import { useRightsNotes } from "@/lib/know-your-rights-storage";
 import EditableListSection from "@/components/EditableListSection";
 import InfoSection from "@/components/InfoSection";
 import PrintButton from "@/components/PrintButton";
+import RightsContactFinder from "./RightsContactFinder";
+import { telHref } from "@/lib/know-your-rights-data";
+
+const HELP_LINES = [
+  {
+    name: "NDIS Quality and Safeguards Commission",
+    phone: "1800 035 544",
+    what: "to make a complaint about an NDIS provider or worker",
+  },
+  {
+    name: "National Disability Abuse and Neglect Hotline",
+    phone: "1800 880 052",
+    what: "for abuse, neglect or exploitation",
+  },
+  {
+    name: "Disability Gateway - Advocacy Finder",
+    phone: "1800 643 787",
+    what: "a free, independent advocate to support you",
+  },
+  {
+    name: "NDIS National Contact Centre",
+    phone: "1800 800 110",
+    what: "general questions about your plan or funding",
+  },
+];
 
 const QUESTION_SUGGESTIONS = [
   "Can I choose or change my provider?",
@@ -35,6 +60,8 @@ export default function KnowYourRights() {
       <div className="no-print flex justify-end">
         <PrintButton />
       </div>
+
+      <RightsContactFinder />
 
       <InfoSection title="Your rights as an NDIS participant" icon="📜" defaultOpen>
         <p>As an NDIS participant, you have the right to:</p>
@@ -87,16 +114,22 @@ export default function KnowYourRights() {
           <li>If that doesn&apos;t work, or doesn&apos;t feel safe, put your complaint in writing (email or letter) with dates and details.</li>
           <li>If it&apos;s still not resolved, or it&apos;s serious (abuse, neglect, a safety risk), contact the NDIS Quality and Safeguards Commission.</li>
           <li>You can ask an advocate to help you make a complaint, or make it on your behalf.</li>
-          <li>You cannot legally be refused services or treated worse because you made a complaint.</li>
+          <li>A provider must not stop your services or treat you worse because you made a complaint.</li>
+          <li>If your complaint is about an NDIA decision (like your plan or funding), that is a different process. Use &quot;Who do I contact?&quot; above and choose the NDIA decision option.</li>
         </ol>
       </InfoSection>
 
       <InfoSection title="Where to get help" icon="🛟">
         <ul className="list-disc space-y-1 pl-5">
-          <li><strong>NDIS Quality and Safeguards Commission</strong> - 1800 035 544 - to make a complaint about an NDIS provider or worker</li>
-          <li><strong>National Disability Abuse and Neglect Hotline</strong> - 1800 880 052 - for abuse, neglect or exploitation</li>
-          <li><strong>Disability Gateway - Advocacy Finder</strong> - 1800 643 787 - a free, independent advocate to support you</li>
-          <li><strong>NDIS National Contact Centre</strong> - 1800 800 110 - general questions about your plan or funding</li>
+          {HELP_LINES.map((line) => (
+            <li key={line.phone}>
+              <strong>{line.name}</strong> -{" "}
+              <a href={telHref(line.phone)} className="font-semibold underline">
+                {line.phone}
+              </a>{" "}
+              - {line.what}
+            </li>
+          ))}
         </ul>
         <p>
           See the full list on{" "}

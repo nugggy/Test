@@ -24,6 +24,11 @@ export interface ClockSettings {
   faceColor: string; // "transparent" = see-through, otherwise a CSS colour
   secondHandColor: string;
   handStyle: HandStyle;
+  // Added later - older saved settings pick up the defaults below.
+  /** Show the time in plain words, e.g. "Quarter past 3". */
+  showWords: boolean;
+  /** Show the part of the day, e.g. "Afternoon", with a picture. */
+  showPartOfDay: boolean;
 }
 
 export const DEFAULT_CLOCK_SETTINGS: ClockSettings = {
@@ -40,6 +45,8 @@ export const DEFAULT_CLOCK_SETTINGS: ClockSettings = {
   faceColor: "transparent",
   secondHandColor: "#e0524a",
   handStyle: "classic",
+  showWords: true,
+  showPartOfDay: true,
 };
 
 export const BACKGROUND_PRESETS = [

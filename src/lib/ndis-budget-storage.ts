@@ -18,9 +18,48 @@ export interface NdisExpense {
   amount: number;
   categoryId: string;
   date: string; // yyyy-mm-dd
+  /** Who was paid (provider, shop). Optional - empty in older saved data. */
+  provider: string;
 }
 
 const EMPTY_PLAN: NdisPlan = { startDate: "", endDate: "", allocations: {} };
+
+function toAmount(value: unknown): number {
+  const n = typeof value === "number" ? value : Number(value);
+  return Number.isFinite(n) && n >= 0 ? Math.round(n * 100) / 100 : 0;
+}
+
+/** Loads a saved plan of any age without crashing on unexpected values. */
+export function normaliseNdisPlan(raw: unknown): NdisPlan {
+  if (!raw || typeof raw !== "object") return EMPTY_PLAN;
+  const obj = raw as Record<string, unknown>;
+  const allocations: Record<string, number> = {};
+  if (obj.allocations && typeof obj.allocations === "object") {
+    for (const [key, value] of Object.entries(obj.allocations as Record<string, unknown>)) {
+      allocations[key] = toAmount(value);
+    }
+  }
+  return {
+    startDate: typeof obj.startDate === "string" ? obj.startDate : "",
+    endDate: typeof obj.endDate === "string" ? obj.endDate : "",
+    allocations,
+  };
+}
+
+/** Loads saved spending of any age. Entries saved before "provider" existed get "". */
+export function normaliseNdisExpenses(raw: unknown): NdisExpense[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((e): e is Record<string, unknown> => !!e && typeof e === "object")
+    .map((e, index) => ({
+      id: typeof e.id === "string" ? e.id : `ndis-legacy-${index}`,
+      description: typeof e.description === "string" ? e.description : "",
+      amount: toAmount(e.amount),
+      categoryId: typeof e.categoryId === "string" ? e.categoryId : "",
+      date: typeof e.date === "string" ? e.date : "",
+      provider: typeof e.provider === "string" ? e.provider : "",
+    }));
+}
 
 function readJSON<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
@@ -54,7 +93,7 @@ export function useNdisPlan() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPlan({ ...EMPTY_PLAN, ...readJSON<Partial<NdisPlan>>(PLAN_STORAGE_KEY, {}) });
+    setPlan(normaliseNdisPlan(readJSON<unknown>(PLAN_STORAGE_KEY, null)));
     setHydrated(true);
   }, []);
 
@@ -84,7 +123,7 @@ export function useNdisExpenses() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setExpenses(readJSON<NdisExpense[]>(EXPENSES_STORAGE_KEY, []));
+    setExpenses(normaliseNdisExpenses(readJSON<unknown>(EXPENSES_STORAGE_KEY, [])));
     setHydrated(true);
   }, []);
 

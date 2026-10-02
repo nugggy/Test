@@ -25,8 +25,10 @@ export default function FirstThenBoardPage() {
       <HowToUse
         steps={[
           "Switch between First-Then and Choice board at the top.",
-          "First-Then: tap each slot to choose a picture, then tick 'First is done' once it's finished.",
-          "Choice board: add up to 6 pictures, then tap one to select and speak it.",
+          "First-Then: tap each slot to choose a picture, then tick 'First is done' once it's finished. The board says what comes next.",
+          "Tap 'Move on' to slide Then into First and choose the next activity.",
+          "Choice board: tap 'Edit choices' to add or remove up to 6 pictures, then 'Finish editing' to offer the board.",
+          "Tap a picture to choose it and hear it spoken. 'Clear the choice' lets someone choose again.",
           "Tap 'Add your own picture' in the picker to add anything not already there.",
           "Everything is saved on this device, so the board is ready next time you open it.",
         ]}

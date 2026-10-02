@@ -93,3 +93,7 @@ export const DEFAULT_ITEMS: BoardItem[] = [
   { id: "request-7", label: "Stop", emoji: "🛑", categoryId: "requests" },
   { id: "request-8", label: "I want that", emoji: "👉", categoryId: "requests" },
 ];
+
+// Shown in a fixed "Quick words" row above the tabs on every screen, so the
+// most urgent messages are always in the same place and one tap away.
+export const QUICK_ITEM_IDS = ["request-1", "request-2", "request-6", "request-7"];

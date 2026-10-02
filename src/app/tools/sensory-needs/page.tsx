@@ -25,10 +25,10 @@ export default function SensoryNeedsPage() {
       </ToolHero>
       <HowToUse
         steps={[
-          "Read through each sense to see examples of seeking vs avoiding patterns.",
+          "Tap a sense to open it and see examples of seeking and avoiding.",
           "Tap a suggestion, or add your own, under 'What helps' and 'What overwhelms' for each sense.",
-          "Everything saves automatically as you go.",
-          "Print your sensory profile to keep handy or share with someone supporting you.",
+          "Everything you add shows together in 'My sensory profile' at the top. It saves automatically.",
+          "Print your profile to keep handy or share with family, support workers or a new place you're going to.",
         ]}
       />
       <MedicalDisclaimerBanner />

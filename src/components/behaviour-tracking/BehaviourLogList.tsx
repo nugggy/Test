@@ -1,7 +1,7 @@
 "use client";
 
 import { SEVERITY_LEVELS } from "@/lib/behaviour-tracking-data";
-import type { BehaviourLogEntry } from "@/lib/behaviour-tracking-storage";
+import { formatRecordDateTime, type BehaviourLogEntry } from "@/lib/behaviour-tracking-storage";
 import { formatDateTime } from "@/lib/datetime";
 import { useTimezone } from "@/lib/timezone-context";
 
@@ -35,16 +35,19 @@ export default function BehaviourLogList({
         return (
           <li
             key={entry.id}
-            className="rounded-xl border-2 border-border bg-background p-3"
+            className="print-avoid-break rounded-xl border-2 border-border bg-background p-3"
           >
             <div className="mb-1 flex items-start justify-between gap-2">
               <div className="flex items-center gap-2">
                 <span
-                  className="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-black/10 text-sm font-bold"
+                  className="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-black/10 text-sm font-bold text-black"
                   style={{ background: `var(--${level?.colorVar ?? "sev-3"})` }}
-                  aria-label={`Severity ${entry.severity}, ${level?.label ?? ""}`}
+                  aria-hidden="true"
                 >
                   {entry.severity}
+                </span>
+                <span className="sr-only">
+                  Severity {entry.severity}, {level?.label ?? ""}.
                 </span>
                 <span className="font-semibold">
                   {entry.behaviour || "(behaviour not specified)"}
@@ -52,9 +55,11 @@ export default function BehaviourLogList({
               </div>
               <button
                 type="button"
-                onClick={() => onRemove(entry.id)}
-                aria-label="Delete this entry"
-                className="no-print grid h-9 w-9 shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
+                onClick={() => {
+                  if (window.confirm("Delete this entry? This cannot be undone.")) onRemove(entry.id);
+                }}
+                aria-label={`Delete the ${entry.behaviour || "behaviour"} entry from ${formatDateTime(entry.occurredAt, timezone)}`}
+                className="no-print touch-target grid shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
               >
                 <span aria-hidden="true">🗑️</span>
               </button>
@@ -65,8 +70,15 @@ export default function BehaviourLogList({
                 {entry.consequence && <>After: {entry.consequence}.</>}
               </p>
             )}
+            <p className="text-sm">
+              <span className="font-semibold">{level?.label ?? ""}</span>
+              {entry.durationMinutes > 0 && <> · lasted about {entry.durationMinutes} min</>}
+              {entry.setting && <> · {entry.setting}</>}
+            </p>
+            {entry.notes && <p className="mt-1 whitespace-pre-wrap text-sm">{entry.notes}</p>}
             <p className="mt-1 text-xs text-muted">
-              {formatDateTime(entry.occurredAt, timezone)}
+              {formatDateTime(entry.occurredAt, timezone)} ({formatRecordDateTime(entry.occurredAt, timezone)})
+              {entry.recordedBy && <> · recorded by {entry.recordedBy}</>}
             </p>
           </li>
         );

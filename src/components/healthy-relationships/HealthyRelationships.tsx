@@ -32,12 +32,41 @@ const PEOPLE_SUGGESTIONS = [
 ];
 
 export default function HealthyRelationships() {
-  const { notes, updateField } = useRelationshipNotes();
+  const { notes, updateField, clearAll } = useRelationshipNotes();
+  const hasNotes =
+    notes.whatIWant.length > 0 ||
+    notes.warningSignsToWatch.length > 0 ||
+    notes.peopleICanTalkTo.length > 0;
 
   return (
     <div className="flex flex-col gap-4">
       <div className="no-print flex justify-end">
         <PrintButton />
+      </div>
+
+      {/* Kept outside the collapsible sections so it's always visible. */}
+      <div className="print-avoid-break rounded-2xl border-2 border-accent bg-accent-soft p-4">
+        <h2 className="font-display text-lg font-bold">Not safe right now?</h2>
+        <p className="mb-3 text-sm">
+          If you are in danger, call 000. To talk to someone about a
+          relationship that worries you, call 1800RESPECT any time, day or
+          night.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <a
+            href="tel:000"
+            className="touch-target inline-flex items-center rounded-xl border-2 border-brand bg-brand px-5 text-lg font-bold text-brand-ink"
+          >
+            <span aria-hidden="true">📞&nbsp;</span>Call 000
+          </a>
+          <a
+            href="tel:1800737732"
+            className="touch-target inline-flex flex-col justify-center rounded-xl border-2 border-border bg-surface px-4 py-2 font-semibold hover:border-brand"
+          >
+            <span className="font-bold">1800RESPECT</span>
+            <span>1800 737 732 (24/7)</span>
+          </a>
+        </div>
       </div>
 
       <InfoSection title="What makes a relationship healthy?" icon="💜" defaultOpen>
@@ -113,10 +142,10 @@ export default function HealthyRelationships() {
 
       <InfoSection title="Where to get help" icon="🛟">
         <ul className="list-disc space-y-1 pl-5">
-          <li><strong>1800RESPECT</strong> - 1800 737 732 - domestic, family and sexual violence counselling and support, 24/7</li>
-          <li><strong>Lifeline</strong> - 13 11 14 - 24/7 crisis support for any kind of personal crisis</li>
-          <li><strong>National Disability Abuse and Neglect Hotline</strong> - 1800 880 052 - for abuse, neglect or exploitation by a support worker or provider</li>
-          <li><strong>NDIS Quality and Safeguards Commission</strong> - 1800 035 544 - to report a problem with an NDIS provider or worker</li>
+          <li><strong>1800RESPECT</strong>, <a href="tel:1800737732" className="font-semibold text-brand underline">1800 737 732</a>: domestic, family and sexual violence counselling and support, 24/7</li>
+          <li><strong>Lifeline</strong>, <a href="tel:131114" className="font-semibold text-brand underline">13 11 14</a>: 24/7 crisis support for any kind of personal crisis</li>
+          <li><strong>National Disability Abuse and Neglect Hotline</strong>, <a href="tel:1800880052" className="font-semibold text-brand underline">1800 880 052</a>: for abuse, neglect or exploitation by a support worker or provider</li>
+          <li><strong>NDIS Quality and Safeguards Commission</strong>, <a href="tel:1800035544" className="font-semibold text-brand underline">1800 035 544</a>: to report a problem with an NDIS provider or worker</li>
           <li>Your GP, a counsellor, or a trusted family member or friend</li>
         </ul>
         <p>
@@ -127,6 +156,29 @@ export default function HealthyRelationships() {
           for more services and phone numbers.
         </p>
       </InfoSection>
+
+      <div className="no-print rounded-2xl border-2 border-border bg-surface-2 p-4 text-sm">
+        <h2 className="font-display text-lg font-bold">Your private notes</h2>
+        <p className="mt-1">
+          The lists below are saved on this device only. Nothing is sent to us.
+          But anyone who uses or checks this phone, tablet or computer could
+          open this page and see them. If that might not be safe for you,
+          don&apos;t write anything here, or clear your notes when you&apos;re done.
+        </p>
+        {hasNotes && (
+          <button
+            type="button"
+            onClick={() => {
+              if (window.confirm("Clear all your notes on this page? This can't be undone.")) {
+                clearAll();
+              }
+            }}
+            className="touch-target mt-3 rounded-xl border-2 border-border bg-surface px-4 font-semibold"
+          >
+            Clear my notes
+          </button>
+        )}
+      </div>
 
       <EditableListSection
         title="What I want in a relationship"

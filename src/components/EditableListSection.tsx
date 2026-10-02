@@ -99,9 +99,15 @@ export default function EditableListSection({
                 type="button"
                 onClick={() => handleRemove(i)}
                 aria-label={`Remove "${item}"`}
-                className="no-print grid h-9 w-9 shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
+                className="no-print touch-target group -my-6 -mr-6 grid shrink-0 place-items-center rounded-xl"
               >
-                <span aria-hidden="true">🗑️</span>
+                {/* 40px visible button inside the full 88px tap area. */}
+                <span
+                  aria-hidden="true"
+                  className="grid h-10 w-10 place-items-center rounded-lg border-2 border-border bg-surface group-hover:border-brand"
+                >
+                  🗑️
+                </span>
               </button>
             </li>
           ))}
@@ -146,13 +152,13 @@ export default function EditableListSection({
       </form>
 
       {suggestions && suggestions.length > 0 && (
-        <div className="no-print mt-2 flex flex-wrap gap-1.5">
+        <div className="no-print mt-3 flex flex-wrap gap-2">
           {suggestions.map((s) => (
             <button
               key={s}
               type="button"
               onClick={() => handleSuggestionClick(s)}
-              className="rounded-full border-2 border-border bg-background px-3 py-1 text-xs font-semibold hover:border-brand"
+              className="inline-flex min-h-11 items-center rounded-full border-2 border-border bg-surface px-4 text-sm font-semibold hover:border-brand"
             >
               {s}
             </button>

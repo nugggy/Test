@@ -56,7 +56,7 @@ export default function MoneyPieceIcon({ piece, width }: MoneyPieceIconProps) {
           textAnchor="middle"
           fontSize="24"
           fontWeight="700"
-          fill="rgba(0,0,0,0.78)"
+          fill={piece.ink}
         >
           {piece.shortLabel}
         </text>
@@ -98,7 +98,7 @@ export default function MoneyPieceIcon({ piece, width }: MoneyPieceIconProps) {
         y={piece.size * 0.32}
         fontSize={piece.size * 0.22}
         fontWeight="700"
-        fill="rgba(255,255,255,0.95)"
+        fill={piece.ink}
       >
         {piece.shortLabel}
       </text>

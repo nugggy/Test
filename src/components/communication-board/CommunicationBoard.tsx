@@ -4,6 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import {
   CATEGORIES,
   DEFAULT_ITEMS,
+  QUICK_ITEM_IDS,
   type BoardItem,
   type CategoryId,
 } from "@/lib/communication-board-data";
@@ -12,11 +13,20 @@ import {
   useFavourites,
 } from "@/lib/communication-board-storage";
 import { useSpeech } from "@/lib/use-speech";
+import { useFullscreenDisplay } from "@/lib/visual-timer-display";
 import BoardTile from "@/components/communication-board/BoardTile";
 import PrintButton from "@/components/PrintButton";
 import AddItemDialog from "@/components/communication-board/AddItemDialog";
 
 type TabId = CategoryId | "favourites";
+
+const QUICK_ITEMS: BoardItem[] = QUICK_ITEM_IDS.map((id) =>
+  DEFAULT_ITEMS.find((item) => item.id === id)
+).filter((item): item is BoardItem => Boolean(item));
+
+function colorVarFor(item: BoardItem) {
+  return CATEGORIES.find((c) => c.id === item.categoryId)?.colorVar ?? "cat-food";
+}
 
 export default function CommunicationBoard() {
   const { speak, supported: speechSupported } = useSpeech();
@@ -26,8 +36,12 @@ export default function CommunicationBoard() {
   const [activeTab, setActiveTab] = useState<TabId>("food");
   const [message, setMessage] = useState<BoardItem[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [editing, setEditing] = useState(false);
   const boardRef = useRef<HTMLDivElement>(null);
+  // Shared full-screen helper: native full screen where the browser
+  // supports it, otherwise a page-covering overlay (iPhone Safari and the
+  // Android app WebView), and it keeps the label right after Esc/back.
+  const { isFullscreen, isOverlay, toggle: toggleFullscreen } = useFullscreenDisplay(boardRef);
 
   const allItems = useMemo(
     () => [...DEFAULT_ITEMS, ...customItems],
@@ -51,25 +65,14 @@ export default function CommunicationBoard() {
     speak(message.map((m) => m.label).join(", "));
   }
 
+  function handleUndo() {
+    setMessage((prev) => prev.slice(0, -1));
+  }
+
   function handleClearMessage() {
     setMessage([]);
   }
 
-  async function toggleFullscreen() {
-    if (!boardRef.current) return;
-    try {
-      if (!document.fullscreenElement) {
-        await boardRef.current.requestFullscreen();
-        setIsFullscreen(true);
-      } else {
-        await document.exitFullscreen();
-        setIsFullscreen(false);
-      }
-    } catch {
-      // Full-screen isn't available on some browsers/devices (e.g. some
-      // iPad Safari contexts) - the tool still works at normal size.
-    }
-  }
 
   function handleAddItem(data: {
     label: string;
@@ -94,8 +97,10 @@ export default function CommunicationBoard() {
   return (
     <div
       ref={boardRef}
-      className="flex min-h-[70vh] flex-col rounded-2xl bg-background"
-      style={isFullscreen ? { padding: "1rem" } : undefined}
+      className={`flex min-h-[70vh] flex-col overflow-y-auto bg-background ${
+        isOverlay ? "fixed inset-0 z-50 p-4" : "rounded-2xl"
+      }`}
+      style={isFullscreen && !isOverlay ? { padding: "1rem" } : undefined}
     >
       {!speechSupported && (
         <p className="no-print mb-3 rounded-xl border-2 border-accent bg-accent/10 px-4 py-2 text-sm">
@@ -112,7 +117,7 @@ export default function CommunicationBoard() {
         >
           {message.length === 0 ? (
             <span className="text-muted">
-              Tap pictures below to build a message…
+              Tap pictures below to build a message.
             </span>
           ) : (
             message.map((item, i) => (
@@ -126,7 +131,7 @@ export default function CommunicationBoard() {
             ))
           )}
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={handleSpeakMessage}
@@ -134,6 +139,15 @@ export default function CommunicationBoard() {
             className="touch-target rounded-xl border-2 border-brand bg-brand px-4 font-semibold text-brand-ink disabled:opacity-40"
           >
             🔊 Speak
+          </button>
+          <button
+            type="button"
+            onClick={handleUndo}
+            disabled={message.length === 0}
+            aria-label="Undo the last picture in the message"
+            className="touch-target rounded-xl border-2 border-border bg-background px-4 font-semibold disabled:opacity-40"
+          >
+            <span aria-hidden="true">⌫</span> Undo
           </button>
           <button
             type="button"
@@ -146,8 +160,48 @@ export default function CommunicationBoard() {
         </div>
       </div>
 
+      {/* Quick words: always in the same place, whatever tab is open, so
+          the most urgent messages are never more than one tap away. */}
+      <div className="no-print mb-4">
+        <h2 className="mb-2 text-sm font-bold text-muted">Quick words</h2>
+        <div className="grid grid-cols-4 gap-2">
+          {QUICK_ITEMS.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => handleTileSpeak(item)}
+              className="touch-target flex flex-col items-center justify-center gap-1 rounded-2xl border-2 border-black/10 p-2 text-center shadow-sm active:scale-95 transition-transform motion-reduce:transition-none motion-reduce:active:scale-100"
+              style={{
+                background: `var(--${colorVarFor(item)})`,
+                color: `var(--${colorVarFor(item)}-ink)`,
+              }}
+            >
+              <span aria-hidden="true" className="text-3xl leading-none">
+                {item.emoji}
+              </span>
+              <span className="font-display text-sm font-bold leading-tight sm:text-base">
+                {item.label}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Toolbar */}
-      <div className="no-print mb-4 flex flex-wrap gap-2">
+      <div className="no-print mb-2 flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={() => setEditing((v) => !v)}
+          aria-pressed={editing}
+          className={`touch-target flex items-center gap-2 rounded-xl border-2 px-4 font-semibold ${
+            editing
+              ? "border-brand bg-brand text-brand-ink"
+              : "border-border bg-surface hover:border-brand"
+          }`}
+        >
+          <span aria-hidden="true">{editing ? "✅" : "✏️"}</span>{" "}
+          {editing ? "Finish editing" : "Edit board"}
+        </button>
         <button
           type="button"
           onClick={() => setDialogOpen(true)}
@@ -165,6 +219,11 @@ export default function CommunicationBoard() {
         </button>
         <PrintButton label="Print board" />
       </div>
+      <p aria-live="polite" className="no-print mb-2 min-h-[1.25rem] text-sm text-muted">
+        {editing
+          ? "Editing is on. Use the buttons under each picture to add favourites or delete your own pictures. Tap Finish editing when you are done."
+          : ""}
+      </p>
 
       {/* Category tabs */}
       <div
@@ -214,12 +273,13 @@ export default function CommunicationBoard() {
       {/* Grid */}
       <div
         role="tabpanel"
+        aria-label={activeTab === "favourites" ? "Favourites" : activeCategory?.name}
         className="grid flex-1 grid-cols-3 gap-3 content-start sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6"
       >
         {visibleItems.length === 0 ? (
           <p className="col-span-full py-10 text-center text-muted">
             {activeTab === "favourites"
-              ? "No favourites yet - tap the star on any picture to add it here."
+              ? "No favourites yet. Tap Edit board, then Add to favourites under any picture."
               : "No pictures in this category yet."}
           </p>
         ) : (
@@ -227,8 +287,9 @@ export default function CommunicationBoard() {
             <BoardTile
               key={item.id}
               item={item}
-              colorVar={activeTab === "favourites" ? activeColorVar : (CATEGORIES.find(c => c.id === item.categoryId)?.colorVar ?? "cat-food")}
+              colorVar={activeTab === "favourites" ? activeColorVar : colorVarFor(item)}
               isFavourite={isFavourite(item.id)}
+              editing={editing}
               onSpeak={handleTileSpeak}
               onToggleFavourite={toggleFavourite}
               onRemove={item.custom ? removeCustomItem : undefined}

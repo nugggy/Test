@@ -24,10 +24,11 @@ export default function SleepTrackerPage() {
       </ToolHero>
       <HowToUse
         steps={[
-          "Log your bedtime and wake time each morning.",
-          "Rate how your sleep was.",
-          "Watch the chart build up a picture of your sleep over time.",
-          "Download your log as a CSV, or print it, any time.",
+          "Each morning, put in when you went to sleep and when you woke up.",
+          "Tap how your sleep was. If you like, add how many times you woke up in the night.",
+          "If you already logged that date, you'll be asked whether to replace it, so you don't end up with doubles.",
+          "The chart and averages build up a picture of your sleep over time.",
+          "Download your log as a CSV, or print it, to share with someone who supports you.",
         ]}
       />
       <MedicalDisclaimerBanner />

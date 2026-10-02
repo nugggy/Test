@@ -22,10 +22,12 @@ export default function WeeklySchedulePage() {
       </ToolHero>
       <HowToUse
         steps={[
-          "Tap the ➕ on any day to add an activity.",
-          "Choose a picture from the library, or add your own.",
+          "Tap 'Add' on any day to add an activity, from the pictures or your own.",
+          "Today is highlighted. Tap 'Go to today' to jump straight to it.",
           "Tap an activity to tick it off once it's done.",
-          "Print the week, or use 'Reset all ticks' / 'Clear week' to start again.",
+          "Tap 'Change order or copy days' to move activities, remove them, or copy one day to other days (for example Monday to every weekday).",
+          "Ticks clear by themselves each Monday, so the same week is ready to use again.",
+          "Print the week to put on the fridge or wall.",
         ]}
       />
       <MedicalDisclaimerBanner />

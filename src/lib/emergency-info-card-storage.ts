@@ -16,6 +16,9 @@ export interface AboutMeProfile {
   communicationNeeds: string;
   whatHelpsInCrisis: string;
   otherInfo: string;
+  /** ISO time the card was last edited, shown on the card so a reader can
+   * tell how current it is. "" for cards saved before this existed. */
+  updatedAt: string;
 }
 
 const EMPTY_PROFILE: AboutMeProfile = {
@@ -28,7 +31,26 @@ const EMPTY_PROFILE: AboutMeProfile = {
   communicationNeeds: "",
   whatHelpsInCrisis: "",
   otherInfo: "",
+  updatedAt: "",
 };
+
+/** Loads a saved card, keeping only known text fields and filling any gaps. */
+export function normalizeProfile(raw: unknown): AboutMeProfile {
+  if (!raw || typeof raw !== "object") return { ...EMPTY_PROFILE };
+  const source = raw as Record<string, unknown>;
+  const out: AboutMeProfile = { ...EMPTY_PROFILE };
+  for (const key of Object.keys(EMPTY_PROFILE) as (keyof AboutMeProfile)[]) {
+    const value = source[key];
+    if (typeof value === "string") out[key] = value;
+  }
+  return out;
+}
+
+/** dd/mm/yyyy for a yyyy-mm-dd date of birth; anything else is shown as typed. */
+export function formatDob(dob: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dob.trim());
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : dob;
+}
 
 function readJSON<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
@@ -56,7 +78,7 @@ export function useAboutMeProfile() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setProfile({ ...EMPTY_PROFILE, ...readJSON<Partial<AboutMeProfile>>(STORAGE_KEY, {}) });
+    setProfile(normalizeProfile(readJSON<unknown>(STORAGE_KEY, {})));
     setHydrated(true);
   }, []);
 
@@ -66,7 +88,7 @@ export function useAboutMeProfile() {
 
   const updateField = useCallback(
     <K extends keyof AboutMeProfile>(key: K, value: AboutMeProfile[K]) => {
-      setProfile((prev) => ({ ...prev, [key]: value }));
+      setProfile((prev) => ({ ...prev, [key]: value, updatedAt: new Date().toISOString() }));
     },
     []
   );

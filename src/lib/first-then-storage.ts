@@ -87,6 +87,16 @@ export function useFirstThenBoard() {
     setState((prev) => ({ ...prev, firstDone: !prev.firstDone }));
   }, []);
 
+  // "Then" becomes the new "First", ready to choose what comes after it.
+  // Lets one board walk through a whole chain of activities.
+  const moveOn = useCallback(() => {
+    setState((prev) =>
+      prev.thenItem
+        ? { ...prev, firstItem: prev.thenItem, thenItem: null, firstDone: false }
+        : prev
+    );
+  }, []);
+
   const resetFirstThen = useCallback(() => {
     setState((prev) => ({ ...prev, firstDone: false }));
   }, []);
@@ -122,6 +132,7 @@ export function useFirstThenBoard() {
     setFirstItem,
     setThenItem,
     toggleFirstDone,
+    moveOn,
     resetFirstThen,
     setChoiceItems,
     addChoiceItem,

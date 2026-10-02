@@ -46,9 +46,10 @@ export default function WeatherPage() {
       <HowToUse
         steps={[
           "Search for a suburb or town, or tap 'Use my location'.",
-          "See today's weather and a short forecast.",
-          "Customise the colours, text size, and which details show.",
-          "Your location and style choices are remembered next time.",
+          "See today's weather, what to wear or bring, and a short forecast.",
+          "Tap 'Read the weather out loud' to hear it.",
+          "The weather updates by itself every 30 minutes while the page is open, or tap 'Update now'.",
+          "Customise the colours, text size, and which details show. Your choices are remembered.",
         ]}
       />
       <MedicalDisclaimerBanner />

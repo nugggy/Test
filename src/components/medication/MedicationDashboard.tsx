@@ -1,28 +1,31 @@
 "use client";
 
-import type { Medication, MedicationLogEntry } from "@/lib/medication-storage";
+import {
+  computeAdherenceDays,
+  formatDateKey,
+  type Medication,
+  type MedicationLogEntry,
+} from "@/lib/medication-storage";
 import CategoryBreakdownChart from "@/components/CategoryBreakdownChart";
 import PrintButton from "@/components/PrintButton";
 
 interface MedicationDashboardProps {
   medications: Medication[];
   entries: MedicationLogEntry[];
+  todayKey: string;
+  nowHm: string;
   onExportCsv: () => void;
 }
 
 const WINDOW_DAYS = 14;
-
-function dateKeyDaysAgo(daysAgo: number) {
-  const d = new Date();
-  d.setDate(d.getDate() - daysAgo);
-  return d.toISOString().slice(0, 10);
-}
 
 const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export default function MedicationDashboard({
   medications,
   entries,
+  todayKey,
+  nowHm,
   onExportCsv,
 }: MedicationDashboardProps) {
   if (medications.length === 0) {
@@ -36,29 +39,26 @@ export default function MedicationDashboard({
     );
   }
 
-  const dosesPerDay = medications.reduce((sum, m) => sum + m.times.length, 0);
-  const days = Array.from({ length: WINDOW_DAYS }, (_, i) => {
-    const daysAgo = WINDOW_DAYS - 1 - i;
-    const key = dateKeyDaysAgo(daysAgo);
-    const takenCount = entries.filter((e) => e.date === key).length;
-    // Today's doses whose time hasn't arrived yet aren't "missed" - only
-    // count doses up to the current time for today, all of them for past days.
-    let expectedCount = dosesPerDay;
-    if (daysAgo === 0) {
-      const nowHm = new Date().toTimeString().slice(0, 5);
-      expectedCount = medications.reduce(
-        (sum, m) => sum + m.times.filter((t) => t <= nowHm).length,
-        0
-      );
-    }
-    const missedCount = Math.max(0, expectedCount - takenCount);
-    return { key, takenCount, expectedCount, missedCount };
-  });
+  const days = computeAdherenceDays(medications, entries, todayKey, nowHm, WINDOW_DAYS);
+  const firstKey = days[0]?.key ?? todayKey;
 
   const totalExpected = days.reduce((sum, d) => sum + d.expectedCount, 0);
-  const totalTaken = days.reduce((sum, d) => sum + Math.min(d.takenCount, d.expectedCount), 0);
+  const totalTaken = days.reduce((sum, d) => sum + d.takenCount, 0);
   const totalMissed = days.reduce((sum, d) => sum + d.missedCount, 0);
+  const totalNotTaken = days.reduce((sum, d) => sum + d.notTakenCount, 0);
   const adherencePct = totalExpected > 0 ? Math.round((totalTaken / totalExpected) * 100) : null;
+  const asNeededRecent = entries
+    .filter((e) => e.kind === "as-needed" && e.date >= firstKey && e.date <= todayKey)
+    .sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time));
+  const notTakenRecent = entries
+    .filter(
+      (e) =>
+        e.kind === "scheduled" &&
+        e.status === "not-taken" &&
+        e.date >= firstKey &&
+        e.date <= todayKey
+    )
+    .sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time));
 
   const maxDoses = Math.max(...days.map((d) => Math.max(d.expectedCount, d.takenCount)), 1);
   const barWidth = 20;
@@ -68,17 +68,18 @@ export default function MedicationDashboard({
   const chartWidth = days.length * (barWidth + barGap) + barGap;
 
   const perMedication = medications
+    .filter((med) => !med.asNeeded)
     .map((med) => {
-      const expected = med.times.length * WINDOW_DAYS;
-      const takenRecent = entries.filter(
-        (e) => e.medicationId === med.id && days.some((d) => d.key === e.date)
-      ).length;
-      const pct = expected > 0 ? Math.round((Math.min(takenRecent, expected) / expected) * 100) : null;
+      const medDays = computeAdherenceDays([med], entries, todayKey, nowHm, WINDOW_DAYS);
+      const expected = medDays.reduce((sum, d) => sum + d.expectedCount, 0);
+      const taken = medDays.reduce((sum, d) => sum + d.takenCount, 0);
+      const pct = expected > 0 ? Math.round((taken / expected) * 100) : null;
+      const label = med.name || "(unnamed)";
       return {
-        label: med.name || "(unnamed)",
+        label,
         count: pct ?? 0,
-        displayValue: pct == null ? "—" : `${pct}%`,
-        ariaLabel: `${med.name}: ${pct == null ? "no scheduled times" : `${pct}% taken`}`,
+        displayValue: pct == null ? "No times set" : `${pct}% (${taken} of ${expected})`,
+        ariaLabel: `${label}: ${pct == null ? "no scheduled times" : `${taken} of ${expected} doses recorded as taken, ${pct}%`}`,
         color:
           pct == null
             ? "var(--border)"
@@ -88,8 +89,10 @@ export default function MedicationDashboard({
                 ? "var(--sev-3)"
                 : "var(--sev-5)",
       };
-    })
-    .filter((m) => m.label);
+    });
+
+  const medName = (e: MedicationLogEntry) =>
+    medications.find((m) => m.id === e.medicationId)?.name || e.medicationName || "(removed medication)";
 
   return (
     <div className="flex flex-col gap-6">
@@ -109,13 +112,15 @@ export default function MedicationDashboard({
       <p className="no-print -mt-4 max-w-2xl text-sm text-muted">
         A summary of doses taken over the last {WINDOW_DAYS} days, useful to bring to a
         doctor or pharmacist review. &quot;Missed&quot; means a scheduled dose with no
-        tick in the checklist by the end of that day - not a clinical judgement.
+        &quot;Taken&quot; record, either because it was recorded as not taken or because
+        nothing was recorded. It is a record-keeping count, not a clinical judgement.
+        Counts use the current list of times, so changing a schedule changes past days too.
       </p>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatTile
           label={`Adherence (${WINDOW_DAYS} days)`}
-          value={adherencePct == null ? "—" : `${adherencePct}%`}
+          value={adherencePct == null ? "No data" : `${adherencePct}%`}
           alert={adherencePct != null && adherencePct < 50}
         />
         <StatTile label="Doses taken" value={String(totalTaken)} />
@@ -124,18 +129,20 @@ export default function MedicationDashboard({
           value={String(totalMissed)}
           alert={totalMissed > 0}
         />
-        <StatTile label="Medications tracked" value={String(medications.length)} />
+        <StatTile label="Recorded as not taken" value={String(totalNotTaken)} />
       </div>
 
       <div className="print-avoid-break rounded-2xl border-2 border-border bg-surface p-4">
         <h3 className="font-display mb-3 text-base font-bold">Taken vs missed, last {WINDOW_DAYS} days</h3>
         <p className="mb-2 text-xs text-muted">
-          Green: taken · Red: missed. Bar height is the number of doses scheduled that day.
+          Green (lower part): taken. Red (upper part): missed. Bar height is the number of doses due that day.
         </p>
         <div className="overflow-x-auto">
           <svg
             role="img"
-            aria-label={`Bar chart of doses taken versus missed for the last ${WINDOW_DAYS} days`}
+            aria-label={`Bar chart of doses taken versus missed for the last ${WINDOW_DAYS} days. ${days
+              .map((d) => `${formatDateKey(d.key)}: ${d.takenCount} taken, ${d.missedCount} missed`)
+              .join("; ")}`}
             width={chartWidth}
             height={plotHeight + labelSpace}
             viewBox={`0 0 ${chartWidth} ${plotHeight + labelSpace}`}
@@ -150,7 +157,7 @@ export default function MedicationDashboard({
               const missedHeight = (day.missedCount / maxDoses) * (plotHeight - 8);
               const takenY = plotHeight - takenHeight;
               const missedY = takenY - missedHeight;
-              const date = new Date(day.key);
+              const date = new Date(`${day.key}T00:00:00Z`);
               return (
                 <g key={day.key}>
                   {day.missedCount > 0 && (
@@ -180,7 +187,7 @@ export default function MedicationDashboard({
                     className="fill-muted"
                     fontSize="9"
                   >
-                    {DAY_LABELS[date.getDay()]}
+                    {DAY_LABELS[date.getUTCDay()]}
                   </text>
                 </g>
               );
@@ -195,6 +202,51 @@ export default function MedicationDashboard({
           data={perMedication}
           emptyMessage="Add a medication to see adherence by medication."
         />
+      </div>
+
+      <div className="print-avoid-break rounded-2xl border-2 border-border bg-surface p-4">
+        <h3 className="font-display mb-3 text-base font-bold">
+          Doses recorded as not taken, last {WINDOW_DAYS} days
+        </h3>
+        {notTakenRecent.length === 0 ? (
+          <p className="text-sm text-muted">None recorded.</p>
+        ) : (
+          <ul className="flex flex-col gap-1 text-sm">
+            {notTakenRecent.map((e) => (
+              <li key={e.id}>
+                <strong>
+                  {formatDateKey(e.date)} {e.time}
+                </strong>{" "}
+                {medName(e)}
+                {e.reason ? `: ${e.reason}` : ""}
+                {e.recordedBy ? ` (${e.recordedBy})` : ""}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div className="print-avoid-break rounded-2xl border-2 border-border bg-surface p-4">
+        <h3 className="font-display mb-3 text-base font-bold">
+          As needed doses given, last {WINDOW_DAYS} days
+        </h3>
+        {asNeededRecent.length === 0 ? (
+          <p className="text-sm text-muted">None recorded.</p>
+        ) : (
+          <ul className="flex flex-col gap-1 text-sm">
+            {asNeededRecent.map((e) => (
+              <li key={e.id}>
+                <strong>
+                  {formatDateKey(e.date)} {e.time}
+                </strong>{" "}
+                {medName(e)}
+                {e.doseText ? ` (${e.doseText})` : ""}
+                {e.reason ? `: ${e.reason}` : ""}
+                {e.recordedBy ? ` (${e.recordedBy})` : ""}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

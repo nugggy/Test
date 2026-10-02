@@ -17,6 +17,8 @@ export interface WeatherSettings {
   backgroundColor: string;
   textColor: string;
   fontScale: number;
+  /** Show "what to wear or bring" tips. Added later, defaults to on. */
+  showTips: boolean;
 }
 
 export const DEFAULT_WEATHER_SETTINGS: WeatherSettings = {
@@ -29,6 +31,7 @@ export const DEFAULT_WEATHER_SETTINGS: WeatherSettings = {
   backgroundColor: "#1a2b4c",
   textColor: "#ffffff",
   fontScale: 1,
+  showTips: true,
 };
 
 function readJSON<T>(key: string, fallback: T): T {

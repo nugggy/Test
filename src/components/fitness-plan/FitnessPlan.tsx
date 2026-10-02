@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { useFitnessGoals, FITNESS_CATEGORIES } from "@/lib/fitness-plan-storage";
-import { useFitnessLog } from "@/lib/fitness-log-storage";
+import { formatFitnessDate, useFitnessLog, weekSummary } from "@/lib/fitness-log-storage";
+import { getTodayDateString } from "@/lib/datetime";
+import { useTimezone } from "@/lib/timezone-context";
 import { downloadCsv } from "@/lib/csv-export";
 import GoalCard from "@/components/goals/GoalCard";
 import FitnessLogForm from "./FitnessLogForm";
@@ -22,6 +24,8 @@ export default function FitnessPlan() {
   const { goals, addGoal, updateGoal, removeGoal } = useFitnessGoals();
   const { entries, addEntry, removeEntry, clearAll } = useFitnessLog();
   const [newGoal, setNewGoal] = useState("");
+  const { timezone } = useTimezone();
+  const week = weekSummary(entries, getTodayDateString(timezone));
 
   function handleAddGoal(e: React.FormEvent) {
     e.preventDefault();
@@ -33,7 +37,9 @@ export default function FitnessPlan() {
     downloadCsv(
       "fitness-log",
       ["Date", "Activity", "Duration (minutes)", "Notes"],
-      entries.map((e) => [e.date, e.activity, e.durationMinutes, e.notes])
+      [...entries]
+        .sort((a, b) => a.date.localeCompare(b.date))
+        .map((e) => [formatFitnessDate(e.date), e.activity, e.durationMinutes, e.notes])
     );
   }
 
@@ -90,6 +96,23 @@ export default function FitnessPlan() {
 
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
         <h2 className="font-display mb-3 text-lg font-bold">Progress</h2>
+        <div className="mb-4 grid grid-cols-3 gap-2">
+          <div className="rounded-xl border-2 border-border bg-background p-3">
+            <p className="text-xs font-semibold text-muted">Sessions this week</p>
+            <p className="font-display text-2xl font-bold">{week.sessions}</p>
+          </div>
+          <div className="rounded-xl border-2 border-border bg-background p-3">
+            <p className="text-xs font-semibold text-muted">Minutes this week</p>
+            <p className="font-display text-2xl font-bold">{week.minutes}</p>
+          </div>
+          <div className="rounded-xl border-2 border-border bg-background p-3">
+            <p className="text-xs font-semibold text-muted">Active days this week</p>
+            <p className="font-display text-2xl font-bold">{week.activeDays}</p>
+          </div>
+        </div>
+        <p className="mb-3 text-xs text-muted">
+          This week is Monday {formatFitnessDate(week.start)} to Sunday {formatFitnessDate(week.end)}.
+        </p>
         <FitnessTrendChart entries={entries} />
       </div>
 
@@ -112,7 +135,7 @@ export default function FitnessPlan() {
                     clearAll();
                   }
                 }}
-                className="text-sm font-semibold text-muted hover:text-foreground"
+                className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold text-muted hover:text-foreground"
               >
                 Clear all
               </button>

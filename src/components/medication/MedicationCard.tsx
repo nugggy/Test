@@ -17,7 +17,7 @@ export default function MedicationCard({
   const [newTime, setNewTime] = useState("08:00");
 
   function addTime() {
-    if (medication.times.includes(newTime)) return;
+    if (!/^\d{2}:\d{2}$/.test(newTime) || medication.times.includes(newTime)) return;
     onChange({ times: [...medication.times, newTime].sort() });
   }
 
@@ -54,49 +54,69 @@ export default function MedicationCard({
           value={medication.dose}
           onChange={(e) => onChange({ dose: e.target.value })}
           maxLength={80}
-          placeholder="e.g. 1 tablet"
+          placeholder="As written on the label, e.g. 1 tablet"
           className="touch-target w-full rounded-lg border-2 border-border bg-background px-3"
         />
       </label>
 
-      <div className="mb-2">
-        <span className="mb-1 block text-sm font-semibold text-muted">Times each day</span>
-        {medication.times.length > 0 && (
-          <div className="mb-2 flex flex-wrap gap-1.5">
-            {medication.times.map((time) => (
-              <span
-                key={time}
-                className="flex items-center gap-1 rounded-full border-2 border-border bg-background px-3 py-1 text-sm font-semibold"
-              >
-                {time}
-                <button
-                  type="button"
-                  onClick={() => removeTime(time)}
-                  aria-label={`Remove ${time}`}
-                  className="no-print ml-1"
+      <label className="touch-target mb-2 flex items-center gap-3 rounded-lg border-2 border-border bg-background px-3">
+        <input
+          type="checkbox"
+          checked={medication.asNeeded}
+          onChange={(e) => onChange({ asNeeded: e.target.checked })}
+          className="h-6 w-6 shrink-0 accent-brand"
+        />
+        <span className="text-sm">Taken only as needed (no set times)</span>
+      </label>
+
+      {!medication.asNeeded && (
+        <div className="mb-2">
+          <span className="mb-1 block text-sm font-semibold text-muted">Times each day (24-hour)</span>
+          {medication.times.length > 0 ? (
+            <div className="mb-2 flex flex-wrap gap-1.5">
+              {medication.times.map((time) => (
+                <span
+                  key={time}
+                  className="flex items-center gap-1 rounded-full border-2 border-border bg-background pl-4 text-sm font-semibold"
                 >
-                  ✕
-                </button>
-              </span>
-            ))}
+                  {time}
+                  <button
+                    type="button"
+                    onClick={() => removeTime(time)}
+                    aria-label={`Remove ${time}`}
+                    className="no-print touch-target rounded-full"
+                  >
+                    <span aria-hidden="true">✕</span>
+                  </button>
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="mb-2 text-sm text-muted">
+              No times yet. Add a time so this shows in the checklist.
+            </p>
+          )}
+          <div className="no-print flex gap-2">
+            <label className="sr-only" htmlFor={`time-${medication.id}`}>
+              Time to add
+            </label>
+            <input
+              id={`time-${medication.id}`}
+              type="time"
+              value={newTime}
+              onChange={(e) => setNewTime(e.target.value)}
+              className="touch-target rounded-lg border-2 border-border bg-background px-3"
+            />
+            <button
+              type="button"
+              onClick={addTime}
+              className="touch-target rounded-lg border-2 border-brand bg-brand px-4 text-sm font-semibold text-brand-ink"
+            >
+              Add time
+            </button>
           </div>
-        )}
-        <div className="no-print flex gap-2">
-          <input
-            type="time"
-            value={newTime}
-            onChange={(e) => setNewTime(e.target.value)}
-            className="touch-target rounded-lg border-2 border-border bg-background px-3"
-          />
-          <button
-            type="button"
-            onClick={addTime}
-            className="touch-target rounded-lg border-2 border-brand bg-brand px-4 text-sm font-semibold text-brand-ink"
-          >
-            Add time
-          </button>
         </div>
-      </div>
+      )}
 
       <label className="block text-sm">
         <span className="mb-1 block font-semibold text-muted">Notes</span>
@@ -106,7 +126,7 @@ export default function MedicationCard({
           rows={2}
           maxLength={300}
           placeholder="e.g. Take with food"
-          className="w-full rounded-lg border-2 border-border bg-background px-3 py-2"
+          className="touch-target w-full rounded-lg border-2 border-border bg-background px-3 py-2"
         />
       </label>
     </div>

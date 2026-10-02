@@ -16,16 +16,16 @@ export default function BudgetTrackerPage() {
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
       <ToolHero slug="budget-tracker" title="Budget Tracker">
         <p>
-        Log income and expenses and see where the money goes, category by
-        category.
+        Plan your money for each week, fortnight or month, check if you can
+        afford something, and see where your money goes.
         </p>
       </ToolHero>
       <HowToUse
         steps={[
-          "Enter how much money you have to spend this week, then add planned items to see what's left.",
-          "Use the form below to log real income or expenses, with a category and date.",
-          "Check the Spending by category chart to see where the money is going.",
-          "See, or delete, every transaction in the list at the bottom.",
+          "Choose how often you get your money (every week, fortnight or month) and type how much you have to spend.",
+          "Add the things it needs to pay for, like rent or bus fares, and see what is left. Tick each one when it is paid.",
+          "Use 'Can I afford this?' to check a price against the money left in your plan.",
+          "Add money in and money out as it happens, then choose dates (like Last 14 days) to see totals and spending by category.",
         ]}
       />
       <MedicalDisclaimerBanner />

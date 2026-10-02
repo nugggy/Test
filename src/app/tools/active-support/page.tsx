@@ -27,7 +27,7 @@ export default function ActiveSupportPage() {
         steps={[
           "Read through each of the five elements - tap to expand it.",
           "Look at the 'In practice' examples for practical ways to apply each one.",
-          "Use the self-reflection checklist at the end of a shift.",
+          "Use the self-reflection checklist at the end of a shift, then tap 'Start a new shift' to clear the ticks for next time.",
           "Note down small opportunities that suit the specific person you support.",
           "Print this page to keep as a quick-reference guide.",
         ]}

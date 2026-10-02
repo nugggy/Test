@@ -6,12 +6,21 @@ import {
   CORRECTION_SCALE_SUGGESTIONS,
   SICK_DAY_SUGGESTIONS,
 } from "@/lib/diabetes-tracker-data";
-import { useDiabetesManagementPlan } from "@/lib/diabetes-management-plan-storage";
+import type { useDiabetesManagementPlan } from "@/lib/diabetes-management-plan-storage";
+import { telHref } from "@/lib/contact-directory-storage";
 import EditableListSection from "@/components/EditableListSection";
 import PrintButton from "@/components/PrintButton";
 
-export default function DiabetesManagementPlan() {
-  const { plan, updateField, clearPlan } = useDiabetesManagementPlan();
+type PlanState = ReturnType<typeof useDiabetesManagementPlan>;
+
+/** dd/mm/yyyy for a yyyy-mm-dd date input value. */
+function formatDateInput(value: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : value;
+}
+
+export default function DiabetesManagementPlan({ plan, updateField, clearPlan }: PlanState) {
+  const doctorTel = telHref(plan.doctorPhone);
 
   const hasTargetRange = plan.targetLowMmol !== "" && plan.targetHighMmol !== "";
 
@@ -108,11 +117,36 @@ export default function DiabetesManagementPlan() {
         {(plan.doctorName || plan.doctorPhone || plan.diabetesEducatorName || plan.nextAppointment) && (
           <div className="mt-3 rounded-xl border-2 border-border bg-background p-3 text-sm">
             <p className="mb-1 text-xs font-semibold text-muted">Care team</p>
-            {plan.doctorName && <p>Doctor: {plan.doctorName} {plan.doctorPhone && `- ${plan.doctorPhone}`}</p>}
-            {plan.diabetesEducatorName && <p>Diabetes educator: {plan.diabetesEducatorName}</p>}
-            {plan.nextAppointment && (
-              <p>Next appointment: {new Date(plan.nextAppointment).toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" })}</p>
+            {(plan.doctorName || plan.doctorPhone) && (
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p>
+                  Doctor: {plan.doctorName}
+                  {plan.doctorPhone && <> ({plan.doctorPhone})</>}
+                </p>
+                {doctorTel && (
+                  <a
+                    href={doctorTel}
+                    aria-label={`Call ${plan.doctorName || "the doctor"}`}
+                    className="no-print touch-target inline-flex items-center justify-center gap-1 rounded-xl border-2 border-brand bg-brand px-4 font-semibold text-brand-ink"
+                  >
+                    <span aria-hidden="true">📞</span> Call
+                  </a>
+                )}
+              </div>
             )}
+            {plan.diabetesEducatorName && <p>Diabetes educator: {plan.diabetesEducatorName}</p>}
+            {plan.nextAppointment && <p>Next appointment: {formatDateInput(plan.nextAppointment)}</p>}
+          </div>
+        )}
+
+        {plan.sickDayRules.length > 0 && (
+          <div className="mt-3 rounded-xl border-2 border-border bg-background p-3">
+            <p className="mb-1 text-xs font-semibold text-muted">Sick day rules</p>
+            <ul className="list-disc space-y-1 pl-5 text-sm">
+              {plan.sickDayRules.map((row) => (
+                <li key={row}>{row}</li>
+              ))}
+            </ul>
           </div>
         )}
 
@@ -125,7 +159,7 @@ export default function DiabetesManagementPlan() {
 
         <p className="mt-3 text-xs text-muted">
           {plan.lastConfirmed
-            ? `Last confirmed with the doctor/diabetes educator: ${new Date(plan.lastConfirmed).toLocaleDateString("en-AU")}`
+            ? `Last confirmed with the doctor/diabetes educator: ${formatDateInput(plan.lastConfirmed)}`
             : "Add the date this plan was last confirmed with the doctor, below, so it's clear how current it is."}
         </p>
       </div>
@@ -213,7 +247,7 @@ export default function DiabetesManagementPlan() {
         <EditableListSection
           title="If BGL is low"
           description="Steps from your doctor's plan for treating a low"
-          placeholder="e.g. Give 15g fast-acting carbs"
+          placeholder="Copy a step from your care team's plan"
           items={plan.lowActionSteps}
           suggestions={LOW_ACTION_SUGGESTIONS}
           onChange={(items) => updateField("lowActionSteps", items)}
@@ -224,7 +258,7 @@ export default function DiabetesManagementPlan() {
         <EditableListSection
           title="If BGL is high"
           description="Steps from your doctor's plan for treating a high"
-          placeholder="e.g. Check for ketones"
+          placeholder="Copy a step from your care team's plan"
           items={plan.highActionSteps}
           suggestions={HIGH_ACTION_SUGGESTIONS}
           onChange={(items) => updateField("highActionSteps", items)}

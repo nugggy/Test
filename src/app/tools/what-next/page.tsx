@@ -24,8 +24,8 @@ export default function WhatNextPage() {
       <HowToUse
         steps={[
           "Tap the mood that best matches how you're feeling right now.",
-          "See a list of things that can help.",
-          "Add your own strategies too - especially ones a support person has recommended just for you - so they're saved here for next time.",
+          "See a list of things that can help. Tap 'Read these out loud' to hear them.",
+          "Add your own strategies, especially ones a support person has recommended for you. Once you have some, they show first.",
         ]}
       />
       <MedicalDisclaimerBanner />

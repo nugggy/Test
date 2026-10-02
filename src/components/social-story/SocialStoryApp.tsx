@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSocialStories } from "@/lib/social-story-storage";
+import { STORY_TEMPLATES } from "@/lib/social-story-templates";
 import StoryList from "@/components/social-story/StoryList";
 import StoryEditor from "@/components/social-story/StoryEditor";
 import StoryPresenter from "@/components/social-story/StoryPresenter";
@@ -21,6 +22,19 @@ export default function SocialStoryApp() {
   function handleNewStory() {
     const id = createStory("New story");
     setView({ mode: "edit", storyId: id });
+  }
+
+  function handleFromTemplate(templateId: string) {
+    const template = STORY_TEMPLATES.find((t) => t.id === templateId);
+    if (!template) return;
+    const id = createStory(template.title, template.pages);
+    setView({ mode: "edit", storyId: id });
+  }
+
+  function handleDuplicate(storyId: string) {
+    const story = stories.find((s) => s.id === storyId);
+    if (!story) return;
+    createStory(`${story.title || "Untitled story"} (copy)`, story.pages);
   }
 
   if (view.mode === "edit" && activeStory) {
@@ -44,6 +58,8 @@ export default function SocialStoryApp() {
     <StoryList
       stories={stories}
       onNew={handleNewStory}
+      onFromTemplate={handleFromTemplate}
+      onDuplicate={handleDuplicate}
       onEdit={(id) => setView({ mode: "edit", storyId: id })}
       onPresent={(id) => setView({ mode: "present", storyId: id })}
       onDelete={deleteStory}

@@ -104,12 +104,30 @@ export default function TimerFace({
           // The wedge always covers the centre point once any time is left
           // (the pie is drawn from the centre outward), so the digits sit
           // on the fill colour whenever the timer isn't fully elapsed.
-          color: remainingSeconds > 0 ? "#ffffff" : "var(--foreground)",
-          textShadow: remainingSeconds > 0 ? "0 1px 3px rgba(0,0,0,0.35)" : "none",
+          // Ink is picked per colour, so light presets (like sunshine yellow)
+          // get dark digits instead of unreadable white ones.
+          color: remainingSeconds > 0 ? inkFor(color) : "var(--foreground)",
+          textShadow:
+            remainingSeconds > 0 && inkFor(color) === "#ffffff" ? "0 1px 3px rgba(0,0,0,0.35)" : "none",
         }}
       >
         {formatClock(remainingSeconds)}
       </span>
     </div>
   );
+}
+
+/** White or near-black, whichever contrasts more with a #rrggbb colour. */
+function inkFor(hex: string): string {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
+  if (!m) return "#ffffff";
+  const n = parseInt(m[1], 16);
+  const channel = (c: number) => {
+    const v = c / 255;
+    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  };
+  const lum = 0.2126 * channel((n >> 16) & 255) + 0.7152 * channel((n >> 8) & 255) + 0.0722 * channel(n & 255);
+  const onWhite = 1.05 / (lum + 0.05);
+  const onDark = (lum + 0.05) / 0.0599; // #1c1917
+  return onDark > onWhite ? "#1c1917" : "#ffffff";
 }

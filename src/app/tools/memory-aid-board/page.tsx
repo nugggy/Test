@@ -16,16 +16,16 @@ export default function MemoryAidBoardPage() {
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
       <ToolHero slug="memory-aid-board" title="Memory Aid / Reminder Board">
         <p>
-        Visual daily prompts for memory or executive-function difficulties -
-        a checklist of recurring reminders grouped by time of day that
-        resets automatically each morning.
+        Visual daily prompts for memory or executive-function difficulties. A checklist of reminders grouped by time of day that clears itself each night, ready for a new day.
         </p>
       </ToolHero>
       <HowToUse
         steps={[
           "Add a reminder with a picture, a short label and a time of day.",
-          "Tick each one off as you do it through the day.",
-          "The checklist resets automatically the next day - or tap \"Reset for today\" any time.",
+          "Tick each one off as you do it. The part of the day you're in now is marked 'Now'.",
+          "Tap 'Read out what's left' to hear what still needs doing.",
+          "The ticks clear by themselves after midnight, even if the page is left open.",
+          "Tap 'Change reminders' to add, move or delete reminders. This keeps the board simple day to day.",
         ]}
       />
       <MedicalDisclaimerBanner />

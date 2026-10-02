@@ -1,12 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { isPayPeriod, type PayPeriod } from "./budget-calc";
+import { savingsProgress } from "./savings-plan-calc";
 
 const STORAGE_KEY = "dt:savings-plan:v1";
 
 export interface SavingsContribution {
   id: string;
   date: string; // yyyy-mm-dd
+  /** Positive = money put in. Negative = money taken out. */
   amount: number;
   note: string;
 }
@@ -17,6 +20,10 @@ export interface SavingsGoal {
   targetAmount: number;
   targetDate: string; // yyyy-mm-dd, optional
   contributions: SavingsContribution[];
+  /** Optional: how much the person plans to put aside each period. 0 = not set. */
+  regularAmount: number;
+  /** How often the regular amount goes in. Defaults to fortnightly (Centrelink cycle). */
+  regularPeriod: PayPeriod;
 }
 
 function readJSON<T>(key: string, fallback: T): T {
@@ -45,8 +52,41 @@ function makeId() {
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
+function toNumber(value: unknown, allowNegative = false): number {
+  const n = typeof value === "number" ? value : Number(value);
+  if (!Number.isFinite(n)) return 0;
+  if (!allowNegative && n < 0) return 0;
+  return Math.round(n * 100) / 100;
+}
+
+/**
+ * Loads saved goals of any age. Goals saved before regular amounts existed
+ * get regularAmount 0 (not set) and a fortnightly period.
+ */
+export function normaliseSavingsGoals(raw: unknown): SavingsGoal[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((g): g is Record<string, unknown> => !!g && typeof g === "object")
+    .map((g, index) => ({
+      id: typeof g.id === "string" ? g.id : `goal-legacy-${index}`,
+      title: typeof g.title === "string" ? g.title : "",
+      targetAmount: toNumber(g.targetAmount),
+      targetDate: typeof g.targetDate === "string" ? g.targetDate : "",
+      contributions: (Array.isArray(g.contributions) ? g.contributions : [])
+        .filter((c): c is Record<string, unknown> => !!c && typeof c === "object")
+        .map((c, cIndex) => ({
+          id: typeof c.id === "string" ? c.id : `contribution-legacy-${index}-${cIndex}`,
+          date: typeof c.date === "string" ? c.date : "",
+          amount: toNumber(c.amount, true),
+          note: typeof c.note === "string" ? c.note : "",
+        })),
+      regularAmount: toNumber(g.regularAmount),
+      regularPeriod: isPayPeriod(g.regularPeriod) ? g.regularPeriod : "fortnight",
+    }));
+}
+
 export function totalSaved(goal: SavingsGoal): number {
-  return goal.contributions.reduce((sum, c) => sum + c.amount, 0);
+  return savingsProgress(goal.targetAmount, goal.contributions.map((c) => c.amount)).saved;
 }
 
 export function useSavingsGoals() {
@@ -55,7 +95,7 @@ export function useSavingsGoals() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setGoals(readJSON<SavingsGoal[]>(STORAGE_KEY, []));
+    setGoals(normaliseSavingsGoals(readJSON<unknown>(STORAGE_KEY, [])));
     setHydrated(true);
   }, []);
 
@@ -68,7 +108,15 @@ export function useSavingsGoals() {
     if (!text) return;
     setGoals((prev) => [
       ...prev,
-      { id: makeId(), title: text, targetAmount, targetDate: "", contributions: [] },
+      {
+        id: makeId(),
+        title: text,
+        targetAmount,
+        targetDate: "",
+        contributions: [],
+        regularAmount: 0,
+        regularPeriod: "fortnight",
+      },
     ]);
   }, []);
 

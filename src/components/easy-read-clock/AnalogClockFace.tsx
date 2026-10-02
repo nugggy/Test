@@ -1,4 +1,5 @@
 import type { HandStyle, NumberStyle } from "@/lib/easy-read-clock-storage";
+import { timeInWords } from "@/lib/easy-read-clock-words";
 
 interface AnalogClockFaceProps {
   hour: number;
@@ -7,6 +8,8 @@ interface AnalogClockFaceProps {
   showSeconds: boolean;
   color: string;
   scale: number;
+  /** Explicit size in px (used in full screen); overrides `scale`. */
+  sizePx?: number;
   numberStyle: NumberStyle;
   showMinuteTicks: boolean;
   faceColor: string;
@@ -37,6 +40,7 @@ export default function AnalogClockFace({
   showSeconds,
   color,
   scale,
+  sizePx,
   numberStyle,
   showMinuteTicks,
   faceColor,
@@ -46,13 +50,13 @@ export default function AnalogClockFace({
   const hourAngle = ((hour % 12) + minute / 60) * 30;
   const minuteAngle = (minute + second / 60) * 6;
   const secondAngle = second * 6;
-  const size = 220 * Math.min(scale, 1.6);
+  const size = sizePx ?? 220 * Math.min(scale, 1.6);
   const hands = HAND_LENGTHS[handStyle];
 
   return (
     <svg
       role="img"
-      aria-label={`Analog clock showing ${hour}:${String(minute).padStart(2, "0")}`}
+      aria-label={`Analog clock showing ${timeInWords(hour, minute).toLowerCase()}`}
       width={size}
       height={size}
       viewBox="0 0 200 200"

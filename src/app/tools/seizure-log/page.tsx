@@ -25,12 +25,14 @@ export default function SeizureLogPage() {
       </ToolHero>
       <HowToUse
         steps={[
-          "Log an entry as soon as possible after a seizure, while details are fresh.",
+          "When a seizure starts, tap the big Start timer button. Tap Stop when it ends. The time and duration fill in for you.",
+          "While timing, you can note when rescue medication was given or 000 was called. Follow the person's own seizure management plan, and call 000 in an emergency.",
+          "Then add the details while they are fresh.",
           "Tap a suggestion chip for seizure type, trigger and location, or type your own.",
           "Record severity, awareness, warning signs and how long recovery took.",
           "Tick off any actions taken, like first aid or rescue medication given.",
-          "Open the Dashboard tab to see trends, patterns and totals build up over time.",
-          "Download the log as a CSV, or print/save a PDF, to take to a specialist appointment.",
+          "Open the Dashboard tab and choose a period, such as the last 3 months, to see trends and the full log for that time.",
+          "Print or save a PDF of the dashboard for a neurologist or GP appointment, or download the log as a CSV.",
         ]}
       />
       <MedicalDisclaimerBanner />

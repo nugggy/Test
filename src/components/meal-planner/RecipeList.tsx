@@ -65,7 +65,7 @@ export default function RecipeList({
                     }
                   }}
                   aria-label={`Delete ${recipe.name}`}
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border-2 border-border bg-background"
+                  className="touch-target grid shrink-0 place-items-center rounded-xl border-2 border-border bg-background"
                 >
                   <span aria-hidden="true">🗑️</span>
                 </button>

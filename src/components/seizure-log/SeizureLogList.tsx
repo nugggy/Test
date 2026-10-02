@@ -1,6 +1,6 @@
 "use client";
 
-import type { SeizureLogEntry } from "@/lib/seizure-log-storage";
+import { formatRecordDateTime, type SeizureLogEntry } from "@/lib/seizure-log-storage";
 import { formatDateTime } from "@/lib/datetime";
 import { useTimezone } from "@/lib/timezone-context";
 import { PROLONGED_SEIZURE_SECONDS } from "@/lib/seizure-log-data";
@@ -60,9 +60,11 @@ export default function SeizureLogList({ entries, onRemove }: SeizureLogListProp
             </div>
             <button
               type="button"
-              onClick={() => onRemove(entry.id)}
-              aria-label="Delete this entry"
-              className="no-print grid h-9 w-9 shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
+              onClick={() => {
+                if (window.confirm("Delete this entry? This cannot be undone.")) onRemove(entry.id);
+              }}
+              aria-label={`Delete the ${entry.seizureType} entry from ${formatRecordDateTime(entry.occurredAt, timezone)}`}
+              className="no-print touch-target grid shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
             >
               <span aria-hidden="true">🗑️</span>
             </button>
@@ -97,7 +99,7 @@ export default function SeizureLogList({ entries, onRemove }: SeizureLogListProp
           )}
           {entry.notes && <p className="mt-1 text-sm text-muted">{entry.notes}</p>}
           <p className="mt-1 text-xs text-muted">
-            {formatDateTime(entry.occurredAt, timezone)}
+            {formatDateTime(entry.occurredAt, timezone)} ({formatRecordDateTime(entry.occurredAt, timezone)})
           </p>
         </li>
       ))}

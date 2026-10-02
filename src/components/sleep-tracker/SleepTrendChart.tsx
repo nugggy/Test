@@ -1,15 +1,15 @@
 "use client";
 
 import type { SleepEntry } from "@/lib/sleep-tracker-storage";
-import { computeHoursSlept } from "@/lib/sleep-tracker-data";
+import { QUALITY_LEVELS, computeHoursSlept, formatSleepDate } from "@/lib/sleep-tracker-data";
 
 interface SleepTrendChartProps {
   entries: SleepEntry[];
 }
 
 const PLOT_HEIGHT = 140;
-const LABEL_SPACE = 36;
-const BAR_WIDTH = 28;
+const LABEL_SPACE = 52;
+const BAR_WIDTH = 36;
 const BAR_GAP = 16;
 const MAX_ENTRIES = 14;
 const MAX_HOURS_SCALE = 12;
@@ -36,7 +36,7 @@ export default function SleepTrendChart({ entries }: SleepTrendChartProps) {
       <div className="overflow-x-auto">
         <svg
           role="img"
-          aria-label={`Bar chart of hours slept for the ${recent.length} most recent nights`}
+          aria-label={`Bar chart of hours slept for the ${recent.length} most recent nights, with how each night felt shown underneath. Every night is also listed in the Log below.`}
           width={width}
           height={height}
           viewBox={`0 0 ${width} ${height}`}
@@ -88,9 +88,17 @@ export default function SleepTrendChart({ entries }: SleepTrendChartProps) {
                   y={PLOT_HEIGHT + 18}
                   textAnchor="middle"
                   className="fill-muted"
-                  fontSize="10"
+                  fontSize="11"
                 >
-                  {entry.date.slice(5)}
+                  {formatSleepDate(entry.date, { short: true })}
+                </text>
+                <text
+                  x={x + BAR_WIDTH / 2}
+                  y={PLOT_HEIGHT + 40}
+                  textAnchor="middle"
+                  fontSize="16"
+                >
+                  {QUALITY_LEVELS.find((l) => l.value === entry.quality)?.emoji ?? ""}
                 </text>
               </g>
             );

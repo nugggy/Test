@@ -16,6 +16,21 @@ const EMPTY: RelationshipNotes = {
   peopleICanTalkTo: [],
 };
 
+function stringList(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((v): v is string => typeof v === "string") : [];
+}
+
+/** Load saved notes safely (same key as always), defaulting anything missing. */
+function normaliseNotes(raw: unknown): RelationshipNotes {
+  if (!raw || typeof raw !== "object") return { ...EMPTY };
+  const r = raw as Record<string, unknown>;
+  return {
+    whatIWant: stringList(r.whatIWant),
+    warningSignsToWatch: stringList(r.warningSignsToWatch),
+    peopleICanTalkTo: stringList(r.peopleICanTalkTo),
+  };
+}
+
 function readJSON<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
   try {
@@ -42,7 +57,7 @@ export function useRelationshipNotes() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setNotes({ ...EMPTY, ...readJSON<Partial<RelationshipNotes>>(STORAGE_KEY, {}) });
+    setNotes(normaliseNotes(readJSON<unknown>(STORAGE_KEY, null)));
     setHydrated(true);
   }, []);
 
@@ -57,5 +72,7 @@ export function useRelationshipNotes() {
     []
   );
 
-  return { notes, updateField, hydrated };
+  const clearAll = useCallback(() => setNotes(EMPTY), []);
+
+  return { notes, updateField, clearAll, hydrated };
 }

@@ -18,16 +18,16 @@ export default function DailyLifeAssistantPage() {
       <PrintHeader title="Daily Life Assistant" />
       <ToolHero slug="daily-life-assistant" title="Daily Life Assistant">
         <p>
-        Pick a task you want to remember how to do, break it into your own
-        steps, then tick each one off as you go. Fully customisable -
-        there&apos;s no built-in content, it&apos;s entirely written by you.
+        Pick a task you want to remember how to do, break it into small
+        steps, then tick each one off as you go. Start from one of the ready
+        made tasks, or write your own. You can change every step.
         </p>
       </ToolHero>
       <HowToUse
         steps={[
-          "Add a task, e.g. 'How to do laundry' - or tap a suggestion.",
-          "Add each step in order.",
-          "Next time you do the task, tick off each step as you complete it.",
+          "Type a task, e.g. 'How to do laundry', or tap a ready made task. Its steps are filled in for you.",
+          "Change, add or remove steps so they match how you do it.",
+          "Tap 'Do it one step at a time' to see one big step at a time, with a button to read it out loud.",
           "Tap 'Reset for next time' once you're done, ready to use again.",
         ]}
       />

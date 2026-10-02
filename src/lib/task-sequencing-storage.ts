@@ -43,13 +43,37 @@ function makeId(prefix: string) {
     : `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 }
 
+/**
+ * Defensive parse of saved sequences: malformed entries get sensible
+ * defaults instead of breaking the tool, and nothing valid is dropped.
+ */
+export function parseSequences(raw: unknown): TaskSequence[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((s): s is Record<string, unknown> => Boolean(s) && typeof s === "object")
+    .map((s, i) => ({
+      id: typeof s.id === "string" ? s.id : `seq-restored-${i}`,
+      name: typeof s.name === "string" && s.name.trim() ? s.name : "My task",
+      steps: Array.isArray(s.steps)
+        ? s.steps
+            .filter((st): st is Record<string, unknown> => Boolean(st) && typeof st === "object")
+            .map((st, j) => ({
+              id: typeof st.id === "string" ? st.id : `step-restored-${i}-${j}`,
+              label: typeof st.label === "string" ? st.label : "",
+              emoji: typeof st.emoji === "string" ? st.emoji : "✨",
+              done: st.done === true,
+            }))
+        : [],
+    }));
+}
+
 export function useTaskSequences() {
   const [sequences, setSequences] = useState<TaskSequence[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setSequences(readJSON<TaskSequence[]>(STORAGE_KEY, []));
+    setSequences(parseSequences(readJSON<unknown>(STORAGE_KEY, [])));
     setHydrated(true);
   }, []);
 
@@ -57,10 +81,14 @@ export function useTaskSequences() {
     if (hydrated) writeJSON(STORAGE_KEY, sequences);
   }, [sequences, hydrated]);
 
-  const addSequence = useCallback((name: string) => {
+  const addSequence = useCallback((name: string, steps: { label: string; emoji: string }[] = []) => {
     const trimmed = name.trim();
     if (!trimmed) return null;
-    const sequence: TaskSequence = { id: makeId("seq"), name: trimmed, steps: [] };
+    const sequence: TaskSequence = {
+      id: makeId("seq"),
+      name: trimmed,
+      steps: steps.map((s) => ({ id: makeId("step"), label: s.label, emoji: s.emoji, done: false })),
+    };
     setSequences((prev) => [...prev, sequence]);
     return sequence.id;
   }, []);
@@ -118,6 +146,22 @@ export function useTaskSequences() {
     );
   }, []);
 
+  const updateStep = useCallback(
+    (sequenceId: string, stepId: string, changes: { label?: string; emoji?: string }) => {
+      setSequences((prev) =>
+        prev.map((seq) =>
+          seq.id === sequenceId
+            ? {
+                ...seq,
+                steps: seq.steps.map((step) => (step.id === stepId ? { ...step, ...changes } : step)),
+              }
+            : seq
+        )
+      );
+    },
+    []
+  );
+
   const toggleStepDone = useCallback((sequenceId: string, stepId: string) => {
     setSequences((prev) =>
       prev.map((seq) =>
@@ -151,6 +195,7 @@ export function useTaskSequences() {
     addStep,
     removeStep,
     moveStep,
+    updateStep,
     toggleStepDone,
     resetSequence,
     hydrated,

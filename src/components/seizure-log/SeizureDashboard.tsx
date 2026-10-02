@@ -11,6 +11,9 @@ import PrintButton from "@/components/PrintButton";
 
 interface SeizureDashboardProps {
   entries: SeizureLogEntry[];
+  /** Total across all time, so an empty period isn't mistaken for no data. */
+  allEntriesCount: number;
+  periodLabel: string;
   onExportCsv: () => void;
 }
 
@@ -34,13 +37,20 @@ function topCounts(values: string[], limit: number) {
     .map(([label, count]) => ({ label, count }));
 }
 
-export default function SeizureDashboard({ entries, onExportCsv }: SeizureDashboardProps) {
+export default function SeizureDashboard({
+  entries,
+  allEntriesCount,
+  periodLabel,
+  onExportCsv,
+}: SeizureDashboardProps) {
   if (entries.length === 0) {
     return (
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
         <h2 className="font-display mb-3 text-lg font-bold">Dashboard</h2>
         <p className="rounded-xl border-2 border-dashed border-border p-8 text-center text-muted">
-          Log a seizure on the Log entry tab to start building the dashboard.
+          {allEntriesCount > 0
+            ? `No seizures logged in this period (${periodLabel.toLowerCase()}). Choose a longer period above.`
+            : "Log a seizure on the Log entry tab to start building the dashboard."}
         </p>
       </div>
     );
@@ -106,15 +116,15 @@ export default function SeizureDashboard({ entries, onExportCsv }: SeizureDashbo
       </p>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <StatTile label="Seizures logged" value={String(entries.length)} />
+        <StatTile label={`Seizures logged (${periodLabel.toLowerCase()})`} value={String(entries.length)} />
         <StatTile label="Last 30 days" value={String(last30Days)} />
         <StatTile
           label="Average duration"
-          value={withDuration.length ? formatDuration(averageDuration) : "—"}
+          value={withDuration.length ? formatDuration(averageDuration) : "Not recorded"}
         />
         <StatTile
           label="Longest duration"
-          value={withDuration.length ? formatDuration(longest) : "—"}
+          value={withDuration.length ? formatDuration(longest) : "Not recorded"}
           alert={longest >= PROLONGED_SEIZURE_SECONDS}
         />
       </div>

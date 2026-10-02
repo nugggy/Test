@@ -94,7 +94,7 @@ export default function TermsOfUsePage() {
             Please don&apos;t use the Service to:
           </p>
           <ul>
-            <li>Submit false, misleading, or harmful information through any shared feature (e.g. the provider directory or tool suggestions).</li>
+            <li>Submit false, misleading, or harmful information through any shared feature, such as tool suggestions.</li>
             <li>Attempt to access anyone else&apos;s data.</li>
             <li>Interfere with the Service, scrape it at scale, or attempt to bypass its security.</li>
             <li>Use the Service for anything unlawful.</li>
@@ -104,20 +104,9 @@ export default function TermsOfUsePage() {
           </p>
         </section>
 
-        <section>
-          <h2>7. Provider and community listings</h2>
-          <p>
-            Where providers list their own service (for example, the
-            support coordinator or allied health directories), those
-            listings are submitted directly by the provider and are not
-            verified, vetted, or endorsed by us. Always confirm
-            registration and qualifications independently, for example via
-            the NDIS Quality and Safeguards Commission.
-          </p>
-        </section>
 
         <section>
-          <h2>8. No warranty</h2>
+          <h2>7. No warranty</h2>
           <p>
             The Service is provided &quot;as is&quot;, free of charge, and
             without warranty of any kind, to the extent permitted by law.
@@ -127,7 +116,7 @@ export default function TermsOfUsePage() {
         </section>
 
         <section>
-          <h2>9. Limitation of liability</h2>
+          <h2>8. Limitation of liability</h2>
           <p>
             To the extent permitted by law, we aren&apos;t liable for any
             loss or damage arising from your use of, or inability to use,
@@ -139,7 +128,7 @@ export default function TermsOfUsePage() {
         </section>
 
         <section>
-          <h2>10. Changes to these terms</h2>
+          <h2>9. Changes to these terms</h2>
           <p>
             We may update these terms from time to time, for example as
             new tools are added. Continuing to use the Service after a
@@ -148,7 +137,7 @@ export default function TermsOfUsePage() {
         </section>
 
         <section>
-          <h2>11. Governing law</h2>
+          <h2>10. Governing law</h2>
           <p>
             These terms are governed by the laws of New South Wales,
             Australia, and you agree to the non-exclusive jurisdiction of
@@ -157,7 +146,7 @@ export default function TermsOfUsePage() {
         </section>
 
         <section>
-          <h2>12. Contact</h2>
+          <h2>11. Contact</h2>
           <p>
             Questions about these terms: <a href="mailto:gwclissold@gmail.com" className="font-semibold text-brand hover:underline">gwclissold@gmail.com</a>.
           </p>

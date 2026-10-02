@@ -25,10 +25,10 @@ export default function GoalTrackerPage() {
       </ToolHero>
       <HowToUse
         steps={[
-          "Type a goal and tap 'Add goal'.",
-          "Add steps to break the goal down into smaller pieces.",
-          "Tick off each step as you complete it.",
-          "Add an optional target date and notes.",
+          "Type a goal and tap 'Add goal', or tap one of the ideas.",
+          "Add small steps to break the goal down. The next step to do is shown at the top of each goal.",
+          "Tick off each step as you do it and watch the progress bar fill up. Finished goals move to Achieved.",
+          "Add an optional target date to see how many days are left, and notes.",
           "Print your goals, or come back any time - everything saves automatically.",
         ]}
       />

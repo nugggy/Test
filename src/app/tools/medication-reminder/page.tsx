@@ -18,17 +18,18 @@ export default function MedicationReminderPage() {
       <PrintHeader title="Medication Reminder" />
       <ToolHero slug="medication-reminder" title="Medication Reminder">
         <p>
-        Keep a list of medications and doses, tick off today&apos;s checklist
-        as you take them, and export a log to share with your doctor or
-        support worker.
+        Keep a list of medications and doses, record each dose as taken or
+        not taken with one tap, and print or export the record to share with
+        a doctor, pharmacist or support worker.
         </p>
       </ToolHero>
       <HowToUse
         steps={[
-          "Add each medication, its dose, and the times you take it each day.",
-          "Tick off each dose in Today's checklist as you take it.",
-          "Open the Dashboard tab to see adherence over the last 14 days, overall and per medication.",
-          "Print your schedule, or download a CSV/PDF log to take to a doctor or pharmacist review.",
+          "Add each medication with its dose and times, exactly as written on the label or by your doctor or pharmacist. Tick \"as needed\" for medication with no set times.",
+          "In the checklist, tap Taken or Not taken for each dose. Doses whose time has passed with nothing recorded are marked Due.",
+          "If a dose was not taken, pick a reason so the record is clear for the next person.",
+          "On a shared device, type your name or initials in Recorded by. You can also pick an earlier date to fill in a missed record.",
+          "Open the Dashboard tab to see the last 14 days, then print it or download a CSV for a doctor or pharmacist review.",
         ]}
       />
       <MedicalDisclaimerBanner />

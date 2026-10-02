@@ -1,9 +1,26 @@
 "use client";
 
-import { useNdisMeetingPrep } from "@/lib/ndis-meeting-prep-storage";
+import { useState } from "react";
+import Link from "next/link";
+import {
+  daysBetween,
+  formatDayAU,
+  useNdisMeetingPrep,
+} from "@/lib/ndis-meeting-prep-storage";
+import { useTimezone } from "@/lib/timezone-context";
+import { getTodayDateString } from "@/lib/datetime";
 import EditableListSection from "@/components/EditableListSection";
 import ChecklistSection from "@/components/ChecklistSection";
+import InfoSection from "@/components/InfoSection";
 import PrintButton from "@/components/PrintButton";
+import MeetingSummary from "./MeetingSummary";
+
+const PRIORITY_SUGGESTIONS = [
+  "I need more support at home",
+  "I want help to find work",
+  "My equipment needs replacing",
+  "I need therapy to keep going",
+];
 
 const WORKING_WELL_SUGGESTIONS = [
   "My support worker's hours suit me",
@@ -67,12 +84,35 @@ const MEETING_TYPES = [
 
 const MEETING_FORMATS = ["In person", "Phone", "Video call"];
 
+function countdownText(days: number | null): string {
+  if (days === null) return "";
+  if (days === 0) return "Your meeting is today.";
+  if (days === 1) return "Your meeting is tomorrow.";
+  if (days > 1) return `Your meeting is in ${days} days.`;
+  return "This meeting date has passed. Update it if you have a new meeting.";
+}
+
 export default function NdisMeetingPrep() {
-  const { prep, updateField, clearPrep } = useNdisMeetingPrep();
+  const { prep, updateField, clearPrep, hydrated } = useNdisMeetingPrep();
+  const { timezone } = useTimezone();
+  const [showSummary, setShowSummary] = useState(false);
+
+  const today = getTodayDateString(timezone);
+  const countdown =
+    hydrated && prep.meetingDate ? countdownText(daysBetween(today, prep.meetingDate)) : "";
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="no-print flex justify-end gap-2">
+      <div className="no-print flex flex-wrap justify-end gap-2">
+        <button
+          type="button"
+          onClick={() => setShowSummary((v) => !v)}
+          aria-expanded={showSummary}
+          aria-controls="meeting-summary"
+          className="touch-target rounded-xl border-2 border-brand bg-surface px-4 font-semibold"
+        >
+          {showSummary ? "Hide my summary" : "See my summary"}
+        </button>
         <button
           type="button"
           onClick={() => {
@@ -84,12 +124,42 @@ export default function NdisMeetingPrep() {
         >
           Clear
         </button>
-        <PrintButton />
+        <PrintButton label="Print my summary" />
+      </div>
+      <p className="no-print -mt-2 text-right text-sm text-muted">
+        Printing gives you a tidy summary of what you&apos;ve filled in, not
+        this form.
+      </p>
+
+      {/* Always in the printout; on screen only when asked for. */}
+      <div
+        id="meeting-summary"
+        className={`${showSummary ? "block" : "hidden"} rounded-2xl border-2 border-brand p-4 print:block print:border-0 print:p-0`}
+      >
+        <MeetingSummary prep={prep} />
       </div>
 
+      <div className="no-print flex flex-col gap-4">
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
         <h2 className="font-display mb-3 text-lg font-bold">Meeting details</h2>
+        {countdown && (
+          <p className="mb-3 rounded-xl bg-accent-soft px-3 py-2 text-sm font-semibold">
+            {countdown} {formatDayAU(prep.meetingDate) && `(${formatDayAU(prep.meetingDate)})`}
+          </p>
+        )}
         <div className="grid gap-3 sm:grid-cols-2">
+          <label className="text-sm sm:col-span-2">
+            <span className="mb-1 block font-semibold">My name</span>
+            <input
+              type="text"
+              value={prep.participantName}
+              onChange={(e) => updateField("participantName", e.target.value)}
+              maxLength={120}
+              autoComplete="name"
+              placeholder="So the planner knows whose summary it is"
+              className="touch-target w-full rounded-xl border-2 border-border bg-background px-3"
+            />
+          </label>
           <label className="text-sm">
             <span className="mb-1 block font-semibold">Meeting date</span>
             <input
@@ -183,6 +253,21 @@ export default function NdisMeetingPrep() {
         </div>
       </div>
 
+      <EditableListSection
+        title="The most important things for me"
+        description="Pick up to 3 things you most want the planner to hear. These go at the top of your printed summary."
+        placeholder="e.g. I need more support at home"
+        items={prep.topPriorities}
+        suggestions={PRIORITY_SUGGESTIONS}
+        onChange={(items) => updateField("topPriorities", items)}
+      />
+      {prep.topPriorities.length > 3 && (
+        <p className="-mt-2 text-sm text-muted">
+          You have {prep.topPriorities.length} things here. Keeping it to 3
+          helps the planner focus on what matters most.
+        </p>
+      )}
+
       <ChecklistSection
         title="Documents to bring"
         description="Tick off what you've gathered before the meeting"
@@ -253,6 +338,27 @@ export default function NdisMeetingPrep() {
         items={prep.questionsForPlanner}
         onChange={(items) => updateField("questionsForPlanner", items)}
       />
+
+      <InfoSection title="Tips for the meeting" icon="💬">
+        <ul className="list-disc space-y-1 pl-5">
+          <li>You can bring someone with you, like a family member, friend, advocate or support worker.</li>
+          <li>You can ask for an interpreter, or for information in Easy Read.</li>
+          <li>You can ask the planner to slow down, explain something again, or take a break.</li>
+          <li>Give real examples of your day. Saying what happens when you don&apos;t get support helps the planner understand.</li>
+          <li>Ask someone to take notes for you, or write notes on the bottom of your printed summary.</li>
+          <li>Before you leave, ask what happens next and how you will get a copy of your plan.</li>
+          <li>
+            If you don&apos;t agree with a decision about your plan, you can
+            ask the NDIA to review it. You need to ask within 3 months of
+            getting the decision. See{" "}
+            <Link href="/tools/know-your-rights" className="font-semibold text-brand hover:underline">
+              Know Your Rights
+            </Link>{" "}
+            for who can help.
+          </li>
+        </ul>
+      </InfoSection>
+      </div>
     </div>
   );
 }

@@ -1,16 +1,13 @@
 "use client";
 
-import { NDIS_CATEGORIES, formatCurrency } from "@/lib/ndis-budget-data";
+import { categoryById, categoryLabel, formatCurrency } from "@/lib/ndis-budget-data";
 import { useNdisExpenses, useNdisPlan } from "@/lib/ndis-budget-storage";
+import { formatDateOnly } from "@/lib/budget-calc";
 import { downloadCsv } from "@/lib/csv-export";
 import PrintButton from "@/components/PrintButton";
 import NdisPlanSetup from "./NdisPlanSetup";
 import NdisDashboard from "./NdisDashboard";
 import NdisExpenseForm from "./NdisExpenseForm";
-
-function categoryLabel(categoryId: string): string {
-  return NDIS_CATEGORIES.find((c) => c.id === categoryId)?.label ?? categoryId;
-}
 
 export default function NdisBudgetTracker() {
   const { plan, setDates, setAllocation, clearPlan } = useNdisPlan();
@@ -19,23 +16,36 @@ export default function NdisBudgetTracker() {
   function handleExportCsv() {
     downloadCsv(
       "ndis-plan-spending",
-      ["Date", "Description", "Category", "Amount"],
-      expenses.map((e) => [e.date, e.description, categoryLabel(e.categoryId), e.amount])
+      ["Date", "What it was for", "Paid to", "Support category", "Budget", "Amount"],
+      sorted.map((e) => [
+        e.date,
+        e.description,
+        e.provider,
+        categoryLabel(e.categoryId),
+        categoryById(e.categoryId)?.group ?? "",
+        e.amount,
+      ])
     );
   }
 
   const sorted = [...expenses].sort((a, b) => b.date.localeCompare(a.date));
+  const usedCategoryIds = new Set(expenses.map((e) => e.categoryId));
 
   return (
     <div className="flex flex-col gap-6">
-      <NdisPlanSetup plan={plan} onSetDates={setDates} onSetAllocation={setAllocation} />
+      <NdisPlanSetup
+        plan={plan}
+        usedCategoryIds={usedCategoryIds}
+        onSetDates={setDates}
+        onSetAllocation={setAllocation}
+      />
       <NdisDashboard plan={plan} expenses={expenses} />
       <NdisExpenseForm onSave={addExpense} />
 
       <div className="rounded-2xl border-2 border-border bg-surface p-4">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-display text-lg font-bold">Spending log</h2>
-          <div className="no-print flex items-center gap-3">
+          <div className="no-print flex flex-wrap items-center gap-2">
             {expenses.length > 0 && (
               <button
                 type="button"
@@ -54,7 +64,7 @@ export default function NdisBudgetTracker() {
                     clearAll();
                   }
                 }}
-                className="text-sm font-semibold text-muted hover:text-foreground"
+                className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold text-muted hover:text-foreground"
               >
                 Clear all
               </button>
@@ -64,7 +74,7 @@ export default function NdisBudgetTracker() {
 
         {sorted.length === 0 ? (
           <p className="rounded-xl border-2 border-dashed border-border p-6 text-center text-muted">
-            No spending logged yet - use the form above to log the first one.
+            No spending saved yet. Use the form above to add the first one.
           </p>
         ) : (
           <ul className="flex flex-col gap-2">
@@ -76,17 +86,21 @@ export default function NdisBudgetTracker() {
                 <div className="flex-1">
                   <p className="font-semibold">{e.description}</p>
                   <p className="text-sm text-muted">
-                    {categoryLabel(e.categoryId)} · {e.date}
+                    {formatDateOnly(e.date)}
+                    {e.provider && ` · ${e.provider}`}
                   </p>
+                  <p className="text-sm text-muted">{categoryLabel(e.categoryId)}</p>
                 </div>
                 <span className="shrink-0 font-display text-lg font-bold">
                   {formatCurrency(e.amount)}
                 </span>
                 <button
                   type="button"
-                  onClick={() => removeExpense(e.id)}
+                  onClick={() => {
+                    if (window.confirm(`Delete "${e.description}"?`)) removeExpense(e.id);
+                  }}
                   aria-label={`Delete ${e.description}`}
-                  className="no-print grid h-9 w-9 shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
+                  className="no-print touch-target grid shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
                 >
                   <span aria-hidden="true">🗑️</span>
                 </button>
@@ -102,13 +116,13 @@ export default function NdisBudgetTracker() {
           onClick={() => {
             if (
               window.confirm(
-                "Clear the plan dates and allocated amounts? Logged spending is kept - use this when your NDIS plan renews."
+                "Clear the plan dates and amounts? Your spending log is kept. Use this when your NDIS plan renews. Spending from before the new plan dates won't be counted against the new plan."
               )
             ) {
               clearPlan();
             }
           }}
-          className="text-sm font-semibold text-muted hover:text-foreground"
+          className="touch-target rounded-xl border-2 border-border bg-surface px-4 text-sm font-semibold text-muted hover:text-foreground"
         >
           Start a new plan period
         </button>

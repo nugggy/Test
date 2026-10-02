@@ -49,7 +49,7 @@ export default function TrafficLightHistory({
               type="button"
               onClick={() => onRemove(entry.id)}
               aria-label={`Delete this ${state?.label ?? ""} check-in`}
-              className="no-print grid h-9 w-9 shrink-0 place-items-center rounded-lg border-2 border-border bg-surface"
+              className="no-print touch-target grid shrink-0 place-items-center rounded-xl border-2 border-border bg-surface"
             >
               <span aria-hidden="true">🗑️</span>
             </button>

@@ -25,9 +25,10 @@ export default function CommunicationBoardPage() {
           "Tap a category tab (like Food or Drinks) to see the pictures in that group.",
           "Tap a picture to hear it spoken out loud and add it to your message.",
           "Tap more pictures to build up a longer message.",
-          "Press Speak to hear your whole message read aloud, or Clear to start again.",
-          "Tap the star on a picture to save it to Favourites.",
-          "Tap 'Add picture' to create your own - choose a word, a picture, and a category.",
+          "Press Speak to hear your whole message read aloud. Undo takes off the last picture. Clear starts again.",
+          "Yes, No, Help me and Stop are always at the top, whatever tab is open.",
+          "Tap 'Edit board' to add favourites or delete your own pictures. Tap 'Finish editing' to lock the board again.",
+          "Tap 'Add picture' to create your own. Choose a word, a picture, and a category.",
         ]}
       />
       <MedicalDisclaimerBanner />

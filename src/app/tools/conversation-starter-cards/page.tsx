@@ -23,8 +23,9 @@ export default function ConversationStarterCardsPage() {
       </ToolHero>
       <HowToUse
         steps={[
-          "Pick a category, or leave it on All to see every card.",
-          "Tap \"Hear this\" to have the card read aloud, or tap Next to move on.",
+          "Pick a category, or leave it on All to see every card. 'Easy questions' have short yes/no or this-or-that answers.",
+          "Tap \"Hear this\" to have the card read aloud. Tap Next to move on, or Back to go to the last card.",
+          "After answering, tap \"Ask back\" to say \"What about you?\" and keep the conversation going.",
           "Save the cards you like best with the star, and find them again under \"My favourites\".",
           "Add your own cards any time.",
         ]}

@@ -16,16 +16,17 @@ export default function NdisBudgetTrackerPage() {
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
       <ToolHero slug="ndis-budget-tracker" title="NDIS Plan Budget Tracker">
         <p>
-        See spend vs. plan allocation for each NDIS support category - Core
-        Supports, Capacity Building and Capital Supports.
+        See how much is left in each NDIS support category, for Core
+        Supports, Capacity Building and Capital Supports, and whether
+        spending is on track for your plan dates.
         </p>
       </ToolHero>
       <HowToUse
         steps={[
-          "Enter your plan's start/end dates and the amount allocated to each category, straight from your NDIS plan document.",
-          "Log spending as it happens, with a description, amount, category and date.",
-          "Check the dashboard to see spend vs. allocation per category, and whether you're on track for the plan period.",
-          "Download a CSV or print the spending log to take to a planning meeting.",
+          "Copy your plan's start and end dates, and the amount in each support category, from your NDIS plan. Only fill in the ones your plan has.",
+          "Add spending as it happens: what it was for, who was paid, the amount, category and date.",
+          "Check the dashboard to see how much is left in each category and budget, and whether you are on track for the plan dates.",
+          "Download a CSV or print the spending log to take to a plan review or to your support coordinator.",
         ]}
       />
       <MedicalDisclaimerBanner />

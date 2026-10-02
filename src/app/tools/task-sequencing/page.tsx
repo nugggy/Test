@@ -22,10 +22,11 @@ export default function TaskSequencingPage() {
       </ToolHero>
       <HowToUse
         steps={[
-          "Create a sequence for a task, e.g. \"Brushing teeth\" or \"Making toast\".",
-          "Add each step with a picture and a short label, in order.",
-          "Tap \"Run this task\" to step through it one at a time, with a tick for each step.",
-          "Reuse the same sequence again and again - \"Start again\" resets every step.",
+          "Start from an example like \"Washing hands\", or make your own sequence for any task.",
+          "In \"Edit steps\", add each step with a picture and a short label. You can change the words, pictures and order at any time.",
+          "Tap \"Do this task\" to see one step at a time. Tap Done after each step. \"Go back a step\" undoes a mistake.",
+          "Turn on \"Read each step aloud\" to hear each step as you go.",
+          "Tap \"Print steps\" for a numbered picture strip to stick up where the task happens. \"Start again\" resets every step.",
         ]}
       />
       <MedicalDisclaimerBanner />
