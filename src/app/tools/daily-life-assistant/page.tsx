@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import DailyLifeAssistant from "@/components/daily-life/DailyLifeAssistant";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Daily Life Assistant - My Support Buddy",
@@ -16,17 +15,14 @@ export const metadata: Metadata = {
 export default function DailyLifeAssistantPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Daily Life Assistant" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Daily Life Assistant
-      </h1>
-      <FavouriteToggleButton slug="daily-life-assistant" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="daily-life-assistant" title="Daily Life Assistant">
+        <p>
         Pick a task you want to remember how to do, break it into your own
         steps, then tick each one off as you go. Fully customisable -
         there&apos;s no built-in content, it&apos;s entirely written by you.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Add a task, e.g. 'How to do laundry' - or tap a suggestion.",

@@ -17,9 +17,9 @@ export default function InfoSection({ title, icon, defaultOpen, children }: Info
   return (
     <details
       open={defaultOpen}
-      className="print-avoid-break group rounded-2xl border-2 border-border bg-surface p-4"
+      className="print-avoid-break group rounded-2xl border-2 border-border bg-surface p-4 sm:p-5"
     >
-      <summary className="font-display flex cursor-pointer items-center justify-between gap-2 text-lg font-bold touch-target">
+      <summary className="font-display flex cursor-pointer items-center justify-between gap-2 text-lg font-semibold touch-target">
         <span className="flex items-center gap-2">
           {icon && <span aria-hidden="true">{icon}</span>}
           {title}

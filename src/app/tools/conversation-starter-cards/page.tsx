@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import ConversationStarterCards from "@/components/conversation-starters/ConversationStarterCards";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Conversation Starter Cards - My Support Buddy",
@@ -15,16 +14,13 @@ export const metadata: Metadata = {
 export default function ConversationStarterCardsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Conversation Starter Cards
-      </h1>
-      <FavouriteToggleButton slug="conversation-starter-cards" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="conversation-starter-cards" title="Conversation Starter Cards">
+        <p>
         A deck of conversation-starter prompts, grouped by category, for
         anyone who finds small talk hard - especially useful in group or day
         programs.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Pick a category, or leave it on All to see every card.",

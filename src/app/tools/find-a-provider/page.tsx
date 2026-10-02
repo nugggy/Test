@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import { Suspense } from "react";
 import FindAProvider from "@/components/provider-directory/FindAProvider";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import HowToUse from "@/components/HowToUse";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Find a Provider - My Support Buddy",
@@ -16,14 +15,13 @@ export const metadata: Metadata = {
 export default function FindAProviderPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">Find a Provider</h1>
-      <FavouriteToggleButton slug="find-a-provider" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="find-a-provider" title="Find a Provider">
+        <p>
         Search for a Support Coordinator, Plan Manager, Support Provider,
         or Allied Health Specialist by state and service area, or list
         your own service.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Choose the type of provider you're looking for.",

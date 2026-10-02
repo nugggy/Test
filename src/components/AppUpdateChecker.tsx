@@ -92,7 +92,7 @@ export default function AppUpdateChecker() {
       role="status"
       aria-live="polite"
       aria-labelledby="app-update-title"
-      className="no-print border-b-2 border-brand/40 bg-brand/10 px-4 py-3"
+      className="no-print border-b border-border bg-accent-soft px-4 py-3"
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">

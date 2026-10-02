@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ToolEntry } from "@/lib/tools";
+import { categoryStyle } from "@/lib/category-style";
 
 interface MostFavouritedProps {
   tools: ToolEntry[];
@@ -10,30 +11,40 @@ export default function MostFavourited({ tools }: MostFavouritedProps) {
 
   return (
     <section className="mb-12 sm:mb-16" aria-labelledby="most-favourited-heading">
-      <h2 id="most-favourited-heading" className="font-display mb-4 text-2xl font-bold">
-        ❤️ Most favourited by our community
-      </h2>
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {tools.map((tool) => (
-          <li key={tool.slug}>
-            <Link
-              href={`/tools/${tool.slug}`}
-              className="group flex h-full items-center gap-3 rounded-2xl border-2 border-border bg-surface p-4 hover:border-brand hover:shadow-md transition-colors"
-            >
-              <span
-                aria-hidden="true"
-                className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-background text-2xl"
+      <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+        <h2 id="most-favourited-heading" className="font-display text-2xl sm:text-3xl">
+          Community favourites
+        </h2>
+        <p className="text-sm text-muted">The tools people here love most</p>
+      </div>
+      <ol className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {tools.map((tool, i) => {
+          const cs = categoryStyle(tool.category);
+          return (
+            <li key={tool.slug}>
+              <Link
+                href={`/tools/${tool.slug}`}
+                className="group lift flex h-full items-center gap-4 rounded-2xl border-2 border-border bg-surface p-4 hover:border-border-strong"
               >
-                {tool.icon}
-              </span>
-              <div className="min-w-0">
-                <h3 className="font-display font-bold">{tool.name}</h3>
-                <p className="truncate text-sm text-muted">{tool.description}</p>
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
+                <span className="font-display tabular w-5 shrink-0 text-center text-lg font-semibold text-muted">
+                  <span className="sr-only">Number </span>
+                  {i + 1}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className={`sticker grid h-12 w-12 shrink-0 place-items-center rounded-xl text-2xl ${cs.tint}`}
+                >
+                  {tool.icon}
+                </span>
+                <span className="min-w-0">
+                  <span className="font-display block truncate font-semibold">{tool.name}</span>
+                  <span className={`block text-xs font-semibold ${cs.ink}`}>{tool.category}</span>
+                </span>
+              </Link>
+            </li>
+          );
+        })}
+      </ol>
     </section>
   );
 }

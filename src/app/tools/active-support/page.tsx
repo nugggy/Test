@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import ActiveSupport from "@/components/active-support/ActiveSupport";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Active Support for Support Workers - My Support Buddy",
@@ -16,17 +15,14 @@ export const metadata: Metadata = {
 export default function ActiveSupportPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Active Support for Support Workers" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Active Support for Support Workers
-      </h1>
-      <FavouriteToggleButton slug="active-support" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="active-support" title="Active Support for Support Workers">
+        <p>
         A quick-reference guide to Active Support: five core ideas for
         helping the people you support be genuinely engaged in everyday
         life, plus a self-reflection checklist for your own practice.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Read through each of the five elements - tap to expand it.",

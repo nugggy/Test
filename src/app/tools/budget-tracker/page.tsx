@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import BudgetTracker from "@/components/budget/BudgetTracker";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Budget Tracker - My Support Buddy",
@@ -15,15 +14,12 @@ export const metadata: Metadata = {
 export default function BudgetTrackerPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Budget Tracker
-      </h1>
-      <FavouriteToggleButton slug="budget-tracker" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="budget-tracker" title="Budget Tracker">
+        <p>
         Log income and expenses and see where the money goes, category by
         category.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Enter how much money you have to spend this week, then add planned items to see what's left.",

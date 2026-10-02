@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import HealthyRelationships from "@/components/healthy-relationships/HealthyRelationships";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Healthy Relationships - My Support Buddy",
@@ -16,18 +15,15 @@ export const metadata: Metadata = {
 export default function HealthyRelationshipsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Healthy Relationships" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Healthy Relationships
-      </h1>
-      <FavouriteToggleButton slug="healthy-relationships" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="healthy-relationships" title="Healthy Relationships">
+        <p>
         Everyone has the right to relationships that are safe, respectful,
         and their own choice. This tool covers what makes a relationship
         healthy, consent, warning signs, communication, and where to get
         help - in plain language, written for adults.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Read through each section - tap to expand it.",

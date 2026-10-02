@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import WeeklySchedule from "@/components/weekly-schedule/WeeklySchedule";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Weekly Schedule - My Support Buddy",
@@ -15,15 +14,12 @@ export const metadata: Metadata = {
 export default function WeeklySchedulePage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Weekly Schedule
-      </h1>
-      <FavouriteToggleButton slug="weekly-schedule" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="weekly-schedule" title="Weekly Schedule">
+        <p>
         Plan the whole week at a glance. Add pictures to each day, tick them
         off as they&apos;re done, or print the week out.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Tap the ➕ on any day to add an activity.",

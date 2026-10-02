@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import KnowYourRights from "@/components/know-your-rights/KnowYourRights";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Know Your Rights - My Support Buddy",
@@ -16,17 +15,14 @@ export const metadata: Metadata = {
 export default function KnowYourRightsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Know Your Rights" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Know Your Rights
-      </h1>
-      <FavouriteToggleButton slug="know-your-rights" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="know-your-rights" title="Know Your Rights">
+        <p>
         Understanding your rights, and how to use them. Covers your rights
         as an NDIS participant, your human rights, supported
         decision-making, how to make a complaint, and who can help.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Read through each section - tap to expand it.",

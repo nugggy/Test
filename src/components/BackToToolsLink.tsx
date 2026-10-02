@@ -32,13 +32,19 @@ export default function BackToToolsLink() {
   };
 
   return (
-    <nav className="no-print mb-4">
+    <nav className="no-print mb-3">
       <Link
         href="/"
         onClick={handleClick}
-        className="touch-target inline-flex items-center gap-1.5 rounded-xl border-2 border-border bg-surface px-4 text-base font-semibold text-brand hover:border-brand"
+        className="group touch-target -ml-2 inline-flex items-center gap-2 rounded-xl px-2 text-base font-semibold text-muted hover:text-foreground"
       >
-        ← All tools
+        <span
+          aria-hidden="true"
+          className="grid h-8 w-8 place-items-center rounded-full border-2 border-border bg-surface transition-transform group-hover:-translate-x-0.5"
+        >
+          ←
+        </span>
+        All tools
       </Link>
     </nav>
   );

@@ -3,6 +3,16 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.39.0] - 2026-10-02
+### Changed
+- **Complete visual overhaul: "bento with personality".** A clean, professional base (Lexend headings replacing Baloo 2, neutral warm-stone palette, hairline 1px borders, one radius and shadow scale, consistent quiet card shadows) with the fun carried by bold colour blocks and a colour-coded category system. Every text/background pairing re-checked at WCAG AA or better in light and dark; high-contrast mode keeps 2px borders, drops shadows and decoration, and outlines solid blocks.
+- **Homepage** is now a bento grid: headline tile, a working "Tap to talk" tile (a slice of the Communication Board that speaks aloud), a live easy-read clock tile, a "Private by design" tile, and a category tile with a colourful sticker per area of life that opens the directory pre-filtered (`?category=`). The Android download is a feature panel with a phone mock-up; the disclaimer copy moved to the foot of the page.
+- **Every tool page** now opens with a shared `ToolHero` (back link, the tool's sticker icon in its category colour, category label, title, intro and favourite button), replacing the hand-written header on all 48 pages.
+- **Tool directory** rewritten: rounded search with an SVG icon, colour-dotted category chips, sticker-style cards with category label and hover lift, cleaner list rows, a friendlier empty state, and grid as the default layout (a saved choice still wins).
+- **Shared components restyled**: sticky translucent header, dark multi-column footer, segmented tabs, "How to use" steps as numbered cards, softer disclaimer, dark ink Print button, floating cookie notice, sunshine update banner. Favourite buttons now draw at 44px inside their full 88px tap area.
+- **Form fields** across all tools: boundary colour raised to 3.5:1 (WCAG 1.4.11) with a coral focus ring; checkboxes, radios and sliders use the brand colour.
+- New: `src/lib/category-style.ts`, `src/components/ToolHero.tsx`, `src/components/home/{TalkTile,ClockTile,CategoryTile}.tsx`.
+
 ## [0.38.2] - 2026-10-02
 ### Removed
 - **The account system.** Some tools hold sensitive health information, and the site is run privately, so it no longer offers accounts at all. Removed: sign-in, sign-up, check-email and account pages (organisation setup, participant profiles), their server actions, the session-refreshing proxy (`src/proxy.ts`, `src/lib/supabase/middleware.ts`), the header's Sign in link, and the `requiresAccount` flag on six tools with its "needs a free account" labels. Old account URLs now redirect to the homepage.

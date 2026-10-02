@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import SupportPlan from "@/components/support-plan/SupportPlan";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Support Plan - My Support Buddy",
@@ -15,17 +14,14 @@ export const metadata: Metadata = {
 export default function SupportPlanPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Support Plan
-      </h1>
-      <FavouriteToggleButton slug="support-plan" />
-      <p className="no-print mb-3 max-w-2xl text-muted">
+      <ToolHero slug="support-plan" title="Support Plan">
+        <p>
         A one-page, person-centred plan to introduce yourself to a new
         support worker, service, or school - goals, supports, health and
         safety info, communication tips, and emergency contacts, all in one
         printable place.
-      </p>
+        </p>
+      </ToolHero>
       <p className="no-print mb-6 max-w-2xl rounded-xl border-2 border-accent bg-accent/10 px-4 py-3 text-sm">
         <strong>Private to you:</strong> this plan is saved on this device only.
         Nothing is sent to us.

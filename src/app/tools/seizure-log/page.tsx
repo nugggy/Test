@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import SeizureLog from "@/components/seizure-log/SeizureLog";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Seizure Observation Log - My Support Buddy",
@@ -16,17 +15,14 @@ export const metadata: Metadata = {
 export default function SeizureLogPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Seizure Observation Log" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Seizure Observation Log
-      </h1>
-      <FavouriteToggleButton slug="seizure-log" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="seizure-log" title="Seizure Observation Log">
+        <p>
         Record what happened during and after a seizure - type, duration,
         possible triggers, and what was done - to spot patterns over time and
         share accurate detail with a neurologist or GP.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Log an entry as soon as possible after a seizure, while details are fresh.",

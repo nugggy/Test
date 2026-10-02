@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import ConditionsGuide from "@/components/conditions/ConditionsGuide";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Understanding Conditions - My Support Buddy",
@@ -16,17 +15,14 @@ export const metadata: Metadata = {
 export default function ConditionsGuidePage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Understanding Conditions" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Understanding Conditions
-      </h1>
-      <FavouriteToggleButton slug="conditions-guide" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="conditions-guide" title="Understanding Conditions">
+        <p>
         Plain-language information on 20 common disabilities and
         conditions, with links to reputable Australian organisations to
         learn more about each one.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Search or tap a condition to select it.",

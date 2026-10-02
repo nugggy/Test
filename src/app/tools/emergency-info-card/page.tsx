@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import EmergencyInfoCard from "@/components/emergency-info-card/EmergencyInfoCard";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Emergency / About Me Card - My Support Buddy",
@@ -15,16 +14,13 @@ export const metadata: Metadata = {
 export default function EmergencyInfoCardPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Emergency / About Me Card
-      </h1>
-      <FavouriteToggleButton slug="emergency-info-card" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="emergency-info-card" title="Emergency / About Me Card">
+        <p>
         A printable, phone-ready card with conditions, allergies,
         medications, communication needs and emergency contacts - to hand to
         first responders or new support staff.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Fill in the fields below - conditions, allergies, medications, communication needs and what helps in a crisis.",

@@ -8,7 +8,7 @@ import {
 } from "@/lib/app-update";
 
 /**
- * Homepage "Get the Android app" block. Server component: looks up the
+ * Homepage "Get the Android app" panel. Server component: looks up the
  * latest published android-v* GitHub release (cached for an hour) so the
  * button always points at the current APK and shows its version. Falls
  * back to the releases page if GitHub can't be reached, and renders
@@ -39,35 +39,62 @@ export default async function AndroidAppDownload() {
   return (
     <section
       aria-labelledby="android-app-heading"
-      className="mb-12 flex flex-col gap-5 rounded-2xl border-2 border-border bg-surface p-6 sm:mb-16 sm:flex-row sm:items-center sm:justify-between"
+      className="mb-12 grid items-center gap-8 overflow-hidden rounded-3xl bg-brand-soft p-6 sm:mb-16 sm:p-10 md:grid-cols-[1.4fr_1fr]"
     >
-      <div className="flex items-start gap-4">
-        <BrandMark className="h-14 w-14 sm:h-16 sm:w-16" />
-        <div>
-          <h2 id="android-app-heading" className="font-display text-2xl font-bold">
-            Get the Android app
-          </h2>
-          <p className="mt-1 max-w-xl text-muted">
-            The same tools in a full-screen app with its own home-screen icon.
-            Free, no account needed, and it tells you when an update is ready.
-            {version && <> Latest version: {version}.</>}
-          </p>
-          <p className="mt-2 max-w-xl text-sm text-muted">
-            After it downloads, open the file to install. Android may ask you
-            to allow installs from your browser the first time.
-          </p>
+      <div>
+        <p className="inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1 text-sm font-semibold">
+          <span aria-hidden="true">📱</span> Android app
+        </p>
+        <h2 id="android-app-heading" className="font-display mt-4 scroll-mt-24 text-3xl sm:text-4xl">
+          Take your buddy everywhere
+        </h2>
+        <p className="mt-3 max-w-xl text-lg">
+          The same tools in a full-screen app with its own home-screen icon.
+          Free, no account needed, and it lets you know when an update is
+          ready.
+        </p>
+        <div className="mt-6 flex flex-wrap items-center gap-4">
+          <a
+            href={href}
+            rel="noopener noreferrer"
+            className="touch-target inline-flex items-center gap-2 rounded-2xl bg-brand px-6 text-lg font-semibold text-brand-ink"
+          >
+            <span aria-hidden="true" className="text-xl">⬇</span>
+            Download for Android
+          </a>
+          {version && <span className="text-sm font-semibold">Version {version}</span>}
+        </div>
+        <p className="mt-4 max-w-xl text-sm">
+          After it downloads, open the file to install. Android may ask you
+          to allow installs from your browser the first time.
+        </p>
+      </div>
+
+      {/* decorative phone mock-up */}
+      <div aria-hidden="true" className="mx-auto w-48 rotate-3 sm:w-56">
+        <div className="rounded-[2.25rem] bg-ink-block p-2.5 shadow-xl">
+          <div className="overflow-hidden rounded-[1.75rem] bg-background">
+            <div className="flex items-center gap-2 border-b border-border bg-surface px-3 py-2.5">
+              <BrandMark className="h-6 w-6" />
+              <span className="font-display text-xs font-semibold">My Support Buddy</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2 p-3">
+              {[
+                ["🗣️", "bg-[var(--tint-communication)]"],
+                ["📅", "bg-[var(--tint-routines)]"],
+                ["😊", "bg-[var(--tint-emotional)]"],
+                ["⏱️", "bg-[var(--tint-preparation)]"],
+                ["💊", "bg-[var(--tint-wellbeing)]"],
+                ["🛒", "bg-[var(--tint-living)]"],
+              ].map(([icon, tint]) => (
+                <span key={icon} className={`grid aspect-square place-items-center rounded-xl text-2xl ${tint}`}>
+                  {icon}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-      <a
-        href={href}
-        rel="noopener noreferrer"
-        className="touch-target inline-flex shrink-0 items-center gap-2 rounded-xl bg-brand px-6 text-lg font-bold text-brand-ink shadow-md shadow-brand/30 transition-transform hover:scale-[1.03]"
-      >
-        <span aria-hidden="true" className="text-2xl">
-          ⬇
-        </span>
-        Download for Android
-      </a>
     </section>
   );
 }

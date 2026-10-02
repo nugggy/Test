@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import VisualTimer from "@/components/visual-timer/VisualTimer";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Visual Timer - My Support Buddy",
@@ -15,14 +14,13 @@ export const metadata: Metadata = {
 export default function VisualTimerPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">Visual Timer</h1>
-      <FavouriteToggleButton slug="visual-timer" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="visual-timer" title="Visual Timer">
+        <p>
         A big, simple countdown that shows time passing - not just numbers. Good
         for transitions between activities, sensory breaks, turn-taking, and
         anywhere a countdown makes waiting easier to understand.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Pick a length, or set a custom number of minutes and seconds.",

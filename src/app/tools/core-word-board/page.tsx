@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import CoreWordBoard from "@/components/core-word-board/CoreWordBoard";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Core Word Board - My Support Buddy",
@@ -15,14 +14,13 @@ export const metadata: Metadata = {
 export default function CoreWordBoardPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">Core Word Board</h1>
-      <FavouriteToggleButton slug="core-word-board" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="core-word-board" title="Core Word Board">
+        <p>
         A fixed, colour-coded core-vocabulary AAC board of high-frequency
         words, arranged by part of speech. Tap to speak, or build a short
         sentence.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Tap any word to hear it spoken aloud and add it to the message strip at the top.",

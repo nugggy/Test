@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import RegulationPlan from "@/components/regulation-plan/RegulationPlan";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Emotional Regulation Plan - My Support Buddy",
@@ -16,17 +15,14 @@ export const metadata: Metadata = {
 export default function EmotionalRegulationPlanPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Emotional Regulation Plan" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Emotional Regulation Plan
-      </h1>
-      <FavouriteToggleButton slug="emotional-regulation-plan" />
-      <p className="no-print mb-3 max-w-2xl text-muted">
+      <ToolHero slug="emotional-regulation-plan" title="Emotional Regulation Plan">
+        <p>
         A step-by-step personal calm-down, grounding and crisis plan - warning
         signs, what helps, grounding techniques, what to avoid, and who to go
         to - built up over time and printable to share with support people.
-      </p>
+        </p>
+      </ToolHero>
       <p className="no-print mb-6 max-w-2xl rounded-xl border-2 border-accent bg-accent/10 px-4 py-3 text-sm">
         <strong>Private to you:</strong> this plan is saved on this device only.
         Nothing is sent to us.

@@ -190,11 +190,17 @@ Tailwind config file (Tailwind v4 style, `@theme inline`). Palette is
 "warm coral and sunshine" (coral `#c23b37`, yellow `#f5b324`, cream `#fdf6ee`;
 changed 02/10/2026 from teal/amber). Every text/background pairing must stay
 WCAG AA; the coral was chosen at 5.3:1 on white so it works for both link text
-and white-on-coral buttons.
+and white-on-coral buttons. Visual style is "bento with personality" (0.39.0): neutral
+stone base, Lexend headings, hairline borders, bold colour blocks
+(`bg-brand`, `bg-accent`, `bg-ink-block`) and category stickers via
+`categoryStyle()` in `src/lib/category-style.ts`. Every tool page starts with
+`<ToolHero slug title>` - use it for new tools. Keep the 88px touch target
+but draw small controls smaller inside it (see `FavouriteToggleButton`).
 Category colours follow the real AAC/PODD convention of one consistent hue
 per category for fast visual recognition — keep this pattern for any new
 tool with categorised content. Fonts are self-hosted via `@fontsource`
-packages (`atkinson-hyperlegible`, `baloo-2`, `lexend`) — **do not**
+packages (`atkinson-hyperlegible` for body, `lexend` for headings; `baloo-2`
+is installed but no longer imported) — **do not**
 reintroduce `next/font/google`; it requires a live network path to Google
 Fonts that isn't guaranteed in every environment this gets built in, and
 self-hosting is strictly better for offline PWA use anyway.

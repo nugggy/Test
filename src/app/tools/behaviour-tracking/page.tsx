@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import BehaviourTracking from "@/components/behaviour-tracking/BehaviourTracking";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Behaviour Tracking Tool - My Support Buddy",
@@ -15,15 +14,12 @@ export const metadata: Metadata = {
 export default function BehaviourTrackingPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Behaviour Tracking Tool
-      </h1>
-      <FavouriteToggleButton slug="behaviour-tracking" />
-      <p className="no-print mb-3 max-w-2xl text-muted">
+      <ToolHero slug="behaviour-tracking" title="Behaviour Tracking Tool">
+        <p>
         Log antecedent-behaviour-consequence (ABC) data quickly, then spot
         severity and frequency patterns in the charts below.
-      </p>
+        </p>
+      </ToolHero>
       <p className="no-print mb-6 max-w-2xl rounded-xl border-2 border-accent bg-accent/10 px-4 py-3 text-sm">
         <strong>Private to you:</strong> entries are saved on this device only.
         Nothing is sent to us.

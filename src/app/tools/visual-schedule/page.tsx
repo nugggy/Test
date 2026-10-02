@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import VisualSchedule from "@/components/visual-schedule/VisualSchedule";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Visual Schedule Builder - My Support Buddy",
@@ -15,16 +14,13 @@ export const metadata: Metadata = {
 export default function VisualSchedulePage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Visual Schedule Builder
-      </h1>
-      <FavouriteToggleButton slug="visual-schedule" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="visual-schedule" title="Visual Schedule Builder">
+        <p>
         Tap pictures to build today&apos;s schedule in order. Tick off each
         activity as it&apos;s done, drag to reorder, set a countdown for any
         step, or print it out to use offline.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Tap a picture in the activity list to add it to today's schedule.",

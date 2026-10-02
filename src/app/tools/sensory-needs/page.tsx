@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import SensoryNeeds from "@/components/sensory-needs/SensoryNeeds";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Sensory Needs - My Support Buddy",
@@ -16,17 +15,14 @@ export const metadata: Metadata = {
 export default function SensoryNeedsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Sensory Needs" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Sensory Needs
-      </h1>
-      <FavouriteToggleButton slug="sensory-needs" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="sensory-needs" title="Sensory Needs">
+        <p>
         Understand sensory seeking and avoiding across sound, light,
         touch, taste/smell, movement and body awareness - and build a
         personal profile of what helps and what overwhelms.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Read through each sense to see examples of seeking vs avoiding patterns.",

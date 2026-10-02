@@ -5,14 +5,16 @@ import BrandMark from "@/components/BrandMark";
 
 export default function SiteHeader() {
   return (
-    <header className="no-print sticky top-0 z-30 border-b-2 border-border bg-surface">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-3 py-2.5 sm:px-4 sm:py-3">
+    <header className="no-print sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-2.5 sm:py-3">
         <Link
           href="/"
-          className="font-display flex shrink-0 items-center gap-2 text-lg font-bold text-foreground sm:gap-2.5 sm:text-xl md:text-2xl"
+          className="group flex shrink-0 items-center gap-2.5 rounded-xl text-foreground sm:gap-3"
         >
-          <BrandMark className="h-9 w-9 sm:h-10 sm:w-10" />
-          My Support Buddy
+          <BrandMark className="sticker h-10 w-10 sm:h-11 sm:w-11" />
+          <span className="font-display text-lg font-semibold tracking-tight sm:text-xl">
+            My Support Buddy
+          </span>
         </Link>
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <ReadPageAloudButton />

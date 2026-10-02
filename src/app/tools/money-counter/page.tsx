@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import MoneyCounter from "@/components/money-counter/MoneyCounter";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Money Counter - My Support Buddy",
@@ -16,17 +15,14 @@ export const metadata: Metadata = {
 export default function MoneyCounterPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Money Counter" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Money Counter
-      </h1>
-      <FavouriteToggleButton slug="money-counter" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="money-counter" title="Money Counter">
+        <p>
         Practise recognising Australian coins and notes, and counting them
         up. Tap a coin or note to add it to your pile and watch the total
         build.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Tap any coin or note to add one to your pile.",

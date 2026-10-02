@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import HolidayPlanner from "@/components/holiday-planner/HolidayPlanner";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Holiday Planner - My Support Buddy",
@@ -16,17 +15,14 @@ export const metadata: Metadata = {
 export default function HolidayPlannerPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Holiday Planner" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Holiday Planner
-      </h1>
-      <FavouriteToggleButton slug="holiday-planner" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="holiday-planner" title="Holiday Planner">
+        <p>
         Everything for a trip in one place: dates, bookings, a day-by-day
         plan, what to pack, what documents to bring, a budget, and emergency
         contacts. Print it out or take it with you.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Fill in the destination and dates.",

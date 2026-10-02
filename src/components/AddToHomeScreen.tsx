@@ -58,7 +58,7 @@ export default function AddToHomeScreen() {
   }
 
   return (
-    <div className="no-print mb-6 flex items-start justify-between gap-3 rounded-xl border-2 border-border bg-surface px-4 py-3 text-sm">
+    <div className="no-print mb-6 flex items-start justify-between gap-3 rounded-xl bg-accent-soft px-4 py-3 text-sm">
       <p className="flex-1">
         {deferredPrompt ? (
           <>
@@ -87,7 +87,7 @@ export default function AddToHomeScreen() {
           type="button"
           onClick={() => setDismissed(true)}
           aria-label="Dismiss"
-          className="touch-target rounded-xl border-2 border-border bg-background px-3 text-sm font-semibold"
+          className="touch-target rounded-xl border-2 border-border bg-surface px-3 text-sm font-semibold"
         >
           ✕
         </button>

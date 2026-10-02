@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import WhatNext from "@/components/what-next/WhatNext";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "What Should I Do Next? - My Support Buddy",
@@ -15,16 +14,13 @@ export const metadata: Metadata = {
 export default function WhatNextPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        What Should I Do Next?
-      </h1>
-      <FavouriteToggleButton slug="what-next" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="what-next" title="What Should I Do Next?">
+        <p>
         Pick the mood that matches how you&apos;re feeling right now, and see
         some things that might help - plus your own strategies, saved here so
         they&apos;re ready whenever you need them.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Tap the mood that best matches how you're feeling right now.",

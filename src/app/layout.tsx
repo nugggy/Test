@@ -1,10 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "@fontsource/atkinson-hyperlegible/400.css";
 import "@fontsource/atkinson-hyperlegible/700.css";
-import "@fontsource/baloo-2/500.css";
-import "@fontsource/baloo-2/600.css";
-import "@fontsource/baloo-2/700.css";
-import "@fontsource/baloo-2/800.css";
 import "@fontsource/lexend/400.css";
 import "@fontsource/lexend/500.css";
 import "@fontsource/lexend/600.css";

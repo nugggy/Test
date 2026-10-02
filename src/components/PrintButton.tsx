@@ -29,7 +29,7 @@ export default function PrintButton({
       type="button"
       onClick={() => void printPage()}
       disabled={disabled}
-      className={`touch-target inline-flex shrink-0 items-center gap-2 rounded-xl border-2 border-accent bg-accent px-5 text-base font-bold text-accent-ink shadow-md shadow-accent/40 transition-transform hover:scale-[1.03] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 ${className}`}
+      className={`touch-target inline-flex shrink-0 items-center gap-2 rounded-xl border-2 border-ink-block bg-ink-block px-5 text-base font-semibold text-ink-block-fg shadow-md transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 ${className}`}
     >
       <span aria-hidden="true" className="text-xl">
         🖨️

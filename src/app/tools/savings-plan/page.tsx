@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import SavingsPlan from "@/components/savings-plan/SavingsPlan";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Savings Plan - My Support Buddy",
@@ -16,16 +15,13 @@ export const metadata: Metadata = {
 export default function SavingsPlanPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Savings Plan" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Savings Plan
-      </h1>
-      <FavouriteToggleButton slug="savings-plan" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="savings-plan" title="Savings Plan">
+        <p>
         Set a savings goal - a target amount, an optional date - then log
         every bit you put aside and watch the progress bar build up.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Add a savings goal with a name and target amount.",

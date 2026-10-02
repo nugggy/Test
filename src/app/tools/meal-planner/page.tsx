@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import MealPlanner from "@/components/meal-planner/MealPlanner";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Meal Planner & Shopping List - My Support Buddy",
@@ -15,16 +14,13 @@ export const metadata: Metadata = {
 export default function MealPlannerPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Meal Planner &amp; Shopping List
-      </h1>
-      <FavouriteToggleButton slug="meal-planner" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="meal-planner" title={<>Meal Planner &amp; Shopping List</>}>
+        <p>
         Build recipes with their ingredients, choose a meal for each day of
         the week, and get an automatic shopping list you can print or check
         off as you shop.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "In the Recipes tab, tap 'New recipe' and add its ingredients (and instructions, if you want).",

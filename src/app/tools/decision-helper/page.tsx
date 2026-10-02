@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import DecisionHelper from "@/components/decision-helper/DecisionHelper";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
 import PrintHeader from "@/components/PrintHeader";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Decision Helper - My Support Buddy",
@@ -16,18 +15,15 @@ export const metadata: Metadata = {
 export default function DecisionHelperPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
       <PrintHeader title="Decision Helper" />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Decision Helper
-      </h1>
-      <FavouriteToggleButton slug="decision-helper" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="decision-helper" title="Decision Helper">
+        <p>
         A step-by-step way to think through a decision at your own pace - list
         your options, weigh up what&apos;s for and against each one, note who
         to talk to, and write down your final choice. Print it to share with
         family or a support person.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Write the decision as a question, e.g. 'Should I move into a new share house?'",

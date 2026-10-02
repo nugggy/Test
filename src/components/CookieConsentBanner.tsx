@@ -18,7 +18,7 @@ export default function CookieConsentBanner() {
     <div
       role="region"
       aria-label="Cookie and storage notice"
-      className="no-print fixed inset-x-0 bottom-0 z-40 border-t-2 border-border bg-surface p-4 shadow-lg"
+      className="no-print fixed inset-x-3 bottom-3 z-40 mx-auto max-w-3xl rounded-2xl border-2 border-border bg-surface p-4 shadow-xl sm:p-5"
     >
       <div className="mx-auto flex max-w-4xl flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm">

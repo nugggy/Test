@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import ToolHero from "@/components/ToolHero";
 import EasyReadClock from "@/components/easy-read-clock/EasyReadClock";
 import MedicalDisclaimerBanner from "@/components/MedicalDisclaimerBanner";
-import FavouriteToggleButton from "@/components/FavouriteToggleButton";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import HowToUse from "@/components/HowToUse";
-import BackToToolsLink from "@/components/BackToToolsLink";
 
 export const metadata: Metadata = {
   title: "Easy-Read Clock - My Support Buddy",
@@ -15,16 +14,13 @@ export const metadata: Metadata = {
 export default function EasyReadClockPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
-      <BackToToolsLink />
-      <h1 className="font-display mb-1 text-2xl sm:text-3xl font-bold">
-        Easy-Read Clock
-      </h1>
-      <FavouriteToggleButton slug="easy-read-clock" />
-      <p className="no-print mb-6 max-w-2xl text-muted">
+      <ToolHero slug="easy-read-clock" title="Easy-Read Clock">
+        <p>
         A big, clear clock - digital or analog, any timezone, and fully
         customisable colours and size. Great for a wall display, a tablet
         propped up, or checking the time somewhere else in the world.
-      </p>
+        </p>
+      </ToolHero>
       <HowToUse
         steps={[
           "Choose digital or analog, and pick a timezone if you want somewhere other than your own.",
