@@ -2,6 +2,7 @@ import Link from "next/link";
 import { tools } from "@/lib/tools";
 import ToolDirectory from "@/components/ToolDirectory";
 import MostFavourited from "@/components/MostFavourited";
+import AndroidAppDownload from "@/components/AndroidAppDownload";
 import { getTopFavouritedTools } from "@/app/actions/favourites";
 import { incrementAndGetVisitCount } from "@/app/actions/visit-counter";
 
@@ -51,6 +52,8 @@ export default async function HomePage() {
           </p>
         )}
       </section>
+
+      <AndroidAppDownload />
 
       <MostFavourited tools={mostFavouritedTools} />
 

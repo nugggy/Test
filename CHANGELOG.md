@@ -3,6 +3,10 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.38.0] - 2026-10-02
+### Added
+- **"Get the Android app" section on the homepage** (`AndroidAppDownload.tsx`): a Download for Android button that links straight to the latest published `android-v*` APK on GitHub Releases (looked up server-side, cached for an hour, falls back to the releases page if GitHub is unreachable), the current version number, one-line install instructions, and a link to all versions. Hidden automatically when the homepage is viewed inside the app itself.
+
 ## [0.37.0] - 2026-10-02
 ### Changed
 - **New colour scheme, "warm coral and sunshine"**: coral brand `#c23b37` (5.3:1 on white, so it is valid for both link text and white-on-coral buttons), sunshine-yellow accent `#f5b324` with dark ink, cream background `#fdf6ee`, warm-brown text and borders. Replaces the teal/amber palette. Dark theme reworked to match (light coral `#ff8a80` on warm dark browns) instead of the leftover purple/pink; high-contrast theme unchanged. Every text/background pairing checked at WCAG AA or better.
