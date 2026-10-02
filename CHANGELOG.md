@@ -3,6 +3,10 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.35.1] - 2026-10-02
+### Changed
+- **Android launcher icon** now matches the site icon (teal rounded square, white four-pointed star) instead of Capacitor's placeholder. Adaptive icon (background + foreground layers) for Android 8+, plus legacy PNGs for every density. Sources in `mobile/assets/`, regenerated with `@capacitor/assets` (command in `docs/android-release.md`). Capacitor's default placeholder drawables removed. APK released as `android-v1.0.1` (versionCode 2), which also serves as the first live test of the in-app update channel.
+
 ## [0.35.0] - 2026-10-02
 ### Added
 - **Android app** (`android/`, `capacitor.config.ts`) - a Capacitor shell whose WebView loads the live site at tools.dunns.cc, so every tool, sign-in cookie, server action and localStorage save behaves exactly as in a phone browser. App ID `cc.dunns.tools`, name "Toolkit". Distributed as a direct APK download from GitHub Releases (tag `android-v<version>`), not the Play Store. Signed with a gitignored release keystore (`android/keystore/`, `android/keystore.properties`). Full build/release steps in `docs/android-release.md`.

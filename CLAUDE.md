@@ -81,8 +81,9 @@ and must never change between releases.
   further.
 - `/privacy` needs a Terms of Use companion page, real contact details, and
   legal review before going live.
-- `public/manifest.json` icon is a placeholder SVG — needs real app icons
-  (multiple sizes, maskable variant) before PWA install prompts look right.
+- `public/manifest.json` icon is a single SVG — needs PNG sizes and a maskable
+  variant before PWA install prompts look right. (The Android launcher icon is
+  done: see `mobile/assets/` and `docs/android-release.md`.)
 - Sensitive tools (Behaviour Tracking, Social Story Creator) have a DB
   schema but no pages/UI yet — build these next, following the
   `participant_id`-scoped RLS pattern already in the migration.

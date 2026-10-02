@@ -19,6 +19,7 @@ Download link for users: https://github.com/nugggy/Test/releases/latest
 | `android/app/src/main/java/cc/dunns/tools/MainActivity.java` | Appends `ToolkitAndroid/<version>` to the user agent, registers the print plugin |
 | `android/app/src/main/java/cc/dunns/tools/PrinterPlugin.java` | Native print dialog (WebViews have no `window.print()`) |
 | `mobile/www/` | Only the local offline page shown if the first load fails |
+| `mobile/assets/` | Launcher icon sources (SVG). Regenerate with the command under "Launcher icon" |
 | `src/lib/app-update.ts` | Pure update-channel logic (unit tested) |
 | `src/components/AppUpdateChecker.tsx` | Banner shown inside the app when a newer release exists |
 | `src/lib/native-app.ts` | `isAndroidApp()` and `printPage()` helpers |
@@ -75,6 +76,18 @@ an update signed with a different key, so users would have to uninstall and lose
 local data. Keep `android/keystore/toolkit-release.jks` and
 `android/keystore.properties` backed up somewhere safe outside the repo.
 
+## Launcher icon
+
+The launcher icon matches the site icon (`public/icon.svg`): a teal rounded
+square with a white four-pointed star. Sources are `mobile/assets/icon-only.svg`
+(legacy icon), `icon-foreground.svg` and `icon-background.svg` (adaptive icon
+layers, star kept inside the 66% safe zone). After editing them, regenerate every
+density with:
+
+```powershell
+npx @capacitor/assets generate --android --assetPath mobile/assets --iconBackgroundColor '#0f6e67' --iconBackgroundColorDark '#0f6e67'
+```
+
 ## Installing on a phone
 
 Users download the APK from the releases page, open it, and allow "install
@@ -88,6 +101,3 @@ testing: `npm run android:debug`, then
   the shell and any tool already opened, and the update check is skipped offline.
 - Speech recognition (microphone input) is not available in Android WebViews.
   Text-to-speech works.
-- The launcher icon is Capacitor's default. Replace it with
-  `npx @capacitor/assets generate --android` once real icons exist (see the
-  `manifest.json` note in CLAUDE.md).
