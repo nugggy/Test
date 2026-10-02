@@ -4,8 +4,8 @@
   "description": "Free tools for people with disability, families, support workers, educators and NDIS providers.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f4f7f5",
-  "theme_color": "#0f6e67",
+  "background_color": "#fdf6ee",
+  "theme_color": "#c23b37",
   "icons": [
     {
       "src": "/icon.svg",

@@ -84,14 +84,14 @@ local data. Keep `android/keystore/toolkit-release.jks` and
 ## Launcher icon
 
 The launcher icon matches the site icon (`public/icon.svg`): a friendly smiling
-face on a teal rounded square. Sources are `mobile/assets/icon-only.svg`
+face on a coral rounded square. Sources are `mobile/assets/icon-only.svg`
 (legacy icon), `icon-foreground.svg` and `icon-background.svg` (adaptive icon
 layers, face kept inside the 66% safe zone), plus `splash.svg` / `splash-dark.svg`
 for the launch screen. After editing them, regenerate every
 density with:
 
 ```powershell
-npx @capacitor/assets generate --android --assetPath mobile/assets --iconBackgroundColor '#0f6e67' --iconBackgroundColorDark '#0f6e67' --splashBackgroundColor '#0f6e67' --splashBackgroundColorDark '#0f6e67'
+npx @capacitor/assets generate --android --assetPath mobile/assets --iconBackgroundColor '#c23b37' --iconBackgroundColorDark '#c23b37' --splashBackgroundColor '#c23b37' --splashBackgroundColorDark '#c23b37'
 ```
 
 ## Installing on a phone

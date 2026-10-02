@@ -193,8 +193,11 @@ checklist you print, a generator you use once) should stay account-free.
 (Postgres + Auth), deployed as a PWA. No other backend.
 
 **Design system** (`src/app/globals.css`): CSS custom properties, not a
-Tailwind config file (Tailwind v4 style, `@theme inline`). Palette is a
-calm teal/amber, not the generic "cream + terracotta" AI-design default.
+Tailwind config file (Tailwind v4 style, `@theme inline`). Palette is
+"warm coral and sunshine" (coral `#c23b37`, yellow `#f5b324`, cream `#fdf6ee`;
+changed 02/10/2026 from teal/amber). Every text/background pairing must stay
+WCAG AA; the coral was chosen at 5.3:1 on white so it works for both link text
+and white-on-coral buttons.
 Category colours follow the real AAC/PODD convention of one consistent hue
 per category for fast visual recognition — keep this pattern for any new
 tool with categorised content. Fonts are self-hosted via `@fontsource`

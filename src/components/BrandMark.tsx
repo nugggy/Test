@@ -4,7 +4,7 @@ interface BrandMarkProps {
 }
 
 /**
- * The My Support Buddy mark: a friendly smiling face on a teal rounded
+ * The My Support Buddy mark: a friendly smiling face on a coral rounded
  * square. The same artwork is used for the site favicon/PWA icon
  * (`public/icon.svg`) and the Android launcher icon (`mobile/assets/`), so
  * keep all three in step if the design changes. Decorative only: callers

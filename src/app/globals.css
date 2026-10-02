@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  /* Core palette — calm, low-glare surface with a deep teal ink,
-     inspired by AAC board conventions rather than generic SaaS defaults. */
-  --background: #f4f7f5;
+  /* Core palette — "warm coral and sunshine": friendly, low-glare cream
+     surface with deep warm-brown ink. Coral is 5.3:1 on white so it is safe
+     for link text and for white text on filled buttons; the yellow accent is
+     only ever used with the dark accent ink. Keep every pairing at WCAG AA. */
+  --background: #fdf6ee;
   --surface: #ffffff;
-  --foreground: #16302b;
-  --muted: #4b6660;
-  --border: #d9e3df;
+  --foreground: #3a2520;
+  --muted: #75564e;
+  --border: #f0ddd0;
 
-  --brand: #0f6e67;      /* primary teal — calm, trustworthy */
+  --brand: #c23b37;      /* warm coral — friendly, energetic */
   --brand-ink: #ffffff;
-  --accent: #e8a33d;     /* warm amber — used sparingly for highlights/CTAs */
-  --accent-ink: #2b1c00;
+  --accent: #f5b324;     /* sunshine yellow — used sparingly for highlights/CTAs */
+  --accent-ink: #3a2500;
 
   /* Category colours, one consistent hue per category — the same
      fast-visual-recognition convention real AAC/PODD boards use so a
@@ -101,16 +103,16 @@ html[data-text-size="xl"] {
 
 /* ---- Accessibility mode: dark mode ---- */
 html[data-theme="dark"] {
-  --background: #16101f;
-  --surface: #211a33;
-  --foreground: #f2eefa;
-  --muted: #b9aed1;
-  --border: #3d3253;
+  --background: #1f1412;
+  --surface: #2b1b18;
+  --foreground: #fbf1ea;
+  --muted: #d9bfb5;
+  --border: #4a302b;
 
-  --brand: #a78bfa;
-  --brand-ink: #1c1032;
-  --accent: #f472b6;
-  --accent-ink: #2b0f22;
+  --brand: #ff8a80;      /* lighter coral so it stays readable on dark */
+  --brand-ink: #3a1210;
+  --accent: #ffd166;
+  --accent-ink: #3a2500;
 }
 
 /* ---- Accessibility mode: high contrast ---- */

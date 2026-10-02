@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.37.0] - 2026-10-02
+### Changed
+- **New colour scheme, "warm coral and sunshine"**: coral brand `#c23b37` (5.3:1 on white, so it is valid for both link text and white-on-coral buttons), sunshine-yellow accent `#f5b324` with dark ink, cream background `#fdf6ee`, warm-brown text and borders. Replaces the teal/amber palette. Dark theme reworked to match (light coral `#ff8a80` on warm dark browns) instead of the leftover purple/pink; high-contrast theme unchanged. Every text/background pairing checked at WCAG AA or better.
+- Same colour applied everywhere the brand appears: `manifest.json` theme/background, `themeColor` in `layout.tsx`, `public/icon.svg`, the `BrandMark` header mark (via `--brand`), the offline page, the Visual Timer default colour and presets, and the Android launcher icon, splash screen and WebView background. Category and emotion colours are unchanged (they follow the AAC one-hue-per-category convention, not the brand).
+- Android app released as `android-v1.2.0` (versionCode 5) with the coral icon and splash.
+
 ## [0.36.0] - 2026-10-02
 ### Changed
 - **Product renamed to "My Support Buddy"** (was "Toolkit"): site header, every page title, PWA manifest (`short_name` "Support Buddy"), print letterhead, update banner, provider-directory disclaimers, offline page, README and project brief. Internal identifiers deliberately unchanged so existing installs keep working: package ID `cc.dunns.tools`, the `ToolkitAndroid/<version>` user-agent token, localStorage keys, service-worker cache name, `package.json` `name`, and tool names that happen to contain the word (Calm Down Toolkit, etc.).
