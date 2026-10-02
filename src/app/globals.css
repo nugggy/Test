@@ -1,19 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  /* Core palette — matches the Dundaloo brand (see public/dundaloo-logo.svg):
-     purple/navy primary, warm pink accent, on a soft lavender-tinted
-     surface rather than a plain white/grey page background. */
-  --background: #f6f2fb;
+  /* Core palette — calm, low-glare surface with a deep teal ink,
+     inspired by AAC board conventions rather than generic SaaS defaults. */
+  --background: #f4f7f5;
   --surface: #ffffff;
-  --foreground: #241a38;
-  --muted: #685c7c;
-  --border: #e2d9f0;
+  --foreground: #16302b;
+  --muted: #4b6660;
+  --border: #d9e3df;
 
-  --brand: #594295;      /* Dundaloo purple */
+  --brand: #0f6e67;      /* primary teal — calm, trustworthy */
   --brand-ink: #ffffff;
-  --accent: #db469a;     /* Dundaloo pink — used sparingly for highlights/CTAs */
-  --accent-ink: #2b0f22;
+  --accent: #e8a33d;     /* warm amber — used sparingly for highlights/CTAs */
+  --accent-ink: #2b1c00;
 
   /* Category colours, one consistent hue per category — the same
      fast-visual-recognition convention real AAC/PODD boards use so a
@@ -36,6 +35,23 @@
   --cat-favourites-ink: #ffffff;
   --cat-custom: #6b7280;
   --cat-custom-ink: #ffffff;
+
+  /* Core Word Board colours - the standard clinical AAC convention of
+     colour-coding by part of speech (not by life-domain topic, unlike the
+     Communication Board categories above), so core vocabulary stays in a
+     consistent position/colour the way a real core board would. */
+  --cat-core-pronouns: #f2c230;
+  --cat-core-pronouns-ink: #3a2c00;
+  --cat-core-verbs: #4caf6d;
+  --cat-core-verbs-ink: #ffffff;
+  --cat-core-descriptors: #4c8df2;
+  --cat-core-descriptors-ink: #ffffff;
+  --cat-core-social: #f28c4c;
+  --cat-core-social-ink: #3a1c00;
+  --cat-core-questions: #9b6fe8;
+  --cat-core-questions-ink: #ffffff;
+  --cat-core-negation: #e0524a;
+  --cat-core-negation-ink: #ffffff;
 
   /* Emotion Tracker colours — same one-hue-per-item convention as the
      category colours above, so emotions stay visually distinguishable
@@ -161,6 +177,12 @@ html[data-spacing="relaxed"] body {
   --color-cat-requests: var(--cat-requests);
   --color-cat-favourites: var(--cat-favourites);
   --color-cat-custom: var(--cat-custom);
+  --color-cat-core-pronouns: var(--cat-core-pronouns);
+  --color-cat-core-verbs: var(--cat-core-verbs);
+  --color-cat-core-descriptors: var(--cat-core-descriptors);
+  --color-cat-core-social: var(--cat-core-social);
+  --color-cat-core-questions: var(--cat-core-questions);
+  --color-cat-core-negation: var(--cat-core-negation);
   --color-emo-happy: var(--emo-happy);
   --color-emo-sad: var(--emo-sad);
   --color-emo-angry: var(--emo-angry);

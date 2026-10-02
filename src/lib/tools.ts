@@ -425,4 +425,74 @@ export const tools: ToolEntry[] = [
     category: "Routines",
     worksOffline: true,
   },
+  {
+    slug: "emergency-info-card",
+    name: "Emergency / About Me Card",
+    description:
+      "A printable, phone-ready card with conditions, allergies, medications, communication needs and emergency contacts - to hand to first responders or new support staff.",
+    icon: "🆘",
+    status: "live",
+    category: "Preparation",
+    worksOffline: true,
+  },
+  {
+    slug: "conversation-starter-cards",
+    name: "Conversation Starter Cards",
+    description:
+      "A deck of conversation-starter prompts, grouped by category, for anyone who finds small talk hard - especially useful in group or day programs.",
+    icon: "💬",
+    status: "live",
+    category: "Communication",
+    worksOffline: true,
+  },
+  {
+    slug: "memory-aid-board",
+    name: "Memory Aid / Reminder Board",
+    description:
+      "Visual daily prompts for memory or executive-function difficulties - a checklist of recurring reminders grouped by time of day that resets automatically each morning.",
+    icon: "🧠",
+    status: "live",
+    category: "Independent living",
+    worksOffline: true,
+  },
+  {
+    slug: "core-word-board",
+    name: "Core Word Board",
+    description:
+      "A fixed, colour-coded core-vocabulary AAC board of high-frequency words, arranged by part of speech. Tap to speak, or build a short sentence.",
+    icon: "🔤",
+    status: "live",
+    category: "Communication",
+    worksOffline: true,
+  },
+  {
+    slug: "change-preparation",
+    name: "Change Preparation Toolkit",
+    description:
+      "Prepare for an upcoming change - moving house, a new school, a new support worker - with what's changing, what's staying the same, a countdown, and things that might help.",
+    icon: "🧭",
+    status: "live",
+    category: "Preparation",
+    worksOffline: true,
+  },
+  {
+    slug: "task-sequencing",
+    name: "Task Sequencing Tool",
+    description:
+      "Break a task down into ordered picture steps, then run through it one step at a time and tick each one off as it's done.",
+    icon: "🪜",
+    status: "live",
+    category: "Independent living",
+    worksOffline: true,
+  },
+  {
+    slug: "ndis-budget-tracker",
+    name: "NDIS Plan Budget Tracker",
+    description:
+      "See spend vs. plan allocation for each NDIS support category - Core Supports, Capacity Building and Capital Supports.",
+    icon: "🧾",
+    status: "live",
+    category: "Independent living",
+    worksOffline: true,
+  },
 ];

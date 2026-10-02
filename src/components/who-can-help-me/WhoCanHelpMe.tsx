@@ -81,6 +81,16 @@ export default function WhoCanHelpMe() {
                   📞 {service.phone}
                 </a>
               )}
+              {service.website && (
+                <a
+                  href={service.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="touch-target inline-flex items-center rounded-xl border-2 border-border bg-background px-4 text-sm font-semibold text-brand hover:border-brand"
+                >
+                  🌐 Website
+                </a>
+              )}
               {service.hours && (
                 <span className="text-sm text-muted">{service.hours}</span>
               )}

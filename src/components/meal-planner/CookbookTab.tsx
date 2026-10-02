@@ -138,8 +138,6 @@ export default function CookbookTab() {
             className="print-avoid-break mb-6 flex flex-col items-center gap-2 border-b-2 border-border pb-6 text-center"
             style={layout === "page-per-recipe" ? { breakAfter: "page" } : undefined}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/dundaloo-logo.svg" alt="" className="mb-2 h-10 w-auto print:h-8" />
             <h2 className="font-display text-3xl font-bold">{title || "My Cookbook"}</h2>
             {subtitle && <p className="text-lg text-muted">{subtitle}</p>}
             <p className="hidden text-xs text-muted print:block">Generated {generatedOn}</p>

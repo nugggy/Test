@@ -20,14 +20,14 @@ export const DEFAULT_TIMER_SETTINGS: VisualTimerSettings = {
   lastMinutes: 5,
   lastSeconds: 0,
   style: "pie",
-  color: "#db469a",
+  color: "#0f6e67",
   backgroundColor: "#ffffff",
   soundOn: true,
   vibrateOn: true,
 };
 
 export const TIMER_COLOR_PRESETS = [
-  "#db469a", "#594295", "#e0524a", "#f2c230", "#4caf6d", "#1a2b4c",
+  "#0f6e67", "#e8a33d", "#e0524a", "#f2c230", "#4caf6d", "#1a2b4c",
 ];
 
 export const TIMER_PRESETS_SECONDS = [

@@ -8,12 +8,17 @@ interface ContactDirectoryProps {
   directory: ReturnType<UseContactDirectory>;
   categories: string[];
   clearLabel: string;
+  /** Set to false when a page already has its own Print button covering
+   * this section (e.g. printing it together with other content above it),
+   * so the page doesn't end up with two Print buttons. Defaults to true. */
+  showPrintButton?: boolean;
 }
 
 export default function ContactDirectory({
   directory,
   categories,
   clearLabel,
+  showPrintButton = true,
 }: ContactDirectoryProps) {
   const { contacts, addContact, updateContact, removeContact, clearAll } = directory;
 
@@ -31,7 +36,7 @@ export default function ContactDirectory({
         >
           Clear all
         </button>
-        <PrintButton />
+        {showPrintButton && <PrintButton />}
       </div>
 
       {categories.map((category) => {
