@@ -1,6 +1,6 @@
 // Minimal offline app-shell cache.
 // Bump CACHE_NAME whenever cached routes/assets need to be invalidated.
-const CACHE_NAME = "toolkit-shell-v4";
+const CACHE_NAME = "toolkit-shell-v5";
 const SHELL_URLS = [
   "/",
   "/tools/communication-board",
@@ -39,6 +39,27 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
+  // Page loads: network first, so a deploy shows up on the very next visit.
+  // The cached copy is only the offline fallback. (Before this, pages were
+  // served cache-first and refreshed in the background, which left every
+  // visitor one deploy behind - including the Android app's WebView.)
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(request).then((cached) => cached || caches.match("/")))
+    );
+    return;
+  }
+
+  // Everything else (hashed JS/CSS, fonts, icons): cache first, refresh in
+  // the background. These URLs change name when their content changes.
   event.respondWith(
     caches.match(request).then((cached) => {
       const network = fetch(request)
