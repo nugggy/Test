@@ -62,10 +62,23 @@ preserving — see "Full tool roadmap" below.
 **Not yet built:** every other tool beyond the Communication Board. The
 `behaviour_logs` and `social_stories` tables exist but have no UI yet.
 
+## Android app (added 02/10/2026)
+
+`android/` is a Capacitor shell that loads the live site in a WebView; there is
+no separate mobile codebase and no static export (the site is server-rendered).
+APK version lives in `android/app/build.gradle`, independent of `package.json`.
+Releases are GitHub Releases on nugggy/Test tagged `android-v<version>` with the
+APK attached; `src/components/AppUpdateChecker.tsx` offers the download inside
+the app. Printing inside the app goes through `printPage()` from
+`src/lib/native-app.ts` (use it, not `window.print()`, in any new tool). Build
+and release steps: `docs/android-release.md`. The signing keystore is gitignored
+and must never change between releases.
+
 ## Known gaps / next steps
 
-- No automated tests yet (no Jest/Playwright set up). Add before the tool
-  count grows much further.
+- Tests: Vitest is set up (`npm test`) but only covers the update-channel
+  logic so far. Add component/tool tests before the tool count grows much
+  further.
 - `/privacy` needs a Terms of Use companion page, real contact details, and
   legal review before going live.
 - `public/manifest.json` icon is a placeholder SVG — needs real app icons

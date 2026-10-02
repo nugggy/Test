@@ -3,6 +3,48 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.35.0] - 2026-10-02
+### Added
+- **Android app** (`android/`, `capacitor.config.ts`) - a Capacitor shell whose WebView loads the live site at tools.dunns.cc, so every tool, sign-in cookie, server action and localStorage save behaves exactly as in a phone browser. App ID `cc.dunns.tools`, name "Toolkit". Distributed as a direct APK download from GitHub Releases (tag `android-v<version>`), not the Play Store. Signed with a gitignored release keystore (`android/keystore/`, `android/keystore.properties`). Full build/release steps in `docs/android-release.md`.
+- **In-app update channel** (`src/lib/app-update.ts`, `src/components/AppUpdateChecker.tsx`) - the app appends `ToolkitAndroid/<version>` to its user agent; on load the site detects it, checks the GitHub releases API (at most once an hour) for a newer published `android-v*` release with an `.apk` asset, and shows an accessible banner with release notes, a Download button and a Not now button. Only APK links served by GitHub for this repo are accepted. Renders nothing in a normal browser; every failure is silent.
+- **Native print plugin** (`PrinterPlugin.java`) and `printPage()` helper (`src/lib/native-app.ts`) - Android WebViews have no `window.print()`, so `PrintButton` now hands the page to the system print dialog inside the app and falls back to browser printing elsewhere.
+- **Offline page** (`mobile/www/offline.html`) shown by the app if the very first load fails with no network; later loads come from the service worker cache as before.
+- **First automated tests**: Vitest (`npm test`, `vitest.config.ts`) with 13 unit tests covering version parsing/comparison, release selection and the update decision.
+- npm scripts `android:sync`, `android:debug`, `android:release`, `android:open`.
+
+### Changed
+- `@types/node` bumped from ^20 to 24 to match the installed Node 24 and satisfy Vitest's peer range.
+- `tsconfig.json` and `eslint.config.mjs` also exclude `android/` and `mobile/`.
+
+## [0.34.0] - 2026-10-02
+### Removed
+- **All Dundaloo branding and references.** The header logo is back to the generic "✦ Toolkit" mark, the homepage hero image and "Built and maintained by Dundaloo Support Services" line are gone, the footer no longer credits Dundaloo, and the `AlliedHealthCallout` component (shown on 48 tool pages, linking to dundaloo.org.au) has been deleted along with every usage. Print letterheads (`PrintHeader`, meal-planner cookbook) use a plain "✦ Toolkit" mark instead of the logo. `public/dundaloo-logo.svg` and `public/dundaloo-hero.jpg` are deleted and the service worker shell cache no longer lists the logo (`CACHE_NAME` bumped to `toolkit-shell-v4`). Example placeholders in the contact editor and Support Plan no longer mention Dundaloo.
+
+### Changed
+- Site palette reverted from the Dundaloo purple/pink to the original calm teal/amber (`--brand: #0f6e67`, `--accent: #e8a33d`, teal-tinted background and borders), matching `public/icon.svg`, `manifest.json` and the `themeColor` in `layout.tsx`. The Visual Timer's default colour and first two colour presets, which were the brand pink and purple, are now the teal and amber.
+- `tsconfig.json` and `eslint.config.mjs` now exclude the untracked `Test/` folder (a scratch copy of the repo) so it can't break `tsc`, `eslint` or `next build`.
+
+## [0.33.0] - 2026-08-15
+### Added
+- **NDIS Plan Budget Tracker** (`/tools/ndis-budget-tracker`) - like the existing Budget Tracker, but scoped to real NDIS support categories: Core Supports split into its 4 line items (Assistance with Daily Life, Consumables, Transport, Social & Community Participation), plus Capacity Building and Capital Supports. Enter your plan's dates and per-category allocation straight from your NDIS plan document, log spending against it, and see a dashboard of spend vs. allocation per category plus a pacing indicator (spend so far vs. how much of the plan period has elapsed). Never sets or suggests any figures itself, same rule as the Diabetes Management Plan.
+- **Emergency / About Me Card** (`/tools/emergency-info-card`) - a printable, phone-ready card with name, conditions, allergies, medications, communication needs, what helps in a crisis, and emergency/key contacts, to hand to a first responder or new support worker. A "Show on phone" full-screen view alongside printing. One profile per device, no account needed.
+- **Task Sequencing Tool** (`/tools/task-sequencing`) - save named, reusable step-by-step sequences for a single task (e.g. "Brushing teeth"), each step a picture and short label. A "Run this task" mode steps through one step at a time with a tick and an optional spoken read-out, then resets for next time. Distinct from the Visual Schedule Builder, which is a time/session-based whole-day schedule rather than a reusable single-task checklist.
+- **Change Preparation Toolkit** (`/tools/change-preparation`) - prepare for an upcoming change (moving house, a new school, a new support worker), with what's changing and what's staying the same side by side, a countdown to the date, a "things that might help" checklist, and notes. Supports multiple saved plans at once, like the Holiday Planner.
+- **Core Word Board** (`/tools/core-word-board`) - a fixed, non-customisable core-vocabulary AAC board of ~30 high-frequency words, colour-coded by part of speech (pronouns, verbs, descriptors, social, questions, yes/no) rather than by life-domain topic - the standard clinical AAC layout convention, distinct from the picture-based, fully-customisable Communication Board. Tap to speak, or tap a sequence of words into a message strip. New `--cat-core-*` colour tokens in `globals.css`, following the existing one-hue-per-category convention.
+- **Memory Aid / Reminder Board** (`/tools/memory-aid-board`) - a daily checklist of recurring reminders (e.g. "Take medication", "Lock the door"), each tagged to a time of day (morning/afternoon/evening/anytime) and grouped that way in the day's view. Ticks reset automatically each day (device-local date), with a manual "Reset for today" too. General-purpose, not medication-specific - Medication Reminder already covers that with its own adherence dashboard.
+- **Conversation Starter Cards** (`/tools/conversation-starter-cards`) - a deck of ~25 conversation-prompt cards grouped by category (interests, feelings, weekend, favourites, getting to know you), shown one at a time with Next/Shuffle, an optional spoken read-out, a favourites star, and the ability to add your own cards.
+
+### Changed
+- `ContactDirectory` (shared by Support Team Directory, Friends & Family Directory, and now the Emergency Info Card) gained an optional `showPrintButton` prop, so a page that already has its own Print button covering more than just the contacts section doesn't end up with two.
+- All 7 new tool pages above use the `BackToToolsLink` component introduced in 0.32.0.
+
+## [0.32.0] - 2026-08-15
+### Added
+- **Who Can Help Me?: official websites alongside phone numbers.** Every service that has one now shows a "Website" link next to its existing click-to-call number, opening in a new tab. Each URL was checked live (via search, cross-referenced against government/org domains) before being added, following the same verification standard as the Understanding Conditions tool's links.
+
+### Fixed
+- **Back navigation now restores your place on the homepage.** The "← All tools" link on every tool page used a fresh `Link` navigation, which always scrolled the destination to the top - so returning from a tool meant losing your scroll position in the tool list. New shared `BackToToolsLink` component: when the homepage really is the previous entry in the tab's history (same-origin referrer, on-`/`), it uses the browser's own back navigation instead, which the browser restores scroll position for. Falls back to the normal link for bookmarks, shared links, or a new tab. Replaces the duplicated nav markup across all 41 tool pages with one shared component.
+
 ## [0.31.0] - 2026-08-14
 ### Added
 - **Visual Timer** (`/tools/visual-timer`) - a big, simple countdown with a shrinking pie ("Time Timer" style) or bar display, for transitions, sensory breaks and turn-taking. Preset and custom lengths, a colour picker, and an optional sound + vibration alert when time's up (a generated three-beep tone via Web Audio - no audio file, so it stays offline-friendly). New shared `useCountdown` hook (wall-clock-timestamp driven, so it can't drift if the tab is backgrounded) and `TimerFace` component, both reused by the Visual Schedule Builder's new per-step timer below.
