@@ -195,7 +195,12 @@ and white-on-coral buttons. Visual style is "bento with personality" (0.39.0): n
 stone base, Lexend headings, hairline borders, bold colour blocks
 (`bg-brand`, `bg-accent`, `bg-ink-block`) and category stickers via
 `categoryStyle()` in `src/lib/category-style.ts`. Every tool page starts with
-`<ToolHero slug title>` - use it for new tools. Keep the 88px touch target
+`<ToolHero slug title>` - use it for new tools. Playful layer (0.41.0):
+Buddy the mascot (`src/components/Buddy.tsx`), `Sprinkles`, `Scribble`, and
+the `.pop` hover (set `--pop-color` to the card's `categoryStyle().solidVar`).
+Anything purely decorative gets the `.deco` class so high-contrast mode and
+print hide it, and new animations must be safe under the reduced-motion
+rules at the end of `globals.css`. Keep the 88px touch target
 but draw small controls smaller inside it (see `FavouriteToggleButton`).
 Category colours follow the real AAC/PODD convention of one consistent hue
 per category for fast visual recognition — keep this pattern for any new

@@ -30,7 +30,6 @@
   --ink-block-accent: #f5b324;
 
   --shadow-card: 0 1px 2px rgb(28 25 23 / 0.05), 0 1px 1px rgb(28 25 23 / 0.03);
-  --shadow-lift: 0 2px 4px rgb(28 25 23 / 0.04), 0 12px 28px -10px rgb(28 25 23 / 0.18);
 
   /* Category "sticker" colours: tint = background, ink = text on the tint
      (6:1 or better), solid = decorative dot only, never text. */
@@ -153,7 +152,6 @@ html[data-theme="dark"] {
   --ink-block-accent: #8a4500;
 
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.5);
-  --shadow-lift: 0 12px 28px -10px rgb(0 0 0 / 0.7);
 
   --tint-communication: #1d2a44;  --ink-communication: #a9c8ff;
   --tint-emotional: #2a2142;      --ink-emotional: #cdb8ff;
@@ -187,7 +185,6 @@ html[data-contrast="high"] {
   --ink-block-muted: #ffffff;
   --ink-block-accent: #ffe066;
   --shadow-card: none;
-  --shadow-lift: none;
 
   --tint-communication: #000000;  --ink-communication: #ffffff;  --solid-communication: #ffe066;
   --tint-emotional: #000000;      --ink-emotional: #ffffff;      --solid-emotional: #ffe066;
@@ -368,7 +365,7 @@ input[type="range"] {
 }
 
 /* In high contrast, solid blocks that match the black page get a white edge. */
-html[data-contrast="high"] :is(.bg-ink-block, .bg-brand-soft, .bg-accent-soft, .bg-surface-2) {
+html[data-contrast="high"] :is(.bg-ink-block, .bg-brand-soft, .bg-accent-soft, .bg-surface-2, .hc-outline) {
   outline: 2px solid #ffffff;
   outline-offset: -2px;
 }
@@ -382,16 +379,174 @@ html[data-contrast="high"] .bg-dots {
   background-image: none;
 }
 
-/* Hover lift for cards and tiles (motion settings switch it off). */
-.lift {
-  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+/* "Sticker pop" hover for cards and tiles (0.41.0): the card hops up and
+   to the left and leaves a chunky offset shadow behind it, drawn in its
+   own category colour via --pop-color (set inline per card). The doubled
+   class beats the quiet card-shadow rule above. Motion settings keep the
+   shadow but drop the hop. */
+.pop {
+  --pop-color: var(--foreground);
+  transition:
+    transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 180ms ease,
+    border-color 180ms ease;
 }
-.lift:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lift);
+.pop.pop:hover,
+.pop.pop:focus-visible {
+  transform: translate(-3px, -3px);
+  border-color: var(--pop-color);
+  box-shadow: 6px 6px 0 var(--pop-color);
 }
-html[data-motion="reduced"] .lift:hover {
+.pop.pop:active {
+  transform: translate(0, 0) scale(0.98);
+  box-shadow: 2px 2px 0 var(--pop-color);
+}
+html[data-motion="reduced"] .pop.pop:hover,
+html[data-motion="reduced"] .pop.pop:focus-visible {
   transform: none;
+}
+
+/* ---- Decoration (0.41.0) ----
+   Anything with .deco is pure ornament: Buddy, confetti, scribbles. It is
+   hidden in high-contrast mode and in print, where it only adds noise. */
+html[data-contrast="high"] .deco {
+  display: none !important;
+}
+@media print {
+  .deco {
+    display: none !important;
+  }
+}
+
+/* Buddy the mascot: blink, gentle bob, wave, glowing antenna. */
+.buddy-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: buddy-blink 5.5s infinite;
+}
+@keyframes buddy-blink {
+  0%, 93%, 100% { transform: scaleY(1); }
+  96% { transform: scaleY(0.1); }
+}
+.buddy-bob {
+  animation: buddy-bob 3.2s ease-in-out infinite;
+}
+@keyframes buddy-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.buddy-wave {
+  transform-box: view-box;
+  transform-origin: 152px 104px;
+  animation: buddy-wave 2.6s ease-in-out infinite;
+}
+.buddy-wave-left {
+  transform-box: view-box;
+  transform-origin: 48px 104px;
+  animation: buddy-wave-left 2.6s ease-in-out infinite;
+}
+@keyframes buddy-wave {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  70% { transform: rotate(16deg); }
+  80% { transform: rotate(-8deg); }
+  90% { transform: rotate(12deg); }
+}
+@keyframes buddy-wave-left {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  70% { transform: rotate(-16deg); }
+  80% { transform: rotate(8deg); }
+  90% { transform: rotate(-12deg); }
+}
+.buddy-glow {
+  animation: buddy-glow 2.4s ease-in-out infinite;
+}
+@keyframes buddy-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.buddy-float,
+.sprinkle {
+  animation: float 6s ease-in-out infinite;
+}
+.sprinkle {
+  transform: rotate(var(--r, 0deg));
+}
+@keyframes float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
+}
+
+/* Hand-drawn underline that draws itself once. */
+.scribble-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: scribble 700ms 300ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes scribble {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Favourite heart: a springy pop and a ring that bursts outwards. */
+.heart-pop {
+  animation: heart-pop 480ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes heart-pop {
+  0% { transform: scale(0.5); }
+  55% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+.heart-ring {
+  animation: heart-ring 520ms ease-out forwards;
+}
+@keyframes heart-ring {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+/* Gentle fade-and-rise as the page's main blocks arrive, staggered with
+   an inline animation-delay. */
+.rise {
+  animation: rise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* A message or value that just changed bounces in. */
+.pop-in {
+  animation: pop-in 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes pop-in {
+  0% { transform: scale(0.94); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Sound waves beside a speaker while something is being spoken. */
+.sound-wave {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: sound-wave 900ms ease-out infinite;
+}
+@keyframes sound-wave {
+  0% { opacity: 0; transform: scale(0.6); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.15); }
+}
+
+/* Reduced motion: the global rule above shortens every animation, but
+   delayed entrances would still sit invisible for their delay, and the
+   underline must show fully drawn. */
+@media (prefers-reduced-motion: reduce) {
+  .rise, .pop-in { animation: none !important; }
+  .scribble-draw { animation: none !important; stroke-dashoffset: 0; }
+}
+html[data-motion="reduced"] :is(.rise, .pop-in) {
+  animation: none !important;
+}
+html[data-motion="reduced"] .scribble-draw {
+  animation: none !important;
+  stroke-dashoffset: 0;
 }
 
 /* Category "sticker" icon tiles tilt slightly on hover. */

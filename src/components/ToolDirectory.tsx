@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import type { ToolEntry } from "@/lib/tools";
 import { fuzzyIncludes } from "@/lib/fuzzy-match";
 import { useFavourites } from "@/lib/favourites-storage";
 import { categoryStyle } from "@/lib/category-style";
+import Buddy from "@/components/Buddy";
+import Scribble from "@/components/Scribble";
+import FavouriteHeart from "@/components/FavouriteHeart";
 
 interface ToolDirectoryProps {
   tools: ToolEntry[];
@@ -59,7 +62,7 @@ export default function ToolDirectory({ tools }: ToolDirectoryProps) {
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 id="tools-heading" className="font-display scroll-mt-24 text-3xl sm:text-4xl">
-            Browse tools
+            Browse <Scribble>tools</Scribble>
           </h2>
           <p className="mt-1 text-muted">
             Everything is free, and everything you enter stays on your device.
@@ -99,37 +102,32 @@ export default function ToolDirectory({ tools }: ToolDirectoryProps) {
         </div>
       </div>
 
-      <div role="group" aria-label="Filter by category" className="mb-6 flex flex-wrap gap-2">
-        <button
-          type="button"
+      {/* Each chip keeps the full 88px tap area but draws a 48px pill
+          inside it. On phones the chips scroll sideways in one row
+          instead of stacking into a tall wall of buttons. */}
+      <div
+        role="group"
+        aria-label="Filter by category"
+        className="-mx-4 mb-4 flex gap-x-1 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
+      >
+        <CategoryChip
+          label="All tools"
+          selected={category === null}
           onClick={() => setCategory(null)}
-          aria-pressed={category === null}
-          className={`touch-target inline-flex items-center rounded-full border-2 px-5 text-sm font-semibold ${
-            category === null
-              ? "border-foreground bg-foreground text-background"
-              : "border-border bg-surface text-foreground hover:border-border-strong"
-          }`}
-        >
-          All tools
-        </button>
+          selectedClass="border-foreground bg-foreground text-background"
+        />
         {categories.map((c) => {
           const cs = categoryStyle(c);
           const selected = category === c;
           return (
-            <button
+            <CategoryChip
               key={c}
-              type="button"
+              label={c}
+              selected={selected}
               onClick={() => setCategory(selected ? null : c)}
-              aria-pressed={selected}
-              className={`touch-target inline-flex items-center gap-2 rounded-full border-2 px-5 text-sm font-semibold ${
-                selected
-                  ? `${cs.tint} ${cs.ink} ${cs.inkBorder}`
-                  : "border-border bg-surface text-foreground hover:border-border-strong"
-              }`}
-            >
-              <span aria-hidden="true" className={`h-2.5 w-2.5 shrink-0 rounded-full ${cs.solid}`} />
-              {c}
-            </button>
+              selectedClass={`${cs.tint} ${cs.ink} ${cs.inkBorder}`}
+              dotClass={cs.solid}
+            />
           );
         })}
       </div>
@@ -141,8 +139,8 @@ export default function ToolDirectory({ tools }: ToolDirectoryProps) {
       </p>
 
       {filtered.length === 0 ? (
-        <div className="rounded-3xl border-2 border-dashed border-border-strong bg-surface-2 p-10 text-center">
-          <p aria-hidden="true" className="text-4xl">🔍</p>
+        <div className="rounded-3xl border-2 border-dashed border-border-strong bg-surface-2 p-8 text-center sm:p-10">
+          <Buddy mood="think" className="mx-auto h-28 w-28" />
           <p className="font-display mt-3 text-xl font-semibold">No tools match that yet</p>
           <p className="mt-1 text-muted">
             Try a different word{category ? `, or look outside ${category}` : ""}.
@@ -179,6 +177,44 @@ export default function ToolDirectory({ tools }: ToolDirectoryProps) {
         </ul>
       )}
     </section>
+  );
+}
+
+function CategoryChip({
+  label,
+  selected,
+  onClick,
+  selectedClass,
+  dotClass,
+}: {
+  label: string;
+  selected: boolean;
+  onClick: () => void;
+  selectedClass: string;
+  dotClass?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={selected}
+      className="touch-target group/chip inline-flex shrink-0 items-center justify-center rounded-full"
+    >
+      <span
+        className={`inline-flex h-12 items-center gap-2 whitespace-nowrap rounded-full border-2 px-3.5 text-sm font-semibold transition-[transform,background-color,border-color] duration-150 ${
+          selected
+            ? `${selectedClass} -rotate-1`
+            : "border-border bg-surface text-foreground group-hover/chip:-translate-y-0.5 group-hover/chip:border-border-strong"
+        }`}
+      >
+        {selected ? (
+          <span aria-hidden="true" className="text-xs">✓</span>
+        ) : (
+          dotClass && <span aria-hidden="true" className={`h-2.5 w-2.5 shrink-0 rounded-full ${dotClass}`} />
+        )}
+        {label}
+      </span>
+    </button>
   );
 }
 
@@ -222,6 +258,7 @@ function FavouriteButton({
    * secondary icon shrinks. */
   compact?: boolean;
 }) {
+  const [popKey, setPopKey] = useState(0);
   return (
     <button
       type="button"
@@ -229,6 +266,7 @@ function FavouriteButton({
         e.preventDefault();
         e.stopPropagation();
         onToggle();
+        setPopKey((k) => k + 1);
       }}
       aria-pressed={favourited}
       aria-label={favourited ? `Remove ${toolName} from favourites` : `Add ${toolName} to favourites`}
@@ -242,7 +280,7 @@ function FavouriteButton({
           favourited ? "border-brand bg-brand-soft" : "border-border group-hover/fav:border-border-strong"
         }`}
       >
-        {favourited ? "❤️" : "🤍"}
+        <FavouriteHeart favourited={favourited} popKey={popKey} />
       </span>
     </button>
   );
@@ -275,10 +313,15 @@ function ToolCard({
   const cs = categoryStyle(tool.category);
   const body = (
     <>
-      <div className="flex items-start justify-between gap-3">
+      {/* decorative category-colour blob in the corner, grows on hover */}
+      <span
+        aria-hidden="true"
+        className={`deco pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full transition-transform duration-500 ease-out group-hover:scale-[1.35] ${cs.tint}`}
+      />
+      <div className="relative flex items-start justify-between gap-3">
         <span
           aria-hidden="true"
-          className={`sticker grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-3xl ${cs.tint}`}
+          className={`sticker grid h-16 w-16 shrink-0 place-items-center rounded-2xl border-4 border-surface text-4xl shadow-md ${cs.tint}`}
         >
           {tool.icon}
         </span>
@@ -293,15 +336,20 @@ function ToolCard({
           )}
         </div>
       </div>
-      <p className={`mt-4 text-xs font-semibold uppercase tracking-wider ${cs.ink}`}>{tool.category}</p>
-      <h3 className="font-display mt-1 text-xl font-semibold leading-snug">{tool.name}</h3>
-      <p className="mt-1.5 line-clamp-2 flex-1 text-sm text-muted">{tool.description}</p>
-      <div className="mt-4 flex items-center justify-between border-t border-border pt-3">
+      <p className={`relative mt-4 text-xs font-semibold uppercase tracking-wider ${cs.ink}`}>{tool.category}</p>
+      <h3 className="font-display relative mt-1 text-xl font-semibold leading-snug">{tool.name}</h3>
+      <p className="relative mt-1.5 line-clamp-2 flex-1 text-sm text-muted">{tool.description}</p>
+      <div className="relative mt-4 flex items-center justify-between border-t border-border pt-3">
         <OfflineBadge worksOffline={tool.worksOffline} />
         {tool.status === "live" && (
-          <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand">
+          <span className="inline-flex items-center gap-2 text-sm font-semibold text-brand">
             Open
-            <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
+            <span
+              aria-hidden="true"
+              className="grid h-7 w-7 place-items-center rounded-full bg-brand-soft transition-[transform,background-color,color] duration-200 group-hover:translate-x-1 group-hover:bg-brand group-hover:text-brand-ink"
+            >
+              →
+            </span>
           </span>
         )}
       </div>
@@ -311,12 +359,13 @@ function ToolCard({
   return tool.status === "live" ? (
     <Link
       href={`/tools/${tool.slug}`}
-      className="group lift flex h-full flex-col rounded-3xl border-2 border-border bg-surface p-5 hover:border-border-strong"
+      className="group pop relative flex h-full flex-col overflow-hidden rounded-3xl border-2 border-border bg-surface p-5"
+      style={{ "--pop-color": cs.solidVar } as CSSProperties}
     >
       {body}
     </Link>
   ) : (
-    <div className="flex h-full flex-col rounded-3xl border-2 border-dashed border-border-strong bg-surface-2 p-5 opacity-80">
+    <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border-2 border-dashed border-border-strong bg-surface-2 p-5 opacity-80">
       {body}
     </div>
   );

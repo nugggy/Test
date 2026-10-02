@@ -1,6 +1,8 @@
 interface BrandMarkProps {
   /** Extra classes for sizing, e.g. "h-9 w-9". */
   className?: string;
+  /** Blink now and then (the site header). Off for print and small mock-ups. */
+  animated?: boolean;
 }
 
 /**
@@ -10,7 +12,7 @@ interface BrandMarkProps {
  * keep all three in step if the design changes. Decorative only: callers
  * put the product name in text next to it.
  */
-export default function BrandMark({ className = "h-9 w-9" }: BrandMarkProps) {
+export default function BrandMark({ className = "h-9 w-9", animated = false }: BrandMarkProps) {
   return (
     <svg
       aria-hidden="true"
@@ -20,8 +22,10 @@ export default function BrandMark({ className = "h-9 w-9" }: BrandMarkProps) {
     >
       <rect width="128" height="128" rx="28" fill="var(--brand)" />
       <circle cx="64" cy="64" r="42" fill="#ffffff" />
-      <circle cx="49" cy="56" r="4.5" fill="var(--brand)" />
-      <circle cx="79" cy="56" r="4.5" fill="var(--brand)" />
+      <g className={animated ? "buddy-blink" : undefined}>
+        <circle cx="49" cy="56" r="4.5" fill="var(--brand)" />
+        <circle cx="79" cy="56" r="4.5" fill="var(--brand)" />
+      </g>
       <path
         d="M47 74 Q64 88 81 74"
         fill="none"

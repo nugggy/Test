@@ -8,6 +8,9 @@ import AndroidAppDownload from "@/components/AndroidAppDownload";
 import TalkTile from "@/components/home/TalkTile";
 import ClockTile from "@/components/home/ClockTile";
 import CategoryTile from "@/components/home/CategoryTile";
+import Buddy from "@/components/Buddy";
+import Sprinkles, { SPRINKLE_SETS } from "@/components/Sprinkles";
+import Scribble from "@/components/Scribble";
 import { getTopFavouritedTools } from "@/app/actions/favourites";
 import { incrementAndGetVisitCount } from "@/app/actions/visit-counter";
 
@@ -28,7 +31,8 @@ export default async function HomePage() {
       {/* ---- Bento hero ---- */}
       <section aria-labelledby="hero-heading" className="mb-12 grid gap-3 sm:mb-16 sm:gap-4 lg:grid-cols-4">
         {/* Headline tile */}
-        <div className="bg-dots relative overflow-hidden rounded-3xl border-2 border-border bg-surface p-6 sm:p-8 lg:col-span-2 lg:row-span-2">
+        <div className="bg-dots rise relative overflow-hidden rounded-3xl border-2 border-border bg-surface p-6 sm:p-8 lg:col-span-2 lg:row-span-2">
+          <Sprinkles items={SPRINKLE_SETS.hero} />
           <div className="relative flex h-full flex-col">
             <p className="inline-flex items-center gap-2 self-start rounded-full border-2 border-border bg-surface px-3 py-1 text-sm font-semibold">
               <span aria-hidden="true" className="h-2 w-2 rounded-full bg-[var(--solid-living)]" />
@@ -39,22 +43,8 @@ export default async function HomePage() {
               className="font-display mt-6 text-4xl leading-[1.05] sm:text-5xl xl:text-6xl"
             >
               Everyday tools that help you live life{" "}
-              <span className="relative whitespace-nowrap text-brand">
-                your way
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 200 12"
-                  preserveAspectRatio="none"
-                  className="absolute -bottom-2 left-0 h-3 w-full"
-                >
-                  <path
-                    d="M2 9 C 50 2, 150 2, 198 8"
-                    fill="none"
-                    stroke="var(--accent)"
-                    strokeWidth="5"
-                    strokeLinecap="round"
-                  />
-                </svg>
+              <span className="text-brand">
+                <Scribble>your way</Scribble>
               </span>
               .
             </h1>
@@ -67,9 +57,10 @@ export default async function HomePage() {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#tools-heading"
-                className="touch-target inline-flex items-center gap-2 rounded-2xl bg-brand px-6 text-lg font-semibold text-brand-ink"
+                className="touch-target group/cta inline-flex items-center gap-2 rounded-2xl bg-brand px-6 text-lg font-semibold text-brand-ink"
               >
-                Browse {liveCount} tools <span aria-hidden="true">↓</span>
+                Browse {liveCount} tools{" "}
+                <span aria-hidden="true" className="inline-block transition-transform group-hover/cta:translate-y-0.5">↓</span>
               </a>
               {!inApp && (
                 <a
@@ -80,33 +71,51 @@ export default async function HomePage() {
                 </a>
               )}
             </div>
-            {visitCount !== null && (
-              <p className="mt-auto pt-8 text-sm text-muted">
-                <span className="font-display tabular font-semibold text-foreground">
-                  {visitCount.toLocaleString()}
-                </span>{" "}
-                visits from people who needed it, and counting.
-              </p>
-            )}
+            <div className="mt-auto flex items-end justify-between gap-4 pt-8">
+              {visitCount !== null ? (
+                <p className="text-sm text-muted">
+                  <span className="font-display tabular font-semibold text-foreground">
+                    {visitCount.toLocaleString()}
+                  </span>{" "}
+                  visits from people who needed it, and counting.
+                </p>
+              ) : (
+                <span />
+              )}
+              {/* Buddy says hello (decorative; hidden in high contrast) */}
+              <div aria-hidden="true" className="deco relative -mb-2 -mr-2 shrink-0">
+                <span className="font-display absolute -left-32 top-0 rounded-2xl rounded-br-sm border-2 border-border bg-surface px-3 py-2 text-sm font-semibold shadow-md">
+                  G&apos;day! I&apos;m Buddy.
+                </span>
+                <Buddy mood="wave" className="h-28 w-28 sm:h-36 sm:w-36 xl:h-44 xl:w-44" />
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Live demo tile */}
-        <div className="lg:col-span-2">
+        <div className="rise lg:col-span-2" style={{ animationDelay: "80ms" }}>
           <TalkTile />
         </div>
 
         {/* Clock tile */}
-        <div className="min-h-52">
+        <div className="rise min-h-52" style={{ animationDelay: "160ms" }}>
           <ClockTile />
         </div>
 
         {/* Privacy tile */}
         <Link
           href="/privacy"
-          className="group flex min-h-52 flex-col justify-between rounded-3xl bg-ink-block p-5 text-ink-block-fg sm:p-6"
+          className="group rise relative flex min-h-52 flex-col justify-between overflow-hidden rounded-3xl bg-ink-block p-5 text-ink-block-fg sm:p-6"
+          style={{ animationDelay: "240ms" }}
         >
-          <span aria-hidden="true" className="text-3xl">🔒</span>
+          <span
+            aria-hidden="true"
+            className="deco pointer-events-none absolute -bottom-10 -right-6 rotate-12 text-[6.5rem] opacity-10 transition-transform duration-500 group-hover:rotate-0 group-hover:scale-110"
+          >
+            🔒
+          </span>
+          <span aria-hidden="true" className="grid h-12 w-12 place-items-center rounded-2xl bg-ink-block-fg/10 text-2xl">🔒</span>
           <span>
             <span className="font-display block text-2xl font-semibold leading-tight">
               Private by design
@@ -122,7 +131,7 @@ export default async function HomePage() {
         </Link>
 
         {/* Categories tile */}
-        <div className="lg:col-span-4">
+        <div className="rise lg:col-span-4" style={{ animationDelay: "320ms" }}>
           <CategoryTile tools={tools} />
         </div>
       </section>

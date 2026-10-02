@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import type { ToolEntry } from "@/lib/tools";
 import { categoryStyle } from "@/lib/category-style";
 
@@ -20,21 +21,24 @@ export default function CategoryTile({ tools }: { tools: ToolEntry[] }) {
   return (
     <div className="rounded-3xl border-2 border-border bg-surface p-5 sm:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="font-display text-2xl">Pick what you need help with</h2>
+        <h2 className="font-display text-2xl sm:text-3xl">Pick what you need help with</h2>
         <p className="text-sm text-muted">{categories.length} areas of everyday life</p>
       </div>
       <ul className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-        {categories.map(([name, { count, icon }]) => {
+        {categories.map(([name, { count, icon }], i) => {
           const cs = categoryStyle(name);
           return (
-            <li key={name}>
+            <li key={name} className="min-w-0">
               <Link
                 href={`/?category=${encodeURIComponent(name)}#tools-heading`}
-                className={`group lift flex h-full items-center gap-3 rounded-2xl p-3 ${cs.tint}`}
+                className={`group pop hc-outline flex h-full items-center gap-2.5 overflow-hidden rounded-2xl sm:gap-3 border-2 border-transparent p-3 ${cs.tint}`}
+                style={{ "--pop-color": cs.solidVar } as CSSProperties}
               >
                 <span
                   aria-hidden="true"
-                  className="sticker grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-surface text-2xl shadow-sm"
+                  className={`sticker grid h-10 w-10 shrink-0 place-items-center rounded-xl border-[3px] border-surface bg-surface text-xl shadow-md sm:h-12 sm:w-12 sm:text-2xl ${
+                    i % 2 === 0 ? "-rotate-3" : "rotate-3"
+                  }`}
                 >
                   {icon}
                 </span>

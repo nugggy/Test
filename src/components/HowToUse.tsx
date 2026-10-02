@@ -2,6 +2,14 @@
 
 import { useState } from "react";
 
+/** Step numbers cycle through the brand's bold blocks, each with its own
+ * paired ink (all 5:1 or better), and tilt alternately like stickers. */
+const STEP_BADGES = [
+  "bg-brand text-brand-ink -rotate-3",
+  "bg-accent text-accent-ink rotate-3",
+  "bg-ink-block text-ink-block-fg -rotate-2",
+];
+
 interface HowToUseProps {
   steps: string[];
 }
@@ -34,7 +42,7 @@ export default function HowToUse({ steps }: HowToUseProps) {
             <li key={i} className="flex items-start gap-3 rounded-xl bg-surface-2 p-3 text-sm">
               <span
                 aria-hidden="true"
-                className="font-display tabular grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand text-sm font-semibold text-brand-ink"
+                className={`font-display tabular grid h-8 w-8 shrink-0 place-items-center rounded-xl text-sm font-bold ${STEP_BADGES[i % STEP_BADGES.length]}`}
               >
                 {i + 1}
               </span>

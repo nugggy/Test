@@ -11,7 +11,7 @@ export default function SiteHeader() {
           href="/"
           className="group flex shrink-0 items-center gap-2.5 rounded-xl text-foreground sm:gap-3"
         >
-          <BrandMark className="sticker h-10 w-10 sm:h-11 sm:w-11" />
+          <BrandMark animated className="sticker h-10 w-10 sm:h-11 sm:w-11" />
           <span className="font-display text-lg font-semibold tracking-tight sm:text-xl">
             My Support Buddy
           </span>

@@ -3,6 +3,22 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.41.0] - 2026-10-03
+A playful polish pass on top of the 0.39.0 overhaul. All new motion stops under the device's reduced-motion setting and the site's own "Reduce motion" option, all new decoration is hidden in high-contrast mode and in print, and every text pairing stays WCAG AA in light and dark.
+
+### Added
+- **Buddy, the mascot** (`Buddy.tsx`): the brand mark's smiling face with a body, arms and an antenna, in five moods (happy, wave, cheer, think, sleepy). Blinks, bobs and waves using CSS only. He waves hello on the homepage, waves goodbye in the footer, and puzzles over the empty search result and the new 404 page.
+- **404 page** (`src/app/not-found.tsx`) with a clear way back to all tools.
+- Shared decoration: `Sprinkles.tsx` (gently floating confetti in category colours), `Scribble.tsx` (a hand-drawn underline that draws itself in once) and `FavouriteHeart.tsx` (a springy heart pop with a burst ring, only when someone taps, never when saved favourites load).
+
+### Changed
+- **Every tool page header** (`ToolHero`) is now a banner in the tool's category colour, with confetti and a tilted sticker icon that casts a solid shadow in the category colour. Lands on all 48 tools at once.
+- **Sticker-pop hover** (`.pop`, replacing `.lift`): tool cards, category tiles and community favourites hop up and leave a chunky offset shadow in their own category colour. Tool cards also get a category-colour corner blob and a filled "Open" arrow on hover.
+- **Category filter chips** draw a 48px pill inside the unchanged 88px tap area, show a tick when selected, and scroll sideways in one row on phones instead of stacking into a tall wall.
+- **Homepage tiles**: the clock tile shows a real analog clock face; Tap to talk shows sound waves and rings the picture just spoken; the privacy tile has a lock watermark; tiles fade and rise in on arrival.
+- The header logo blinks now and then. The footer has a wavy top edge. "How to use" step numbers cycle through coral, sunshine and ink and tilt like stickers.
+- Category tiles fit narrow phones (no more 3px sideways scroll at 375px).
+
 ## [0.40.0] - 2026-10-02
 A usefulness review of every tool, from the point of view of people with disability, carers and support workers. Every tool keeps its existing storage keys and loads older saved data through a defensive parser (new fields get defaults, nothing is wiped); migrations are covered by tests. 208 unit tests in total.
 

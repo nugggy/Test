@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { useFavourites } from "@/lib/favourites-storage";
+import FavouriteHeart from "@/components/FavouriteHeart";
 import { tools } from "@/lib/tools";
 
 interface FavouriteToggleButtonProps {
@@ -11,11 +13,15 @@ export default function FavouriteToggleButton({ slug }: FavouriteToggleButtonPro
   const { favourites, toggleFavourite } = useFavourites();
   const tool = tools.find((t) => t.slug === slug);
   const favourited = favourites.has(slug);
+  const [popKey, setPopKey] = useState(0);
 
   return (
     <button
       type="button"
-      onClick={() => toggleFavourite(slug)}
+      onClick={() => {
+        toggleFavourite(slug);
+        setPopKey((k) => k + 1);
+      }}
       aria-pressed={favourited}
       aria-label={
         favourited
@@ -30,7 +36,7 @@ export default function FavouriteToggleButton({ slug }: FavouriteToggleButtonPro
           favourited ? "border-brand bg-brand-soft text-foreground" : "border-border-strong bg-surface group-hover:border-brand"
         }`}
       >
-        <span aria-hidden="true">{favourited ? "❤️" : "🤍"}</span>
+        <FavouriteHeart favourited={favourited} popKey={popKey} />
         {favourited ? "Favourited" : "Add to favourites"}
       </span>
     </button>
