@@ -3,6 +3,14 @@
 All notable changes to this project are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.38.1] - 2026-10-02
+### Changed
+- **Privacy Policy and Terms of Use published.** Both now state that My Support Buddy is a free, non-commercial project run privately by one person in New South Wales, not a company, charity, NDIS provider or registered organisation. Drafting notes and placeholders removed, dated 2 October 2026, with gwclissold@gmail.com as the contact.
+- Privacy Policy now also covers the Android app, tool suggestions, provider listings, anonymous favourite counts and the visit counter, and lists the outside services the site relies on (Vercel, Supabase, GitHub, Open-Meteo).
+- Terms of Use: new "Who runs My Support Buddy" section, governing law set to New South Wales, sections renumbered.
+- Homepage Android download: removed the "All versions and what's new" link, leaving just the Download for Android button.
+- Disclaimer: the organisation-name placeholder is replaced with the same private-project wording, and the page is dated.
+
 ## [0.38.0] - 2026-10-02
 ### Added
 - **"Get the Android app" section on the homepage** (`AndroidAppDownload.tsx`): a Download for Android button that links straight to the latest published `android-v*` APK on GitHub Releases (looked up server-side, cached for an hour, falls back to the releases page if GitHub is unreachable), the current version number, one-line install instructions, and a link to all versions. Hidden automatically when the homepage is viewed inside the app itself.

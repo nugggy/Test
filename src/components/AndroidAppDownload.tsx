@@ -58,26 +58,16 @@ export default async function AndroidAppDownload() {
           </p>
         </div>
       </div>
-      <div className="flex shrink-0 flex-col items-start gap-2 sm:items-end">
-        <a
-          href={href}
-          rel="noopener noreferrer"
-          className="touch-target inline-flex items-center gap-2 rounded-xl bg-brand px-6 text-lg font-bold text-brand-ink shadow-md shadow-brand/30 transition-transform hover:scale-[1.03]"
-        >
-          <span aria-hidden="true" className="text-2xl">
-            ⬇
-          </span>
-          Download for Android
-        </a>
-        <a
-          href={RELEASES_PAGE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm font-semibold text-brand hover:underline"
-        >
-          All versions and what&apos;s new
-        </a>
-      </div>
+      <a
+        href={href}
+        rel="noopener noreferrer"
+        className="touch-target inline-flex shrink-0 items-center gap-2 rounded-xl bg-brand px-6 text-lg font-bold text-brand-ink shadow-md shadow-brand/30 transition-transform hover:scale-[1.03]"
+      >
+        <span aria-hidden="true" className="text-2xl">
+          ⬇
+        </span>
+        Download for Android
+      </a>
     </section>
   );
 }
